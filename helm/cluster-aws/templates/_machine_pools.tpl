@@ -79,4 +79,6 @@ spec:
   {{- include "sshPostKubeadmCommands" . | nindent 4 }}
   users:
   {{- include "sshUsers" . | nindent 4 }}
+---
+{{ end }}
 {{- end -}}
