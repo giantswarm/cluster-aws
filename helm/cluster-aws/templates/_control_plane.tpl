@@ -37,7 +37,6 @@ spec:
           bind-address: 0.0.0.0
     files:
     {{- include "sshFiles" . | nindent 4 }}
-    {{- include "sudoFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
     initConfiguration:
       localAPIEndpoint:
