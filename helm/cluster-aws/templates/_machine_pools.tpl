@@ -25,7 +25,7 @@ spec:
         apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
         kind: AWSMachinePool
         name: {{ .name }}
-      version: {{ .Values.kubernetesVersion }}
+      version: {{ $.Values.kubernetesVersion }}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
 kind: AWSMachinePool
