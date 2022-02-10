@@ -43,7 +43,6 @@ room for such suffix.
 {{- define "sshFiles" -}}
 - path: /etc/ssh/trusted-user-ca-keys.pem
   permissions: "0600"
-  # Taken from https://vault.operations.giantswarm.io/v1/ssh/public_key
   content: |
     {{- tpl (.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . | nindent 4 }}
 - path: /etc/ssh/sshd_config
