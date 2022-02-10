@@ -8,8 +8,8 @@ aws:
   roleARN: ""
 
 network:
-  availabilityZoneUsageLimit: 3 # amount of AZ that should be used for the machines
-  vpcCIDR: 10.0.0.0/16 # cidr range for the VPC
+  availabilityZoneUsageLimit: 3  # amount of AZ that should be used for the machines
+  vpcCIDR: 10.0.0.0/16  # cidr range for the VPC
 
 bastion:
   instanceType: t3.small
@@ -22,7 +22,7 @@ controlPlane:
   etcdVolumeSizeGB: 100
   containerdVolumeSizeGB: 100
   kubeletVolumeSizeGB: 100
-  availabilityZones: 
+  availabilityZones:
     - eu-west-1a
 
 machinePools:
