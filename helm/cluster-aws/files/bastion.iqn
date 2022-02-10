@@ -1,0 +1,49 @@
+{
+   "ignition":{
+      "version":"2.2.0"
+   },
+   "passwd":{
+      "users":[
+         {
+            "name":"giantswarm",
+            "sshAuthorizedKeys":[
+               "ssh-rsa AAAABEKf fake@giantswarm"
+            ],
+            "groups":[
+               "sudo",
+               "docker"
+            ],
+            "shell":"/bin/bash",
+            "uid":1000
+         }
+      ]
+   },
+   "storage":{
+      "files":[
+         {
+            "path":"/etc/hostname",
+            "filesystem":"root",
+            "mode": 420,
+            "contents":{
+               "source":"data:,{{ include "resource.default.name" $ }}-bastion"
+            }
+         },
+         {
+            "path":"/etc/ssh/sshd_config",
+            "filesystem":"root",
+            "mode": 420,
+            "contents":{
+               "source":"data:text/plain;charset=utf-8;base64,{{- .Files.Get "files/etc/ssh/sshd_config" | b64enc }}"
+            }
+         },
+         {
+            "path":"/etc/ssh/trusted-user-ca-keys.pem",
+            "filesystem":"root",
+            "mode": 420,
+            "contents":{
+               "source":"data:text/plain;charset=utf-8;base64,{{- tpl (.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . | b64enc }}"
+            }
+         }
+      ]
+   }
+}
