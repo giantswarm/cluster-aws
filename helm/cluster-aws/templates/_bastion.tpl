@@ -9,7 +9,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 type: cluster.x-k8s.io/secret
 data:
- value: {{ include "bastionIgnition" . }}
+  value: {{- include "bastionIgnition" . }}
 ---
 apiVersion: cluster.x-k8s.io/v1alpha3
 kind: MachineDeployment

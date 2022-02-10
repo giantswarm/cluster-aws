@@ -72,7 +72,7 @@ spec:
         healthz-bind-address: 0.0.0.0
         image-pull-progress-deadline: 1m
         node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
-        node-labels: role=worker,giantswarm.io/machine-pool={{ .name }},{{- join "," .customNodeLabels -}}
+        node-labels: role=worker,giantswarm.io/machine-pool={{ .name }},{{- join "," .customNodeLabels }}
         v: "2"
       name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
   postKubeadmCommands:

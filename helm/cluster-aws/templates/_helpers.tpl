@@ -73,6 +73,6 @@ room for such suffix.
 {{- end -}}
 
 {{- define "bastionIgnition" }}
-{{ tpl (.Files.Get "files/bastion.iqn") . | b64enc}}
+{{- tpl (.Files.Get "files/bastion.iqn") . | b64enc}}
 {{- end -}}
 

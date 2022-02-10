@@ -1,5 +1,5 @@
-clusterDescription: ""  # Cluster description used in metadata.
-organization: ""  # Organization in which to create the cluster.
+clusterDescription: "test"  # Cluster description used in metadata.
+organization: "test"  # Organization in which to create the cluster.
 kubernetesVersion: 1.20.9
 releaseVersion: 20.0.0-alpha1
 
@@ -28,7 +28,7 @@ controlPlane:
 machinePools:
 - name: def00  # Name of node pool.
   availabilityZones:
-    - eu-west-1a
+  - eu-west-1
   instanceType: m5.xlarge
   minSize: 3  # Number of replicas in node pool.
   maxSize: 3
