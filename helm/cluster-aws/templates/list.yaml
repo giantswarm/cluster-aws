@@ -6,6 +6,6 @@
 ---
 {{- include "control-plane" . }}
 ---
-{{- include "bastion" }}
+{{- include "bastion" . }}
 --
-{{- include "machine-pools" }}
+{{- include "machine-pools" . }}
