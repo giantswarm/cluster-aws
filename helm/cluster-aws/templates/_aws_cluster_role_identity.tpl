@@ -10,5 +10,5 @@ spec:
     list:
     - {{ $.Release.Namespace }}
     selector: {}
-  roleARN: "{{ .Values.awsRoleArn }}"
+  roleARN: "{{ .Values.aws.roleARN }}"
 {{- end -}}
