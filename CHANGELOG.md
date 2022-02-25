@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix bastion secret.
+
 ## [0.1.0] - 2022-02-25
 
 [Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.1.0...HEAD
