@@ -1,0 +1,40 @@
+clusterDescription: "test"  # Cluster description used in metadata.
+organization: "test"  # Organization in which to create the cluster.
+kubernetesVersion: 1.20.9
+releaseVersion: 20.0.0-alpha1
+
+aws:
+  region: eu-west-1
+  roleARN: ""
+
+network:
+  availabilityZoneUsageLimit: 3  # amount of AZ that should be used for the machines
+  vpcCIDR: 10.0.0.0/16  # cidr range for the VPC
+
+bastion:
+  instanceType: t3.small
+  replicas: 1
+
+controlPlane:
+  instanceType: m5.xlarge
+  replicas: 1  # Number of replicas in control plane. Should be an odd number.
+  rootVolumeSizeGB: 120
+  etcdVolumeSizeGB: 100
+  containerdVolumeSizeGB: 100
+  kubeletVolumeSizeGB: 100
+  availabilityZones:
+    - eu-west-1a
+
+machinePools:
+- name: def00  # Name of node pool.
+  availabilityZones:
+  - eu-west-1
+  instanceType: m5.xlarge
+  minSize: 3  # Number of replicas in node pool.
+  maxSize: 3
+  rootVolumeSizeGB: 300
+  customNodeLabels:
+  - label=default
+
+sshSSOPublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io"
+flatcarAWSAccount: 075585003325

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: cluster-aws
+description: A helm chart for creating Cluster API clusters with the AWS infrastructure provider (CAPA).
+type: application
+version: [[ .Version ]]
