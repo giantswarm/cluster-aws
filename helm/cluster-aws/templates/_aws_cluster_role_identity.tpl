@@ -11,4 +11,7 @@ spec:
     - {{ $.Release.Namespace }}
     selector: {}
   roleARN: "{{ .Values.aws.roleARN }}"
+  sourceIdentityRef:
+    kind: AWSClusterControllerIdentity
+    name: default
 {{- end -}}
