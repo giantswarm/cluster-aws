@@ -74,6 +74,9 @@ metadata:
   namespace: {{ $.Release.Namespace }}
 spec:
   template:
+    metadata:
+      labels:
+        {{- include "labels.common" $ | nindent 8 }}
     spec:
       ami: {}
       cloudInit: {}
