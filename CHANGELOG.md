@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove `AWSClusterRole` CR from the repository to prevent deletion of the role before the cluster is deleted.
+
 ### Added
 
 - Add labels to machine metadata to `AWSMachineTemplate` CRs.
