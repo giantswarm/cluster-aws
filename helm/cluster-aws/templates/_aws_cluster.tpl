@@ -11,7 +11,7 @@ spec:
     enabled: false
   identityRef:
     kind: AWSClusterRoleIdentity
-    name: {{ include "resource.default.name" $ }}
+    name: {{ .Values.aws.awsClusterRole }}
   networkSpec:
     cni:
       cniIngressRules:

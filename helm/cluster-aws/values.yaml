@@ -5,7 +5,7 @@ releaseVersion: 20.0.0-alpha1
 
 aws:
   region: eu-west-1
-  roleARN: ""
+  awsClusterRole: "default"
 
 network:
   availabilityZoneUsageLimit: 3  # amount of AZ that should be used for the machines
