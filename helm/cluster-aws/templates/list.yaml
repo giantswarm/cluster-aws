@@ -2,8 +2,6 @@
 ---
 {{- include "aws-cluster" . }}
 ---
-{{- include "aws-cluster-role-identity" . }}
----
 {{- include "control-plane" . }}
 ---
 {{- include "bastion" . }}

@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove `AWSClusterRole` CR from the repository to prevent deletion of the role before the cluster is deleted.
+
 ## [0.1.4] - 2022-03-03
 
 ### Added
