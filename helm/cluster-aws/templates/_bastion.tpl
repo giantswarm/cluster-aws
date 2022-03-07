@@ -72,7 +72,7 @@ spec:
       cloudInit:
         insecureSkipSecretsManager: true
       imageLookupFormat: Flatcar-stable-*
-      imageLookupOrg: {{ .Values.flatcarAWSAccount }}
+      imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
       instanceType: {{ .Values.bastion.instancType }}
       publicIP: true
       sshKeyName: ""
