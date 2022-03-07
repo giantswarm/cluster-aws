@@ -63,8 +63,6 @@ metadata:
   name: {{ .name }}
   namespace: {{ $.Release.Namespace }}
 spec:
-  files:
-  {{- include "sshFiles" . | nindent 2 }}
   joinConfiguration:
     discovery: {}
     nodeRegistration:
