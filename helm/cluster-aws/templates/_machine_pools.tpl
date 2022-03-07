@@ -1,6 +1,6 @@
 {{- define "machine-pools" }}
 {{ range .Values.machinePools }}
-apiVersion: exp.cluster.x-k8s.io/v1alpha3
+apiVersion: exp.cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
   annotations:
@@ -17,17 +17,17 @@ spec:
     spec:
       bootstrap:
         configRef:
-          apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
+          apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: KubeadmConfig
           name: {{ .name }}
       clusterName: {{ include "resource.default.name" $ }}
       infrastructureRef:
-        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: AWSMachinePool
         name: {{ .name }}
       version: {{ $.Values.kubernetesVersion }}
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachinePool
 metadata:
   labels:
@@ -54,7 +54,7 @@ spec:
       onDemandPercentageAboveBaseCapacity: 100
       spotAllocationStrategy: lowest-price
 ---
-apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
+apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfig
 metadata:
   labels:

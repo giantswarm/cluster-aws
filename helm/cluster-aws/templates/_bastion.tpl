@@ -11,7 +11,7 @@ type: cluster.x-k8s.io/secret
 data:
   value: {{ include "bastionIgnition" . }}
 ---
-apiVersion: cluster.x-k8s.io/v1alpha3
+apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
   labels:
@@ -41,12 +41,12 @@ spec:
         dataSecretName: {{ include "resource.default.name" $ }}-bastion-ignition
       clusterName: {{ include "resource.default.name" $ }}
       infrastructureRef:
-        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: AWSMachineTemplate
         name: {{ include "resource.default.name" $ }}-bastion
       version: v0.0.0
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachineTemplate
 metadata:
   labels:
