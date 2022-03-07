@@ -44,18 +44,18 @@ room for such suffix.
 - path: /etc/ssh/trusted-user-ca-keys.pem
   permissions: "0600"
   content: |
-    {{- tpl (.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . | nindent 4 }}
+    {{- tpl ($.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . | nindent 4 }}
 - path: /etc/ssh/sshd_config
   permissions: "0600"
   content: |
-    {{- .Files.Get "files/etc/ssh/sshd_config" | nindent 4 }}
+    {{- $.Files.Get "files/etc/ssh/sshd_config" | nindent 4 }}
 {{- end -}}
 
 {{- define "diskFiles" -}}
 - path: /opt/init-disks.sh
   permissions: "0700"
   content: |
-    {{- .Files.Get "files/opt/init-disks.sh" | nindent 4 }}
+    {{- $.Files.Get "files/opt/init-disks.sh" | nindent 4 }}
 {{- end -}}
 
 {{- define "sshPostKubeadmCommands" -}}
@@ -73,6 +73,6 @@ room for such suffix.
 {{- end -}}
 
 {{- define "bastionIgnition" }}
-{{- tpl (.Files.Get "files/bastion.iqn") . | b64enc}}
+{{- tpl ($.Files.Get "files/bastion.iqn") . | b64enc}}
 {{- end -}}
 
