@@ -63,8 +63,7 @@ metadata:
   name: {{ .name }}
   namespace: {{ $.Release.Namespace }}
 spec:
-  files:
-    joinConfiguration:
+  joinConfiguration:
     discovery: {}
     nodeRegistration:
       kubeletExtraArgs:
@@ -76,9 +75,9 @@ spec:
         v: "2"
       name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
   postKubeadmCommands:
-  {{- include "sshPostKubeadmCommands" . | nindent 4 }}
+  {{- include "sshPostKubeadmCommands" . | nindent 2 }}
   users:
-  {{- include "sshUsers" . | nindent 4 }}
+  {{- include "sshUsers" . | nindent 2 }}
 ---
 {{ end }}
 {{- end -}}
