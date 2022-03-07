@@ -1,5 +1,5 @@
 {{- define "cluster" }}
-apiVersion: cluster.x-k8s.io/v1alpha3
+apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
   annotations:
@@ -11,11 +11,11 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   controlPlaneRef:
-    apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+    apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     kind: KubeadmControlPlane
     name: {{ include "resource.default.name" $ }}
   infrastructureRef:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
     kind: AWSCluster
     name: {{ include "resource.default.name" $ }}
 {{- end -}}

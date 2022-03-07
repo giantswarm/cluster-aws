@@ -1,5 +1,5 @@
 {{- define "control-plane" }}
-apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: KubeadmControlPlane
 metadata:
   labels:
@@ -8,7 +8,7 @@ metadata:
   namespace: {{ $.Release.Namespace }}
 spec:
   infrastructureTemplate:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
     kind: AWSMachineTemplate
     name: {{ include "resource.default.name" $ }}-control-plane
   kubeadmConfigSpec:
@@ -65,10 +65,11 @@ spec:
   replicas: {{ .Values.controlPlane.replicas }}
   version: {{ .Values.kubernetesVersion }}
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachineTemplate
 metadata:
   labels:
+    cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ include "resource.default.name" $ }}-control-plane
   namespace: {{ $.Release.Namespace }}
@@ -76,6 +77,7 @@ spec:
   template:
     metadata:
       labels:
+        cluster.x-k8s.io/role: control-plane
         {{- include "labels.common" $ | nindent 8 }}
     spec:
       ami: {}

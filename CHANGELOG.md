@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade to `vbeta1` version for all CRs.
+- 
 ## [0.1.8] - 2022-03-07
 
 ## [0.1.7] - 2022-03-07
