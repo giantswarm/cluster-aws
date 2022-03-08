@@ -74,7 +74,6 @@ spec:
         insecureSkipSecretsManager: true
       imageLookupFormat: Flatcar-stable-*
       imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
-      instanceType: {{ .Values.bastion.instancType }}
       publicIP: true
       sshKeyName: ""
       subnet:
