@@ -8,6 +8,9 @@ metadata:
   namespace: {{ $.Release.Namespace }}
 spec:
   machineTemplate:
+    metadata:
+      labels:
+        {{- include "labels.common" $ | nindent 8 }}
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: AWSMachineTemplate
