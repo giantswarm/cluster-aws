@@ -8,9 +8,10 @@ metadata:
   namespace: {{ $.Release.Namespace }}
 spec:
   machineTemplate:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-    kind: AWSMachineTemplate
-    name: {{ include "resource.default.name" $ }}-control-plane
+    infrastructureRef:
+      apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+      kind: AWSMachineTemplate
+      name: {{ include "resource.default.name" $ }}-control-plane
   kubeadmConfigSpec:
     clusterConfiguration:
       apiServer:
