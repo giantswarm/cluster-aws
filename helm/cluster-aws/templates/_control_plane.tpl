@@ -37,6 +37,9 @@ spec:
       cheduler:
         extraArgs:
           bind-address: 0.0.0.0
+    files:
+    {{- include "sshFiles" . | nindent 4 }}
+    {{- include "diskFiles" . | nindent 4 }}
     initConfiguration:
       localAPIEndpoint:
         advertiseAddress: ""
