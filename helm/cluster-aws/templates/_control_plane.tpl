@@ -23,8 +23,6 @@ spec:
           audit-log-maxage: "30"
           audit-log-maxbackup: "30"
           audit-log-maxsize: "100"
-          audit-log-path: /var/log/apiserver/audit.log
-          audit-policy-file: /etc/kubernetes/policies/audit-policy.yaml
           enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook
           feature-gates: TTLAfterFinished=true
           kubelet-preferred-address-types: InternalIP
@@ -39,8 +37,6 @@ spec:
       cheduler:
         extraArgs:
           bind-address: 0.0.0.0
-    files:
-    {{- include "sshFiles" . | nindent 4 }}
     initConfiguration:
       localAPIEndpoint:
         advertiseAddress: ""
