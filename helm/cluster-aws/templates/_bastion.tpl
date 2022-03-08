@@ -61,6 +61,7 @@ spec:
         cluster.x-k8s.io/role: bastion
         {{- include "labels.common" $ | nindent 8 }}
     spec:
+      instanceType: {{ .Values.bastion.instanceType }}
       additionalSecurityGroups:
       - filters:
         - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
