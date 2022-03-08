@@ -62,8 +62,8 @@ spec:
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
     postKubeadmCommands:
     {{- include "sshPostKubeadmCommands" . | nindent 4 }}
-    preKubeadmCommands:
-    {{- include "diskPreKubeadmCommands" . | nindent 4 }}
+    #preKubeadmCommands:
+    #{{- include "diskPreKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: {{ .Values.controlPlane.replicas }}
