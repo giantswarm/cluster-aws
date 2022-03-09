@@ -58,6 +58,14 @@ room for such suffix.
   content: {{ $.Files.Get "files/opt/init-disks.sh" | b64enc }}
 {{- end -}}
 
+{{- define "kubernetesFiles" -}}
+- path: /etc/kubernetes/policies/audit-policy.yaml
+  permissions: "0600"
+  encoding: base64
+  content: {{ $.Files.Get "files/etc/kubernetes/policies/audit-policy.yaml" | b64enc }}
+{{- end -}}
+
+
 {{- define "sshPostKubeadmCommands" -}}
 - systemctl restart sshd
 {{- end -}}

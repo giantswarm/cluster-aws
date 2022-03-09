@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@4.14.0
+  architect: giantswarm/architect@4.14.2
 
 workflows:
   package-and-push-chart-on-tag:
@@ -9,8 +9,8 @@ workflows:
           context: "architect"
           executor: "app-build-suite"
           name: "package and push cluster-aws chart"
-          app_catalog: "giantswarm-catalog"
-          app_catalog_test: "giantswarm-test-catalog"
+          app_catalog: "cluster-catalog"
+          app_catalog_test: "cluster-test-catalog"
           chart: "cluster-aws"
           persist_chart_archive: true
           # Trigger job on git tag.

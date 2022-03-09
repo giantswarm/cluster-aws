@@ -23,6 +23,8 @@ spec:
           audit-log-maxage: "30"
           audit-log-maxbackup: "30"
           audit-log-maxsize: "100"
+          audit-log-path: /var/log/apiserver/audit.log
+          audit-policy-file: /etc/kubernetes/policies/audit-policy.yaml
           enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook
           feature-gates: TTLAfterFinished=true
           kubelet-preferred-address-types: InternalIP
@@ -40,6 +42,7 @@ spec:
     files:
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
+    {{- include "kubernetesFiles" . | nindent 4 }}
     initConfiguration:
       localAPIEndpoint:
         advertiseAddress: ""
@@ -60,6 +63,8 @@ spec:
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
     postKubeadmCommands:
     {{- include "sshPostKubeadmCommands" . | nindent 4 }}
+    preKubeadmCommands:
+    {{- include "diskPreKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: {{ .Values.controlPlane.replicas }}
