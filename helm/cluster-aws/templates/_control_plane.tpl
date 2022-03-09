@@ -7,10 +7,14 @@ metadata:
   name: {{ include "resource.default.name" $ }}
   namespace: {{ $.Release.Namespace }}
 spec:
-  infrastructureTemplate:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-    kind: AWSMachineTemplate
-    name: {{ include "resource.default.name" $ }}-control-plane
+  machineTemplate:
+    metadata:
+      labels:
+        {{- include "labels.common" $ | nindent 8 }}
+    infrastructureRef:
+      apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+      kind: AWSMachineTemplate
+      name: {{ include "resource.default.name" $ }}-control-plane
   kubeadmConfigSpec:
     clusterConfiguration:
       apiServer:
@@ -38,6 +42,7 @@ spec:
     files:
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
+    {{- include "kubernetesFiles" . | nindent 4 }}
     initConfiguration:
       localAPIEndpoint:
         advertiseAddress: ""

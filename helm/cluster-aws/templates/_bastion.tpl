@@ -36,6 +36,7 @@ spec:
       labels:
         cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" $ }}
         cluster.x-k8s.io/deployment-name: {{ include "resource.default.name" $ }}-bastion
+        {{- include "labels.common" $ | nindent 8 }}
     spec:
       bootstrap:
         dataSecretName: {{ include "resource.default.name" $ }}-bastion-ignition
@@ -61,6 +62,7 @@ spec:
         cluster.x-k8s.io/role: bastion
         {{- include "labels.common" $ | nindent 8 }}
     spec:
+      instanceType: {{ .Values.bastion.instanceType }}
       additionalSecurityGroups:
       - filters:
         - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
@@ -73,7 +75,6 @@ spec:
         insecureSkipSecretsManager: true
       imageLookupFormat: Flatcar-stable-*
       imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
-      instanceType: {{ .Values.bastion.instancType }}
       publicIP: true
       sshKeyName: ""
       subnet:

@@ -1,6 +1,6 @@
 {{- define "machine-pools" }}
 {{ range .Values.machinePools }}
-apiVersion: exp.cluster.x-k8s.io/v1beta1
+apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
   annotations:
