@@ -24,6 +24,7 @@ spec:
           audit-log-maxbackup: "30"
           audit-log-maxsize: "100"
           audit-log-path: /var/log/apiserver/audit.log
+          audit-policy-file: /etc/kubernetes/policies/audit-policy.yaml
           enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook
           feature-gates: TTLAfterFinished=true
           kubelet-preferred-address-types: InternalIP
@@ -31,6 +32,12 @@ spec:
           runtime-config: api/all=true,scheduling.k8s.io/v1alpha1=true
           service-account-lookup: "true"
           tls-cipher-suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
+        extraVolumes:
+        - name: auditLog
+          hostPath: /var/log/apiserver
+          mountPath: /var/log/apiserver
+          readOnly: false
+          pathType: DirectoryOrCreate
       controllerManager:
         extraArgs:
           bind-address: 0.0.0.0
@@ -60,6 +67,8 @@ spec:
         kubeletExtraArgs:
           cloud-provider: aws
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+    preKubeadmCommands:
+    {{- include "diskPreKubeadmCommands" . | nindent 4 }}
     postKubeadmCommands:
     {{- include "sshPostKubeadmCommands" . | nindent 4 }}
     users:
