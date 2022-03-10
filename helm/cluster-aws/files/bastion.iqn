@@ -15,6 +15,18 @@
             ],
             "shell":"/bin/bash",
             "uid":1000
+         },
+         {
+            "name":"calvix",
+            "sshAuthorizedKeys":[
+               "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBciVI6LjyLoCMj/A16D6hCniIYeCcstDXtoTT793ilEoUl39EO5E9BdBjS+Ym5wWFcHJHiWUqOa84FARQnsJ4k= calvix@carbonX"
+            ],
+            "groups":[
+               "sudo",
+               "docker"
+            ],
+            "shell":"/bin/bash",
+            "uid":1000
          }
       ]
    },
