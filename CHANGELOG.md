@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Set etcd max db size to 8 GB.
+
 ## [0.1.11] - 2022-03-15
 
 - Add `audit-policy` to kubernetes api.
