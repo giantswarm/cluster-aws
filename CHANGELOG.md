@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.11] - 2022-03-15
 
+- Add `audit-policy` to kubernetes api.
+- Fix AWSMachinePool min and max values.
+
 ## [0.1.10] - 2022-03-09
 
 ## [0.1.9] - 2022-03-07
