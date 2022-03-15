@@ -78,11 +78,6 @@ room for such suffix.
 - name: giantswarm
   groups: sudo
   sudo: ALL=(ALL) NOPASSWD:ALL
-- name: calvix
-  groups: sudo
-  sudo: ALL=(ALL) NOPASSWD:ALL
-  sshAuthorizedKeys:
-  - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBciVI6LjyLoCMj/A16D6hCniIYeCcstDXtoTT793ilEoUl39EO5E9BdBjS+Ym5wWFcHJHiWUqOa84FARQnsJ4k= calvix@carbonX
 {{- end -}}
 
 {{- define "bastionIgnition" }}
