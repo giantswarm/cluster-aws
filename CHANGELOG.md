@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.11] - 2022-03-15
+
+- Add `audit-policy` to kubernetes api.
+- Fix AWSMachinePool min and max values.
+
 ## [0.1.10] - 2022-03-09
 
 ## [0.1.9] - 2022-03-07
@@ -55,7 +60,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.1.10...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.1.11...HEAD
+[0.1.11]: https://github.com/giantswarm/cluster-aws/compare/v0.1.10...v0.1.11
 [0.1.10]: https://github.com/giantswarm/cluster-aws/compare/v0.1.9...v0.1.10
 [0.1.9]: https://github.com/giantswarm/cluster-aws/compare/v0.1.8...v0.1.9
 [0.1.8]: https://github.com/giantswarm/cluster-aws/compare/v0.1.7...v0.1.8
