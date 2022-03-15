@@ -12,4 +12,4 @@ TrustedUserCAKeys /etc/ssh/trusted-user-ca-keys.pem
 MaxAuthTries 5
 LoginGraceTime 60
 AllowTcpForwarding no
-AllowAgentForwarding no
+AllowAgentForwarding yes
