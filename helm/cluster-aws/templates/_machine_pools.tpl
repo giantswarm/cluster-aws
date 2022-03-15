@@ -45,8 +45,8 @@ spec:
       size: {{ .rootVolumeSizeGB }}
       type: gp3
     sshKeyName: ""
-  maxSize: {{ .minSize }}
-  minSize: {{ .maxSize }}
+  minSize: {{ .minSize }}
+  maxSize: {{ .maxSize }}
   mixedInstancesPolicy:
     instancesDistribution:
       onDemandAllocationStrategy: prioritized
