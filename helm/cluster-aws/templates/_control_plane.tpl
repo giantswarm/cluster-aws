@@ -47,9 +47,13 @@ spec:
         extraArgs:
           bind-address: 0.0.0.0
           cloud-provider: aws
-      cheduler:
+      scheduler:
         extraArgs:
           bind-address: 0.0.0.0
+      etcd:
+        local:
+          extraArgs:
+            quota-backend-bytes: "8589934592"
     files:
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
