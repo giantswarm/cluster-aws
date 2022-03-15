@@ -26,15 +26,15 @@ controlPlane:
     - eu-west-1a
 
 machinePools: 
-#- name: def00  # Name of node pool.
-  #availabilityZones:
-  #  - eu-west-1a
-  #instanceType: m5.xlarge
-  #minSize: 3  # Number of replicas in node pool.
-  #maxSize: 3
-  #rootVolumeSizeGB: 300
-  #customNodeLabels:
-  #- label=default
+- name: def00  # Name of node pool.
+  availabilityZones:
+    - eu-west-1a
+  instanceType: m5.xlarge
+  minSize: 3  # Number of replicas in node pool.
+  maxSize: 3
+  rootVolumeSizeGB: 300
+  customNodeLabels:
+  - label=default
 
 sshSSOPublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io"
 flatcarAWSAccount: "075585003325"
