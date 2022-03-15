@@ -25,7 +25,7 @@ controlPlane:
   availabilityZones:
     - eu-west-1a
 
-machinePools: 
+machinePools:
 - name: def00  # Name of node pool.
   availabilityZones:
     - eu-west-1a
