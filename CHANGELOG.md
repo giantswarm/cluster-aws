@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Prefix machine pool with cluster id.
 - Set etcd max db size to 8 GB.
 
 ## [0.1.11] - 2022-03-15
