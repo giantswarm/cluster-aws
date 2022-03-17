@@ -4,11 +4,11 @@ apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
   annotations:
-    machine-pool.giantswarm.io/name: {{ .name }}
+    machine-pool.giantswarm.io/name: {{ include "resource.default.name" $ }}-{{ .name }}
   labels:
-    giantswarm.io/machine-pool: {{ .name }}
+    giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ .name }}
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ .name }}
+  name: {{ include "resource.default.name" $ }}-{{ .name }}
   namespace: {{ $.Release.Namespace }}
 spec:
   clusterName: {{ include "resource.default.name" $ }}
@@ -19,21 +19,21 @@ spec:
         configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: KubeadmConfig
-          name: {{ .name }}
+          name: {{ include "resource.default.name" $ }}-{{ .name }}
       clusterName: {{ include "resource.default.name" $ }}
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: AWSMachinePool
-        name: {{ .name }}
+        name: {{ include "resource.default.name" $ }}-{{ .name }}
       version: {{ $.Values.kubernetesVersion }}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachinePool
 metadata:
   labels:
-    giantswarm.io/machine-pool: {{ .name }}
+    giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ .name }}
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ .name }}
+  name: {{ include "resource.default.name" $ }}-{{ .name }}
   namespace: {{ $.Release.Namespace }}
 spec:
   availabilityZones: {{ .availabilityZones }}
@@ -58,9 +58,9 @@ apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfig
 metadata:
   labels:
-    giantswarm.io/machine-pool: {{ .name }}
+    giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ .name }}
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ .name }}
+  name: {{ include "resource.default.name" $ }}-{{ .name }}
   namespace: {{ $.Release.Namespace }}
 spec:
   joinConfiguration:
@@ -71,7 +71,7 @@ spec:
         healthz-bind-address: 0.0.0.0
         image-pull-progress-deadline: 1m
         node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
-        node-labels: role=worker,giantswarm.io/machine-pool={{ .name }},{{- join "," .customNodeLabels }}
+        node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ .name }},{{- join "," .customNodeLabels }}
         v: "2"
       name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
   postKubeadmCommands:
