@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Prefix machine pool with cluster id.
 - Set etcd max db size to 8 GB.
+- Add encryption provider config for k8s secrets.
 
 ## [0.1.11] - 2022-03-15
 
