@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Rename `networkSpec` to `network` in AWSCluster CR due renaming in `v1beta1`.
+
 ## [0.1.12] - 2022-03-18
 
 - Prefix machine pool with cluster id.
