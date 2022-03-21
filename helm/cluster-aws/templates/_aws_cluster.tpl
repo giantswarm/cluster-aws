@@ -15,7 +15,7 @@ spec:
   network:
     cni:
       cniIngressRules:
-      - description: allow cni traffic across nodes and control plane
+      - description: allow AWS CNI traffic across nodes and control plane
         fromPort: -1
         protocol: "-1"
         toPort: -1
