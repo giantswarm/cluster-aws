@@ -15,6 +15,14 @@ spec:
   networkSpec:
     cni:
       cniIngressRules:
+      - description: bgp (calico)
+        fromPort: 179
+        protocol: tcp
+        toPort: 179
+      - description: IP-in-IP (calico)
+        fromPort: -1
+        protocol: "4"
+        toPort: 65535
       - description: allow cni traffic across nodes and control plane
         fromPort: -1
         protocol: "-1"
