@@ -25,8 +25,8 @@ spec:
           audit-log-maxsize: "100"
           audit-log-path: /var/log/apiserver/audit.log
           audit-policy-file: /etc/kubernetes/policies/audit-policy.yaml
-          enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook
           encryption-provider-config: /etc/kubernetes/encryption/config.yaml
+          enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,PodSecurityPolicy
           feature-gates: TTLAfterFinished=true
           kubelet-preferred-address-types: InternalIP
           profiling: "false"
