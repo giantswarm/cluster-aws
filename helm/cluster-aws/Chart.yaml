@@ -3,3 +3,8 @@ name: cluster-aws
 description: A helm chart for creating Cluster API clusters with the AWS infrastructure provider (CAPA).
 type: application
 version: [[ .Version ]]
+annotations:
+  application.giantswarm.io/team: "phoenix"
+restrictions:
+  compatibleProviders:
+    - aws
