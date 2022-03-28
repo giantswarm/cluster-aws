@@ -1,5 +1,9 @@
 {{- include "psps" . }}
 ---
+{{- include "coredns" . }}
+---
+{{- include "clusterresourceset" . }}
+---
 {{- include "cluster" . }}
 ---
 {{- include "aws-cluster" . }}
