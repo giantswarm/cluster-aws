@@ -257,7 +257,7 @@ data:
           hostNetwork: true # No need to wait for CNI to be ready
           containers:
           - name: kubectl
-            image: quay.io/giantswarm/kubectl:1.23.5
+            image: "{{ .Values.kubectlImage.registry }}/{{ .Values.kubectlImage.name }}:{{ .Values.kubectlImage.tag }}"
             command:
             - bash
             - -c
