@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Allow app platform to take over managing coredns
+
 ## [0.1.14] - 2022-03-22
 
 ## [0.1.13] - 2022-03-21
@@ -33,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Upgrade to `vbeta1` version for all CRs.
-- 
+-
 ## [0.1.8] - 2022-03-07
 
 ## [0.1.7] - 2022-03-07
