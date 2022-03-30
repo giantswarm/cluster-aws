@@ -23,5 +23,5 @@ spec:
         availabilityZoneUsageLimit: {{ .Values.network.availabilityZoneUsageLimit }}
         cidrBlock: {{ .Values.network.vpcCIDR }}
   sshKeyName: ssh-key
-  region: {{ .Values.aws.region }}
+  region: {{ include "aws-region" . }}
 {{ end }}
