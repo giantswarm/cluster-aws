@@ -23,7 +23,6 @@ controlPlane:
   etcdVolumeSizeGB: 100
   containerdVolumeSizeGB: 100
   kubeletVolumeSizeGB: 100
-  availabilityZones:
 
 machinePools:
 - name: def00  # Name of node pool.
