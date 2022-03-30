@@ -24,12 +24,10 @@ controlPlane:
   containerdVolumeSizeGB: 100
   kubeletVolumeSizeGB: 100
   availabilityZones:
-    - eu-west-1a
 
 machinePools:
 - name: def00  # Name of node pool.
   availabilityZones:
-    - eu-west-1a
   instanceType: m5.xlarge
   minSize: 3  # Number of replicas in node pool.
   maxSize: 3
