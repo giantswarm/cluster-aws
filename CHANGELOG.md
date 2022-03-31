@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Lookup AWS region if not set in values
+- Lookup AWS Availability Zones if not set in values
+
 ## [0.2.0] - 2022-03-29
 
 - Allow app platform to take over managing coredns

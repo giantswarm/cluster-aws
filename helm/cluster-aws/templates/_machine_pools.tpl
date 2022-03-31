@@ -36,7 +36,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-{{ .name }}
   namespace: {{ $.Release.Namespace }}
 spec:
-  availabilityZones: {{ .availabilityZones }}
+  availabilityZones: {{ .availabilityZones | default (include "aws-availability-zones" .) }}
   awsLaunchTemplate:
     ami: {}
     iamInstanceProfile: nodes-{{ .name }}-{{ include "resource.default.name" $ }}
