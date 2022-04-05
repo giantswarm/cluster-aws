@@ -16,6 +16,32 @@ spec:
       kind: AWSMachineTemplate
       name: {{ include "resource.default.name" $ }}-control-plane
   kubeadmConfigSpec:
+    format: ignition
+    ignition:
+      containerLinuxConfig:
+        additionalConfig: |
+          storage:
+            links:
+            # For some reason enabling services via systemd.units doesn't work on Flatcar CAPI AMIs.
+            - path: /etc/systemd/system/multi-user.target.wants/coreos-metadata.service
+              target: /usr/lib/systemd/system/coreos-metadata.service
+            - path: /etc/systemd/system/multi-user.target.wants/kubeadm.service
+              target: /etc/systemd/system/kubeadm.service
+          systemd:
+            units:
+            - name: kubeadm.service
+              dropins:
+              - name: 10-flatcar.conf
+                contents: |
+                  [Unit]
+                  # kubeadm must run after coreos-metadata populated /run/metadata directory.
+                  Requires=coreos-metadata.service
+                  After=coreos-metadata.service
+                  [Service]
+                  # Ensure kubeadm service has access to kubeadm binary in /opt/bin on Flatcar.
+                  Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin
+                  # To make metadata environment variables available for pre-kubeadm commands.
+                  EnvironmentFile=/run/metadata/*
     clusterConfiguration:
       apiServer:
         extraArgs:
@@ -78,15 +104,17 @@ spec:
           image-pull-progress-deadline: 1m
           node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
           v: "2"
-        name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+        name: $${COREOS_EC2_HOSTNAME}
     joinConfiguration:
       discovery: {}
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: aws
-        name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+        name: $${COREOS_EC2_HOSTNAME}
     preKubeadmCommands:
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
+    - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
+    - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
     postKubeadmCommands:
     {{- include "sshPostKubeadmCommands" . | nindent 4 }}
     users:
@@ -130,4 +158,6 @@ spec:
         type: gp3
       iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
       sshKeyName: ""
+      imageLookupBaseOS: flatcar-stable
+      imageLookupOrg: "075585003325"
 {{- end -}}
