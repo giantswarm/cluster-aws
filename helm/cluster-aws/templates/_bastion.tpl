@@ -74,7 +74,7 @@ spec:
       cloudInit:
         insecureSkipSecretsManager: true
       imageLookupFormat: Flatcar-stable-*
-      imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
+      imageLookupOrg: "075585003325"
       publicIP: true
       sshKeyName: ""
       subnet:
