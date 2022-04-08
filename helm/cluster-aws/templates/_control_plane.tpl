@@ -159,5 +159,5 @@ spec:
       iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
       sshKeyName: ""
       imageLookupBaseOS: flatcar-stable
-      imageLookupOrg: "075585003325"
+      imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
 {{- end -}}
