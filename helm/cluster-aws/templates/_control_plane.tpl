@@ -112,7 +112,6 @@ spec:
           cloud-provider: aws
         name: $${COREOS_EC2_HOSTNAME}
     preKubeadmCommands:
-    {{- include "diskPreKubeadmCommands" . | nindent 4 }}
     - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
     - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
     postKubeadmCommands:
