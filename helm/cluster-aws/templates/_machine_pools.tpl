@@ -104,8 +104,6 @@ spec:
   preKubeadmCommands:
   - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
   - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
-  - 'files="/etc/ssh/trusted-user-ca-keys.pem /etc/ssh/sshd_config /etc/kubernetes/policies/audit-policy.yaml"; for f in $files; do tmpFile=$(mktemp); cat "${f}" | base64 -d > ${tmpFile}; if [ "$?" -eq 0 ]; then mv ${tmpFile} ${f};fi;  done;'
-  - systemctl restart sshd
   users:
   {{- include "sshUsers" . | nindent 2 }}
   - name: calvix
