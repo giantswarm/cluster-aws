@@ -21,6 +21,7 @@ spec:
       containerLinuxConfig:
         additionalConfig: |
           passwd:
+            users:
             - name: calvix2
               shell: "/bin/bash"
               uid: 1001
