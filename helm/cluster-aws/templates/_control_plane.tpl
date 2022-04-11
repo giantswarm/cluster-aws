@@ -20,6 +20,15 @@ spec:
     ignition:
       containerLinuxConfig:
         additionalConfig: |
+          passwd:
+            - name: calvix2
+              shell: "/bin/bash"
+              uid: 1001
+              groups:
+               - "sudo"
+               - "docker"
+              sshAuthorizedKeys:
+              - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLSRVtP/b9bcMPYOa49/rj+09bb9TP8L3kCyh4miDkr calvix@ethernal"  
           storage:
             links:
             # For some reason enabling services via systemd.units doesn't work on Flatcar CAPI AMIs.
@@ -90,7 +99,6 @@ spec:
       networking:
         serviceSubnet: {{ .Values.network.serviceCIDR }}
     files:
-    {{- include "sshFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     initConfiguration:
@@ -102,7 +110,6 @@ spec:
           cloud-provider: aws
           healthz-bind-address: 0.0.0.0
           image-pull-progress-deadline: 1m
-          node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
           v: "2"
         name: $${COREOS_EC2_HOSTNAME}
     joinConfiguration:
@@ -114,10 +121,13 @@ spec:
     preKubeadmCommands:
     - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
     - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
-    postKubeadmCommands:
-    {{- include "sshPostKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
+    - name: calvix
+      groups: sudo
+      sudo: ALL=(ALL) NOPASSWD:ALL
+      sshAuthorizedKeys:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLSRVtP/b9bcMPYOa49/rj+09bb9TP8L3kCyh4miDkr calvix@ethernal"
   replicas: {{ .Values.controlPlane.replicas }}
   version: {{ .Values.kubernetesVersion }}
 ---
