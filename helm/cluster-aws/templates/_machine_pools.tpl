@@ -45,7 +45,7 @@ spec:
       size: {{ .rootVolumeSizeGB }}
       type: gp3
     imageLookupBaseOS: flatcar-stable
-    imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
+    imageLookupOrg: "{{ $.Values.flatcarAWSAccount }}"
     sshKeyName: ""
   minSize: {{ .minSize }}
   maxSize: {{ .maxSize }}
