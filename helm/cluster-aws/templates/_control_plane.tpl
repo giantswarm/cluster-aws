@@ -90,7 +90,7 @@ spec:
       networking:
         serviceSubnet: {{ .Values.network.serviceCIDR }}
     files:
-    {{- include "diskFiles" . | nindent 4 }}
+    {{- include "sshFiles" . | nindent 4 }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     initConfiguration:
       localAPIEndpoint:
@@ -102,13 +102,13 @@ spec:
           healthz-bind-address: 0.0.0.0
           image-pull-progress-deadline: 1m
           v: "2"
-        name: $${COREOS_EC2_HOSTNAME}
+        name: ${COREOS_EC2_HOSTNAME}
     joinConfiguration:
       discovery: {}
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: aws
-        name: $${COREOS_EC2_HOSTNAME}
+        name: ${COREOS_EC2_HOSTNAME}
     preKubeadmCommands:
     - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
     - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml

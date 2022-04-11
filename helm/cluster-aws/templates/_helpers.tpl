@@ -44,25 +44,25 @@ room for such suffix.
 - path: /etc/ssh/trusted-user-ca-keys.pem
   permissions: "0600"
   encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . | b64enc }}
+  content: {{ tpl ($.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . }}
 - path: /etc/ssh/sshd_config
   permissions: "0600"
   encoding: base64
-  content: {{ $.Files.Get "files/etc/ssh/sshd_config" | b64enc }}
+  content: {{ $.Files.Get "files/etc/ssh/sshd_config" }}
 {{- end -}}
 
 {{- define "diskFiles" -}}
 - path: /opt/init-disks.sh
   permissions: "0700"
   encoding: base64
-  content: {{ $.Files.Get "files/opt/init-disks.sh" | b64enc }}
+  content: {{ $.Files.Get "files/opt/init-disks.sh" }}
 {{- end -}}
 
 {{- define "kubernetesFiles" -}}
 - path: /etc/kubernetes/policies/audit-policy.yaml
   permissions: "0600"
   encoding: base64
-  content: {{ $.Files.Get "files/etc/kubernetes/policies/audit-policy.yaml" | b64enc }}
+  content: {{ $.Files.Get "files/etc/kubernetes/policies/audit-policy.yaml" }}
 - path: /etc/kubernetes/encryption/config.yaml
   permissions: "0600"
   contentFrom:
