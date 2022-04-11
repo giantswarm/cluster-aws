@@ -20,16 +20,6 @@ spec:
     ignition:
       containerLinuxConfig:
         additionalConfig: |
-          passwd:
-            users:
-            - name: calvix2
-              shell: "/bin/bash"
-              uid: 1001
-              groups:
-               - "sudo"
-               - "docker"
-              sshAuthorizedKeys:
-              - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLSRVtP/b9bcMPYOa49/rj+09bb9TP8L3kCyh4miDkr calvix@ethernal"  
           storage:
             links:
             # For some reason enabling services via systemd.units doesn't work on Flatcar CAPI AMIs.
