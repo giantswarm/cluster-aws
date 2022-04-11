@@ -1,4 +1,5 @@
 {{- define "machine-pools" }}
+{{ $currentScope := .}}
 {{ range .Values.machinePools }}
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
@@ -104,6 +105,8 @@ spec:
   preKubeadmCommands:
   - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
   - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
+  files:
+  {{- include "sshFiles" $ | nindent 4 }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   - name: calvix
