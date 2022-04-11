@@ -51,13 +51,6 @@ room for such suffix.
   content: {{ $.Files.Get "files/etc/ssh/sshd_config" }}
 {{- end -}}
 
-{{- define "diskFiles" -}}
-- path: /opt/init-disks.sh
-  permissions: "0700"
-  encoding: base64
-  content: {{ $.Files.Get "files/opt/init-disks.sh" }}
-{{- end -}}
-
 {{- define "kubernetesFiles" -}}
 - path: /etc/kubernetes/policies/audit-policy.yaml
   permissions: "0600"
@@ -69,15 +62,6 @@ room for such suffix.
     secret:
       name: {{ include "resource.default.name" $ }}-encryption-provider-config 
       key: encryption
-{{- end -}}
-
-
-{{- define "sshPostKubeadmCommands" -}}
-- systemctl restart sshd
-{{- end -}}
-
-{{- define "diskPreKubeadmCommands" -}}
-- /bin/sh /opt/init-disks.sh
 {{- end -}}
 
 {{- define "sshUsers" -}}
