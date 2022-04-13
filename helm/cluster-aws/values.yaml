@@ -41,3 +41,5 @@ kubectlImage:
   registry: quay.io
   name: giantswarm/kubectl
   tag: 1.23.5
+
+dummy: "change"
