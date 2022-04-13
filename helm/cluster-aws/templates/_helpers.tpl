@@ -81,7 +81,7 @@ room for such suffix.
   sudo: ALL=(ALL) NOPASSWD:ALL
 {{- end -}}
 
-{{- define ignitionBaseConfigLinks -}}
+{{- define "ignitionBaseConfigLinks" -}}
 # For some reason enabling services via systemd.units doesn't work on Flatcar CAPI AMIs.
 - path: /etc/systemd/system/multi-user.target.wants/coreos-metadata.service
   target: /usr/lib/systemd/system/coreos-metadata.service
@@ -89,7 +89,7 @@ room for such suffix.
   target: /etc/systemd/system/kubeadm.service
 {{- end -}}
 
-{{- define ignitionBaseConfigUnits -}}
+{{- define "ignitionBaseConfigUnits" -}}
 - name: kubeadm.service
   dropins:
   - name: 10-flatcar.conf
@@ -105,12 +105,12 @@ room for such suffix.
       EnvironmentFile=/run/metadata/*
 {{- end -}}
 
-{{- define ignitionDecodeBase64SSH -}}
+{{- define "ignitionDecodeBase64SSH" -}}
 - 'files="/etc/ssh/trusted-user-ca-keys.pem /etc/ssh/sshd_config"; for f in $files; do tmpFile=$(mktemp); cat "${f}" | base64 -d > ${tmpFile}; if [ "$?" -eq 0 ]; then mv ${tmpFile} ${f};fi;  done;'
 - systemctl restart sshd
 {{- end - }}
 
-{{- define ignitionDecodeBase64ControlPlane -}}
+{{- define "ignitionDecodeBase64ControlPlane" -}}
 - 'files="/etc/ssh/trusted-user-ca-keys.pem /etc/ssh/sshd_config /etc/kubernetes/policies/audit-policy.yaml"; for f in $files; do tmpFile=$(mktemp); cat "${f}" | base64 -d > ${tmpFile}; if [ "$?" -eq 0 ]; then mv ${tmpFile} ${f};fi;  done;'
 - systemctl restart sshd
 {{- end - }}
