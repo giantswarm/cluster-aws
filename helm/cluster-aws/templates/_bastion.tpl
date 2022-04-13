@@ -113,7 +113,7 @@ spec:
       preKubeadmCommands:
       - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
       - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
-      {{- include "ignitionDecodeBase64SSH" . | nindent 6 -}}
+      {{- include "ignitionDecodeBase64SSH" . | nindent 6 }}
       - sleep infinity
       files:
       {{- include "sshFilesBastion" $ | nindent 6 }}
