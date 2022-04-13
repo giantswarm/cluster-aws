@@ -108,7 +108,7 @@ room for such suffix.
 {{- define "ignitionDecodeBase64SSH" -}}
 - 'files="/etc/ssh/trusted-user-ca-keys.pem /etc/ssh/sshd_config"; for f in $files; do tmpFile=$(mktemp); cat "${f}" | base64 -d > ${tmpFile}; if [ "$?" -eq 0 ]; then mv ${tmpFile} ${f};fi;  done;'
 - systemctl restart sshd
-{{- end - }}
+{{- end -}}
 
 {{- define "ignitionDecodeBase64ControlPlane" -}}
 - 'files="/etc/ssh/trusted-user-ca-keys.pem /etc/ssh/sshd_config /etc/kubernetes/policies/audit-policy.yaml"; for f in $files; do tmpFile=$(mktemp); cat "${f}" | base64 -d > ${tmpFile}; if [ "$?" -eq 0 ]; then mv ${tmpFile} ${f};fi;  done;'
