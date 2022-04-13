@@ -51,6 +51,17 @@ room for such suffix.
   content: {{ $.Files.Get "files/etc/ssh/sshd_config" | b64enc }}
 {{- end -}}
 
+{{- define "sshFilesBastion" -}}
+- path: /etc/ssh/trusted-user-ca-keys.pem
+  permissions: "0600"
+  encoding: base64
+  content: {{ tpl ($.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . | b64enc }}
+- path: /etc/ssh/sshd_config
+  permissions: "0600"
+  encoding: base64
+  content: {{ $.Files.Get "files/etc/ssh/sshd_config_bastion" | b64enc }}
+{{- end -}}
+
 {{- define "kubernetesFiles" -}}
 - path: /etc/kubernetes/policies/audit-policy.yaml
   permissions: "0600"
@@ -70,7 +81,37 @@ room for such suffix.
   sudo: ALL=(ALL) NOPASSWD:ALL
 {{- end -}}
 
-{{- define "bastionIgnition" }}
-{{- tpl ($.Files.Get "files/bastion.iqn") . | b64enc }}
+{{- define ignitionBaseConfigLinks -}}
+# For some reason enabling services via systemd.units doesn't work on Flatcar CAPI AMIs.
+- path: /etc/systemd/system/multi-user.target.wants/coreos-metadata.service
+  target: /usr/lib/systemd/system/coreos-metadata.service
+- path: /etc/systemd/system/multi-user.target.wants/kubeadm.service
+  target: /etc/systemd/system/kubeadm.service
 {{- end -}}
+
+{{- define ignitionBaseConfigUnits -}}
+- name: kubeadm.service
+  dropins:
+  - name: 10-flatcar.conf
+    contents: |
+      [Unit]
+      # kubeadm must run after coreos-metadata populated /run/metadata directory.
+      Requires=coreos-metadata.service
+      After=coreos-metadata.service
+      [Service]
+      # Ensure kubeadm service has access to kubeadm binary in /opt/bin on Flatcar.
+      Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin
+      # To make metadata environment variables available for pre-kubeadm commands.
+      EnvironmentFile=/run/metadata/*
+{{- end -}}
+
+{{- define ignitionDecodeBase64SSH -}}
+- 'files="/etc/ssh/trusted-user-ca-keys.pem /etc/ssh/sshd_config"; for f in $files; do tmpFile=$(mktemp); cat "${f}" | base64 -d > ${tmpFile}; if [ "$?" -eq 0 ]; then mv ${tmpFile} ${f};fi;  done;'
+- systemctl restart sshd
+{{- end - }}
+
+{{- define ignitionDecodeBase64ControlPlane -}}
+- 'files="/etc/ssh/trusted-user-ca-keys.pem /etc/ssh/sshd_config /etc/kubernetes/policies/audit-policy.yaml"; for f in $files; do tmpFile=$(mktemp); cat "${f}" | base64 -d > ${tmpFile}; if [ "$?" -eq 0 ]; then mv ${tmpFile} ${f};fi;  done;'
+- systemctl restart sshd
+{{- end - }}
 

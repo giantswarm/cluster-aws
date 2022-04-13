@@ -1,5 +1,4 @@
 {{- define "machine-pools" }}
-{{ $currentScope := .}}
 {{ range .Values.machinePools }}
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
@@ -105,6 +104,8 @@ spec:
   preKubeadmCommands:
   - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
   - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
+  - 'files="/etc/ssh/trusted-user-ca-keys.pem /etc/ssh/sshd_config"; for f in $files; do tmpFile=$(mktemp); cat "${f}" | base64 -d > ${tmpFile}; if [ "$?" -eq 0 ]; then mv ${tmpFile} ${f};fi;  done;'
+  - systemctl restart sshd
   files:
   {{- include "sshFiles" $ | nindent 4 }}
   users:
