@@ -8,3 +8,7 @@ annotations:
 restrictions:
   compatibleProviders:
     - aws
+dependencies:
+- name: cluster-shared
+  version: "0.1.1"
+  repository: "https://giantswarm.github.io/cluster-catalog"

@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2022-04-12
+
+### Changed
+
+- Switched to using `cluster-shared` for PSPs and coredns-adopter
+
 ## [0.2.1] - 2022-03-31
 
 ### Added
@@ -83,7 +89,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/giantswarm/cluster-aws/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/giantswarm/cluster-aws/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/giantswarm/cluster-aws/compare/v0.1.14...v0.2.0
 [0.1.14]: https://github.com/giantswarm/cluster-aws/compare/v0.1.13...v0.1.14
