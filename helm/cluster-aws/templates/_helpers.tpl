@@ -21,12 +21,12 @@ Common labels
 app: {{ include "name" . | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" . }}
+cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" . | quote }}
 cluster.x-k8s.io/watch-filter: capi
-giantswarm.io/cluster: {{ include "resource.default.name" . }}
-giantswarm.io/organization: {{ .Values.organization }}
+giantswarm.io/cluster: {{ include "resource.default.name" . | quote }}
+giantswarm.io/organization: {{ .Values.organization | quote }}
 helm.sh/chart: {{ include "chart" . | quote }}
-release.giantswarm.io/version: {{ .Values.releaseVersion }}
+release.giantswarm.io/version: {{ .Values.releaseVersion | quote }}
 {{- end -}}
 
 {{/*
@@ -36,7 +36,7 @@ Given that Kubernetes allows 63 characters for resource names, the stem is trunc
 room for such suffix.
 */}}
 {{- define "resource.default.name" -}}
-{{- .Release.Name | replace "." "-" | trunc 47 | trimSuffix "-" -}}
+{{- .Values.clusterName | default (.Release.Name | replace "." "-" | trunc 47 | trimSuffix "-") -}}
 {{- end -}}
 
 
@@ -67,7 +67,7 @@ room for such suffix.
   permissions: "0600"
   contentFrom:
     secret:
-      name: {{ include "resource.default.name" $ }}-encryption-provider-config 
+      name: {{ include "resource.default.name" $ }}-encryption-provider-config
       key: encryption
 {{- end -}}
 
