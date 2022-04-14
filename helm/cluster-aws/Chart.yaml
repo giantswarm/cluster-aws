@@ -10,5 +10,5 @@ restrictions:
     - aws
 dependencies:
 - name: cluster-shared
-  version: "0.1.1"
+  version: "0.3.0"
   repository: "https://giantswarm.github.io/cluster-catalog"
