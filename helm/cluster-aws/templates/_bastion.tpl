@@ -65,6 +65,7 @@ spec:
       cloudInit: {}
       imageLookupBaseOS: flatcar-stable
       imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
+      iamInstanceProfile: bastion-{{ include "resource.default.name" $ }}
       publicIP: true
       sshKeyName: ""
       subnet:
