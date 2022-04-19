@@ -7,8 +7,8 @@
 ---
 {{- include "aws-cluster" . }}
 ---
-{{- include "control-plane" . }}
----
 {{- include "bastion" . }}
+---
+{{- include "control-plane" . }}
 ---
 {{- include "machine-pools" . }}
