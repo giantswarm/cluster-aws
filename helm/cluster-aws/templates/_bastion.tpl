@@ -65,7 +65,7 @@ spec:
       cloudInit: {}
       imageLookupBaseOS: flatcar-stable
       imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
-      iamInstanceProfile: bastion-{{ include "resource.default.name" $ }}
+      iamInstanceProfile: {{ include "resource.default.name" $ }}-bastion
       publicIP: true
       sshKeyName: ""
       subnet:
@@ -120,9 +120,4 @@ spec:
       {{- include "sshFilesBastion" $ | nindent 6 }}
       users:
       {{- include "sshUsers" . | nindent 6 }}
-      - name: calvix
-        groups: sudo
-        sudo: ALL=(ALL) NOPASSWD:ALL
-        sshAuthorizedKeys:
-        - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLSRVtP/b9bcMPYOa49/rj+09bb9TP8L3kCyh4miDkr calvix@ethernal"
 {{- end -}}

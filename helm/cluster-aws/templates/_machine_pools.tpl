@@ -39,7 +39,7 @@ spec:
   availabilityZones: {{ .availabilityZones | default (include "aws-availability-zones" .) }}
   awsLaunchTemplate:
     ami: {}
-    iamInstanceProfile: nodes-{{ .name }}-{{ include "resource.default.name" $ }}
+    iamInstanceProfile: {{ include "resource.default.name" $ }}-nodes-{{ .name }}
     instanceType: {{ .instanceType }}
     rootVolume:
       size: {{ .rootVolumeSizeGB }}

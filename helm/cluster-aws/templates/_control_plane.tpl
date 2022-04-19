@@ -115,11 +115,6 @@ spec:
     {{- include "ignitionDecodeBase64ControlPlane" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
-    - name: calvix
-      groups: sudo
-      sudo: ALL=(ALL) NOPASSWD:ALL
-      sshAuthorizedKeys:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLSRVtP/b9bcMPYOa49/rj+09bb9TP8L3kCyh4miDkr calvix@ethernal"
   replicas: {{ .Values.controlPlane.replicas }}
   version: {{ .Values.kubernetesVersion }}
 ---
@@ -157,7 +152,7 @@ spec:
       rootVolume:
         size: {{ .Values.controlPlane.rootVolumeSizeGB }}
         type: gp3
-      iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
+      iamInstanceProfile: {{ include "resource.default.name" $ }}-control-plane
       sshKeyName: ""
       imageLookupBaseOS: flatcar-stable
       imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
