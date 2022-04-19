@@ -110,11 +110,6 @@ spec:
   {{- include "sshFiles" $ | nindent 4 }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
-  - name: calvix
-    groups: sudo
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    sshAuthorizedKeys:
-    - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLSRVtP/b9bcMPYOa49/rj+09bb9TP8L3kCyh4miDkr calvix@ethernal"
 ---
 {{ end }}
 {{- end -}}
