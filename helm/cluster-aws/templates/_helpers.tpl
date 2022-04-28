@@ -27,6 +27,7 @@ giantswarm.io/cluster: {{ include "resource.default.name" . | quote }}
 giantswarm.io/organization: {{ .Values.organization | quote }}
 helm.sh/chart: {{ include "chart" . | quote }}
 release.giantswarm.io/version: {{ .Values.releaseVersion | quote }}
+application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- end -}}
 
 {{/*
@@ -89,4 +90,3 @@ room for such suffix.
 {{- define "bastionIgnition" }}
 {{- tpl ($.Files.Get "files/bastion.iqn") . | b64enc}}
 {{- end -}}
-
