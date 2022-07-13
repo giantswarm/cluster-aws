@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add team label to helm resources.
 - Add `values.schema.json` file.
+- Remove helm lookup function for SSH CA cert and use value fro central vault instead.
 
 ## [0.4.0] - 2022-04-14
 
