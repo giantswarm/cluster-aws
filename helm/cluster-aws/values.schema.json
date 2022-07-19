@@ -82,7 +82,10 @@
                 "type": "object",
                 "properties": {
                     "availabilityZones": {
-                        "type": "null"
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "customNodeLabels": {
                         "type": "array",
