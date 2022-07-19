@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-Fix `values.schem.json` for machine pool avaiability zones.
+Remove `values.schem.json`.
 
 ## [0.4.1] - 2022-07-15
 
