@@ -9,6 +9,8 @@
 ---
 {{- include "control-plane" . }}
 ---
+{{ if .Values.bastion.enabled }}
 {{- include "bastion" . }}
 ---
+{{ end }}
 {{- include "machine-pools" . }}

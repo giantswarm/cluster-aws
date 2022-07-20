@@ -14,6 +14,7 @@ network:
   serviceCIDR: 172.31.0.0/16
 
 bastion:
+  enabled: true
   instanceType: t3.small
   replicas: 1
 

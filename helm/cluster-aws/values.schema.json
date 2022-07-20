@@ -16,6 +16,9 @@
         "bastion": {
             "type": "object",
             "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
                 "instanceType": {
                     "type": "string"
                 },
