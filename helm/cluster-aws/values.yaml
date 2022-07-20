@@ -27,7 +27,7 @@ controlPlane:
 
 machinePools:
 - name: def00  # Name of node pool.
-  availabilityZones:
+  availabilityZones: []
   instanceType: m5.xlarge
   minSize: 3  # Number of replicas in node pool.
   maxSize: 3

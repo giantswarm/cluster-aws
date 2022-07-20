@@ -19,9 +19,9 @@ spec:
         fromPort: -1
         protocol: "-1"
         toPort: -1
-      vpc:
-        availabilityZoneUsageLimit: {{ .Values.network.availabilityZoneUsageLimit }}
-        cidrBlock: {{ .Values.network.vpcCIDR }}
+    vpc:
+      availabilityZoneUsageLimit: {{ .Values.network.availabilityZoneUsageLimit }}
+      cidrBlock: {{ .Values.network.vpcCIDR }}
   sshKeyName: ssh-key
   region: {{ include "aws-region" . }}
 {{ end }}
