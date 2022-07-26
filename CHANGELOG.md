@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Pod CIDR as array rather than string
+
 ## [0.5.0] - 2022-07-26
 
 ### Changed
