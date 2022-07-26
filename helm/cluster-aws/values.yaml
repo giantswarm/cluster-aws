@@ -12,6 +12,7 @@ network:
   availabilityZoneUsageLimit: 3  # amount of AZ that should be used for the machines
   vpcCIDR: 10.0.0.0/16  # cidr range for the VPC
   serviceCIDR: 172.31.0.0/16
+  podCIDR: 100.64.0.0/12
 
 bastion:
   enabled: true

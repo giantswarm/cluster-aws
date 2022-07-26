@@ -54,6 +54,8 @@ spec:
         extraArgs:
           bind-address: 0.0.0.0
           cloud-provider: aws
+          allocate-node-cidrs: true
+          cluster-cidr: {{ .Values.network.podCIDR }}
       scheduler:
         extraArgs:
           bind-address: 0.0.0.0
