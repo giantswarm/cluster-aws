@@ -117,6 +117,9 @@
                 "availabilityZoneUsageLimit": {
                     "type": "integer"
                 },
+                "podCIDR": {
+                    "type": "string"
+                },
                 "serviceCIDR": {
                     "type": "string"
                 },

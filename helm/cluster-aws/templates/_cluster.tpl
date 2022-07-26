@@ -10,6 +10,9 @@ metadata:
   name: {{ include "resource.default.name" $ }}
   namespace: {{ .Release.Namespace }}
 spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks: {{ .Values.network.podCIDR }}
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     kind: KubeadmControlPlane
