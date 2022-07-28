@@ -48,9 +48,6 @@
                 "kubeletVolumeSizeGB": {
                     "type": "integer"
                 },
-                "replicas": {
-                    "type": "integer"
-                },
                 "rootVolumeSizeGB": {
                     "type": "integer"
                 }

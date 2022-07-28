@@ -93,7 +93,7 @@ spec:
     {{- include "sshPostKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
-  replicas: {{ .Values.controlPlane.replicas }}
+  replicas: 3
   version: {{ .Values.kubernetesVersion }}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1

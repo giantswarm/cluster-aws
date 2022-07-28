@@ -21,7 +21,6 @@ bastion:
 
 controlPlane:
   instanceType: m5.xlarge
-  replicas: 1  # Number of replicas in control plane. Should be an odd number.
   rootVolumeSizeGB: 120
   etcdVolumeSizeGB: 100
   containerdVolumeSizeGB: 100
