@@ -18,6 +18,10 @@ spec:
   kubeadmConfigSpec:
     clusterConfiguration:
       apiServer:
+        timeoutForControlPlane: 20m
+        certSANs:
+          - "api.{{ include "resource.default.name" $ }}.{{ .Values.baseDomain }}"
+          - 127.0.0.1
         extraArgs:
           cloud-provider: aws
           audit-log-maxage: "30"

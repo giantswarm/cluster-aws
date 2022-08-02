@@ -13,6 +13,9 @@
                 }
             }
         },
+        "baseDomain": {
+            "type": "string"
+        },
         "bastion": {
             "type": "object",
             "properties": {
