@@ -3,7 +3,7 @@ clusterDescription: "test"  # Cluster description used in metadata.
 organization: ""  # Organization in which to create the cluster.
 kubernetesVersion: 1.22.7
 releaseVersion: 20.0.0-alpha1
-baseDomain: ""
+baseDomain: "example.com"
 
 aws:
   region: ""
