@@ -20,7 +20,7 @@ Common labels
 {{- define "labels.common" -}}
 app: {{ include "name" . | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/version: {{ .Chart.Version | quote }}
 cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" . | quote }}
 cluster.x-k8s.io/watch-filter: capi
 giantswarm.io/cluster: {{ include "resource.default.name" . | quote }}
