@@ -38,7 +38,7 @@ metadata:
 spec:
   availabilityZones: {{ .availabilityZones | default ( include "aws-availability-zones" .) }}
   awsLaunchTemplate:
-    ami: {}
+    {{- include "ami" $ | nindent 4 }}
     iamInstanceProfile: nodes-{{ .name }}-{{ include "resource.default.name" $ }}
     instanceType: {{ .instanceType }}
     rootVolume:

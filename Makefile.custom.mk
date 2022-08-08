@@ -1,3 +1,9 @@
+.PHONY: template
+template:
+	@cd helm/cluster-aws && \
+		sed -i '' 's/version: \[/version: 1 #\[/' Chart.yaml && \
+		helm template . && \
+		sed -i '' 's/version: 1 #\[/version: \[/' Chart.yaml
 
 ensure-schema-gen:
 	@helm schema-gen --help &>/dev/null || helm plugin install https://github.com/mihaisee/helm-schema-gen.git

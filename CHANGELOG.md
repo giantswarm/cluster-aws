@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Use our Giant Swarm built AMIs
+
 ## [0.6.2] - 2022-08-06
 
 ### Fixed
