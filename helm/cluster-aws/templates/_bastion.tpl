@@ -73,7 +73,8 @@ spec:
           - owned
       cloudInit:
         insecureSkipSecretsManager: true
-      {{- include "ami" $ | nindent 6 }}
+      imageLookupFormat: Flatcar-stable-*
+      imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
       publicIP: true
       sshKeyName: ""
       subnet:

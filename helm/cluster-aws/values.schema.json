@@ -59,6 +59,9 @@
                 }
             }
         },
+        "flatcarAWSAccount": {
+            "type": "string"
+        },
         "includeClusterResourceSet": {
             "type": "boolean"
         },
