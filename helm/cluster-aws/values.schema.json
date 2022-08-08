@@ -2,6 +2,9 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "ami": {
+            "type": "string"
+        },
         "aws": {
             "type": "object",
             "properties": {
@@ -55,9 +58,6 @@
                     "type": "integer"
                 }
             }
-        },
-        "flatcarAWSAccount": {
-            "type": "string"
         },
         "includeClusterResourceSet": {
             "type": "boolean"

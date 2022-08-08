@@ -90,3 +90,15 @@ room for such suffix.
 {{- define "bastionIgnition" }}
 {{- tpl ($.Files.Get "files/bastion.iqn") . | b64enc}}
 {{- end -}}
+
+{{- define "ami" }}
+{{- if .Values.ami }}
+ami:
+  id: {{ .Values.ami }}
+{{- else -}}
+ami: {}
+imageLookupBaseOS: "ubuntu"
+imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-{{.K8sVersion}}-00-gs" }}
+imageLookupOrg: "706635527432"
+{{- end }}
+{{- end -}}

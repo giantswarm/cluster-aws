@@ -115,7 +115,7 @@ spec:
         cluster.x-k8s.io/role: control-plane
         {{- include "labels.common" $ | nindent 8 }}
     spec:
-      ami: {}
+      {{- include "ami" $ | nindent 6 }}
       cloudInit: {}
       instanceType: {{ .Values.controlPlane.instanceType }}
       nonRootVolumes:
