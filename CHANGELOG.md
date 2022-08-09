@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Use our Giant Swarm built AMIs
+- Bump default Kubernetes version to 1.22.12
 
 ## [0.6.2] - 2022-08-06
 
