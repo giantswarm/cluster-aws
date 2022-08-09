@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Added the OS version to the imageLookupBaseOS
+
 ## [0.7.0] - 2022-08-09
 
 ### Changed
