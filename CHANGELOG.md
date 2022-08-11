@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Ensure worker nodes are only launched in pricate subnets
+- Ensure worker nodes are only launched in private subnets
 
 ## [0.7.2] - 2022-08-11
 
