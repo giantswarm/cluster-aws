@@ -43,6 +43,13 @@ flatcarAWSAccount: "075585003325"
 # Used to override the AMI lookup and instead use a specific image
 ami: ""
 
+oidc:
+  issuerUrl: ""
+  caFile: ""
+  clientId: ""
+  usernameClaim: ""
+  groupsClaim: ""
+
 # Used by `cluster-shared` library chart
 includeClusterResourceSet: true
 kubectlImage:

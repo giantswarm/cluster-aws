@@ -131,6 +131,26 @@
                 }
             }
         },
+        "oidc": {
+            "type": "object",
+            "properties": {
+                "caFile": {
+                    "type": "string"
+                },
+                "clientId": {
+                    "type": "string"
+                },
+                "groupsClaim": {
+                    "type": "string"
+                },
+                "issuerUrl": {
+                    "type": "string"
+                },
+                "usernameClaim": {
+                    "type": "string"
+                }
+            }
+        },
         "organization": {
             "type": "string"
         },
