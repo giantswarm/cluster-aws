@@ -4,10 +4,11 @@ description: A helm chart for creating Cluster API clusters with the AWS infrast
 type: application
 version: [[ .Version ]]
 annotations:
-  application.giantswarm.io/team: "phoenix"
+  application.giantswarm.io/team: "hydra"
 restrictions:
   compatibleProviders:
     - aws
+    - capa
 dependencies:
 - name: cluster-shared
   version: "0.3.0"
