@@ -62,6 +62,9 @@
         "flatcarAWSAccount": {
             "type": "string"
         },
+        "hashSalt": {
+            "type": "string"
+        },
         "includeClusterResourceSet": {
             "type": "boolean"
         },

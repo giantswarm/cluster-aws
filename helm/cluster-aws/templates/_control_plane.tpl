@@ -14,7 +14,7 @@ spec:
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: AWSMachineTemplate
-      name: {{ include "resource.default.name" $ }}-control-plane
+      name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" .Values.controlPlane "global" .) }}
   kubeadmConfigSpec:
     clusterConfiguration:
       apiServer:
@@ -117,7 +117,7 @@ metadata:
   labels:
     cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ include "resource.default.name" $ }}-control-plane
+  name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" .Values.controlPlane "global" .) }}
   namespace: {{ $.Release.Namespace }}
 spec:
   template:

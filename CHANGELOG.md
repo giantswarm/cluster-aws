@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `hash` function to ensure immutable resources change be changed via recreate/replacement
+
 ## [0.7.4] - 2022-08-11
 
 ## [0.7.3] - 2022-08-11
