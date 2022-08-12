@@ -44,7 +44,7 @@ spec:
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: AWSMachineTemplate
-        name: {{ include "resource.default.name" $ }}-bastion
+        name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" .Values.bastion "global" .) }}
       version: v0.0.0
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
@@ -53,7 +53,7 @@ metadata:
   labels:
     cluster.x-k8s.io/role: bastion
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ include "resource.default.name" $ }}-bastion
+  name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" .Values.bastion "global" .) }}
   namespace: {{ .Release.Namespace }}
 spec:
   template:

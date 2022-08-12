@@ -102,3 +102,16 @@ imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-{{.K8sVersion}}-00-gs" }}
 imageLookupOrg: "706635527432"
 {{- end }}
 {{- end -}}
+
+{{/*
+Hash function based on data provided
+Expects two arguments (as a `dict`) E.g.
+  {{ include "hash" (dict "data" . "global" $global) }}
+Where `data` is the data to has on and `global` is the top level scope.
+*/}}
+{{- define "hash" -}}
+{{- $data := mustToJson .data | toString  }}
+{{- $salt := "" }}
+{{- if .global.Values.hashSalt }}{{ $salt = .global.Values.hashSalt}}{{end}}
+{{- (printf "%s%s" $data $salt) | quote | sha1sum | trunc 8 }}
+{{- end -}}
