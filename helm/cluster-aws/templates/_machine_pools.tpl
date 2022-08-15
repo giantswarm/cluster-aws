@@ -39,6 +39,9 @@ spec:
   availabilityZones: {{ .availabilityZones | default ( include "aws-availability-zones" .) }}
   subnets:
   - filters:
+    - name: sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
+      values:
+      - owned
     - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
       values:
       - private
