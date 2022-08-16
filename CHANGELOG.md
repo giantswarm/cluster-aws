@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Ensure availability zone restrictions are added to the subnet filters
+
 ## [0.8.3] - 2022-08-15
 
 ### Fixed
