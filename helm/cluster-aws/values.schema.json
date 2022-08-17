@@ -129,6 +129,12 @@
                 "serviceCIDR": {
                     "type": "string"
                 },
+                "topologyMode": {
+                    "type": "string"
+                },
+                "transitGatewayID": {
+                    "type": "string"
+                },
                 "vpcCIDR": {
                     "type": "string"
                 }
