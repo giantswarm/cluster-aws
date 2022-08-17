@@ -45,6 +45,8 @@ spec:
     - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
       values:
       - private
+    - name: availabilityZone
+      values: {{ .availabilityZones | default ( include "aws-availability-zones" .) }}
   awsLaunchTemplate:
     {{- include "ami" $ | nindent 4 }}
     iamInstanceProfile: nodes-{{ .name }}-{{ include "resource.default.name" $ }}
