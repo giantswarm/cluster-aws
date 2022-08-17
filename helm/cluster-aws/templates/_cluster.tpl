@@ -4,6 +4,10 @@ kind: Cluster
 metadata:
   annotations:
     cluster.giantswarm.io/description: "{{ .Values.clusterDescription }}"
+    network-topology.giantswarm.io/mode: "{{ .Values.network.topologyMode }}"
+    {{- if .Values.network.transitGatewayID }}
+    network-topology.giantswarm.io/transit-gateway: "{{ .Values.network.transitGatewayID }}"
+    {{- end}}
   labels:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" $ | nindent 4 }}
