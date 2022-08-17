@@ -133,7 +133,7 @@
                     "type": "string"
                 },
                 "transitGatewayID": {
-                    "type": "null"
+                    "type": "string"
                 },
                 "vpcCIDR": {
                     "type": "string"

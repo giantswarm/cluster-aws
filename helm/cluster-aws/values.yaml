@@ -19,7 +19,7 @@ network:
   # Valid values: GiantSwarmManaged, UserManaged, None
   topologyMode: GiantSwarmManaged
   # transitGatewayID is the ID of the TGW to use when `mode` is set to `UserManaged`.
-  transitGatewayID:
+  transitGatewayID: ""
 
 bastion:
   enabled: true
