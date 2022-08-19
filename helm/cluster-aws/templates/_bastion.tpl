@@ -19,6 +19,8 @@ metadata:
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ include "resource.default.name" $ }}-bastion
   namespace: {{ .Release.Namespace }}
+  finalizers:
+  - blocker
 spec:
   clusterName: {{ include "resource.default.name" $ }}
   replicas: {{ .Values.bastion.replicas }}
