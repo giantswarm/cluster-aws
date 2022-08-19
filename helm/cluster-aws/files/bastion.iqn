@@ -7,7 +7,7 @@
          {
             "name":"giantswarm",
             "sshAuthorizedKeys":[
-               "ssh-rsa AAAABEKf fake@giantswarm"
+               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLSRVtP/b9bcMPYOa49/rj+09bb9TP8L3kCyh4miDkr fake@giantswarm"
             ],
             "groups":[
                "sudo",
@@ -17,6 +17,15 @@
             "uid":1000
          }
       ]
+   },
+   "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nAfter=network-online.target\n[Service]\nType=oneshot\nExecStart=/usr/bin/systemctl restart sshd\n[Install]\nWantedBy=multi-user.target",
+        "enabled": true,
+        "name": "restart-ssh.service"
+      }
+    ]
    },
    "storage":{
       "files":[
