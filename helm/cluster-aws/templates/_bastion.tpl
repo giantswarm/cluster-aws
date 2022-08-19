@@ -8,7 +8,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-bastion-ignition
   namespace: {{ .Release.Namespace }}
   finalizers:
-  - blocker
+  - bastion.finalizers.giantswarm.io
 type: cluster.x-k8s.io/secret
 data:
   value: {{ include "bastionIgnition" . }}
