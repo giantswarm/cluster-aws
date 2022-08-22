@@ -10,6 +10,8 @@ If no availability zones are provided in the values we'll attempt to look it up 
 {{- range $nodes }}
 {{- $azs = append $azs (get .metadata.labels "topology.kubernetes.io/zone") }}
 {{- end }}
+{{- if gt (len $azs) 0 }}
 {{- $azs | uniq | toYaml }}
+{{- end }}
 {{- end }}
 {{- end }}
