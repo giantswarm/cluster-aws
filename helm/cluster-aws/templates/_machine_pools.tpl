@@ -36,7 +36,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-{{ .name }}
   namespace: {{ $.Release.Namespace }}
 spec:
-  availabilityZones: {{ .availabilityZones | default ( include "aws-availability-zones" .) }}
+  availabilityZones: {{ include "aws-availability-zones" . | nindent 2 }}
   subnets:
   - filters:
     - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
@@ -46,7 +46,7 @@ spec:
       values:
       - private
     - name: availabilityZone
-      values: {{ .availabilityZones | default ( include "aws-availability-zones" .) }}
+      values: {{ include "aws-availability-zones" . | nindent 6 }}
   awsLaunchTemplate:
     {{- include "ami" $ | nindent 4 }}
     iamInstanceProfile: nodes-{{ .name }}-{{ include "resource.default.name" $ }}
