@@ -7,6 +7,8 @@ metadata:
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ include "resource.default.name" $ }}-bastion-ignition
   namespace: {{ .Release.Namespace }}
+  finalizers:
+  - bastion.finalizers.giantswarm.io/secret-blocker
 type: cluster.x-k8s.io/secret
 data:
   value: {{ include "bastionIgnition" . }}
@@ -46,7 +48,7 @@ spec:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: AWSMachineTemplate
         name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" .Values.bastion "global" .) }}
-      version: v0.0.0
+      version: {{ .Values.kubernetesVersion }}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachineTemplate
@@ -64,14 +66,6 @@ spec:
         {{- include "labels.common" $ | nindent 8 }}
     spec:
       instanceType: {{ .Values.bastion.instanceType }}
-      additionalSecurityGroups:
-      - filters:
-        - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
-          values:
-          - bastion
-        - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
-          values:
-          - owned
       cloudInit:
         insecureSkipSecretsManager: true
       imageLookupFormat: Flatcar-stable-*
@@ -83,5 +77,8 @@ spec:
         - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
           values:
           - public
+        - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
+          values:
+          - owned
       uncompressedUserData: true
 {{- end -}}
