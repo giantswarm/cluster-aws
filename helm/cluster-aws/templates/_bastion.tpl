@@ -66,14 +66,6 @@ spec:
         {{- include "labels.common" $ | nindent 8 }}
     spec:
       instanceType: {{ .Values.bastion.instanceType }}
-      additionalSecurityGroups:
-      - filters:
-        - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
-          values:
-          - bastion
-        - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
-          values:
-          - owned
       cloudInit:
         insecureSkipSecretsManager: true
       imageLookupFormat: Flatcar-stable-*
@@ -85,5 +77,8 @@ spec:
         - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
           values:
           - public
+        - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
+          values:
+          - owned
       uncompressedUserData: true
 {{- end -}}
