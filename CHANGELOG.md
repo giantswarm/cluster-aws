@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add support for configuring outgoing proxy for the cluster.
+
 ## [0.8.6] - 2022-08-23
 
 ### Fixed
