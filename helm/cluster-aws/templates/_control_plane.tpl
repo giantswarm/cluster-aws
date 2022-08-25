@@ -83,6 +83,7 @@ spec:
     files:
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
+    {{- if .Values.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     initConfiguration:
       localAPIEndpoint:
