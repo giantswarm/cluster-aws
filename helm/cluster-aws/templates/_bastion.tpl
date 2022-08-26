@@ -1,3 +1,27 @@
+{{/*
+AWSMachineTemplates .Spec are immutable and cannot change.
+This function is used for both the `.Spec` value and as the data for the hash function.
+Any changes to this will trigger the resource to be recreated rather than attempting to update in-place.
+*/}}
+{{- define "bastion-awsmachinetemplate-spec" -}}
+instanceType: {{ .Values.bastion.instanceType }}
+cloudInit:
+  insecureSkipSecretsManager: true
+imageLookupFormat: Flatcar-stable-*
+imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
+publicIP: true
+sshKeyName: ""
+subnet:
+  filters:
+  - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
+    values:
+    - public
+  - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
+    values:
+    - owned
+uncompressedUserData: true
+{{- end }}
+
 {{- define "bastion" }}
 apiVersion: v1
 kind: Secret
@@ -47,7 +71,7 @@ spec:
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: AWSMachineTemplate
-        name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" .Values.bastion "global" .) }}
+        name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
       version: {{ .Values.kubernetesVersion }}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
@@ -56,7 +80,7 @@ metadata:
   labels:
     cluster.x-k8s.io/role: bastion
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" .Values.bastion "global" .) }}
+  name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
   namespace: {{ .Release.Namespace }}
 spec:
   template:
@@ -64,21 +88,5 @@ spec:
       labels:
         cluster.x-k8s.io/role: bastion
         {{- include "labels.common" $ | nindent 8 }}
-    spec:
-      instanceType: {{ .Values.bastion.instanceType }}
-      cloudInit:
-        insecureSkipSecretsManager: true
-      imageLookupFormat: Flatcar-stable-*
-      imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
-      publicIP: true
-      sshKeyName: ""
-      subnet:
-        filters:
-        - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
-          values:
-          - public
-        - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
-          values:
-          - owned
-      uncompressedUserData: true
+    spec: {{ include "bastion-awsmachinetemplate-spec" $ | nindent 6 }}
 {{- end -}}
