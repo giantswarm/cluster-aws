@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add support for configuring outgoing proxy for the cluster.
 
+## [0.8.7] - 2022-08-26
+
+### Fixed
+
+- Improved hash function to hash based on whole `.Spec` rather than just provided values
+
 ## [0.8.6] - 2022-08-23
 
 ### Fixed
@@ -216,7 +222,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.8.6...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.8.7...HEAD
+[0.8.7]: https://github.com/giantswarm/cluster-aws/compare/v0.8.6...v0.8.7
 [0.8.6]: https://github.com/giantswarm/cluster-aws/compare/v0.8.5...v0.8.6
 [0.8.5]: https://github.com/giantswarm/cluster-aws/compare/v0.8.4...v0.8.5
 [0.8.4]: https://github.com/giantswarm/cluster-aws/compare/v0.8.3...v0.8.4
