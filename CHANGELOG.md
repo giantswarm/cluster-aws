@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Allow configuration of loadbalancer for Control Plane API (`internet-facing` will be default).
+
 ## [0.8.7] - 2022-08-26
 
 ### Fixed

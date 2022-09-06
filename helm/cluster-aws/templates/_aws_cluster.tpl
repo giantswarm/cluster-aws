@@ -12,6 +12,8 @@ spec:
   identityRef:
     kind: AWSClusterRoleIdentity
     name: {{ .Values.aws.awsClusterRole }}
+  controlPlaneLoadBalancer:
+    scheme: {{ .Values.controlPlane.apiLoadbalancerScheme }}
   network:
     cni:
       cniIngressRules:
