@@ -42,6 +42,9 @@
         "controlPlane": {
             "type": "object",
             "properties": {
+                "apiLoadbalancerScheme": {
+                    "type": "string"
+                },
                 "containerdVolumeSizeGB": {
                     "type": "integer"
                 },
