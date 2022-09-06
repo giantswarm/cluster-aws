@@ -28,7 +28,7 @@ bastion:
 
 controlPlane:
   # can be internal or internet-facing
-  apiLoadbalancerScheme: internal
+  apiLoadbalancerScheme: internet-facing
   instanceType: m5.xlarge
   rootVolumeSizeGB: 120
   etcdVolumeSizeGB: 100
