@@ -58,6 +58,11 @@ oidc:
   usernameClaim: ""
   groupsClaim: ""
 
+proxy:
+  enabled: false
+  http_proxy: ""
+  https_proxy: ""
+
 # Used by `cluster-shared` library chart
 includeClusterResourceSet: true
 kubectlImage:

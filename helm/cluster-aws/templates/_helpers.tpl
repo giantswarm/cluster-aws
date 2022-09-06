@@ -58,6 +58,13 @@ room for such suffix.
   encoding: base64
   content: {{ $.Files.Get "files/opt/init-disks.sh" | b64enc }}
 {{- end -}}
+{{- define "proxyFiles" -}}
+- path: /etc/systemd/system/containerd.service.d/http-proxy.conf
+  permissions: "0644"
+  encoding: base64
+  content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") . | b64enc }}
+{{- end -}}
+
 
 {{- define "kubernetesFiles" -}}
 - path: /etc/kubernetes/policies/audit-policy.yaml

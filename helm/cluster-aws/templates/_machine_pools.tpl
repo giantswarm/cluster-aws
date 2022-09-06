@@ -88,6 +88,9 @@ spec:
   {{- include "sshPostKubeadmCommands" . | nindent 2 }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
+  files:
+  {{- include "sshFiles" $ | nindent 2 }}
+  {{- if $.Values.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
 ---
 {{ end }}
 {{- end -}}
