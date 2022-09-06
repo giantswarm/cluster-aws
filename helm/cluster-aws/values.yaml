@@ -27,6 +27,8 @@ bastion:
   replicas: 1
 
 controlPlane:
+  # can be internal or internet-facing
+  apiLoadbalancerScheme: internet-facing
   instanceType: m5.xlarge
   rootVolumeSizeGB: 120
   etcdVolumeSizeGB: 100
@@ -55,6 +57,11 @@ oidc:
   clientId: ""
   usernameClaim: ""
   groupsClaim: ""
+
+proxy:
+  enabled: false
+  http_proxy: ""
+  https_proxy: ""
 
 # Used by `cluster-shared` library chart
 includeClusterResourceSet: true

@@ -42,6 +42,9 @@
         "controlPlane": {
             "type": "object",
             "properties": {
+                "apiLoadbalancerScheme": {
+                    "type": "string"
+                },
                 "containerdVolumeSizeGB": {
                     "type": "integer"
                 },
@@ -162,6 +165,20 @@
         },
         "organization": {
             "type": "string"
+        },
+        "proxy": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "http_proxy": {
+                    "type": "string"
+                },
+                "https_proxy": {
+                    "type": "string"
+                }
+            }
         },
         "releaseVersion": {
             "type": "string"
