@@ -17,7 +17,7 @@ network:
 
   # topologyMode defines the type of cross-cluster networking architecture between MCs and WCs
   # Valid values: GiantSwarmManaged, UserManaged, None
-  topologyMode: GiantSwarmManaged
+  topologyMode: None
   # transitGatewayID is the ID of the TGW to use when `mode` is set to `UserManaged`.
   transitGatewayID: ""
 
