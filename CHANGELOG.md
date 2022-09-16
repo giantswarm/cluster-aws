@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Default network topology mode changed to 'None'
+
 ## [0.9.1] - 2022-09-06
 
 ### Fixed
