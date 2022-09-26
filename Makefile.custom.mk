@@ -1,5 +1,5 @@
 .PHONY: template
-template:
+template: ## Output the rendered template yaml
 	@cd helm/cluster-aws && \
 		sed -i '' 's/version: \[/version: 1 #\[/' Chart.yaml && \
 		helm template . && \

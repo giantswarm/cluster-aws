@@ -42,9 +42,6 @@
         "controlPlane": {
             "type": "object",
             "properties": {
-                "apiLoadbalancerScheme": {
-                    "type": "string"
-                },
                 "containerdVolumeSizeGB": {
                     "type": "integer"
                 },
@@ -123,6 +120,9 @@
         "network": {
             "type": "object",
             "properties": {
+                "apiMode": {
+                    "type": "string"
+                },
                 "availabilityZoneUsageLimit": {
                     "type": "integer"
                 },
@@ -139,6 +139,9 @@
                     "type": "string"
                 },
                 "vpcCIDR": {
+                    "type": "string"
+                },
+                "vpcMode": {
                     "type": "string"
                 }
             }

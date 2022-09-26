@@ -13,7 +13,7 @@ spec:
     kind: AWSClusterRoleIdentity
     name: {{ .Values.aws.awsClusterRole }}
   controlPlaneLoadBalancer:
-    scheme: {{ .Values.controlPlane.apiLoadbalancerScheme }}
+    scheme: {{ if (eq .Values.network.apiMode "public") }}internet-facing{{ else }}internal{{ end }}
   network:
     cni:
       cniIngressRules:
