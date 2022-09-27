@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `.Values.controlPlane.apiLoadbalancerScheme` has been removed in favour of `.Values.network.apiMode`
+
+### Added
+
+- Support for specifying private VPC configuration (not yet used)
+- Validation of vpcMode and apiMode combination being valid
+
 ## [0.9.2] - 2022-09-16
 
 ### Changed
