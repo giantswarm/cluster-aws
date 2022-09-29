@@ -22,6 +22,11 @@ network:
   # Valid value: public, private
   apiMode: public
 
+  # dnsMode defines if the Route53 Hosted Zone should be public or private
+  # Valid value: public, private
+  dnsMode: public
+
+
   # topologyMode defines the type of cross-cluster networking architecture between MCs and WCs
   # Valid values: GiantSwarmManaged, UserManaged, None
   topologyMode: None

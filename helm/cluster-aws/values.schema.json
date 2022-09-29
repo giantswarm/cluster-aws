@@ -126,6 +126,9 @@
                 "availabilityZoneUsageLimit": {
                     "type": "integer"
                 },
+                "dnsMode": {
+                    "type": "string"
+                },
                 "podCIDR": {
                     "type": "string"
                 },

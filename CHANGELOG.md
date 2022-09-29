@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Support for specifying private VPC configuration (not yet used)
+- Support for specifying private DNS zone configuration.
 - Validation of vpcMode and apiMode combination being valid
 
 ## [0.9.2] - 2022-09-16
