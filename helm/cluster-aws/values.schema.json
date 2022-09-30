@@ -126,6 +126,9 @@
                 "availabilityZoneUsageLimit": {
                     "type": "integer"
                 },
+                "dnsAssignAdditionalVPCs": {
+                    "type": "string"
+                },
                 "dnsMode": {
                     "type": "string"
                 },
