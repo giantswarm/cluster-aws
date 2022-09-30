@@ -5,7 +5,7 @@ metadata:
   annotations:
     aws.giantswarm.io/dns-mode: {{ if (eq .Values.network.dnsMode "private") }}"private"{{ else }}"public"{{ end }}
     {{- if (eq .Values.network.dnsMode "private") }}
-    aws.giantswarm.io/dns-assign-additional-vpc: {{ .Values.network.dnsAssignAdditionalVPCs }}
+    aws.giantswarm.io/dns-assign-additional-vpc: "{{ .Values.network.dnsAssignAdditionalVPCs }}"
     {{- end }}
   labels:
     {{- include "labels.common" $ | nindent 4 }}
