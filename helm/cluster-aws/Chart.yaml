@@ -5,6 +5,7 @@ type: application
 version: [[ .Version ]]
 annotations:
   application.giantswarm.io/team: "hydra"
+  application.giantswarm.io/app-type: "cluster"
 restrictions:
   compatibleProviders:
     - aws
