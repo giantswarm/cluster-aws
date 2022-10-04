@@ -126,6 +126,12 @@
                 "availabilityZoneUsageLimit": {
                     "type": "integer"
                 },
+                "dnsAssignAdditionalVPCs": {
+                    "type": "string"
+                },
+                "dnsMode": {
+                    "type": "string"
+                },
                 "podCIDR": {
                     "type": "string"
                 },
