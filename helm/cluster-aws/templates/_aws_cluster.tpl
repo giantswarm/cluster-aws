@@ -3,6 +3,7 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSCluster
 metadata:
   annotations:
+    aws.giantswarm.io/vpc-mode: "{{ .Values.network.vpcMode }}"
     aws.giantswarm.io/dns-mode: {{ if (eq .Values.network.dnsMode "private") }}"private"{{ else }}"public"{{ end }}
     {{- if (eq .Values.network.dnsMode "private") }}
     aws.giantswarm.io/dns-assign-additional-vpc: "{{ .Values.network.dnsAssignAdditionalVPCs }}"
