@@ -65,6 +65,12 @@ room for such suffix.
   content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
 {{- end -}}
 
+{{- define "irsaFiles" -}}
+- path: /opt/irsa-cloudfront.sh
+  permissions: "0700"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/irsa-cloudfront.sh" | b64enc }}
+{{- end -}}
 
 {{- define "kubernetesFiles" -}}
 - path: /etc/kubernetes/policies/audit-policy.yaml
