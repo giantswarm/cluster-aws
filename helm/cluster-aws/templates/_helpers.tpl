@@ -77,7 +77,7 @@ room for such suffix.
     secret:
       name: {{ include "resource.default.name" $ }}-encryption-provider-config
       key: encryption
-- path: /etc/kubernetes/irsa/cloudfront.yaml
+- path: /etc/kubernetes/irsa/cloudfront-domain
   permissions: "0600"
   contentFrom:
     secret:
@@ -92,6 +92,10 @@ room for such suffix.
 
 {{- define "diskPreKubeadmCommands" -}}
 - /bin/sh /opt/init-disks.sh
+{{- end -}}
+
+{{- define "irsaPreKubeadmCommands" -}}
+- /bin/sh /opt/irsa-cloudfront.sh
 {{- end -}}
 
 {{- define "sshUsers" -}}
