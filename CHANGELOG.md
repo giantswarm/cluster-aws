@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Set `aws.giantswarm.io/vpc-mode` annotation on AWSCluster.
+
 ## [0.10.0] - 2022-10-04
 
 ### Changed
