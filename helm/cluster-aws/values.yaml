@@ -18,6 +18,7 @@ network:
   # vpcMode defines if the VPC is created with public, internet facing resources (public subnets, NAT gateway) or not
   # Valid value: public, private
   vpcMode: public
+
   # apiMode defines if the Kubernetes API server load balancer should be public (internet facing) or private (internal only)
   # Valid value: public, private
   apiMode: public
