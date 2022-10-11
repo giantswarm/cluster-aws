@@ -53,6 +53,7 @@ spec:
           - 127.0.0.1
         extraArgs:
           cloud-provider: aws
+          service-account-issuer: PLACEHOLDER_CLOUDFRONT_DOMAIN
           {{- if .Values.oidc.issuerUrl }}
           {{- with .Values.oidc }}
           oidc-issuer-url: {{ .issuerUrl }}

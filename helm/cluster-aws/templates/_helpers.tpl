@@ -77,6 +77,12 @@ room for such suffix.
     secret:
       name: {{ include "resource.default.name" $ }}-encryption-provider-config
       key: encryption
+- path: /etc/kubernetes/irsa/cloudfront.yaml
+  permissions: "0600"
+  contentFrom:
+    secret:
+      name: {{ include "resource.default.name" $ }}-irsa-cloudfront
+      key: domain
 {{- end -}}
 
 
