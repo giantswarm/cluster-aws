@@ -8,6 +8,9 @@ metadata:
     {{- if (eq .Values.network.dnsMode "private") }}
     aws.giantswarm.io/dns-assign-additional-vpc: "{{ .Values.network.dnsAssignAdditionalVPCs }}"
     {{- end }}
+    {{- if (eq .Values.network.vpcMode "private") }}
+    cluster.x-k8s.io/paused: "true"
+    {{end}}
   labels:
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ include "resource.default.name" $ }}
