@@ -135,6 +135,7 @@ spec:
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
     preKubeadmCommands:
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
+    {{- include "irsaPreKubeadmCommands" . | nindent 4 }}
     postKubeadmCommands:
     {{- include "sshPostKubeadmCommands" . | nindent 4 }}
     users:
