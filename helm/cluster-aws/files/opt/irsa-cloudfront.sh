@@ -1,11 +1,6 @@
 #!/bin/bash
 
-set -o errexit
-set -o nounset
-set -o pipefail
-
 # Replace Kubeadm Cloudfront placeholder
-
 CLOUDFRONT_DOMAIN=$(cat /etc/kubernetes/irsa/cloudfront-domain)
 
 kubeadm_file="/etc/kubeadm.yml"
