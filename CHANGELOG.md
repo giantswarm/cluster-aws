@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set `aws.giantswarm.io/vpc-mode` annotation on AWSCluster.
 - Set cluster to paused when vpcMode is set to private
 
+### Changed
+
+- Updated to Kubernetes 1.22.15
+- Updated to using Ubuntu 22.04 as base OS
+
 ## [0.10.0] - 2022-10-04
 
 ### Changed
