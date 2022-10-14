@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - IRSA for CAPA.
 
+### Changed
+
+- Enable tcp forwarding for sshd on bastion.
+
 ## [0.11.1] - 2022-10-14
 
 ### Fixed
