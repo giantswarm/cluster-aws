@@ -105,7 +105,7 @@ ami:
 {{- else -}}
 ami: {}
 imageLookupBaseOS: "ubuntu-22.04"
-imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-{{.K8sVersion}}-gs" }}
+imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-gs" }}
 imageLookupOrg: "706635527432"
 {{- end }}
 {{- end -}}
