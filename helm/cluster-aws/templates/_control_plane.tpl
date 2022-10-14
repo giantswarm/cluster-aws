@@ -53,6 +53,7 @@ spec:
           - 127.0.0.1
         extraArgs:
           cloud-provider: aws
+          service-account-issuer: PLACEHOLDER_CLOUDFRONT_DOMAIN
           {{- if .Values.oidc.issuerUrl }}
           {{- with .Values.oidc }}
           oidc-issuer-url: {{ .issuerUrl }}
@@ -112,6 +113,7 @@ spec:
     files:
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
+    {{- include "irsaFiles" . | nindent 4 }}
     {{- if .Values.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     initConfiguration:
@@ -134,6 +136,7 @@ spec:
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
     preKubeadmCommands:
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
+    {{- include "irsaPreKubeadmCommands" . | nindent 4 }}
     postKubeadmCommands:
     {{- include "sshPostKubeadmCommands" . | nindent 4 }}
     users:
