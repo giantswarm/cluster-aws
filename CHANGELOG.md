@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.12.0] - 2022-10-14
 
+### Added
+
+- IRSA for CAPA.
+
 ## [0.11.1] - 2022-10-14
 
 ### Fixed
@@ -19,7 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- IRSA for CAPA.
 - Set `aws.giantswarm.io/vpc-mode` annotation on AWSCluster.
 - Set cluster to paused when vpcMode is set to private
 
