@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Rolled back to Ubuntu 20.04
+
 ## [0.11.0] - 2022-10-14
 
 ### Added
