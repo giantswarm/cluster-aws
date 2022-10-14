@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Re-added Ubuntu 22.04 with correct lookup
+
 ## [0.11.1] - 2022-10-14
 
 ### Fixed
