@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Make `kubeadm` skip the phase where it installs `kube-proxy` as we will use `cilium` as a replacement.
+
 ## [0.12.0] - 2022-10-14
 
 ### Added
@@ -33,10 +37,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Set `aws.giantswarm.io/vpc-mode` annotation on AWSCluster.
 - Set cluster to paused when vpcMode is set to private.
-
-### Changed
-
-- Make `kubeadm` skip the phase where it installs `kube-proxy` as we will use `cilium` as a replacement.
 
 ### Changed
 
