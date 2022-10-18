@@ -36,7 +36,7 @@ spec:
     subnets:
 {{ range $i, $subnet := .Values.network.subnets }}
     - cidrBlock: "{{ $subnet.cidrBlock }}"
-      availabilityZone: "{{ include "aws-region" . }}{{ add 97 $i | printf "%c" }}"
+      availabilityZone: "{{ include "aws-region" $ }}{{ add 97 $i | printf "%c" }}"
 {{ end }}
   sshKeyName: ssh-key
   region: {{ include "aws-region" . }}
