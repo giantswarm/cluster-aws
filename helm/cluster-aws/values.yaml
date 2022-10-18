@@ -39,6 +39,11 @@ network:
   # transitGatewayID is the ID of the TGW to use when `mode` is set to `UserManaged`.
   transitGatewayID: ""
 
+  subnets:
+  - cidrBlock: 10.0.0.0/18
+  - cidrBlock: 10.0.64.0/18
+  - cidrBlock: 10.0.128.0/18
+
 bastion:
   enabled: true
   instanceType: t3.small
