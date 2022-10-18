@@ -65,6 +65,12 @@ room for such suffix.
   content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
 {{- end -}}
 
+{{- define "irsaFiles" -}}
+- path: /opt/irsa-cloudfront.sh
+  permissions: "0700"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/irsa-cloudfront.sh" | b64enc }}
+{{- end -}}
 
 {{- define "kubernetesFiles" -}}
 - path: /etc/kubernetes/policies/audit-policy.yaml
@@ -77,6 +83,12 @@ room for such suffix.
     secret:
       name: {{ include "resource.default.name" $ }}-encryption-provider-config
       key: encryption
+- path: /etc/kubernetes/irsa/cloudfront-domain
+  permissions: "0600"
+  contentFrom:
+    secret:
+      name: {{ include "resource.default.name" $ }}-irsa-cloudfront
+      key: domain
 {{- end -}}
 
 
@@ -86,6 +98,10 @@ room for such suffix.
 
 {{- define "diskPreKubeadmCommands" -}}
 - /bin/sh /opt/init-disks.sh
+{{- end -}}
+
+{{- define "irsaPreKubeadmCommands" -}}
+- /bin/sh /opt/irsa-cloudfront.sh
 {{- end -}}
 
 {{- define "sshUsers" -}}

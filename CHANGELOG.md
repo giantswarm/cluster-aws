@@ -7,14 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Enable tcp forwarding for sshd on bastion.
+
+## [0.11.1] - 2022-10-14
+
+### Fixed
+
+- Rolled back to Ubuntu 20.04
+
+## [0.11.0] - 2022-10-14
+
 ### Added
 
+- IRSA for CAPA.
 - Set `aws.giantswarm.io/vpc-mode` annotation on AWSCluster.
 - Set cluster to paused when vpcMode is set to private.
 
 ### Changed
 
 - Make `kubeadm` skip the phase where it installs `kube-proxy` as we will use `cilium` as a replacement.
+
+### Changed
+
+- Updated to Kubernetes 1.22.15
+- Updated to using Ubuntu 22.04 as base OS
 
 ## [0.10.0] - 2022-10-04
 
@@ -258,7 +276,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.11.1...HEAD
+[0.11.1]: https://github.com/giantswarm/cluster-aws/compare/v0.11.0...v0.11.1
+[0.11.0]: https://github.com/giantswarm/cluster-aws/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/giantswarm/cluster-aws/compare/v0.9.2...v0.10.0
 [0.9.2]: https://github.com/giantswarm/cluster-aws/compare/v0.9.1...v0.9.2
 [0.9.1]: https://github.com/giantswarm/cluster-aws/compare/v0.9.0...v0.9.1
