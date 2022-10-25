@@ -22,6 +22,7 @@ Common labels
 helm.sh/chart: {{ include "chart" . | quote }}
 app.kubernetes.io/version: {{ .Chart.Version | quote }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
+release.giantswarm.io/version: {{ .Values.releaseVersion | quote }}
 {{- end -}}
 
 {{/*
