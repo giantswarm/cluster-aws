@@ -33,6 +33,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
 cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" . | quote }}
 giantswarm.io/cluster: {{ include "resource.default.name" . | quote }}
 giantswarm.io/organization: {{ .Values.organization | quote }}
+cluster.x-k8s.io/watch-filter: capi
 {{- end -}}
 
 {{/*
