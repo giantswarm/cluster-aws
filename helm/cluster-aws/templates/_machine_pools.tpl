@@ -49,7 +49,7 @@ spec:
       values: {{ include "aws-availability-zones" . | nindent 6 }}
   awsLaunchTemplate:
     {{- include "ami" $ | nindent 4 }}
-    iamInstanceProfile: nodes-{{ .name }}-{{ include "resource.default.name" $ }}
+    iamInstanceProfile: giantswarm-{{ include "resource.default.name" $ }}-{{ .name }}-nodes
     instanceType: {{ .instanceType }}
     rootVolume:
       size: {{ .rootVolumeSizeGB }}

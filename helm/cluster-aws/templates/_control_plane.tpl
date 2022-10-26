@@ -23,7 +23,7 @@ nonRootVolumes:
 rootVolume:
   size: {{ .Values.controlPlane.rootVolumeSizeGB }}
   type: gp3
-iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
+iamInstanceProfile: giantswarm-{{ include "resource.default.name" $ }}-control-plane
 sshKeyName: ""
 {{- end }}
 
