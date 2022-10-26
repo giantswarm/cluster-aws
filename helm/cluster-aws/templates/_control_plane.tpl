@@ -120,6 +120,7 @@ spec:
     initConfiguration:
       skipPhases:
       - addon/kube-proxy
+      - addon/coredns
       localAPIEndpoint:
         advertiseAddress: ""
         bindPort: 0
