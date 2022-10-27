@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Add `api-audiences` for IRSA.
+- Bump `cluster-shared` to latest
 
 ## [0.13.0] - 2022-10-19
 
