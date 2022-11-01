@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bumped Kubernetes to v1.23
 
+### Fixed
+
+- Immutable AWSMachineTemplate
+
 ## [0.13.1] - 2022-10-27
 
 ### Fixed
