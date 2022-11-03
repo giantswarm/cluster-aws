@@ -15,12 +15,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Immutable AWSMachineTemplate
 
+## [0.13.2] - 2022-11-03
+
+### Fixed
+
+- Ensure the `KubeadmControlPlane` `.spec.version` value is always prefixed with `v`
+
 ## [0.13.1] - 2022-10-27
 
 ### Fixed
 
-- Add `api-audiences` for IRSA.
-- Bump `cluster-shared` to latest
+- Add the missing `api-audiences` attribute to the `KubeadmControlPlane` template, to fix the use of IRSA service account tokens.
+
+### Changed
+
+- Update [cluster-shared](https://github.com/giantswarm/cluster-shared) from v0.3.0 to v0.6.3.
 
 ## [0.13.0] - 2022-10-19
 
@@ -302,7 +311,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.13.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.13.2...HEAD
+[0.13.2]: https://github.com/giantswarm/cluster-aws/compare/v0.13.1...v0.13.2
 [0.13.1]: https://github.com/giantswarm/cluster-aws/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/giantswarm/cluster-aws/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/giantswarm/cluster-aws/compare/v0.11.1...v0.12.0
