@@ -123,6 +123,10 @@ room for such suffix.
 - name: giantswarm
   groups: sudo
   sudo: ALL=(ALL) NOPASSWD:ALL
+- name: calvix
+  groups: sudo
+  sudo: ALL=(ALL) NOPASSWD:ALL
+  passwd: $6$xyz$JmcdjN02uQJbPyvKKlm4scs2oCTScp6WJh31NlBR7bvo9juYjtJ.RrCu7a3jutsaYUdPBrlfwUQbIAzx5XzQT1
 {{- end -}}
 
 {{- define "bastionIgnition" }}
