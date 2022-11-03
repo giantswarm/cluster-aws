@@ -70,10 +70,6 @@ room for such suffix.
   permissions: "0644"
   encoding: base64
   content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
-- path: /etc/systemd/system/cloud-final.service.d/http-proxy.conf
-  permissions: "0644"
-  encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
 {{- end -}}
 
 {{- define "irsaFiles" -}}
