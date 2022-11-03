@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0] - 2022-11-03
+
 ### Changed
 
 - Bumped Kubernetes to v1.23
@@ -311,7 +313,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.13.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.14.0...HEAD
+[0.14.0]: https://github.com/giantswarm/cluster-aws/compare/v0.13.2...v0.14.0
 [0.13.2]: https://github.com/giantswarm/cluster-aws/compare/v0.13.1...v0.13.2
 [0.13.1]: https://github.com/giantswarm/cluster-aws/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/giantswarm/cluster-aws/compare/v0.12.0...v0.13.0
