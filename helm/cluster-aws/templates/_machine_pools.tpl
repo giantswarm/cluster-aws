@@ -50,13 +50,13 @@ spec:
   awsLaunchTemplate:
     {{- include "ami" $ | nindent 4 }}
     iamInstanceProfile: nodes-{{ .name }}-{{ include "resource.default.name" $ }}
-    instanceType: {{ .instanceType }}
+    instanceType: {{ .instanceType | default "m5.xlarge" }}
     rootVolume:
-      size: {{ .rootVolumeSizeGB }}
+      size: {{ .rootVolumeSizeGB | default 300 }}
       type: gp3
     sshKeyName: ""
-  minSize: {{ .minSize }}
-  maxSize: {{ .maxSize }}
+  minSize: {{ .minSize | default 1 }}
+  maxSize: {{ .maxSize | default 3 }}
   mixedInstancesPolicy:
     instancesDistribution:
       onDemandAllocationStrategy: prioritized
