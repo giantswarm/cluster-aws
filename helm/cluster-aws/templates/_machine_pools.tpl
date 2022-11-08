@@ -50,13 +50,13 @@ spec:
   awsLaunchTemplate:
     {{- include "ami" $ | nindent 4 }}
     iamInstanceProfile: nodes-{{ .name }}-{{ include "resource.default.name" $ }}
-    instanceType: {{ .instanceType }}
+    instanceType: {{ .instanceType | default "m5.xlarge" }}
     rootVolume:
-      size: {{ .rootVolumeSizeGB }}
+      size: {{ .rootVolumeSizeGB | default 300 }}
       type: gp3
     sshKeyName: ""
-  minSize: {{ .minSize }}
-  maxSize: {{ .maxSize }}
+  minSize: {{ .minSize | default 1 }}
+  maxSize: {{ .maxSize | default 3 }}
   mixedInstancesPolicy:
     instancesDistribution:
       onDemandAllocationStrategy: prioritized
@@ -84,6 +84,16 @@ spec:
         node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ .name }},{{- join "," .customNodeLabels }}
         v: "2"
       name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+      {{- if .customNodeTaints }}
+      {{- if (gt (len .customNodeTaints) 0) }}
+      taints:
+      {{- range .customNodeTaints }}
+      - key: {{ .key | quote }}
+        value: {{ .value | quote }}
+        effect: {{ .effect | quote }}
+      {{- end }}
+      {{- end }}
+      {{- end }}
   postKubeadmCommands:
   {{- include "sshPostKubeadmCommands" . | nindent 2 }}
   users:
