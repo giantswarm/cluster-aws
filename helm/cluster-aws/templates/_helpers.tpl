@@ -71,6 +71,14 @@ room for such suffix.
   encoding: base64
   content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
 {{- end -}}
+{{- define "proxyEnvsCommand" -}}
+- export HTTP_PROXY={{ $.Values.proxy.http_proxy }}
+- export HTTPS_PROXY={{ $.Values.proxy.https_proxy }}
+- export NO_PROXY=169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }}
+- export http_proxy={{ $.Values.proxy.http_proxy }}
+- export https_proxy={{ $.Values.proxy.https_proxy }}
+- export no_proxy=169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }}
+{{- end -}}
 
 {{- define "irsaFiles" -}}
 - path: /opt/irsa-cloudfront.sh
@@ -99,7 +107,7 @@ room for such suffix.
 {{- end -}}
 
 
-{{- define "sshPostKubeadmCommands" -}}
+{{- define "sshPreKubeadmCommands" -}}
 - systemctl restart sshd
 {{- end -}}
 

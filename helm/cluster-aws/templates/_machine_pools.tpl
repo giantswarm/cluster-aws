@@ -85,7 +85,7 @@ spec:
         v: "2"
       name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
   postKubeadmCommands:
-  {{- include "sshPostKubeadmCommands" . | nindent 2 }}
+  {{- include "sshPreKubeadmCommands" . | nindent 2 }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   files:

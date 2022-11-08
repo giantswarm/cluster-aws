@@ -140,8 +140,8 @@ spec:
     preKubeadmCommands:
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
     {{- include "irsaPreKubeadmCommands" . | nindent 4 }}
-    postKubeadmCommands:
-    {{- include "sshPostKubeadmCommands" . | nindent 4 }}
+    {{- include "sshPreKubeadmCommands" . | nindent 4 }}
+    {{- include "proxyEnvsCommand" $ | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: {{ .Values.controlPlane.replicas | default "3" }}
