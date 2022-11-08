@@ -70,26 +70,6 @@ room for such suffix.
   permissions: "0644"
   encoding: base64
   content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
-- path: /etc/systemd/system/cloud-init.service.d/proxy.conf
-  permissions: "0644"
-  encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
-- path: /etc/systemd/system/cloud-config.service.d/proxy.conf
-  permissions: "0644"
-  encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
-- path: /etc/systemd/system/cloud-final.service.d/proxy.conf
-  permissions: "0644"
-  encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
-- path: /etc/systemd/system/cloud-config.service.d/strace.conf
-  permissions: "0644"
-  encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/systemd/system/cloud-config.service.d/http-proxy.conf") $ | b64enc }}
-- path: /opt/cloud-config.sh
-  permissions: "0755"
-  encoding: base64
-  content: {{ tpl ($.Files.Get "files/opt/cloud-config.sh") $ | b64enc }}
 {{- end -}}
 
 {{- define "irsaFiles" -}}
