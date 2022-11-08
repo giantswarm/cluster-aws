@@ -86,7 +86,7 @@ spec:
       name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
   preKubeadmCommands:
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
-    {{- if .Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
+    {{- if $.Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   files:
