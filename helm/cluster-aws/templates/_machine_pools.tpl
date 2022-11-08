@@ -84,8 +84,9 @@ spec:
         node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ .name }},{{- join "," .customNodeLabels }}
         v: "2"
       name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
-  postKubeadmCommands:
-  {{- include "sshPreKubeadmCommands" . | nindent 2 }}
+  preKubeadmCommands:
+    {{- include "sshPreKubeadmCommands" . | nindent 4 }}
+    {{- if .Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   files:
