@@ -1,5 +1,5 @@
 clusterName: ""  # Cluster name. Defaults to chart release name
-clusterDescription: "test"  # Cluster description used in metadata.
+clusterDescription: "test - blah blah blah"  # Cluster description used in metadata.
 organization: ""  # Organization in which to create the cluster.
 kubernetesVersion: 1.23.13
 releaseVersion: 20.0.0-alpha1
