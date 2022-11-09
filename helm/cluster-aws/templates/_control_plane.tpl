@@ -4,27 +4,33 @@ This function is used for both the `.Spec` value and as the data for the hash fu
 Any changes to this will trigger the resource to be recreated rather than attempting to update in-place.
 */}}
 {{- define "controlplane-awsmachinetemplate-spec" -}}
-{{- include "ami" $  }}
-cloudInit: {}
-instanceType: {{ .Values.controlPlane.instanceType }}
-nonRootVolumes:
-- deviceName: /dev/xvdc
-  encrypted: true
-  size: {{ .Values.controlPlane.etcdVolumeSizeGB }}
-  type: gp3
-- deviceName: /dev/xvdd
-  encrypted: true
-  size: {{ .Values.controlPlane.containerdVolumeSizeGB }}
-  type: gp3
-- deviceName: /dev/xvde
-  encrypted: true
-  size: {{ .Values.controlPlane.kubeletVolumeSizeGB }}
-  type: gp3
-rootVolume:
-  size: {{ .Values.controlPlane.rootVolumeSizeGB }}
-  type: gp3
-iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
-sshKeyName: ""
+template:
+  metadata:
+    labels:
+      cluster.x-k8s.io/role: control-plane
+      {{- include "labels.common" $ | nindent 6 }}
+  spec:
+    {{- include "ami" $ | nindent 4 }}
+    cloudInit: {}
+    instanceType: {{ .Values.controlPlane.instanceType }}
+    nonRootVolumes:
+    - deviceName: /dev/xvdc
+      encrypted: true
+      size: {{ .Values.controlPlane.etcdVolumeSizeGB }}
+      type: gp3
+    - deviceName: /dev/xvdd
+      encrypted: true
+      size: {{ .Values.controlPlane.containerdVolumeSizeGB }}
+      type: gp3
+    - deviceName: /dev/xvde
+      encrypted: true
+      size: {{ .Values.controlPlane.kubeletVolumeSizeGB }}
+      type: gp3
+    rootVolume:
+      size: {{ .Values.controlPlane.rootVolumeSizeGB }}
+      type: gp3
+    iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
+    sshKeyName: ""
 {{- end }}
 
 {{- define "control-plane" }}
@@ -131,12 +137,32 @@ spec:
           node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
           v: "2"
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+        {{- if .Values.controlPlane.customNodeTaints }}
+        {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
+        taints:
+        {{- range .Values.controlPlane.customNodeTaints }}
+        - key: {{ .key | quote }}
+          value: {{ .value | quote }}
+          effect: {{ .effect | quote }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
     joinConfiguration:
       discovery: {}
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: aws
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+        {{- if .Values.controlPlane.customNodeTaints }}
+        {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
+        taints:
+        {{- range .Values.controlPlane.customNodeTaints }}
+        - key: {{ .key | quote }}
+          value: {{ .value | quote }}
+          effect: {{ .effect | quote }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
     preKubeadmCommands:
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
     {{- include "irsaPreKubeadmCommands" . | nindent 4 }}
@@ -145,7 +171,7 @@ spec:
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: {{ .Values.controlPlane.replicas | default "3" }}
-  version: {{ .Values.kubernetesVersion }}
+  version: v{{ trimPrefix "v" .Values.kubernetesVersion }}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachineTemplate
@@ -155,11 +181,5 @@ metadata:
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
   namespace: {{ $.Release.Namespace }}
-spec:
-  template:
-    metadata:
-      labels:
-        cluster.x-k8s.io/role: control-plane
-        {{- include "labels.common" $ | nindent 8 }}
-    spec: {{ include "controlplane-awsmachinetemplate-spec" $ | nindent 6 }}
+spec: {{ include "controlplane-awsmachinetemplate-spec" $ | nindent 2 }}
 {{- end -}}
