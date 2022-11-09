@@ -141,6 +141,17 @@
                 "serviceCIDR": {
                     "type": "string"
                 },
+                "subnets": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "cidrBlock": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
                 "topologyMode": {
                     "type": "string"
                 },
