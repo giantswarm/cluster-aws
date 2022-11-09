@@ -70,6 +70,10 @@ room for such suffix.
   permissions: "0644"
   encoding: base64
   content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
+- path: /etc/systemd/system/kubelet.service.d/http-proxy.conf
+  permissions: "0644"
+  encoding: base64
+  content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
 {{- end -}}
 {{- define "proxyCommand" -}}
 - export HTTP_PROXY={{ $.Values.proxy.http_proxy }}
@@ -80,6 +84,7 @@ room for such suffix.
 - export no_proxy=169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }}
 - systemctl daemon-reload
 - systemctl restart containerd
+- systemctl restart kubelet
 {{- end -}}
 
 {{- define "irsaFiles" -}}
