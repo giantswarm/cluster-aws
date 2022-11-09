@@ -99,6 +99,9 @@
                             "type": "string"
                         }
                     },
+                    "customNodeTaints": {
+                        "type": "array"
+                    },
                     "instanceType": {
                         "type": "string"
                     },

@@ -137,12 +137,32 @@ spec:
           node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
           v: "2"
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+        {{- if .Values.controlPlane.customNodeTaints }}
+        {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
+        taints:
+        {{- range .Values.controlPlane.customNodeTaints }}
+        - key: {{ .key | quote }}
+          value: {{ .value | quote }}
+          effect: {{ .effect | quote }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
     joinConfiguration:
       discovery: {}
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: aws
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+        {{- if .Values.controlPlane.customNodeTaints }}
+        {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
+        taints:
+        {{- range .Values.controlPlane.customNodeTaints }}
+        - key: {{ .key | quote }}
+          value: {{ .value | quote }}
+          effect: {{ .effect | quote }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
     preKubeadmCommands:
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
     {{- include "irsaPreKubeadmCommands" . | nindent 4 }}
