@@ -1,7 +1,7 @@
 clusterName: ""  # Cluster name. Defaults to chart release name
 clusterDescription: "test"  # Cluster description used in metadata.
 organization: ""  # Organization in which to create the cluster.
-kubernetesVersion: 1.22.15
+kubernetesVersion: 1.23.13
 releaseVersion: 20.0.0-alpha1
 baseDomain: "example.com"
 
@@ -65,6 +65,10 @@ machinePools:
   rootVolumeSizeGB: 300
   customNodeLabels:
   - label=default
+  customNodeTaints: []
+  # - key: ""
+  #   value: ""
+  #   effect: "" # Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
 
 sshSSOPublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io"
 flatcarAWSAccount: "075585003325"

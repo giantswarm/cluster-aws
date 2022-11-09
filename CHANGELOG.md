@@ -7,12 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.2] - 2022-11-08
+
+### Fixed
+
+- Bumped cluster-shared to latest with coredns-adopter apiserver polling
+
+## [0.15.1] - 2022-11-07
+
+### Fixed
+
+- Handle default values in worker machine pool values
+
+## [0.15.0] - 2022-11-07
+
+### Added
+
+- Support setting node taints using `customNodeTaints`
+
+## [0.14.0] - 2022-11-03
+
+### Changed
+
+- Bumped Kubernetes to v1.23
+
+### Fixed
+
+- Immutable AWSMachineTemplate
+
+## [0.13.2] - 2022-11-03
+
+### Fixed
+
+- Ensure the `KubeadmControlPlane` `.spec.version` value is always prefixed with `v`
+
 ## [0.13.1] - 2022-10-27
 
 ### Fixed
 
-- Add `api-audiences` for IRSA.
-- Bump `cluster-shared` to latest
+- Add the missing `api-audiences` attribute to the `KubeadmControlPlane` template, to fix the use of IRSA service account tokens.
+
+### Changed
+
+- Update [cluster-shared](https://github.com/giantswarm/cluster-shared) from v0.3.0 to v0.6.3.
 
 ## [0.13.0] - 2022-10-19
 
@@ -295,7 +332,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.13.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.15.2...HEAD
+[0.15.2]: https://github.com/giantswarm/cluster-aws/compare/v0.15.1...v0.15.2
+[0.15.1]: https://github.com/giantswarm/cluster-aws/compare/v0.15.0...v0.15.1
+[0.15.0]: https://github.com/giantswarm/cluster-aws/compare/v0.14.0...v0.15.0
+[0.14.0]: https://github.com/giantswarm/cluster-aws/compare/v0.13.2...v0.14.0
+[0.13.2]: https://github.com/giantswarm/cluster-aws/compare/v0.13.1...v0.13.2
 [0.13.1]: https://github.com/giantswarm/cluster-aws/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/giantswarm/cluster-aws/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/giantswarm/cluster-aws/compare/v0.11.1...v0.12.0
