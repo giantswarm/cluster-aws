@@ -85,6 +85,7 @@ room for such suffix.
 - systemctl daemon-reload
 - systemctl restart containerd
 - systemctl restart kubelet
+- kubeadm init --config /run/kubeadm/kubeadm.yaml --v=5
 {{- end -}}
 
 {{- define "irsaFiles" -}}
