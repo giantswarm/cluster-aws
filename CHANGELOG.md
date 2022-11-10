@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Make `kubeadm` skip the phase where it installs `coredns` as it will be installed by as a default app.
+
 ## [0.15.2] - 2022-11-08
 
 ### Fixed
