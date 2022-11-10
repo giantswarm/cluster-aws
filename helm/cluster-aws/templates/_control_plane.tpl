@@ -104,16 +104,19 @@ spec:
           pathType: DirectoryOrCreate
       controllerManager:
         extraArgs:
+          authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
           cloud-provider: aws
           allocate-node-cidrs: "true"
           cluster-cidr: {{ .Values.network.podCIDR }}
       scheduler:
         extraArgs:
+          authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
       etcd:
         local:
           extraArgs:
+            listen-metrics-urls: "http://0.0.0.0:2381"
             quota-backend-bytes: "8589934592"
       networking:
         serviceSubnet: {{ .Values.network.serviceCIDR }}
