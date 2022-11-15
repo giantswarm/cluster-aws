@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add full proxy configuration for private clusters.
 
+## [0.16.0] - 2022-11-10
+
+### Changed
+
+- Make `kubeadm` skip the phase where it installs `coredns` as it will be installed by as a default app.
+
 ## [0.15.2] - 2022-11-08
 
 ### Fixed
@@ -336,7 +342,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.15.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.16.0...HEAD
+[0.16.0]: https://github.com/giantswarm/cluster-aws/compare/v0.15.2...v0.16.0
 [0.15.2]: https://github.com/giantswarm/cluster-aws/compare/v0.15.1...v0.15.2
 [0.15.1]: https://github.com/giantswarm/cluster-aws/compare/v0.15.0...v0.15.1
 [0.15.0]: https://github.com/giantswarm/cluster-aws/compare/v0.14.0...v0.15.0
