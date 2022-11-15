@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add full proxy configuration for private clusters.
 
+### Changed
+
+- Allow scraping of k8s core components.
+- Bump external-dns to latest release
+
 ## [0.16.0] - 2022-11-10
 
 ### Changed
