@@ -78,10 +78,10 @@ room for such suffix.
 {{- define "proxyCommand" -}}
 - export HTTP_PROXY={{ $.Values.proxy.http_proxy }}
 - export HTTPS_PROXY={{ $.Values.proxy.https_proxy }}
-- export NO_PROXY=127.0.0.1,localhost,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }},elb.amazonaws.com
+- export NO_PROXY=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }},elb.amazonaws.com
 - export http_proxy={{ $.Values.proxy.http_proxy }}
 - export https_proxy={{ $.Values.proxy.https_proxy }}
-- export no_proxy=127.0.0.1,localhost,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }},elb.amazonaws.com
+- export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }},elb.amazonaws.com
 - systemctl daemon-reload
 - systemctl restart containerd
 - systemctl restart kubelet
