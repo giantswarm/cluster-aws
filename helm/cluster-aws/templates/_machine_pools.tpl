@@ -94,8 +94,9 @@ spec:
       {{- end }}
       {{- end }}
       {{- end }}
-  postKubeadmCommands:
-  {{- include "sshPostKubeadmCommands" . | nindent 2 }}
+  preKubeadmCommands:
+    {{- include "sshPreKubeadmCommands" . | nindent 4 }}
+    {{- if $.Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   files:

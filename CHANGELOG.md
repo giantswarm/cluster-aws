@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add full proxy configuration for private clusters.
+
 ## [0.16.1] - 2022-11-15
 
 ### Changed
