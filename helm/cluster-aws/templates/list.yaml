@@ -6,6 +6,8 @@
 ---
 {{- include "aws-cluster" . }}
 ---
+{{- include "registrySecret" }}
+---
 {{- include "control-plane" . }}
 ---
 {{ if .Values.bastion.enabled }}
