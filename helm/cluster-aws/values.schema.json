@@ -14,7 +14,7 @@
                 "region": {
                     "type": "string"
                 },
-                "externalResouceGc": {
+                "externalResourceGc": {
                     "type": "boolean"
                 }
             }
