@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Add `https://` for IRSA service account issuer.
+
 ## [0.17.0] - 2022-11-18
 
 ### Added
