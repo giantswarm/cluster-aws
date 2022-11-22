@@ -13,9 +13,6 @@
                 },
                 "region": {
                     "type": "string"
-                },
-                "externalResourceGc": {
-                    "type": "boolean"
                 }
             }
         },
