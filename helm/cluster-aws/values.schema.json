@@ -13,6 +13,9 @@
                 },
                 "region": {
                     "type": "string"
+                },
+                "externalResouceGc": {
+                    "type": "boolean"
                 }
             }
         },
