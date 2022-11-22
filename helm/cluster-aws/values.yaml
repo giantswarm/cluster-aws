@@ -8,6 +8,7 @@ baseDomain: "example.com"
 aws:
   region: ""
   awsClusterRole: "default"
+  externalResouceGc: true
 
 network:
   availabilityZoneUsageLimit: 3  # amount of AZ that should be used for the machines

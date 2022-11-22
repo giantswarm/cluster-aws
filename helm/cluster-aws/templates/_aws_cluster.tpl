@@ -11,6 +11,7 @@ metadata:
     {{- if (eq .Values.network.vpcMode "private") }}
     cluster.x-k8s.io/paused: "true"
     {{end}}
+    aws.cluster.x-k8s.io/external-resource-gc: "{{ .Values.aws.externalResourceGc }}"
   labels:
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ include "resource.default.name" $ }}
