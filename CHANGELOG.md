@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Make `baseDomain` a required value.
+
 ## [0.17.1] - 2022-11-22
 
 ### Fixed
