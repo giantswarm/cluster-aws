@@ -104,16 +104,19 @@ spec:
           pathType: DirectoryOrCreate
       controllerManager:
         extraArgs:
+          authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
           cloud-provider: aws
           allocate-node-cidrs: "true"
           cluster-cidr: {{ .Values.network.podCIDR }}
       scheduler:
         extraArgs:
+          authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
       etcd:
         local:
           extraArgs:
+            listen-metrics-urls: "http://0.0.0.0:2381"
             quota-backend-bytes: "8589934592"
       networking:
         serviceSubnet: {{ .Values.network.serviceCIDR }}
@@ -126,6 +129,7 @@ spec:
     initConfiguration:
       skipPhases:
       - addon/kube-proxy
+      - addon/coredns
       localAPIEndpoint:
         advertiseAddress: ""
         bindPort: 0
@@ -166,8 +170,8 @@ spec:
     preKubeadmCommands:
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
     {{- include "irsaPreKubeadmCommands" . | nindent 4 }}
-    postKubeadmCommands:
-    {{- include "sshPostKubeadmCommands" . | nindent 4 }}
+    {{- include "sshPreKubeadmCommands" . | nindent 4 }}
+    {{- if .Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: {{ .Values.controlPlane.replicas | default "3" }}

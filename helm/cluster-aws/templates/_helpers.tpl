@@ -69,7 +69,22 @@ room for such suffix.
 - path: /etc/systemd/system/containerd.service.d/http-proxy.conf
   permissions: "0644"
   encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/systemd/system/containerd.service.d/http-proxy.conf") $ | b64enc }}
+  content: {{ tpl ($.Files.Get "files/http-proxy.conf") $ | b64enc }}
+- path: /etc/systemd/system/kubelet.service.d/http-proxy.conf
+  permissions: "0644"
+  encoding: base64
+  content: {{ tpl ($.Files.Get "files/http-proxy.conf") $ | b64enc }}
+{{- end -}}
+{{- define "proxyCommand" -}}
+- export HTTP_PROXY={{ $.Values.proxy.http_proxy }}
+- export HTTPS_PROXY={{ $.Values.proxy.https_proxy }}
+- export NO_PROXY=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }},elb.amazonaws.com
+- export http_proxy={{ $.Values.proxy.http_proxy }}
+- export https_proxy={{ $.Values.proxy.https_proxy }}
+- export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }},elb.amazonaws.com
+- systemctl daemon-reload
+- systemctl restart containerd
+- systemctl restart kubelet
 {{- end -}}
 
 {{- define "irsaFiles" -}}
@@ -99,7 +114,7 @@ room for such suffix.
 {{- end -}}
 
 
-{{- define "sshPostKubeadmCommands" -}}
+{{- define "sshPreKubeadmCommands" -}}
 - systemctl restart sshd
 {{- end -}}
 
