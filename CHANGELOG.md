@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add external resource gc annotation.
 
+### Fixed
+
+- Change sed to fix replacement for Cloudfront placeholder.
+
 ### Changed
 
 - Make `baseDomain` a required value.
