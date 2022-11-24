@@ -88,11 +88,6 @@ proxy:
   http_proxy: ""
   https_proxy: ""
 
-registry:
-  configure: false
-  username: ""
-  password: ""
-
 # Used by `cluster-shared` library chart
 includeClusterResourceSet: true
 kubectlImage:

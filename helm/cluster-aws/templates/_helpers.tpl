@@ -87,7 +87,7 @@ room for such suffix.
 - systemctl restart kubelet
 {{- end -}}
 {{- define "registryFiles" -}}
-{{- if .Values.registry.configure -}}
+{{- if and .Values.registry .Values.registry.configure -}}
 - path: /etc/containerd/conf.d/registry-config.toml
   permissions: "0600"
   contentFrom:
