@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add option to configure containerd registry authentication for `docker.io`.
 
+### Fixed
+
+- Change sed to fix replacement for Cloudfront placeholder.
+
 ### Changed
 
 - Make `baseDomain` a required value.
