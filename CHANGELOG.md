@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Change sed to fix replacement for Cloudfront placeholder.
+- Added missing prefixListID for UserManaged network topology
 
 ### Changed
 

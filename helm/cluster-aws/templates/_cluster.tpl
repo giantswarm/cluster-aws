@@ -8,6 +8,9 @@ metadata:
     {{- if .Values.network.transitGatewayID }}
     network-topology.giantswarm.io/transit-gateway: "{{ .Values.network.transitGatewayID }}"
     {{- end}}
+    {{- if .Values.network.prefixListID }}
+    network-topology.giantswarm.io/prefix-list: "{{ .Values.network.prefixListID }}"
+    {{- end}}
   labels:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" $ | nindent 4 }}
