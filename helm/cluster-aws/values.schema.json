@@ -138,6 +138,9 @@
                 "podCIDR": {
                     "type": "string"
                 },
+                "prefixListID": {
+                    "type": "string"
+                },
                 "serviceCIDR": {
                     "type": "string"
                 },

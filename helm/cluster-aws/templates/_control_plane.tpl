@@ -55,7 +55,7 @@ spec:
       apiServer:
         timeoutForControlPlane: 20m
         certSANs:
-          - "api.{{ include "resource.default.name" $ }}.{{ .Values.baseDomain }}"
+          - "api.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
           - 127.0.0.1
         extraArgs:
           cloud-provider: aws

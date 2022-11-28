@@ -3,7 +3,7 @@ clusterDescription: "test"  # Cluster description used in metadata.
 organization: ""  # Organization in which to create the cluster.
 kubernetesVersion: 1.23.13
 releaseVersion: 20.0.0-alpha1
-baseDomain: "example.com"
+baseDomain: ""  # Customer base domain, generally of the form "<customer codename>.gigantic.io".
 
 aws:
   region: ""
@@ -38,6 +38,8 @@ network:
   topologyMode: None
   # transitGatewayID is the ID of the TGW to use when `mode` is set to `UserManaged`.
   transitGatewayID: ""
+  # prefixListID is the ID of the Managed Prefix List to use when `mode` is set to `UserManaged`.
+  prefixListID: ""
 
   subnets:
   - cidrBlock: 10.0.0.0/18
