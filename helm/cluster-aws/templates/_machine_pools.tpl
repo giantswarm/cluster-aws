@@ -102,6 +102,7 @@ spec:
   files:
   {{- include "sshFiles" $ | nindent 2 }}
   {{- if $.Values.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
+  {{- include "registryFiles" $ | nindent 2 }}
 ---
 {{ end }}
 {{- end -}}

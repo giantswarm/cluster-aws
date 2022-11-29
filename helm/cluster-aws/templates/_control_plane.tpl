@@ -66,8 +66,8 @@ spec:
           oidc-client-id: {{ .clientId }}
           oidc-username-claim: {{ .usernameClaim }}
           oidc-groups-claim: {{ .groupsClaim }}
-          {{- if .caFile }}
-          oidc-ca-file: {{ .caFile }}
+          {{- if ne .caPem "" }}
+          oidc-ca-file: /etc/ssl/certs/oidc.pem
           {{- end }}
           {{- end }}
           {{- end }}
@@ -121,11 +121,13 @@ spec:
       networking:
         serviceSubnet: {{ .Values.network.serviceCIDR }}
     files:
+    {{- include "oidcFiles" . | nindent 4 }}
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
     {{- include "irsaFiles" . | nindent 4 }}
     {{- if .Values.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
+    {{- include "registryFiles" . | nindent 4 }}
     initConfiguration:
       skipPhases:
       - addon/kube-proxy

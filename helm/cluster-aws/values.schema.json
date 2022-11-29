@@ -172,7 +172,7 @@
         "oidc": {
             "type": "object",
             "properties": {
-                "caFile": {
+                "caPem": {
                     "type": "string"
                 },
                 "clientId": {
@@ -202,6 +202,20 @@
                     "type": "string"
                 },
                 "https_proxy": {
+                    "type": "string"
+                }
+            }
+        },
+        "registry": {
+            "type": "object",
+            "properties": {
+                "configure": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }
