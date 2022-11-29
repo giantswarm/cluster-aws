@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Add
 
 - Add option to specify oidc CA PEM in order to autheticate againts OIDC with custom CA.
+- Add option to configure containerd registry authentication for `docker.io`.
 
 ## [0.18.0] - 2022-11-24
 

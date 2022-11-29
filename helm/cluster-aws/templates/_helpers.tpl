@@ -94,6 +94,16 @@ room for such suffix.
 - systemctl restart containerd
 - systemctl restart kubelet
 {{- end -}}
+{{- define "registryFiles" -}}
+{{- if and .Values.registry .Values.registry.configure -}}
+- path: /etc/containerd/conf.d/registry-config.toml
+  permissions: "0600"
+  contentFrom:
+    secret:
+      name: {{ include "resource.default.name" $ }}-registry-configuration
+      key: registry-config.toml
+{{- end -}}
+{{- end -}}
 
 {{- define "irsaFiles" -}}
 - path: /opt/irsa-cloudfront.sh
