@@ -126,10 +126,6 @@ room for such suffix.
 - /bin/sh /opt/irsa-cloudfront.sh
 {{- end -}}
 
-{{- define "irsaPostKubeadmCommands" -}}
-- /bin/sh /opt/irsa-cloudfront-postkubeadm.sh
-{{- end -}}
-
 {{- define "sshUsers" -}}
 - name: giantswarm
   groups: sudo
