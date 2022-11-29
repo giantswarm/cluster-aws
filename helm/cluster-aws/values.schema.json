@@ -206,6 +206,20 @@
                 }
             }
         },
+        "registry": {
+            "type": "object",
+            "properties": {
+                "configure": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "releaseVersion": {
             "type": "string"
         },
