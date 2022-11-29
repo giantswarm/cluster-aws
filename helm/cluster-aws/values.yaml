@@ -38,6 +38,8 @@ network:
   topologyMode: None
   # transitGatewayID is the ID of the TGW to use when `mode` is set to `UserManaged`.
   transitGatewayID: ""
+  # prefixListID is the ID of the Managed Prefix List to use when `mode` is set to `UserManaged`.
+  prefixListID: ""
 
   subnets:
   - cidrBlock: 10.0.0.0/18
