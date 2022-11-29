@@ -94,6 +94,13 @@ room for such suffix.
   content: {{ $.Files.Get "files/opt/irsa-cloudfront.sh" | b64enc }}
 {{- end -}}
 
+{{- define "irsaUpgradeFiles" -}}
+- path: /opt/irsa-cloudfront-postkubeadm.sh
+  permissions: "0700"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/irsa-cloudfront-postkubeadm.sh" | b64enc }}
+{{- end -}}
+
 {{- define "kubernetesFiles" -}}
 - path: /etc/kubernetes/policies/audit-policy.yaml
   permissions: "0600"
@@ -124,6 +131,10 @@ room for such suffix.
 
 {{- define "irsaPreKubeadmCommands" -}}
 - /bin/sh /opt/irsa-cloudfront.sh
+{{- end -}}
+
+{{- define "irsaPostKubeadmCommands" -}}
+- /bin/sh /opt/irsa-cloudfront-postkubeadm.sh
 {{- end -}}
 
 {{- define "sshUsers" -}}
