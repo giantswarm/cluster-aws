@@ -172,7 +172,7 @@
         "oidc": {
             "type": "object",
             "properties": {
-                "caFile": {
+                "caPem": {
                     "type": "string"
                 },
                 "clientId": {

@@ -47,6 +47,14 @@ room for such suffix.
 {{- .Values.clusterName | default (.Release.Name | replace "." "-" | trunc 47 | trimSuffix "-") -}}
 {{- end -}}
 
+{{- define "oidcFiles" -}}
+{{- if ne .Values.oidc.caPem "" }}
+- path: /etc/ssl/certs/oidc.pem
+  permissions: "0600"
+  encoding: base64
+  content: {{ tpl ($.Files.Get "files/etc/ssl/certs/oidc.pem") . | b64enc }}
+{{- end }}
+{{- end -}}
 
 {{- define "sshFiles" -}}
 - path: /etc/ssh/trusted-user-ca-keys.pem
