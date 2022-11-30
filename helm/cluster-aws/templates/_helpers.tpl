@@ -140,10 +140,6 @@ room for such suffix.
 - /bin/sh /opt/init-disks.sh
 {{- end -}}
 
-{{- define "irsaPreKubeadmCommands" -}}
-- /bin/sh /opt/irsa-cloudfront.sh /run/kubeadm/kubeadm.yaml
-{{- end -}}
-
 {{- define "irsaPostKubeadmCommands" -}}
 - /bin/sh /opt/irsa-cloudfront.sh /etc/kubernetes/manifests/kube-apiserver.yaml
 {{- end -}}
