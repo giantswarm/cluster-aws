@@ -171,8 +171,8 @@ spec:
         {{- end }}
     preKubeadmCommands:
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
+    {{- include "irsaPreKubeadmCommands" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
-    {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
     {{- if .Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
