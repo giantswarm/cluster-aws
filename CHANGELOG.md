@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add IRSA domain placeholder replacer as postKubeadm script. 
 
+## [0.19.0] - 2022-11-29
+
+### Add
+
+- Add option to specify oidc CA PEM in order to autheticate againts OIDC with custom CA.
+- Add option to configure containerd registry authentication for `docker.io`.
+
 ## [0.18.0] - 2022-11-24
 
 ### Added
@@ -376,7 +383,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.18.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.19.0...HEAD
+[0.19.0]: https://github.com/giantswarm/cluster-aws/compare/v0.18.0...v0.19.0
 [0.18.0]: https://github.com/giantswarm/cluster-aws/compare/v0.17.1...v0.18.0
 [0.17.1]: https://github.com/giantswarm/cluster-aws/compare/v0.17.0...v0.17.1
 [0.17.0]: https://github.com/giantswarm/cluster-aws/compare/v0.16.1...v0.17.0

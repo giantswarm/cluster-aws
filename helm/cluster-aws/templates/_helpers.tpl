@@ -47,6 +47,14 @@ room for such suffix.
 {{- .Values.clusterName | default (.Release.Name | replace "." "-" | trunc 47 | trimSuffix "-") -}}
 {{- end -}}
 
+{{- define "oidcFiles" -}}
+{{- if ne .Values.oidc.caPem "" }}
+- path: /etc/ssl/certs/oidc.pem
+  permissions: "0600"
+  encoding: base64
+  content: {{ tpl ($.Files.Get "files/etc/ssl/certs/oidc.pem") . | b64enc }}
+{{- end }}
+{{- end -}}
 
 {{- define "sshFiles" -}}
 - path: /etc/ssh/trusted-user-ca-keys.pem
@@ -85,6 +93,16 @@ room for such suffix.
 - systemctl daemon-reload
 - systemctl restart containerd
 - systemctl restart kubelet
+{{- end -}}
+{{- define "registryFiles" -}}
+{{- if and .Values.registry .Values.registry.configure -}}
+- path: /etc/containerd/conf.d/registry-config.toml
+  permissions: "0600"
+  contentFrom:
+    secret:
+      name: {{ include "resource.default.name" $ }}-registry-configuration
+      key: registry-config.toml
+{{- end -}}
 {{- end -}}
 
 {{- define "irsaFiles" -}}
