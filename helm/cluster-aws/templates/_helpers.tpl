@@ -106,10 +106,14 @@ room for such suffix.
 {{- end -}}
 
 {{- define "irsaFiles" -}}
-- path: /opt/irsa-cloudfront.sh
+- path: /opt/pre-irsa-cloudfront.sh
   permissions: "0700"
   encoding: base64
-  content: {{ $.Files.Get "files/opt/irsa-cloudfront.sh" | b64enc }}
+  content: {{ $.Files.Get "files/opt/pre-irsa-cloudfront.sh" | b64enc }}
+- path: /opt/post-irsa-cloudfront.sh
+  permissions: "0700"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/post-irsa-cloudfront.sh" | b64enc }}
 {{- end -}}
 
 {{- define "kubernetesFiles" -}}
@@ -141,7 +145,11 @@ room for such suffix.
 {{- end -}}
 
 {{- define "irsaPreKubeadmCommands" -}}
-- /bin/sh /opt/irsa-cloudfront.sh
+- /bin/sh /opt/pre-irsa-cloudfront.sh
+{{- end -}}
+
+{{- define "irsaPostKubeadmCommands" -}}
+- /bin/sh /opt/post-irsa-cloudfront.sh
 {{- end -}}
 
 {{- define "sshUsers" -}}
