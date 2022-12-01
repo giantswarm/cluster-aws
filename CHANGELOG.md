@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add schema for items of the arrays `.machinePools[*].availabilityZones` and `.machinePools[*].customNodeTaints`.
+- Add IRSA domain placeholder replacer as postKubeadm script. 
 
 ## [0.19.0] - 2022-11-29
 
