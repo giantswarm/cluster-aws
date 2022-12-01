@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Change etcd metric listen  ip to a node ip instead of `0.0.0.0`.
+
 ## [0.19.0] - 2022-11-29
 
 ### Add
