@@ -91,7 +91,10 @@
                 "type": "object",
                 "properties": {
                     "availabilityZones": {
-                        "type": "array"
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "customNodeLabels": {
                         "type": "array",
