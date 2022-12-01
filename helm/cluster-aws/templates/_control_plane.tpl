@@ -105,18 +105,18 @@ spec:
       controllerManager:
         extraArgs:
           authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
-          bind-address: 0.0.0.0
+          bind-address: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
           cloud-provider: aws
           allocate-node-cidrs: "true"
           cluster-cidr: {{ .Values.network.podCIDR }}
       scheduler:
         extraArgs:
           authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
-          bind-address: 0.0.0.0
+          bind-address: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
       etcd:
         local:
           extraArgs:
-            listen-metrics-urls: "http://0.0.0.0:2381"
+            listen-metrics-urls: http://'{{ `{{ ds.meta_data.local_ipv4 }}` }}':2381
             quota-backend-bytes: "8589934592"
       networking:
         serviceSubnet: {{ .Values.network.serviceCIDR }}
