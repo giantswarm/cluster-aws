@@ -108,7 +108,12 @@
                             "type": "object",
                             "properties": {
                                 "effect": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "enum": [
+                                        "NoSchedule",
+                                        "PreferNoSchedule",
+                                        "NoExecute"
+                                    ]
                                 },
                                 "key": {
                                     "type": "string"
