@@ -103,7 +103,26 @@
                         }
                     },
                     "customNodeTaints": {
-                        "type": "array"
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "effect": {
+                                    "type": "string"
+                                },
+                                "key": {
+                                    "type": "string"
+                                },
+                                "value": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "effect",
+                                "key",
+                                "value"
+                            ]
+                        }
                     },
                     "instanceType": {
                         "type": "string"
