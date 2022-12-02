@@ -1,0 +1,5 @@
+[plugins."io.containerd.grpc.v1.cri".registry]
+  [plugins."io.containerd.grpc.v1.cri".registry.configs]
+    [plugins."io.containerd.grpc.v1.cri".registry.configs."https://index.docker.io/v1".auth]
+      username = "{{ .Values.registry.username }}"
+      password = "{{ .Values.registry.password }}"
