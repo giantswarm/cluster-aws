@@ -105,6 +105,17 @@ room for such suffix.
 {{- end -}}
 {{- end -}}
 
+{{- define "registryFilesWorker" -}}
+{{- if and .Values.registry .Values.registry.configure -}}
+- path: /opt/containerd.d/conf.d/registry-config.toml
+  permissions: "0600"
+  contentFrom:
+    secret:
+      name: {{ include "resource.default.name" $ }}-registry-configuration
+      key: registry-config.toml
+{{- end -}}
+{{- end -}}
+
 # Fix - https://github.com/giantswarm/roadmap/issues/1737
 {{- define "registryWorkaroundCommands" -}}
 {{- if and .Values.registry .Values.registry.configure -}}
