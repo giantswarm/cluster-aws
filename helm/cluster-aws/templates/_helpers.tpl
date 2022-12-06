@@ -96,13 +96,21 @@ room for such suffix.
 {{- end -}}
 {{- define "registryFiles" -}}
 {{- if and .Values.registry .Values.registry.configure -}}
-- path: /etc/containerd/conf.d/registry-config.toml
+- path: /opt/registry-config.toml
   permissions: "0600"
   contentFrom:
     secret:
       name: {{ include "resource.default.name" $ }}-registry-configuration
       key: registry-config.toml
 {{- end -}}
+{{- end -}}
+
+# Fix - https://github.com/giantswarm/roadmap/issues/1737
+{{- define "registryWorkaroundCommands" -}}
+- mkdir -p /etc/containerd/conf.d/
+- mv /opt/registry-config.toml /etc/containerd/conf.d/registry-config.toml
+- chmod 600 /etc/containerd/conf.d/registry-config.toml
+- systemctl restart containerd
 {{- end -}}
 
 {{- define "irsaFiles" -}}
