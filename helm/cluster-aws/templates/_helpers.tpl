@@ -105,6 +105,7 @@ room for such suffix.
 {{- end -}}
 {{- end -}}
 
+# Fix - https://github.com/giantswarm/roadmap/issues/1737
 {{- define "registryWorkaroundCommands" -}}
 - mkdir -p /etc/containerd/conf.d/
 - mv /opt/registry-config.toml /etc/containerd/conf.d/registry-config.toml
