@@ -105,7 +105,7 @@ room for such suffix.
 {{- end -}}
 {{- end -}}
 
-{{- define registryWorkaroundCommands -}}
+{{- define "registryWorkaroundCommands" -}}
 - mkdir -p /etc/containerd/conf.d/
 - mv /opt/registry-config.toml /etc/containerd/conf.d/registry-config.toml
 - chmod 600 /etc/containerd/conf.d/registry-config.toml
