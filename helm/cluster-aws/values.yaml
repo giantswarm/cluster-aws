@@ -80,7 +80,7 @@ ami: ""
 
 oidc:
   issuerUrl: ""
-  caFile: ""
+  caPem: ""
   clientId: ""
   usernameClaim: ""
   groupsClaim: ""

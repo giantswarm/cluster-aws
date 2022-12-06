@@ -47,6 +47,14 @@ room for such suffix.
 {{- .Values.clusterName | default (.Release.Name | replace "." "-" | trunc 47 | trimSuffix "-") -}}
 {{- end -}}
 
+{{- define "oidcFiles" -}}
+{{- if ne .Values.oidc.caPem "" }}
+- path: /etc/ssl/certs/oidc.pem
+  permissions: "0600"
+  encoding: base64
+  content: {{ tpl ($.Files.Get "files/etc/ssl/certs/oidc.pem") . | b64enc }}
+{{- end }}
+{{- end -}}
 
 {{- define "sshFiles" -}}
 - path: /etc/ssh/trusted-user-ca-keys.pem
@@ -86,6 +94,24 @@ room for such suffix.
 - systemctl restart containerd
 - systemctl restart kubelet
 {{- end -}}
+{{- define "registryFiles" -}}
+{{- if and .Values.registry .Values.registry.configure -}}
+- path: /opt/registry-config.toml
+  permissions: "0600"
+  contentFrom:
+    secret:
+      name: {{ include "resource.default.name" $ }}-registry-configuration
+      key: registry-config.toml
+{{- end -}}
+{{- end -}}
+
+# Fix - https://github.com/giantswarm/roadmap/issues/1737
+{{- define "registryWorkaroundCommands" -}}
+- mkdir -p /etc/containerd/conf.d/
+- mv /opt/registry-config.toml /etc/containerd/conf.d/registry-config.toml
+- chmod 600 /etc/containerd/conf.d/registry-config.toml
+- systemctl restart containerd
+{{- end -}}
 
 {{- define "irsaFiles" -}}
 - path: /opt/irsa-cloudfront.sh
@@ -122,8 +148,8 @@ room for such suffix.
 - /bin/sh /opt/init-disks.sh
 {{- end -}}
 
-{{- define "irsaPreKubeadmCommands" -}}
-- /bin/sh /opt/irsa-cloudfront.sh
+{{- define "irsaPostKubeadmCommands" -}}
+- /bin/sh /opt/irsa-cloudfront.sh /etc/kubernetes/manifests/kube-apiserver.yaml
 {{- end -}}
 
 {{- define "sshUsers" -}}

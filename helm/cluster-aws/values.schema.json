@@ -91,7 +91,10 @@
                 "type": "object",
                 "properties": {
                     "availabilityZones": {
-                        "type": "array"
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "customNodeLabels": {
                         "type": "array",
@@ -100,7 +103,31 @@
                         }
                     },
                     "customNodeTaints": {
-                        "type": "array"
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "effect": {
+                                    "type": "string",
+                                    "enum": [
+                                        "NoSchedule",
+                                        "PreferNoSchedule",
+                                        "NoExecute"
+                                    ]
+                                },
+                                "key": {
+                                    "type": "string"
+                                },
+                                "value": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "effect",
+                                "key",
+                                "value"
+                            ]
+                        }
                     },
                     "instanceType": {
                         "type": "string"
@@ -172,7 +199,7 @@
         "oidc": {
             "type": "object",
             "properties": {
-                "caFile": {
+                "caPem": {
                     "type": "string"
                 },
                 "clientId": {
@@ -202,6 +229,20 @@
                     "type": "string"
                 },
                 "https_proxy": {
+                    "type": "string"
+                }
+            }
+        },
+        "registry": {
+            "type": "object",
+            "properties": {
+                "configure": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }
