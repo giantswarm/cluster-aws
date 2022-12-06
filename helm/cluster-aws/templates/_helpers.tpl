@@ -107,10 +107,12 @@ room for such suffix.
 
 # Fix - https://github.com/giantswarm/roadmap/issues/1737
 {{- define "registryWorkaroundCommands" -}}
+{{- if and .Values.registry .Values.registry.configure -}}
 - mkdir -p /etc/containerd/conf.d/
 - mv /opt/registry-config.toml /etc/containerd/conf.d/registry-config.toml
 - chmod 600 /etc/containerd/conf.d/registry-config.toml
 - systemctl restart containerd
+{{- end  -}}
 {{- end -}}
 
 {{- define "irsaFiles" -}}
