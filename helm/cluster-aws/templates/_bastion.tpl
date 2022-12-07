@@ -15,7 +15,7 @@ template:
       insecureSkipSecretsManager: true
     imageLookupFormat: Flatcar-stable-*
     imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
-    publicIP: {{- if (eq .Values.network.vpcMode "private") }}false{{ else }}true{{ end }}
+    publicIP: {{ if (eq .Values.network.vpcMode "private") }}false{{ else }}true{{ end }}
     sshKeyName: ""
     subnet:
       filters:
