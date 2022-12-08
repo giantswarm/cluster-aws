@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Run bastion on private IP if vpc mode is set to private.
+
 ## [0.20.1] - 2022-12-07
 
 ## [0.20.0] - 2022-12-06

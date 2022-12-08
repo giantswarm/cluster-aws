@@ -15,14 +15,14 @@ template:
       insecureSkipSecretsManager: true
     imageLookupFormat: Flatcar-stable-*
     imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
-    publicIP: true
+    publicIP: {{ if eq .Values.network.vpcMode "private" }}false{{else}}true{{end}}
     sshKeyName: ""
     subnet:
       filters:
-      - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
+      - name: tag:{{ if eq .Values.network.vpcMode "private" }}github.com/giantswarm/aws-vpc-operator/role{{else}}sigs.k8s.io/cluster-api-provider-aws/role{{end}}
         values:
-        - public
-      - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
+        - {{ if eq .Values.network.vpcMode "private" }}private{{else}}public{{end}}
+      - name: tag:{{ if eq .Values.network.vpcMode "private" }}github.com/giantswarm/aws-vpc-operator/{{else}}sigs.k8s.io/cluster-api-provider-aws/cluster/{{end}}{{ include "resource.default.name" $ }}
         values:
         - owned
     uncompressedUserData: true
