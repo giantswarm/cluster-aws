@@ -21,7 +21,7 @@ template:
       filters:
       - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
         values:
-        - public
+        - {{ if (eq .Values.network.vpcMode "private") }}private{{ else }}public{{ end }}
       - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
         values:
         - owned
