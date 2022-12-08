@@ -19,10 +19,10 @@ template:
     sshKeyName: ""
     subnet:
       filters:
-      - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
+      - name: tag:{{ if eq .Values.network.vpcMode "private" }}github.com/giantswarm/aws-vpc-operator/role{{else}}sigs.k8s.io/cluster-api-provider-aws/role{{end}}
         values:
         - {{ if eq .Values.network.vpcMode "private" }}private{{else}}public{{end}}
-      - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
+      - name: tag:{{ if eq .Values.network.vpcMode "private" }}github.com/giantswarm/aws-vpc-operator/{{else}}sigs.k8s.io/cluster-api-provider-aws/cluster/{{end}}{{ include "resource.default.name" $ }}
         values:
         - owned
     uncompressedUserData: true
