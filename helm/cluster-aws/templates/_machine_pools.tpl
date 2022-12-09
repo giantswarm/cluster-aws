@@ -97,8 +97,6 @@ spec:
   preKubeadmCommands:
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if $.Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
-  postKubeadmCommands:
-    {{- include "registryWorkaroundCommands" $ | nindent 4 }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   files:

@@ -95,8 +95,9 @@ room for such suffix.
 - systemctl restart kubelet
 {{- end -}}
 {{- define "registryFiles" -}}
-{{- if and .Values.registry .Values.registry.configure -}}
-- path: /opt/registry-config.toml
+{{- if .Values.registry }}
+{{- if .Values.registry.configure -}}
+- path: /opt//etc/containerd/conf.d/registry-config.toml
   permissions: "0600"
   contentFrom:
     secret:
@@ -104,15 +105,6 @@ room for such suffix.
       key: registry-config.toml
 {{- end -}}
 {{- end -}}
-
-# Fix - https://github.com/giantswarm/roadmap/issues/1737
-{{- define "registryWorkaroundCommands" -}}
-{{- if and .Values.registry .Values.registry.configure -}}
-- mkdir -p /etc/containerd/conf.d/
-- mv /opt/registry-config.toml /etc/containerd/conf.d/registry-config.toml
-- chmod 600 /etc/containerd/conf.d/registry-config.toml
-- systemctl restart containerd
-{{- end  -}}
 {{- end -}}
 
 {{- define "irsaFiles" -}}

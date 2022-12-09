@@ -175,7 +175,6 @@ spec:
     {{- if .Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
-    {{- include "registryWorkaroundCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: {{ .Values.controlPlane.replicas | default "3" }}
