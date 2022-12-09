@@ -170,7 +170,7 @@ ami:
   id: {{ .Values.ami }}
 {{- else -}}
 ami: {}
-imageLookupBaseOS: "ubuntu-22.04"
+imageLookupBaseOS: "ubuntu-20.04"
 imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-gs" }}
 imageLookupOrg: "706635527432"
 {{- end }}
