@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Dowgrade to using Ubuntu 20.04 as base OS.
 - Run bastion on private IP if vpc mode is set to private.
+- Remove registry authetication workaround.
 
 ## [0.20.1] - 2022-12-07
 
