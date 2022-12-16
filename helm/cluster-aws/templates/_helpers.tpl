@@ -180,3 +180,11 @@ Where `data` is the data to has on and `global` is the top level scope.
 {{- if .global.Values.hashSalt }}{{ $salt = .global.Values.hashSalt}}{{end}}
 {{- (printf "%s%s" $data $salt) | quote | sha1sum | trunc 8 }}
 {{- end -}}
+
+
+{{- define "emptyFile" -}}
+- path: /opt/empty.txt
+  permissions: "0700"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/empty.txt" | b64enc }}
+{{- end -}}

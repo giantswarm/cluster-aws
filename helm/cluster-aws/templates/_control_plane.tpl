@@ -128,6 +128,7 @@ spec:
     {{- if .Values.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "registryFiles" . | nindent 4 }}
+    {{- include "emptyFile" . | nindent 4 }}
     initConfiguration:
       skipPhases:
       - addon/kube-proxy
