@@ -125,6 +125,7 @@ spec:
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
     {{- include "irsaFiles" . | nindent 4 }}
+    {{- include "awsNtpFiles" . | nindent 4 }}
     {{- if .Values.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "registryFiles" . | nindent 4 }}
@@ -175,6 +176,7 @@ spec:
     {{- if .Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
+    {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: {{ .Values.controlPlane.replicas | default "3" }}

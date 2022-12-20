@@ -133,6 +133,12 @@ room for such suffix.
       key: domain
 {{- end -}}
 
+{{- define "awsNtpFiles" -}}
+- path: /opt/set-aws-ntp.sh
+  permissions: "0700"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/set-aws-ntp.sh" | b64enc }}
+{{- end -}}
 
 {{- define "sshPreKubeadmCommands" -}}
 - systemctl restart sshd
@@ -144,6 +150,10 @@ room for such suffix.
 
 {{- define "irsaPostKubeadmCommands" -}}
 - /bin/sh /opt/irsa-cloudfront.sh /etc/kubernetes/manifests/kube-apiserver.yaml
+{{- end -}}
+
+{{- define "awsNtpPostKubeadmCommands" -}}
+- /bin/sh /opt/set-aws-ntp.sh
 {{- end -}}
 
 {{- define "sshUsers" -}}
