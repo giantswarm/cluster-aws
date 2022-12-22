@@ -9,7 +9,14 @@
             "type": "object",
             "properties": {
                 "awsClusterRole": {
-                    "type": "string"
+                    "type": "string",
+                    "deprecated": true
+                },
+                "awsClusterRoleIdentityName": {
+                    "type": "string",
+                    "maxLength": 63,
+                    "minLength": 1,
+                    "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$"
                 },
                 "region": {
                     "type": "string"
