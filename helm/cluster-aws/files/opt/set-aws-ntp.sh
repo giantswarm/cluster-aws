@@ -1,8 +1,6 @@
 #!/bin/bash
 
-AWS_NTP_SERVER="/etc/systemd/timesyncd.conf"
-
-NTP_SERVER="$(cat /etc/systemd/timeconf.d 2>/dev/null | grep 169.254.169.123)"
+NTP_SERVER="$(cat /etc/chrony/chrony.conf 2>/dev/null | grep 169.254.169.123)"
 
 if [ -z "$NTP_SERVER" ]
 then
