@@ -21,7 +21,7 @@ spec:
     enabled: false
   identityRef:
     kind: AWSClusterRoleIdentity
-    name: {{ .Values.aws.awsClusterRole }}
+    name: {{ if .Values.aws.awsClusterRole }}{{ .Values.aws.awsClusterRole }}{{ else }}{{ .Values.aws.awsClusterRoleIdentityName }}{{ end }}
   controlPlaneLoadBalancer:
     scheme: {{ if (eq .Values.network.apiMode "public") }}internet-facing{{ else }}internal{{ end }}
   network:

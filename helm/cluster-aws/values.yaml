@@ -7,7 +7,12 @@ baseDomain: ""  # Customer base domain, generally of the form "<customer codenam
 
 aws:
   region: ""
-  awsClusterRole: "default"
+  # awsClusterRoleIdentityName is the name of an `AWSClusterRoleIdentity` object. This in turn refers to the IAM role used to
+  # create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create
+  # all resources in that account. The value of `awsClusterRoleIdentityName` does not refer directly to an IAM role name/ARN!
+  # See also https://cluster-api-aws.sigs.k8s.io/topics/multitenancy.html#awsclusterroleidentity.
+  awsClusterRoleIdentityName: "default"
+  awsClusterRole: ""  # deprecated, please use `awsClusterRoleIdentityName`
 
 network:
   availabilityZoneUsageLimit: 3  # amount of AZ that should be used for the machines

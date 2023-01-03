@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Change default NTP server as AWS NTP server.
+- Deprecate confusingly named `aws.awsClusterRole` in favor of `aws.awsClusterRoleIdentityName`. The value refers to an `AWSClusterRoleIdentity` object, not directly to an IAM role name/ARN.
 
 ## [0.20.3] - 2022-12-22
 
@@ -32,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add schema for items of the arrays `.machinePools[*].availabilityZones` and `.machinePools[*].customNodeTaints`.
-- Add IRSA domain placeholder replacer as postKubeadm script. 
+- Add IRSA domain placeholder replacer as postKubeadm script.
 - Add `containerd` registry auth workaround to bug https://github.com/giantswarm/roadmap/issues/1737.
 
 ## [0.19.0] - 2022-11-29
