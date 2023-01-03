@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Change default NTP server as AWS NTP server.
+- Bump Kubernetes to 1.23.15
 
 ## [0.20.3] - 2022-12-22
 
