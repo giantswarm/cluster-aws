@@ -39,14 +39,11 @@ spec:
   availabilityZones: {{ include "aws-availability-zones" . | nindent 2 }}
   subnets:
   - filters:
-    - name: tag:sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}
+    {{- range $i, $tags :=  .subnetTags }}
+    - name: tag:{{ keys $tags | first }}
       values:
-      - owned
-    - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
-      values:
-      - private
-    - name: availabilityZone
-      values: {{ include "aws-availability-zones" . | nindent 6 }}
+      - {{ index $tags (keys $tags | first) }}
+    {{- end }}
   awsLaunchTemplate:
     {{- include "ami" $ | nindent 4 }}
     iamInstanceProfile: nodes-{{ .name }}-{{ include "resource.default.name" $ }}
