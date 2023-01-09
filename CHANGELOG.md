@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.20.4] - 2023-01-05
+
 ### Changed
 
 - Change default NTP server as AWS NTP server.
@@ -409,7 +411,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.20.3...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.20.4...HEAD
+[0.20.4]: https://github.com/giantswarm/cluster-aws/compare/v0.20.3...v0.20.4
 [0.20.3]: https://github.com/giantswarm/cluster-aws/compare/v0.20.2...v0.20.3
 [0.20.2]: https://github.com/giantswarm/cluster-aws/compare/v0.20.1...v0.20.2
 [0.20.1]: https://github.com/giantswarm/cluster-aws/compare/v0.20.0...v0.20.1
