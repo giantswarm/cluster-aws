@@ -26,6 +26,13 @@ template:
         values:
         - owned
     uncompressedUserData: true
+    subnet:
+      filters:
+        {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
+        - name: tag:{{ keys $tags | first }}
+          values:
+          - {{ index $tags (keys $tags | first) }}
+        {{- end }}
 {{- end }}
 
 {{- define "bastion" }}
