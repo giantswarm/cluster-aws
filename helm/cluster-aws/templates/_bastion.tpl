@@ -28,7 +28,7 @@ template:
     uncompressedUserData: true
     subnet:
       filters:
-        {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
+        {{- range $i, $tags :=  .Values.bastion.subnetTags }}
         - name: tag:{{ keys $tags | first }}
           values:
           - {{ index $tags (keys $tags | first) }}
