@@ -39,7 +39,7 @@ spec:
   availabilityZones: {{ include "aws-availability-zones" . | nindent 2 }}
   subnets:
   - filters:
-    {{- range $i, $tags :=  .subnetTags }}
+    {{- range $i, $tags := .subnetTags }}
     - name: tag:{{ keys $tags | first }}
       values:
       - {{ index $tags (keys $tags | first) }}
