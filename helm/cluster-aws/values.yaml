@@ -49,54 +49,18 @@ network:
   # subnets defines all the subnets for a cluster.
   # There must be at least as many as the value of `availabilityZoneUsageLimit` and all subnets must be within the `vpcCIDR` range.
   subnets:
-  - cidrBlock: 10.0.0.0/23
-    availabilityZone: eu-west-1a
+  - cidrBlocks: ["10.0.0.0/23", "10.0.2.0/23", "10.0.4.0/23"]
     isPublic: true
     tags:
       subnet.giantswarm.io/role: load-balancers
-  - cidrBlock: 10.0.2.0/23
-    availabilityZone: eu-west-1b
-    isPublic: true
-    tags:
-      subnet.giantswarm.io/role: load-balancers
-  - cidrBlock: 10.0.4.0/23
-    availabilityZone: eu-west-1c
-    isPublic: true
-    tags:
-      subnet.giantswarm.io/role: load-balancers
-
-  - cidrBlock: 10.0.6.0/23
-    availabilityZone: eu-west-1a
+  - cidrBlocks: ["10.0.6.0/23", "10.0.8.0/23", "10.0.10.0/23"]
     isPublic: false
     tags:
       subnet.giantswarm.io/role: control-plane
-  - cidrBlock: 10.0.8.0/23
-    availabilityZone: eu-west-1b
-    isPublic: false
-    tags:
-      subnet.giantswarm.io/role: control-plane
-  - cidrBlock: 10.0.10.0/23
-    availabilityZone: eu-west-1c
-    isPublic: false
-    tags:
-      subnet.giantswarm.io/role: control-plane
-
-  - cidrBlock: 10.0.64.0/18
-    availabilityZone: eu-west-1a
+  - cidrBlocks: ["10.0.64.0/18", "10.0.128.0/18", "10.0.192.0/18"]
     isPublic: false
     tags:
       subnet.giantswarm.io/role: workers
-  - cidrBlock: 10.0.128.0/18
-    availabilityZone: eu-west-1b
-    isPublic: false
-    tags:
-      subnet.giantswarm.io/role: workers
-  - cidrBlock: 10.0.192.0/18
-    availabilityZone: eu-west-1c
-    isPublic: false
-    tags:
-      subnet.giantswarm.io/role: workers
-
 
 bastion:
   enabled: true
