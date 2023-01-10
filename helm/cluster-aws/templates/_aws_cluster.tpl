@@ -37,8 +37,12 @@ spec:
     subnets:
     {{- range $j, $subnet := .Values.network.subnets }}
     {{- range $i, $cidr := $subnet.cidrBlocks }}
-    - cidrBlock: "{{ $cidr }}"
-      availabilityZone: "{{ include "aws-region" $ }}{{ add 97 $i | printf "%c" }}"
+    - cidrBlock: "{{ $cidr.cidr }}"
+      {{- if eq (len $cidr.availabilityZone) 1 }}
+      availabilityZone: "{{ include "aws-region" $ }}{{ $cidr.availabilityZone }}"
+      {{- else }}
+      availabilityZone: "{{ $cidr.availabilityZone }}"
+      {{- end }}
       isPublic: {{ $subnet.isPublic | default false }}
       tags:
         {{- toYaml $subnet.tags | nindent 8 }}

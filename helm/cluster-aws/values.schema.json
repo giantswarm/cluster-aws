@@ -183,8 +183,25 @@
                     "items": {
                         "type": "object",
                         "properties": {
-                            "cidrBlock": {
-                                "type": "string"
+                            "cidrBlocks": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cidr": {
+                                            "type": "string"
+                                        },
+                                        "availabilityZone": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "isPublic": {
+                                "type": "boolean"
+                            },
+                            "tags": {
+                                "type": "object"
                             }
                         }
                     }
