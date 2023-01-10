@@ -35,12 +35,14 @@ spec:
       availabilityZoneUsageLimit: {{ .Values.network.availabilityZoneUsageLimit }}
       cidrBlock: {{ .Values.network.vpcCIDR }}
     subnets:
-    {{- range $i, $subnet := .Values.network.subnets }}
-    - cidrBlock: "{{ $subnet.cidrBlock }}"
+    {{- range $j, $subnet := .Values.network.subnets }}
+    {{- range $i, $cidr := $subnet.cidrBlocks }}
+    - cidrBlock: "{{ $cidr }}"
       availabilityZone: "{{ include "aws-region" $ }}{{ add 97 $i | printf "%c" }}"
-      isPublic: {{ $subnet.isPublic }}
+      isPublic: {{ $subnet.isPublic | default false }}
       tags:
         {{- toYaml $subnet.tags | nindent 8 }}
+    {{- end }}
     {{- end }}
   sshKeyName: ssh-key
   region: {{ include "aws-region" . }}
