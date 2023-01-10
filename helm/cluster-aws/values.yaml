@@ -47,17 +47,34 @@ network:
   prefixListID: ""
 
   # subnets defines all the subnets for a cluster.
-  # There must be at least as many as the value of `availabilityZoneUsageLimit` and all subnets must be within the `vpcCIDR` range.
   subnets:
-  - cidrBlocks: ["10.0.0.0/23", "10.0.2.0/23", "10.0.4.0/23"]
+  - cidrBlocks:
+    - cidr: 10.0.0.0/23
+      availabilityZone: a
+    - cidr: 10.0.2.0/23
+      availabilityZone: b
+    - cidr: 10.0.4.0/23
+      availabilityZone: c
     isPublic: true
     tags:
       subnet.giantswarm.io/role: load-balancers
-  - cidrBlocks: ["10.0.6.0/23", "10.0.8.0/23", "10.0.10.0/23"]
+  - cidrBlocks:
+    - cidr: 10.0.6.0/23
+      availabilityZone: a
+    - cidr: 10.0.8.0/23
+      availabilityZone: b
+    - cidr: 10.0.10.0/23
+      availabilityZone: c
     isPublic: false
     tags:
       subnet.giantswarm.io/role: control-plane
-  - cidrBlocks: ["10.0.64.0/18", "10.0.128.0/18", "10.0.192.0/18"]
+  - cidrBlocks:
+    - cidr: 10.0.64.0/18
+      availabilityZone: a
+    - cidr: 10.0.128.0/18
+      availabilityZone: b
+    - cidr: 10.0.192.0/18
+      availabilityZone: c
     isPublic: false
     tags:
       subnet.giantswarm.io/role: workers
