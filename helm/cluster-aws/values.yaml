@@ -69,6 +69,16 @@ network:
     tags:
       subnet.giantswarm.io/role: control-plane
   - cidrBlocks:
+    - cidr: 10.0.12.0/24
+      availabilityZone: a
+    - cidr: 10.0.13.0/24
+      availabilityZone: b
+    - cidr: 10.0.14.0/24
+      availabilityZone: c
+    isPublic: true
+    tags:
+      subnet.giantswarm.io/role: bastion
+  - cidrBlocks:
     - cidr: 10.0.64.0/18
       availabilityZone: a
     - cidr: 10.0.128.0/18
@@ -84,7 +94,7 @@ bastion:
   instanceType: t3.small
   replicas: 1
   subnetTags:
-    - subnet.giantswarm.io/role: control-plane
+    - subnet.giantswarm.io/role: bastion
 
 controlPlane:
   instanceType: m5.xlarge
