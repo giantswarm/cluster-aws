@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add and propagate `no_proxy` value to the underlying components.
 
+## [0.20.5] - 2023-01-11
+
+### Changed
+
+- Override image repository to `registry.k8s.io` because kubeadm of Kubernetes v1.23.15 tries to pull the official image incorrectly, resulting in failing cluster upgrades, and `k8s.gcr.io` is outdated
+
 ## [0.20.4] - 2023-01-05
 
 ### Changed
@@ -415,7 +421,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.20.4...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.20.5...HEAD
+[0.20.5]: https://github.com/giantswarm/cluster-aws/compare/v0.20.4...v0.20.5
 [0.20.4]: https://github.com/giantswarm/cluster-aws/compare/v0.20.3...v0.20.4
 [0.20.3]: https://github.com/giantswarm/cluster-aws/compare/v0.20.2...v0.20.3
 [0.20.2]: https://github.com/giantswarm/cluster-aws/compare/v0.20.1...v0.20.2
