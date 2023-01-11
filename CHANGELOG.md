@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add and propagate `no_proxy` value to the underlying components.
+
 ## [0.20.4] - 2023-01-05
 
 ### Changed

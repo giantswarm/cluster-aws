@@ -237,6 +237,9 @@
                 },
                 "https_proxy": {
                     "type": "string"
+                },
+		"no_proxy": {
+                    "type": "string"
                 }
             }
         },
