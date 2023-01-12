@@ -107,7 +107,7 @@ room for such suffix.
 {{- end -}}
 {{- end -}}
 
-{{- define harborRegistry.fullurl -}}
+{{- define "harborRegistry.fullurl" -}}
 "https://{{ .Values.harborRegistry.url }}"
 {{- end -}}
 
