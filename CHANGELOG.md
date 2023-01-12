@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Giant Swarm image repository for official Kubernetes images
 
+## [0.20.6] - 2023-01-11
+
+### Added
+
+- Add and propagate `no_proxy` value to the underlying components.
+
 ## [0.20.5] - 2023-01-11
 
 ### Changed
@@ -421,7 +427,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.20.5...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.20.6...HEAD
+[0.20.6]: https://github.com/giantswarm/cluster-aws/compare/v0.20.5...v0.20.6
 [0.20.5]: https://github.com/giantswarm/cluster-aws/compare/v0.20.4...v0.20.5
 [0.20.4]: https://github.com/giantswarm/cluster-aws/compare/v0.20.3...v0.20.4
 [0.20.3]: https://github.com/giantswarm/cluster-aws/compare/v0.20.2...v0.20.3
