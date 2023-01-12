@@ -9,7 +9,7 @@
   [plugins."io.containerd.grpc.v1.cri".registry.configs]
     [plugins."io.containerd.grpc.v1.cri".registry.configs."registry-1.docker.io".auth]
       auth = "{{ tpl "{{ .Values.registry.username }}:{{ .Values.registry.password }}" . | b64enc }}"
-    {{- if .Values.harborRegistry -}}
+    {{ if .Values.harborRegistry -}}
     [plugins."io.containerd.grpc.v1.cri".registry.configs."{{- .Values.harborRegistry.url -}}".auth]
       auth = "{{ tpl "{{ .Values.harborRegistry.username }}:{{ .Values.harborRegistry.password }}" . | b64enc }}"
     {{- end }}
