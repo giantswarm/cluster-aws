@@ -138,6 +138,7 @@ proxy:
   enabled: false
   http_proxy: ""
   https_proxy: ""
+  no_proxy: ""
 
 # Used by `cluster-shared` library chart
 includeClusterResourceSet: true
