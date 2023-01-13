@@ -48,36 +48,15 @@ network:
 
   # subnets defines all the subnets for a cluster.
   subnets:
+  # The CAPA default subnet layout
   - cidrBlocks:
-    - cidr: 10.0.0.0/23
+    - cidr: 10.0.0.0/20
       availabilityZone: a
-    - cidr: 10.0.2.0/23
+    - cidr: 10.0.16.0/20
       availabilityZone: b
-    - cidr: 10.0.4.0/23
+    - cidr: 10.0.32.0/20
       availabilityZone: c
     isPublic: true
-    tags:
-      subnet.giantswarm.io/role: load-balancers
-  - cidrBlocks:
-    - cidr: 10.0.6.0/23
-      availabilityZone: a
-    - cidr: 10.0.8.0/23
-      availabilityZone: b
-    - cidr: 10.0.10.0/23
-      availabilityZone: c
-    isPublic: false
-    tags:
-      subnet.giantswarm.io/role: control-plane
-  - cidrBlocks:
-    - cidr: 10.0.12.0/24
-      availabilityZone: a
-    - cidr: 10.0.13.0/24
-      availabilityZone: b
-    - cidr: 10.0.14.0/24
-      availabilityZone: c
-    isPublic: true
-    tags:
-      subnet.giantswarm.io/role: bastion
   - cidrBlocks:
     - cidr: 10.0.64.0/18
       availabilityZone: a
@@ -86,15 +65,23 @@ network:
     - cidr: 10.0.192.0/18
       availabilityZone: c
     isPublic: false
-    tags:
-      subnet.giantswarm.io/role: workers
+
+  # # Our previous default for private clusters
+  # - cidrBlocks:
+  #   - cidr: 10.0.0.0/18
+  #     availabilityZone: a
+  #   - cidr: 10.0.64.0/18
+  #     availabilityZone: b
+  #   - cidr: 10.0.128.0/18
+  #     availabilityZone: c
+  #   isPublic: false
 
 bastion:
   enabled: true
   instanceType: t3.small
   replicas: 1
-  subnetTags:
-    - subnet.giantswarm.io/role: bastion
+  # subnetTags:
+  # - subnet.giantswarm.io/role: bastion
 
 controlPlane:
   instanceType: m5.xlarge
@@ -102,8 +89,8 @@ controlPlane:
   etcdVolumeSizeGB: 100
   containerdVolumeSizeGB: 100
   kubeletVolumeSizeGB: 100
-  subnetTags:
-    - subnet.giantswarm.io/role: control-plane
+  # subnetTags:
+  # - subnet.giantswarm.io/role: control-plane
 
 machinePools:
 - name: def00  # Name of node pool.
@@ -118,8 +105,8 @@ machinePools:
   # - key: ""
   #   value: ""
   #   effect: "" # Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
-  subnetTags:
-    - subnet.giantswarm.io/role: workers
+  # subnetTags:
+  # - subnet.giantswarm.io/role: workers
 
 sshSSOPublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io"
 flatcarAWSAccount: "075585003325"
