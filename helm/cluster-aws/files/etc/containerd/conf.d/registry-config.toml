@@ -3,7 +3,7 @@
     [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
       endpoint = [
         {{- if .Values.harborRegistry -}}
-        {{- printf "https://%s" .Values.harborRegistry.url | quote -}},
+        {{ include "fullurl" . | quote }},
         {{- end -}}
         "https://registry-1.docker.io", "giantswarm.azurecr.io"]
   [plugins."io.containerd.grpc.v1.cri".registry.configs]

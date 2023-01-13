@@ -107,6 +107,10 @@ room for such suffix.
 {{- end -}}
 {{- end -}}
 
+{{- define "fullurl" -}}
+{{- printf "https://%s" .Values.harborRegistry.url -}}
+{{- end -}}
+
 {{- define "irsaFiles" -}}
 - path: /opt/irsa-cloudfront.sh
   permissions: "0700"
