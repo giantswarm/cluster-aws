@@ -3,8 +3,9 @@
     [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
       endpoint = [
         {{- if .Values.harborRegistry -}}
-        {{- printf "https://%s" .Values.harborRegistry.url | quote -}}
-        {{- end -}}, "https://registry-1.docker.io", "giantswarm.azurecr.io"]
+        {{- printf "https://%s" .Values.harborRegistry.url | quote -}},
+        {{- end -}}
+        "https://registry-1.docker.io", "giantswarm.azurecr.io"]
   [plugins."io.containerd.grpc.v1.cri".registry.configs]
     [plugins."io.containerd.grpc.v1.cri".registry.configs."registry-1.docker.io".auth]
       auth = "{{ tpl "{{ .Values.registry.username }}:{{ .Values.registry.password }}" . | b64enc }}"
