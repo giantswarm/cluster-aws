@@ -106,3 +106,9 @@ kubectlImage:
 # Used to force-recreate resources that use a hash suffix in their name.
 # To use, set this to a random string to trigger new hash values to be generated.
 hashSalt: ""
+
+registry:
+  harborRegistry:
+    url: core.harbor.grizzly.eu-west-1.aws.gigantic.io
+    password: Harbor12345
+    username: admin
