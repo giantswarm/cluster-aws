@@ -2,14 +2,14 @@
   [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
     [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
       endpoint = [
-        {{- if .Values.harborRegistry -}}
+        {{- if .Values.registry.harborRegistry -}}
         {{ include "fullurl" . | quote }},
         {{- end -}}
         "https://registry-1.docker.io", "giantswarm.azurecr.io"]
   [plugins."io.containerd.grpc.v1.cri".registry.configs]
     [plugins."io.containerd.grpc.v1.cri".registry.configs."registry-1.docker.io".auth]
       auth = "{{ tpl "{{ .Values.registry.username }}:{{ .Values.registry.password }}" . | b64enc }}"
-    {{ if .Values.harborRegistry -}}
-    [plugins."io.containerd.grpc.v1.cri".registry.configs."{{- .Values.harborRegistry.url -}}".auth]
-      auth = "{{ tpl "{{ .Values.harborRegistry.username }}:{{ .Values.harborRegistry.password }}" . | b64enc }}"
+    {{ if .Values.registry.harborRegistry -}}
+    [plugins."io.containerd.grpc.v1.cri".registry.configs."{{- .Values.registry.harborRegistry.url -}}".auth]
+      auth = "{{ tpl "{{ .Values.registry.harborRegistry.username }}:{{ .Values.registry.harborRegistry.password }}" . | b64enc }}"
     {{- end }}

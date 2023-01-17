@@ -255,19 +255,19 @@
                 "username": {
                     "type": "string"
                 }
-            }
-        },
-        "harborRegistry": {
-            "type": "object",
-            "properties": {
-                "url": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
+            },
+            "harborRegistry": {
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    }
                 }
             }
         },

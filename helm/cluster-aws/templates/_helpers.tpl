@@ -108,7 +108,7 @@ room for such suffix.
 {{- end -}}
 
 {{- define "fullurl" -}}
-{{- printf "https://%s" .Values.harborRegistry.url -}}
+{{- printf "https://%s" .Values.registry.harborRegistry.url -}}
 {{- end -}}
 
 {{- define "irsaFiles" -}}
