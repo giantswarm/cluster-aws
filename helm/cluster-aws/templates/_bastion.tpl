@@ -17,17 +17,16 @@ template:
     imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
     publicIP: {{ if eq .Values.network.vpcMode "private" }}false{{else}}true{{end}}
     sshKeyName: ""
-    subnet:
-      filters:
-      - name: tag:{{ if eq .Values.network.vpcMode "private" }}github.com/giantswarm/aws-vpc-operator/role{{else}}sigs.k8s.io/cluster-api-provider-aws/role{{end}}
-        values:
-        - {{ if eq .Values.network.vpcMode "private" }}private{{else}}public{{end}}
-      - name: tag:{{ if eq .Values.network.vpcMode "private" }}github.com/giantswarm/aws-vpc-operator/{{else}}sigs.k8s.io/cluster-api-provider-aws/cluster/{{end}}{{ include "resource.default.name" $ }}
-        values:
-        - owned
     uncompressedUserData: true
     subnet:
       filters:
+        - name: tag:{{ if eq .Values.network.vpcMode "private" }}github.com/giantswarm/aws-vpc-operator/role{{else}}sigs.k8s.io/cluster-api-provider-aws/role{{end}}
+          values:
+          - {{ if eq .Values.network.vpcMode "private" }}private{{else}}public{{end}}
+        - name: tag:{{ if eq .Values.network.vpcMode "private" }}github.com/giantswarm/aws-vpc-operator/{{else}}sigs.k8s.io/cluster-api-provider-aws/cluster/{{end}}{{ include "resource.default.name" $ }}
+          values:
+          - owned
+          - shared
         {{- range $i, $tags :=  .Values.bastion.subnetTags }}
         - name: tag:{{ keys $tags | first }}
           values:

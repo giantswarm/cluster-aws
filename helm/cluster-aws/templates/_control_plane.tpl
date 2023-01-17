@@ -33,6 +33,10 @@ template:
     sshKeyName: ""
     subnet:
       filters:
+        - name: tag:kubernetes.io/cluster/{{ include "resource.default.name" $ }}
+          values:
+          - shared
+          - owned
         {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
         - name: tag:{{ keys $tags | first }}
           values:

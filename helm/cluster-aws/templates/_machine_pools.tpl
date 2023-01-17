@@ -39,6 +39,10 @@ spec:
   availabilityZones: {{ include "aws-availability-zones" . | nindent 2 }}
   subnets:
   - filters:
+    - name: tag:kubernetes.io/cluster/{{ include "resource.default.name" $ }}
+      values:
+      - shared
+      - owned
     {{- range $i, $tags := .subnetTags }}
     - name: tag:{{ keys $tags | first }}
       values:
