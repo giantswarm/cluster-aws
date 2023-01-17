@@ -67,7 +67,65 @@ machinePools:
     - subnet.giantswarm.io/role: workers
 ```
 
-## Upgrading to `v0.21.0`
+### API-server ELB subnets
+
+Currently it's not possible to target the subnets used for the api-server ELB using the `subnetTags` approach like other resources. The ELB will be associated with the first grouping of subnets defined in the `network.subnets` list.
+
+If you want the ELB to use its own subnets then you can add a new grouping **first** in the list specifically for the api-server ELB.
+
+### VPC Endpoints subnets
+
+You can have VPC Endpoints target specific subnets by using the `subnet.giantswarm.io/endpoints: "true"` on those subnets. E.g.
+
+```yaml
+# VPC endpoints
+- cidrBlocks:
+  - cidr: 10.233.19.0/24
+    availabilityZone: a
+  - cidr: 10.233.20.0/24
+    availabilityZone: b
+  - cidr: 10.233.21.0/24
+    availabilityZone: c
+  isPublic: true
+  tags:
+    subnet.giantswarm.io/role: attatchments
+    subnet.giantswarm.io/endpoints: "true"
+```
+
+If the `subnet.giantswarm.io/endpoints: "true"` tag isn't found on any subnets then it will default to using the first grouping of subnets.
+
+### Transit Gateway Attachment subnets
+
+> **Warning**
+> Currently not possible, see [giantswarm/roadmap#1865](https://github.com/giantswarm/roadmap/issues/1865)
+
+You can have Transit Gateway Attachments target specific subnets by using the `subnet.giantswarm.io/tgw-attachments: "true"` on those subnets. E.g.
+
+```yaml
+# TGW attachments
+- cidrBlocks:
+  - cidr: 10.233.19.0/24
+    availabilityZone: a
+  - cidr: 10.233.20.0/24
+    availabilityZone: b
+  - cidr: 10.233.21.0/24
+    availabilityZone: c
+  isPublic: true
+  tags:
+    subnet.giantswarm.io/role: attatchments
+    subnet.giantswarm.io/tgw-attachments: "true"
+```
+
+If the `subnet.giantswarm.io/tgw-attachments: "true"` tag isn't found on any subnets then it will default to using the first grouping of subnets.
+
+### Ingress subnets
+
+> **Warning**
+> Currently not possible, see [giantswarm/roadmap#1866](https://github.com/giantswarm/roadmap/issues/1866)
+
+## Upgrade Migrations
+
+### Upgrading to `v0.21.0`
 
 If your cluster previously has `network.vpcMode` set to private you will need to make a small change to your values when upgrading to this version.
 
