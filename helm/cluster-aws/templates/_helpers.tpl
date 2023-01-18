@@ -94,6 +94,7 @@ room for such suffix.
 - systemctl restart containerd
 - systemctl restart kubelet
 {{- end -}}
+
 {{- define "registryFiles" -}}
 {{- if .Values.registry -}}
 {{- if .Values.registry.configure -}}
