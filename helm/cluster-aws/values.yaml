@@ -106,4 +106,3 @@ kubectlImage:
 # Used to force-recreate resources that use a hash suffix in their name.
 # To use, set this to a random string to trigger new hash values to be generated.
 hashSalt: ""
-
