@@ -31,6 +31,17 @@ template:
       type: gp3
     iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
     sshKeyName: ""
+    subnet:
+      filters:
+        - name: tag:kubernetes.io/cluster/{{ include "resource.default.name" $ }}
+          values:
+          - shared
+          - owned
+        {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
+        - name: tag:{{ keys $tags | first }}
+          values:
+          - {{ index $tags (keys $tags | first) }}
+        {{- end }}
 {{- end }}
 
 {{- define "control-plane" }}
