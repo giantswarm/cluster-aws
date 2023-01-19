@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.21.0] - 2023-01-19
+
 ### Breaking Change
 
 - For private clusters, where `network.vpcMode` is set to `private`, the subnets property has changed. Instead of previously being a list of CIDR strings the property now include a more complex object providing more configuration options. For migration steps see the "Upgrading to `v0.21.0`" section in the readme.
@@ -443,7 +445,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.20.7...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.21.0...HEAD
+[0.21.0]: https://github.com/giantswarm/cluster-aws/compare/v0.20.7...v0.21.0
 [0.20.7]: https://github.com/giantswarm/cluster-aws/compare/v0.20.6...v0.20.7
 [0.20.6]: https://github.com/giantswarm/cluster-aws/compare/v0.20.5...v0.20.6
 [0.20.5]: https://github.com/giantswarm/cluster-aws/compare/v0.20.4...v0.20.5
