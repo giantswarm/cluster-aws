@@ -1,7 +1,7 @@
 clusterName: ""  # Cluster name. Defaults to chart release name
 clusterDescription: "test"  # Cluster description used in metadata.
 organization: ""  # Organization in which to create the cluster.
-kubernetesVersion: 1.23.15
+kubernetesVersion: 1.23.16
 releaseVersion: 20.0.0-alpha1
 baseDomain: ""  # Customer base domain, generally of the form "<customer codename>.gigantic.io".
 
