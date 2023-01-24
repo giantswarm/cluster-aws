@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump kubernetes version to `1.23.16`
+
 ## [0.20.6] - 2023-01-11
 
 ### Added
