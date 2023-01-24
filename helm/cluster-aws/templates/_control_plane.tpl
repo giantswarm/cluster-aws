@@ -31,6 +31,17 @@ template:
       type: gp3
     iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
     sshKeyName: ""
+    subnet:
+      filters:
+        - name: tag:kubernetes.io/cluster/{{ include "resource.default.name" $ }}
+          values:
+          - shared
+          - owned
+        {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
+        - name: tag:{{ keys $tags | first }}
+          values:
+          - {{ index $tags (keys $tags | first) }}
+        {{- end }}
 {{- end }}
 
 {{- define "control-plane" }}
@@ -52,7 +63,9 @@ spec:
       name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
   kubeadmConfigSpec:
     clusterConfiguration:
-      imageRepository: registry.k8s.io {{- /* Temporary so that `kubeadm join` keeps working (https://github.com/giantswarm/roadmap/issues/1669, https://github.com/kubernetes/kubernetes/pull/114978), will later be replaced by Giant Swarm repo via https://github.com/giantswarm/roadmap/issues/1722 */}}
+      # Avoid accessibility issues (e.g. on private clusters) and potential future rate limits for the default `registry.k8s.io`
+      imageRepository: docker.io/giantswarm
+
       apiServer:
         timeoutForControlPlane: 20m
         certSANs:

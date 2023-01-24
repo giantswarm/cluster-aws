@@ -46,15 +46,42 @@ network:
   # prefixListID is the ID of the Managed Prefix List to use when `mode` is set to `UserManaged`.
   prefixListID: ""
 
+  # subnets defines all the subnets for a cluster.
   subnets:
-  - cidrBlock: 10.0.0.0/18
-  - cidrBlock: 10.0.64.0/18
-  - cidrBlock: 10.0.128.0/18
+  # The CAPA default subnet layout
+  - cidrBlocks:
+    - cidr: 10.0.0.0/20
+      availabilityZone: a
+    - cidr: 10.0.16.0/20
+      availabilityZone: b
+    - cidr: 10.0.32.0/20
+      availabilityZone: c
+    isPublic: true
+  - cidrBlocks:
+    - cidr: 10.0.64.0/18
+      availabilityZone: a
+    - cidr: 10.0.128.0/18
+      availabilityZone: b
+    - cidr: 10.0.192.0/18
+      availabilityZone: c
+    isPublic: false
+
+  # # Our previous default for private clusters
+  # - cidrBlocks:
+  #   - cidr: 10.0.0.0/18
+  #     availabilityZone: a
+  #   - cidr: 10.0.64.0/18
+  #     availabilityZone: b
+  #   - cidr: 10.0.128.0/18
+  #     availabilityZone: c
+  #   isPublic: false
 
 bastion:
   enabled: true
   instanceType: t3.small
   replicas: 1
+  # subnetTags:
+  # - subnet.giantswarm.io/role: bastion
 
 controlPlane:
   instanceType: m5.xlarge
@@ -62,6 +89,8 @@ controlPlane:
   etcdVolumeSizeGB: 100
   containerdVolumeSizeGB: 100
   kubeletVolumeSizeGB: 100
+  # subnetTags:
+  # - subnet.giantswarm.io/role: control-plane
 
 machinePools:
 - name: def00  # Name of node pool.
@@ -76,6 +105,8 @@ machinePools:
   # - key: ""
   #   value: ""
   #   effect: "" # Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
+  # subnetTags:
+  # - subnet.giantswarm.io/role: workers
 
 sshSSOPublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io"
 flatcarAWSAccount: "075585003325"
