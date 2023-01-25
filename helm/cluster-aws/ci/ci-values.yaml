@@ -1,10 +1,2 @@
 organization: "test"
 baseDomain: example.com
-machinePools:
-  def00:  # Name of node pool.
-    availabilityZones: []
-    instanceType: m5.xlarge
-    minSize: 3  # Number of replicas in node pool. maxSize: 3 rootVolumeSizeGB: 300
-    customNodeLabels:
-    - label=default
-    customNodeTaints: []
