@@ -107,7 +107,7 @@
         "machinePools": {
             "type": "object"
         },
-        defaultMachinePools: {
+        "defaultMachinePools": {
             "type": "object"
         },
         "network": {
