@@ -92,13 +92,14 @@ controlPlane:
   # subnetTags:
   # - subnet.giantswarm.io/role: control-plane
 
-machinePools:
+# For structure of the machine pool object see defaultMachinePools
+machinePools: {}
+
+defaultMachinePools: # Machine pools used if none is specified by user
   def00:  # Name of node pool.
     availabilityZones: []
     instanceType: m5.xlarge
-    minSize: 3  # Number of replicas in node pool.
-    maxSize: 3
-    rootVolumeSizeGB: 300
+    minSize: 3  # Number of replicas in node pool. maxSize: 3 rootVolumeSizeGB: 300
     customNodeLabels:
     - label=default
     customNodeTaints: []
