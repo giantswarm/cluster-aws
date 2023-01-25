@@ -105,72 +105,7 @@
             "type": "string"
         },
         "machinePools": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "availabilityZones": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "customNodeLabels": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "customNodeTaints": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "effect": {
-                                    "type": "string",
-                                    "enum": [
-                                        "NoSchedule",
-                                        "PreferNoSchedule",
-                                        "NoExecute"
-                                    ]
-                                },
-                                "key": {
-                                    "type": "string"
-                                },
-                                "value": {
-                                    "type": "string"
-                                }
-                            },
-                            "required": [
-                                "effect",
-                                "key",
-                                "value"
-                            ]
-                        }
-                    },
-                    "instanceType": {
-                        "type": "string"
-                    },
-                    "maxSize": {
-                        "type": "integer"
-                    },
-                    "minSize": {
-                        "type": "integer"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "rootVolumeSizeGB": {
-                        "type": "integer"
-                    },
-                    "subnetTags": {
-                        "type": "array",
-                        "items": {
-                            "type": "object"
-                        }
-                    }
-                }
-            }
+            "type": "object"
         },
         "network": {
             "type": "object",
