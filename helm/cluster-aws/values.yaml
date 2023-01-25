@@ -95,7 +95,7 @@ controlPlane:
 # For structure of the machine pool object see defaultMachinePools
 machinePools: {}
 
-defaultMachinePools: # Machine pools used if none is specified by user
+defaultMachinePools:  # Machine pools used if none is specified by user
   def00:  # Name of node pool.
     availabilityZones: []
     instanceType: m5.xlarge
