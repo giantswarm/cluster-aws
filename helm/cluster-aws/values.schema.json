@@ -105,7 +105,74 @@
             "type": "string"
         },
         "machinePools": {
-            "type": "object"
+            "type": "object",
+            "patternProperties": {
+                "^[a-z0-9]{5,10}$": {
+                    "type": "object",
+                    "properties": {
+                        "availabilityZones": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "customNodeLabels": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "customNodeTaints": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "effect": {
+                                        "type": "string",
+                                        "enum": [
+                                            "NoSchedule",
+                                            "PreferNoSchedule",
+                                            "NoExecute"
+                                        ]
+                                    },
+                                    "key": {
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "effect",
+                                    "key",
+                                    "value"
+                                ]
+                            }
+                        },
+                        "instanceType": {
+                            "type": "string"
+                        },
+                        "maxSize": {
+                            "type": "integer"
+                        },
+                        "minSize": {
+                            "type": "integer"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "rootVolumeSizeGB": {
+                            "type": "integer"
+                        },
+                        "subnetTags": {
+                            "type": "array",
+                            "items": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            }
         },
         "defaultMachinePools": {
             "type": "object"
