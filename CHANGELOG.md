@@ -7,9 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.22.0] - 2023-01-24
+
+### Changed
+
+- Bump kubernetes version to `1.23.16`
+
+## [0.21.0] - 2023-01-19
+
+### Breaking Change
+
+- For private clusters, where `network.vpcMode` is set to `private`, the subnets property has changed. Instead of previously being a list of CIDR strings the property now include a more complex object providing more configuration options. For migration steps see the "Upgrading to `v0.21.0`" section in the readme.
+
 ### Added
 
+- More configuration options when defining subnets to be created
+- `controlPlane.subnetTags`, `bastion.subnetTags` and `machinePools[].subnetTags` to target specific subnets
 - Add icon to Chart.yaml
+
+### Changed
+
+- Subnets are now specified on the `AWSCluster` resource by default rather than relying on CAPA code to default them. The same sizing as the CAPA default have been used.
 
 ## [0.20.7] - 2023-01-12
 
@@ -433,7 +451,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.20.7...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.22.0...HEAD
+[0.22.0]: https://github.com/giantswarm/cluster-aws/compare/v0.21.0...v0.22.0
+[0.21.0]: https://github.com/giantswarm/cluster-aws/compare/v0.20.7...v0.21.0
 [0.20.7]: https://github.com/giantswarm/cluster-aws/compare/v0.20.6...v0.20.7
 [0.20.6]: https://github.com/giantswarm/cluster-aws/compare/v0.20.5...v0.20.6
 [0.20.5]: https://github.com/giantswarm/cluster-aws/compare/v0.20.4...v0.20.5
