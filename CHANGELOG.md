@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add value to specify which AWS account ID to use when associating Route53 Resolver Rules with workload cluster VPC.
+
 ## [0.22.0] - 2023-01-24
 
 ### Changed

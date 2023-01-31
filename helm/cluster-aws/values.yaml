@@ -45,6 +45,9 @@ network:
   transitGatewayID: ""
   # prefixListID is the ID of the Managed Prefix List to use when `mode` is set to `UserManaged`.
   prefixListID: ""
+  # resolverRulesOwnerAccount is the AWS account that created the Resolver Rules that we want to associate with the WC VPC.
+  # When empty, no resolver rules will be associated with the WC VPC.
+  resolverRulesOwnerAccount: ""
 
   # subnets defines all the subnets for a cluster.
   subnets:
