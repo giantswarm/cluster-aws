@@ -52,6 +52,14 @@
         "clusterName": {
             "type": "string"
         },
+        "connectivity": {
+            "type": "object",
+            "properties": {
+                "containerRegistries": {
+                    "type": "object"
+                }
+            }
+        },
         "controlPlane": {
             "type": "object",
             "properties": {
@@ -273,41 +281,8 @@
                 "https_proxy": {
                     "type": "string"
                 },
-		"no_proxy": {
+                "no_proxy": {
                     "type": "string"
-                }
-            }
-        },
-        "registry": {
-            "type": "object",
-            "properties": {
-                "configure": {
-                    "type": "boolean"
-                },
-                "dockerRegistry": {
-                    "type": "object",
-                    "properties": {
-                        "password": {
-                            "type": "string"
-                        },
-                        "username": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "harborRegistry": {
-                    "type": "object",
-                    "properties": {
-                        "password": {
-                            "type": "string"
-                        },
-                        "url": {
-                            "type": "string"
-                        },
-                        "username": {
-                            "type": "string"
-                        }
-                    }
                 }
             }
         },
