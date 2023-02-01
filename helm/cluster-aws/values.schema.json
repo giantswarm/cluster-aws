@@ -141,6 +141,17 @@
                 "prefixListID": {
                     "type": "string"
                 },
+                "resolverRulesOwnerAccount": {
+                    "type": "string",
+                    "oneOf": [
+                        {
+                            "pattern": "^\\d{12}$"
+                        },
+                        {
+                            "const": ""
+                        }
+                    ]
+                },
                 "serviceCIDR": {
                     "type": "string"
                 },
