@@ -146,7 +146,7 @@ network:
 
 If you've specified your own CIDR blocks previous you'll need to convert those strings to the block structure like above. Be aware to make sure the correct availability zone is specified for each CIDR block.
 
-### Upgrading to `v0.23.0`
+### Upgrading to `v0.24.0`
 
 You will need to change the definition of your machine pools from using a list to an object.
 For example, instead of the following:
@@ -171,7 +171,9 @@ machinePools:
   def00:  # Name of node pool.
     availabilityZones: []
     instanceType: m5.xlarge
-    minSize: 3  # Number of replicas in node pool. maxSize: 3 rootVolumeSizeGB: 300
+    minSize: 3  # Number of replicas in node pool.
+    maxSize: 3
+    rootVolumeSizeGB: 300
     customNodeLabels:
     - label=default
     customNodeTaints: []
