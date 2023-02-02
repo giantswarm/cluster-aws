@@ -7,21 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-
 ## Breaking Change
 
-- Restructured `registry.password` and `registry.username` to `registry.dockerRegistry.password` and `registry.dockerRegistry.username`
+- Replaced `registry` parameter  to `connectivity.containerRegistries` in the values schema
 
 ### Added
-- Included harbor registry config to regsitry-config.toml as a mirror for "docker.io" host
-- Add `registry.harborRegistry.url`,  `registry.harborRegistry.password` and `registry.harborRegistry.username` to accomodate harbor regsitry configuration
+
+- Made registry configurations `connectivity.containerRegistries` dynamic to accept as many container registries and mirrors as needed
 
 ## [0.23.0] - 2023-02-01
 
 ### Added
 
 - Add value to specify which AWS account ID to use when associating Route53 Resolver Rules with workload cluster VPC.
-
 
 ## [0.22.0] - 2023-01-24
 
