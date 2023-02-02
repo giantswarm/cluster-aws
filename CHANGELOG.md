@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking Change
+
+- Use object for `.machinePools` schema instead of array. This is to make it easier to overwrite values when using GitOps. For migration steps see the "Upgrading to `v0.24.0`" section in the readme.
+
 ## [0.23.0] - 2023-02-01
 
 ### Added
