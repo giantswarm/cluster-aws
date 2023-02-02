@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.24.0] - 2023-02-02
+
 ### Breaking Change
 
 - Use object for `.machinePools` schema instead of array. This is to make it easier to overwrite values when using GitOps. For migration steps see the "Upgrading to `v0.24.0`" section in the readme.
@@ -461,7 +463,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.23.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.24.0...HEAD
+[0.24.0]: https://github.com/giantswarm/cluster-aws/compare/v0.23.0...v0.24.0
 [0.23.0]: https://github.com/giantswarm/cluster-aws/compare/v0.22.0...v0.23.0
 [0.22.0]: https://github.com/giantswarm/cluster-aws/compare/v0.21.0...v0.22.0
 [0.21.0]: https://github.com/giantswarm/cluster-aws/compare/v0.20.7...v0.21.0
