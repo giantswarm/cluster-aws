@@ -62,9 +62,9 @@ controlPlane:
     - subnet.giantswarm.io/role: control-plane
 
 machinePools:
-- name: def00
-  subnetTags:
-    - subnet.giantswarm.io/role: workers
+  def00:
+    subnetTags:
+      - subnet.giantswarm.io/role: workers
 ```
 
 ### API-server ELB subnets
@@ -145,3 +145,36 @@ network:
 ```
 
 If you've specified your own CIDR blocks previous you'll need to convert those strings to the block structure like above. Be aware to make sure the correct availability zone is specified for each CIDR block.
+
+### Upgrading to `v0.24.0`
+
+You will need to change the definition of your machine pools from using a list to an object.
+For example, instead of the following:
+
+```yaml
+machinePools:
+- name: def00  # Name of node pool.
+  availabilityZones: []
+  instanceType: m5.xlarge
+  minSize: 3  # Number of replicas in node pool.
+  maxSize: 3
+  rootVolumeSizeGB: 300
+  customNodeLabels:
+  - label=default
+  customNodeTaints: []
+```
+
+You should have:
+
+```yaml
+machinePools:
+  def00:  # Name of node pool.
+    availabilityZones: []
+    instanceType: m5.xlarge
+    minSize: 3  # Number of replicas in node pool.
+    maxSize: 3
+    rootVolumeSizeGB: 300
+    customNodeLabels:
+    - label=default
+    customNodeTaints: []
+```
