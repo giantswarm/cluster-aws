@@ -96,16 +96,12 @@ room for such suffix.
 {{- end -}}
 
 {{- define "registryFiles" -}}
-{{- if .Values.registry -}}
-{{- if .Values.registry.configure -}}
 - path: /etc/containerd/conf.d/registry-config.toml
   permissions: "0600"
   contentFrom:
     secret:
       name: {{ include "resource.default.name" $ }}-registry-configuration
       key: registry-config.toml
-{{- end -}}
-{{- end -}}
 {{- end -}}
 {{- define "irsaFiles" -}}
 - path: /opt/irsa-cloudfront.sh
