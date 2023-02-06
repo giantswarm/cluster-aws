@@ -197,7 +197,7 @@
                 },
                 "vpcEndpointMode": {
                     "type": "string"
-                },
+                }
             }
         },
         "oidc": {
