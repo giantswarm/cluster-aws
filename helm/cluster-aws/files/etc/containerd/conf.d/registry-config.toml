@@ -14,11 +14,11 @@
       {{ with $value.credentials -}}
       [plugins."io.containerd.grpc.v1.cri".registry.configs."{{$value.endpoint}}".auth]
       {{ if and .username .password -}}
-      auth := {{ printf "%s:%s" .username .password | b64enc | quote }}
+      auth = {{ printf "%s:%s" .username .password | b64enc | quote }}
       {{- else if .auth -}}
       auth = {{ .auth | quote }}
       {{ else if .identitytoken -}}
-      identitytoken := {{ .identitytoken  | quote }}
+      identitytoken = {{ .identitytoken  | quote }}
       {{- end }}
     {{- end }}
   {{- end }}
