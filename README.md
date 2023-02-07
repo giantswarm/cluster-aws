@@ -47,6 +47,23 @@ network:
     isPublic: true
     tags:
       subnet.giantswarm.io/role: bastion
+  # Ingress load balancer subnets
+  - cidrBlocks:
+    - cidr: 10.0.3.0/24
+      availabilityZone: a
+      tags:
+        Name: cluster-ingress-lb-a
+    - cidr: 10.0.4.0/24
+      availabilityZone: b
+      tags:
+        Name: cluster-ingress-lb-b
+    - cidr: 10.0.5.0/24
+      availabilityZone: c
+      tags:
+        Name: cluster-ingress-lb-c
+    isPublic: true
+    tags:
+      subnet.giantswarm.io/role: ingress
 ```
 
 The desired subnet can then be targetted by using the `subnetTags` value to set the AWS tags to match on. For example:
@@ -88,7 +105,7 @@ You can have VPC Endpoints target specific subnets by using the `subnet.giantswa
     availabilityZone: c
   isPublic: true
   tags:
-    subnet.giantswarm.io/role: attatchments
+    subnet.giantswarm.io/role: attachments
     subnet.giantswarm.io/endpoints: "true"
 ```
 
@@ -112,7 +129,7 @@ You can have Transit Gateway Attachments target specific subnets by using the `s
     availabilityZone: c
   isPublic: true
   tags:
-    subnet.giantswarm.io/role: attatchments
+    subnet.giantswarm.io/role: attachments
     subnet.giantswarm.io/tgw-attachments: "true"
 ```
 
