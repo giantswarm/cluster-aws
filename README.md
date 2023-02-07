@@ -105,7 +105,7 @@ You can have VPC Endpoints target specific subnets by using the `subnet.giantswa
     availabilityZone: c
   isPublic: true
   tags:
-    subnet.giantswarm.io/role: attatchments
+    subnet.giantswarm.io/role: attachments
     subnet.giantswarm.io/endpoints: "true"
 ```
 
@@ -129,7 +129,7 @@ You can have Transit Gateway Attachments target specific subnets by using the `s
     availabilityZone: c
   isPublic: true
   tags:
-    subnet.giantswarm.io/role: attatchments
+    subnet.giantswarm.io/role: attachments
     subnet.giantswarm.io/tgw-attachments: "true"
 ```
 
