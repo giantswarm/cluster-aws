@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Customize tags per individual subnet.
+
 ## [0.24.0] - 2023-02-02
 
 ### Breaking Change
