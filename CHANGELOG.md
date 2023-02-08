@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Made registry configurations `connectivity.containerRegistries` dynamic to accept as many container registries and mirrors as needed
 
+## [0.24.1] - 2023-02-07
+
+### Added
+
+- Customize tags per individual subnet.
+
 ## [0.24.0] - 2023-02-02
 
 ### Breaking Change
@@ -471,7 +477,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.24.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.24.1...HEAD
+[0.24.1]: https://github.com/giantswarm/cluster-aws/compare/v0.24.0...v0.24.1
 [0.24.0]: https://github.com/giantswarm/cluster-aws/compare/v0.23.0...v0.24.0
 [0.23.0]: https://github.com/giantswarm/cluster-aws/compare/v0.22.0...v0.23.0
 [0.22.0]: https://github.com/giantswarm/cluster-aws/compare/v0.21.0...v0.22.0
