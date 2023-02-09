@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add value to set VPC Endpoint Mode to decide if endpoint should be created by vpc operator 
+- Expose helm value for customers to decide whether or not VPC endpoint should be created by Giantswarm. 
 
 ## [0.24.1] - 2023-02-07
 
