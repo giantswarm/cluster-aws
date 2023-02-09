@@ -50,6 +50,9 @@ spec:
       isPublic: {{ $subnet.isPublic | default false }}
       tags:
         {{- toYaml $subnet.tags | nindent 8 }}
+        {{- if $cidr.tags }}
+        {{- toYaml $cidr.tags | nindent 8 }}
+        {{- end }}
     {{- end }}
     {{- end }}
   sshKeyName: ssh-key

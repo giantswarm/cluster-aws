@@ -170,6 +170,9 @@
                                         },
                                         "availabilityZone": {
                                             "type": "string"
+                                        },
+                                        "tags": {
+                                            "type": "object"
                                         }
                                     }
                                 }
