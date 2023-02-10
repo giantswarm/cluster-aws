@@ -32,6 +32,10 @@ network:
   # Valid value: public, private
   dnsMode: public
 
+  # vpcEndpointMode defines if VPC endpoints should be created by GiantSwarm or not
+  # Valid value: UserManaged, GiantSwarmManaged
+  vpcEndpointMode: GiantSwarmManaged
+
   # dnsAssignAdditionalVPCs - when dnsMode is 'private', listed vpc will be assigned to the private hosted zone
   # value should be vpc id separated by comma
   # ie: "vpc-x2aeasd1d,vpc-98injA"

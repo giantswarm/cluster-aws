@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Expose helm value for customers to decide whether or not VPC endpoint should be created by Giantswarm. 
+
 ## [0.24.1] - 2023-02-07
 
 ### Added
