@@ -174,6 +174,10 @@ imageLookupOrg: "706635527432"
 {{- end }}
 {{- end -}}
 
+{{- define "prepare-varLibKubelet-Dir" -}}
+- /bin/test ! -d /var/lib/kubelet && (/bin/mkdir -p /var/lib/kubelet && /bin/chmod 0750 /var/lib/kubelet)
+{{- end -}}
+
 {{/*
 Hash function based on data provided
 Expects two arguments (as a `dict`) E.g.

@@ -205,6 +205,9 @@
                 },
                 "vpcMode": {
                     "type": "string"
+                },
+                "vpcEndpointMode": {
+                    "type": "string"
                 }
             }
         },

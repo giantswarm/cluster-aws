@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Made registry configurations `connectivity.containerRegistries` dynamic to accept as many container registries and mirrors as needed
 
+### Added
+
+- Expose helm value for customers to decide whether or not VPC endpoint should be created by Giantswarm.
+
+### Changed
+
+- Set `/var/lib/kubelet` permissions to `0750` to fix `node-exporter` issue.
+
 ## [0.24.1] - 2023-02-07
 
 ### Added
