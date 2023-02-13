@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Breaking Change
+
+- Replaced `registry` parameter  to `connectivity.containerRegistries` in the values schema
+
+### Added
+
+- Made registry configurations `connectivity.containerRegistries` dynamic to accept as many container registries and mirrors as needed
+
 ### Added
 
 - Expose helm value for customers to decide whether or not VPC endpoint should be created by Giantswarm.

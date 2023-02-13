@@ -52,6 +52,14 @@
         "clusterName": {
             "type": "string"
         },
+        "connectivity": {
+            "type": "object",
+            "properties": {
+                "containerRegistries": {
+                    "type": "object"
+                }
+            }
+        },
         "controlPlane": {
             "type": "object",
             "properties": {
@@ -239,20 +247,6 @@
                     "type": "string"
                 },
                 "no_proxy": {
-                    "type": "string"
-                }
-            }
-        },
-        "registry": {
-            "type": "object",
-            "properties": {
-                "configure": {
-                    "type": "boolean"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "username": {
                     "type": "string"
                 }
             }
