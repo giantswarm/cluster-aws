@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Fail in Helm template if `dnsMode=public` is combined with a `baseDomain` ending with `.internal`
+
 ## [0.21.0] - 2023-01-19
 
 ### Breaking Change

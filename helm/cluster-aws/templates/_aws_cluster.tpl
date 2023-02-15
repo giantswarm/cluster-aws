@@ -1,4 +1,7 @@
 {{- define "aws-cluster" }}
+{{- if and (regexMatch "\\.internal$" (required "baseDomain is required" .Values.baseDomain)) (eq (required "network.dnsMode required" .Values.network.dnsMode) "public") }}
+{{- fail "dnsMode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
+{{- end }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSCluster
 metadata:
