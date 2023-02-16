@@ -46,7 +46,7 @@ spec:
     {{- range $i, $tags := .subnetTags }}
     - name: tag:{{ keys $tags | first }}
       values:
-      - {{ index $tags (keys $tags | first) }}
+      - {{ index $tags (keys $tags | first) | quote }}
     {{- end }}
   awsLaunchTemplate:
     {{- include "ami" $ | nindent 4 }}
