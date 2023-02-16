@@ -30,7 +30,7 @@ template:
         {{- range $i, $tags :=  .Values.bastion.subnetTags }}
         - name: tag:{{ keys $tags | first }}
           values:
-          - {{ index $tags (keys $tags | first) }}
+          - {{ index $tags (keys $tags | first) | quote }}
         {{- end }}
 {{- end }}
 
