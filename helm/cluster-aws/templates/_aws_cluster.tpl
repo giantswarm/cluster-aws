@@ -11,10 +11,14 @@ metadata:
     {{- if (eq .Values.network.dnsMode "private") }}
     aws.giantswarm.io/dns-assign-additional-vpc: "{{ .Values.network.dnsAssignAdditionalVPCs }}"
     {{- end }}
+    {{- if .Values.network.resolverRulesOwnerAccount }}
+    aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.network.resolverRulesOwnerAccount }}"
+    {{- end}}
     {{- if (eq .Values.network.vpcMode "private") }}
     cluster.x-k8s.io/paused: "true"
     {{end}}
     aws.cluster.x-k8s.io/external-resource-gc: "true"
+    aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.network.vpcEndpointMode }}"
   labels:
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ include "resource.default.name" $ }}
@@ -49,6 +53,9 @@ spec:
       isPublic: {{ $subnet.isPublic | default false }}
       tags:
         {{- toYaml $subnet.tags | nindent 8 }}
+        {{- if $cidr.tags }}
+        {{- toYaml $cidr.tags | nindent 8 }}
+        {{- end }}
     {{- end }}
     {{- end }}
   sshKeyName: ssh-key

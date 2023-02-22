@@ -94,9 +94,8 @@ room for such suffix.
 - systemctl restart containerd
 - systemctl restart kubelet
 {{- end -}}
+
 {{- define "registryFiles" -}}
-{{- if .Values.registry -}}
-{{- if .Values.registry.configure -}}
 - path: /etc/containerd/conf.d/registry-config.toml
   permissions: "0600"
   contentFrom:
@@ -104,9 +103,6 @@ room for such suffix.
       name: {{ include "resource.default.name" $ }}-registry-configuration
       key: registry-config.toml
 {{- end -}}
-{{- end -}}
-{{- end -}}
-
 {{- define "irsaFiles" -}}
 - path: /opt/irsa-cloudfront.sh
   permissions: "0700"
@@ -176,6 +172,10 @@ imageLookupBaseOS: "ubuntu-20.04"
 imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-gs" }}
 imageLookupOrg: "706635527432"
 {{- end }}
+{{- end -}}
+
+{{- define "prepare-varLibKubelet-Dir" -}}
+- /bin/test ! -d /var/lib/kubelet && (/bin/mkdir -p /var/lib/kubelet && /bin/chmod 0750 /var/lib/kubelet)
 {{- end -}}
 
 {{/*

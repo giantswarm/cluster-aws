@@ -11,6 +11,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fail in Helm template if `dnsMode=public` is combined with a `baseDomain` ending with `.internal`
 
+## [0.25.1] - 2023-02-16
+
+### Fixed
+
+- Quote bastion subnet tag filters in order to avoid type conversion errors.
+
+## [0.25.0] - 2023-02-16
+
+### Breaking Change
+
+- Replaced `registry` parameter  to `connectivity.containerRegistries` in the values schema
+
+### Fixed
+
+- Quote subnet tag filters in order to avoid type conversion errors.
+
+### Added
+
+- Made registry configurations `connectivity.containerRegistries` dynamic to accept as many container registries and mirrors as needed
+- Expose helm value for customers to decide whether or not VPC endpoint should be created by Giantswarm.
+
+### Changed
+
+- Set `/var/lib/kubelet` permissions to `0750` to fix `node-exporter` issue.
+
+## [0.24.1] - 2023-02-07
+
+### Added
+
+- Customize tags per individual subnet.
+
+## [0.24.0] - 2023-02-02
+
+### Breaking Change
+
+- Use object for `.machinePools` schema instead of array. This is to make it easier to overwrite values when using GitOps. For migration steps see the "Upgrading to `v0.24.0`" section in the readme.
+
+## [0.23.0] - 2023-02-01
+
+### Added
+
+- Add value to specify which AWS account ID to use when associating Route53 Resolver Rules with workload cluster VPC.
+
+## [0.22.0] - 2023-01-24
+
+### Changed
+
+- Bump kubernetes version to `1.23.16`
+
 ## [0.21.0] - 2023-01-19
 
 ### Breaking Change
@@ -449,7 +498,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.21.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.25.1...HEAD
+[0.25.1]: https://github.com/giantswarm/cluster-aws/compare/v0.25.0...v0.25.1
+[0.25.0]: https://github.com/giantswarm/cluster-aws/compare/v0.24.1...v0.25.0
+[0.24.1]: https://github.com/giantswarm/cluster-aws/compare/v0.24.0...v0.24.1
+[0.24.0]: https://github.com/giantswarm/cluster-aws/compare/v0.23.0...v0.24.0
+[0.23.0]: https://github.com/giantswarm/cluster-aws/compare/v0.22.0...v0.23.0
+[0.22.0]: https://github.com/giantswarm/cluster-aws/compare/v0.21.0...v0.22.0
 [0.21.0]: https://github.com/giantswarm/cluster-aws/compare/v0.20.7...v0.21.0
 [0.20.7]: https://github.com/giantswarm/cluster-aws/compare/v0.20.6...v0.20.7
 [0.20.6]: https://github.com/giantswarm/cluster-aws/compare/v0.20.5...v0.20.6

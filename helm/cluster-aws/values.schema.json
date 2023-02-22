@@ -52,6 +52,14 @@
         "clusterName": {
             "type": "string"
         },
+        "connectivity": {
+            "type": "object",
+            "properties": {
+                "containerRegistries": {
+                    "type": "object"
+                }
+            }
+        },
         "controlPlane": {
             "type": "object",
             "properties": {
@@ -105,70 +113,18 @@
             "type": "string"
         },
         "machinePools": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "availabilityZones": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "customNodeLabels": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "customNodeTaints": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "effect": {
-                                    "type": "string",
-                                    "enum": [
-                                        "NoSchedule",
-                                        "PreferNoSchedule",
-                                        "NoExecute"
-                                    ]
-                                },
-                                "key": {
-                                    "type": "string"
-                                },
-                                "value": {
-                                    "type": "string"
-                                }
-                            },
-                            "required": [
-                                "effect",
-                                "key",
-                                "value"
-                            ]
-                        }
-                    },
-                    "instanceType": {
-                        "type": "string"
-                    },
-                    "maxSize": {
-                        "type": "integer"
-                    },
-                    "minSize": {
-                        "type": "integer"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "rootVolumeSizeGB": {
-                        "type": "integer"
-                    },
-                    "subnetTags": {
-                        "type": "array",
-                        "items": {
-                            "type": "object"
-                        }
-                    }
+            "type": "object",
+            "patternProperties": {
+                "^[a-z0-9]{5,10}$": {
+                    "$ref": "#/$defs/machinePool"
+                }
+            }
+        },
+        "defaultMachinePools": {
+            "type": "object",
+            "patternProperties": {
+                "^[a-z0-9]{5,10}$": {
+                    "$ref": "#/$defs/machinePool"
                 }
             }
         },
@@ -194,6 +150,17 @@
                 "prefixListID": {
                     "type": "string"
                 },
+                "resolverRulesOwnerAccount": {
+                    "type": "string",
+                    "oneOf": [
+                        {
+                            "pattern": "^\\d{12}$"
+                        },
+                        {
+                            "const": ""
+                        }
+                    ]
+                },
                 "serviceCIDR": {
                     "type": "string"
                 },
@@ -212,6 +179,9 @@
                                         },
                                         "availabilityZone": {
                                             "type": "string"
+                                        },
+                                        "tags": {
+                                            "type": "object"
                                         }
                                     }
                                 }
@@ -235,6 +205,9 @@
                     "type": "string"
                 },
                 "vpcMode": {
+                    "type": "string"
+                },
+                "vpcEndpointMode": {
                     "type": "string"
                 }
             }
@@ -274,21 +247,7 @@
                 "https_proxy": {
                     "type": "string"
                 },
-		"no_proxy": {
-                    "type": "string"
-                }
-            }
-        },
-        "registry": {
-            "type": "object",
-            "properties": {
-                "configure": {
-                    "type": "boolean"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "username": {
+                "no_proxy": {
                     "type": "string"
                 }
             }
@@ -298,6 +257,70 @@
         },
         "sshSSOPublicKey": {
             "type": "string"
+        }
+    },
+    "$defs": {
+        "machinePool": {
+            "type": "object",
+            "properties": {
+                "availabilityZones": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "customNodeLabels": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "customNodeTaints": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "effect": {
+                                "type": "string",
+                                "enum": [
+                                    "NoSchedule",
+                                    "PreferNoSchedule",
+                                    "NoExecute"
+                                ]
+                            },
+                            "key": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "effect",
+                            "key",
+                            "value"
+                        ]
+                    }
+                },
+                "instanceType": {
+                    "type": "string"
+                },
+                "maxSize": {
+                    "type": "integer"
+                },
+                "minSize": {
+                    "type": "integer"
+                },
+                "rootVolumeSizeGB": {
+                    "type": "integer"
+                },
+                "subnetTags": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                }
+            }
         }
     }
 }

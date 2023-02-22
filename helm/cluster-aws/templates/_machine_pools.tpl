@@ -1,14 +1,14 @@
 {{- define "machine-pools" }}
-{{ range .Values.machinePools }}
+{{- range $name, $value := .Values.machinePools | default .Values.defaultMachinePools }}
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
   annotations:
-    machine-pool.giantswarm.io/name: {{ include "resource.default.name" $ }}-{{ .name }}
+    machine-pool.giantswarm.io/name: {{ include "resource.default.name" $ }}-{{ $name }}
   labels:
-    giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ .name }}
+    giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ include "resource.default.name" $ }}-{{ .name }}
+  name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
   clusterName: {{ include "resource.default.name" $ }}
@@ -19,24 +19,24 @@ spec:
         configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: KubeadmConfig
-          name: {{ include "resource.default.name" $ }}-{{ .name }}
+          name: {{ include "resource.default.name" $ }}-{{ $name }}
       clusterName: {{ include "resource.default.name" $ }}
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: AWSMachinePool
-        name: {{ include "resource.default.name" $ }}-{{ .name }}
+        name: {{ include "resource.default.name" $ }}-{{ $name }}
       version: {{ $.Values.kubernetesVersion }}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachinePool
 metadata:
   labels:
-    giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ .name }}
+    giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ include "resource.default.name" $ }}-{{ .name }}
+  name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
-  availabilityZones: {{ include "aws-availability-zones" . | nindent 2 }}
+  availabilityZones: {{ include "aws-availability-zones" $value | nindent 2 }}
   subnets:
   - filters:
     - name: tag:kubernetes.io/cluster/{{ include "resource.default.name" $ }}
@@ -46,18 +46,18 @@ spec:
     {{- range $i, $tags := .subnetTags }}
     - name: tag:{{ keys $tags | first }}
       values:
-      - {{ index $tags (keys $tags | first) }}
+      - {{ index $tags (keys $tags | first) | quote }}
     {{- end }}
   awsLaunchTemplate:
     {{- include "ami" $ | nindent 4 }}
-    iamInstanceProfile: nodes-{{ .name }}-{{ include "resource.default.name" $ }}
-    instanceType: {{ .instanceType | default "m5.xlarge" }}
+    iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
+    instanceType: {{ $value.instanceType | default "m5.xlarge" }}
     rootVolume:
-      size: {{ .rootVolumeSizeGB | default 300 }}
+      size: {{ $value.rootVolumeSizeGB | default 300 }}
       type: gp3
     sshKeyName: ""
-  minSize: {{ .minSize | default 1 }}
-  maxSize: {{ .maxSize | default 3 }}
+  minSize: {{ $value.minSize | default 1 }}
+  maxSize: {{ $value.maxSize | default 3 }}
   mixedInstancesPolicy:
     instancesDistribution:
       onDemandAllocationStrategy: prioritized
@@ -69,9 +69,9 @@ apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfig
 metadata:
   labels:
-    giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ .name }}
+    giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ include "resource.default.name" $ }}-{{ .name }}
+  name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
   joinConfiguration:
@@ -82,13 +82,13 @@ spec:
         healthz-bind-address: 0.0.0.0
         image-pull-progress-deadline: 1m
         node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
-        node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ .name }},{{- join "," .customNodeLabels }}
+        node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ $name }},{{- join "," $value.customNodeLabels }}
         v: "2"
       name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
-      {{- if .customNodeTaints }}
-      {{- if (gt (len .customNodeTaints) 0) }}
+      {{- if $value.customNodeTaints }}
+      {{- if (gt (len $value.customNodeTaints) 0) }}
       taints:
-      {{- range .customNodeTaints }}
+      {{- range $value.customNodeTaints }}
       - key: {{ .key | quote }}
         value: {{ .value | quote }}
         effect: {{ .effect | quote }}
@@ -96,6 +96,7 @@ spec:
       {{- end }}
       {{- end }}
   preKubeadmCommands:
+    {{- include "prepare-varLibKubelet-Dir" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if $.Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
   postKubeadmCommands:

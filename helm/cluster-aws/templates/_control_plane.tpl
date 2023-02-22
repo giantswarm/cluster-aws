@@ -40,7 +40,7 @@ template:
         {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
         - name: tag:{{ keys $tags | first }}
           values:
-          - {{ index $tags (keys $tags | first) }}
+          - {{ index $tags (keys $tags | first) | quote }}
         {{- end }}
 {{- end }}
 
@@ -60,7 +60,7 @@ spec:
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: AWSMachineTemplate
-      name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
+      name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
   kubeadmConfigSpec:
     clusterConfiguration:
       # Avoid accessibility issues (e.g. on private clusters) and potential future rate limits for the default `registry.k8s.io`
@@ -185,6 +185,7 @@ spec:
         {{- end }}
         {{- end }}
     preKubeadmCommands:
+    {{- include "prepare-varLibKubelet-Dir" . | nindent 4 }}
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if .Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
@@ -202,7 +203,7 @@ metadata:
   labels:
     cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
+  name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
   namespace: {{ $.Release.Namespace }}
 spec: {{ include "controlplane-awsmachinetemplate-spec" $ | nindent 2 }}
 {{- end -}}

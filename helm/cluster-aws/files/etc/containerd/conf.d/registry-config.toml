@@ -1,7 +1,25 @@
 [plugins."io.containerd.grpc.v1.cri".registry]
   [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
-    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-      endpoint = ["https://registry-1.docker.io", "giantswarm.azurecr.io"]
-  [plugins."io.containerd.grpc.v1.cri".registry.configs]
-    [plugins."io.containerd.grpc.v1.cri".registry.configs."registry-1.docker.io".auth]
-      auth = "{{ tpl "{{ .Values.registry.username }}:{{ .Values.registry.password }}" . | b64enc }}"
+  {{- range $host, $config := .Values.connectivity.containerRegistries }}
+    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."{{$host}}"]
+      endpoint = [
+        {{- range $value := $config -}}
+        "https://{{$value.endpoint}}",
+        {{- end -}}
+    ]
+  {{- end }}
+[plugins."io.containerd.grpc.v1.cri".registry.configs]
+  {{ range $host, $config := .Values.connectivity.containerRegistries -}}
+    {{ range $value := $config -}}
+      {{ with $value.credentials -}}
+      [plugins."io.containerd.grpc.v1.cri".registry.configs."{{$value.endpoint}}".auth]
+      {{ if and .username .password -}}
+      auth = {{ printf "%s:%s" .username .password | b64enc | quote }}
+      {{- else if .auth -}}
+      auth = {{ .auth | quote }}
+      {{ else if .identitytoken -}}
+      identitytoken = {{ .identitytoken  | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
