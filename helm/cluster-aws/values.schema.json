@@ -141,7 +141,8 @@
                     "type": "string"
                 },
                 "dnsMode": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": ["public", "private"]
                 },
                 "podCIDR": {
                     "type": "string"

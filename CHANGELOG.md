@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Fail in Helm template if `dnsMode=public` is combined with a `baseDomain` ending with `.internal`
+
 ## [0.25.1] - 2023-02-16
 
 ### Fixed
 
 - Quote bastion subnet tag filters in order to avoid type conversion errors.
-
 
 ## [0.25.0] - 2023-02-16
 
