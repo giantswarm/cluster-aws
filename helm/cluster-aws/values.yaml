@@ -122,6 +122,14 @@ flatcarAWSAccount: "075585003325"
 # Used to override the AMI lookup and instead use a specific image
 ami: ""
 
+# machine health check settings
+machineHealthCheck:
+  enabled: true
+  maxUnhealthy: "40%"
+  nodeStartupTimeout: "20m0s"
+  unhealthyUnknownTimeout: "10m0s"
+  unhealthyNotReadyTimeout: "10m0s"
+
 oidc:
   issuerUrl: ""
   caPem: ""
