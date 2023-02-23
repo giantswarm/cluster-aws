@@ -15,3 +15,5 @@
 ---
 {{ end }}
 {{- include "machine-pools" . }}
+---
+{{- include "machine-health-check" . }}
