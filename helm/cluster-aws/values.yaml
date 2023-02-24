@@ -127,7 +127,7 @@ ami: ""
 machineHealthCheck:
   enabled: true
   maxUnhealthy: "40%"
-  nodeStartupTimeout: "20m0s"
+  nodeStartupTimeout: "8m0s"
   unhealthyUnknownTimeout: "10m0s"
   unhealthyNotReadyTimeout: "10m0s"
 
