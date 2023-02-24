@@ -123,6 +123,7 @@ flatcarAWSAccount: "075585003325"
 ami: ""
 
 # machine health check settings
+# for control plane nodes only as the check do not support MachinePools yet
 machineHealthCheck:
   enabled: true
   maxUnhealthy: "40%"
