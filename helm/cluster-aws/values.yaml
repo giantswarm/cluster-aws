@@ -96,8 +96,16 @@ controlPlane:
   etcdVolumeSizeGB: 100
   containerdVolumeSizeGB: 100
   kubeletVolumeSizeGB: 100
+  # machine health check settings
+  machineHealthCheck:
+    enabled: true
+    maxUnhealthy: "40%"
+    nodeStartupTimeout: "8m0s"
+    unhealthyUnknownTimeout: "10m0s"
+    unhealthyNotReadyTimeout: "10m0s"
   # subnetTags:
   # - subnet.giantswarm.io/role: control-plane
+
 
 # For structure of the machine pool object see defaultMachinePools
 machinePools: {}
@@ -121,15 +129,6 @@ flatcarAWSAccount: "075585003325"
 
 # Used to override the AMI lookup and instead use a specific image
 ami: ""
-
-# machine health check settings
-# for control plane nodes only as the check do not support MachinePools yet
-machineHealthCheck:
-  enabled: true
-  maxUnhealthy: "40%"
-  nodeStartupTimeout: "8m0s"
-  unhealthyUnknownTimeout: "10m0s"
-  unhealthyNotReadyTimeout: "10m0s"
 
 oidc:
   issuerUrl: ""

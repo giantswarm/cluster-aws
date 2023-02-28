@@ -1,5 +1,5 @@
 {{- define "machine-health-check" }}
-{{- if .Values.machineHealthCheck.enabled }}
+{{- if .Values.controlPlane.machineHealthCheck.enabled }}
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineHealthCheck
 metadata:
@@ -9,8 +9,8 @@ metadata:
   namespace: {{ $.Release.Namespace }}
 spec:
   clusterName: {{ include "resource.default.name" $ }}
-  maxUnhealthy: {{ .Values.machineHealthCheck.maxUnhealthy }}
-  nodeStartupTimeout: {{ .Values.machineHealthCheck.nodeStartupTimeout }}
+  maxUnhealthy: {{ .Values.controlPlane.machineHealthCheck.maxUnhealthy }}
+  nodeStartupTimeout: {{ .Values.controlPlane.machineHealthCheck.nodeStartupTimeout }}
   selector:
     matchLabels:
       cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" $ }}
@@ -18,9 +18,9 @@ spec:
   unhealthyConditions:
   - type: Ready
     status: Unknown
-    timeout: {{ .Values.machineHealthCheck.unhealthyUnknownTimeout }}
+    timeout: {{ .Values.controlPlane.machineHealthCheck.unhealthyUnknownTimeout }}
   - type: Ready
     status: "False"
-    timeout: {{ .Values.machineHealthCheck.unhealthyNotReadyTimeout }}
+    timeout: {{ .Values.controlPlane.machineHealthCheck.unhealthyNotReadyTimeout }}
 {{- end -}}
 {{- end -}}

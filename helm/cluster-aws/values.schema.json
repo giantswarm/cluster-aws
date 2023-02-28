@@ -75,6 +75,26 @@
                 "kubeletVolumeSizeGB": {
                     "type": "integer"
                 },
+		"machineHealthCheck": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "maxUnhealthy": {
+                            "type": "string"
+                        },
+                        "nodeStartupTimeout": {
+                            "type": "string"
+                        },
+                        "unhealthyNotReadyTimeout": {
+                            "type": "string"
+                        },
+                        "unhealthyUnknownTimeout": {
+                            "type": "string"
+                        }
+                    }
+       		},
                 "rootVolumeSizeGB": {
                     "type": "integer"
                 },
@@ -112,26 +132,6 @@
         "kubernetesVersion": {
             "type": "string"
         },
-	"machineHealthCheck": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "maxUnhealthy": {
-                    "type": "string"
-                },
-                "nodeStartupTimeout": {
-                    "type": "string"
-                },
-                "unhealthyNotReadyTimeout": {
-                    "type": "string"
-                },
-                "unhealthyUnknownTimeout": {
-                    "type": "string"
-                 }
-             }
-         },
         "machinePools": {
             "type": "object",
             "patternProperties": {
