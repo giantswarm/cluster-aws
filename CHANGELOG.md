@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `MachineHealthCheck` for control plane nodes.
+
 ### Changed
 
 - Fail in Helm template if `dnsMode=public` is combined with a `baseDomain` ending with `.internal`

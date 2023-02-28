@@ -96,8 +96,16 @@ controlPlane:
   etcdVolumeSizeGB: 100
   containerdVolumeSizeGB: 100
   kubeletVolumeSizeGB: 100
+  # machine health check settings
+  machineHealthCheck:
+    enabled: true
+    maxUnhealthy: "40%"
+    nodeStartupTimeout: "8m0s"
+    unhealthyUnknownTimeout: "10m0s"
+    unhealthyNotReadyTimeout: "10m0s"
   # subnetTags:
   # - subnet.giantswarm.io/role: control-plane
+
 
 # For structure of the machine pool object see defaultMachinePools
 machinePools: {}
