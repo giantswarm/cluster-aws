@@ -272,9 +272,6 @@
                 }
             }
         },
-        "releaseVersion": {
-            "type": "string"
-        },
         "sshSSOPublicKey": {
             "type": "string"
         }

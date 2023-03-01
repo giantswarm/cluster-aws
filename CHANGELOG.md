@@ -15,7 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Fail in Helm template if `dnsMode=public` is combined with a `baseDomain` ending with `.internal`
+- Fail in Helm template if `dnsMode=public` is combined with a `baseDomain` ending with `.internal`.
+
+### Removed
+
+- Remove unused `releaseVersion` setting from `values.yaml`.
 
 ## [0.25.1] - 2023-02-16
 
@@ -27,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Change
 
-- Replaced `registry` parameter  to `connectivity.containerRegistries` in the values schema
+- Replaced `registry` parameter  to `connectivity.containerRegistries` in the values schema.
 
 ### Fixed
 
@@ -35,8 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Made registry configurations `connectivity.containerRegistries` dynamic to accept as many container registries and mirrors as needed
-- Expose helm value for customers to decide whether or not VPC endpoint should be created by Giantswarm.
+- Made registry configurations `connectivity.containerRegistries` dynamic to accept as many container registries and mirrors as needed.
+- Expose helm value for customers to decide whether VPC endpoint should be created by Giantswarm.
 
 ### Changed
 
