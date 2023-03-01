@@ -1,33 +1,95 @@
 {
+    "$defs": {
+        "machinePool": {
+            "properties": {
+                "availabilityZones": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "customNodeLabels": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "customNodeTaints": {
+                    "items": {
+                        "properties": {
+                            "effect": {
+                                "enum": [
+                                    "NoSchedule",
+                                    "PreferNoSchedule",
+                                    "NoExecute"
+                                ],
+                                "type": "string"
+                            },
+                            "key": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "effect",
+                            "key",
+                            "value"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "instanceType": {
+                    "type": "string"
+                },
+                "maxSize": {
+                    "type": "integer"
+                },
+                "minSize": {
+                    "type": "integer"
+                },
+                "rootVolumeSizeGB": {
+                    "type": "integer"
+                },
+                "subnetTags": {
+                    "items": {
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        }
+    },
     "$schema": "http://json-schema.org/schema#",
-    "type": "object",
     "properties": {
         "ami": {
             "type": "string"
         },
         "aws": {
-            "type": "object",
             "properties": {
                 "awsClusterRole": {
-                    "type": "string",
-                    "deprecated": true
+                    "deprecated": true,
+                    "type": "string"
                 },
                 "awsClusterRoleIdentityName": {
-                    "type": "string",
                     "maxLength": 63,
                     "minLength": 1,
-                    "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$"
+                    "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$",
+                    "type": "string"
                 },
                 "region": {
                     "type": "string"
                 }
-            }
+            },
+            "type": "object"
         },
         "baseDomain": {
             "type": "string"
         },
         "bastion": {
-            "type": "object",
             "properties": {
                 "enabled": {
                     "type": "boolean"
@@ -39,12 +101,13 @@
                     "type": "integer"
                 },
                 "subnetTags": {
-                    "type": "array",
                     "items": {
                         "type": "object"
-                    }
+                    },
+                    "type": "array"
                 }
-            }
+            },
+            "type": "object"
         },
         "clusterDescription": {
             "type": "string"
@@ -53,15 +116,14 @@
             "type": "string"
         },
         "connectivity": {
-            "type": "object",
             "properties": {
                 "containerRegistries": {
                     "type": "object"
                 }
-            }
+            },
+            "type": "object"
         },
         "controlPlane": {
-            "type": "object",
             "properties": {
                 "containerdVolumeSizeGB": {
                     "type": "integer"
@@ -75,8 +137,7 @@
                 "kubeletVolumeSizeGB": {
                     "type": "integer"
                 },
-		"machineHealthCheck": {
-                    "type": "object",
+                "machineHealthCheck": {
                     "properties": {
                         "enabled": {
                             "type": "boolean"
@@ -93,18 +154,28 @@
                         "unhealthyUnknownTimeout": {
                             "type": "string"
                         }
-                    }
-       		},
+                    },
+                    "type": "object"
+                },
                 "rootVolumeSizeGB": {
                     "type": "integer"
                 },
                 "subnetTags": {
-                    "type": "array",
                     "items": {
                         "type": "object"
-                    }
+                    },
+                    "type": "array"
                 }
-            }
+            },
+            "type": "object"
+        },
+        "defaultMachinePools": {
+            "patternProperties": {
+                "^[a-z0-9]{5,10}$": {
+                    "$ref": "#/$defs/machinePool"
+                }
+            },
+            "type": "object"
         },
         "flatcarAWSAccount": {
             "type": "string"
@@ -116,7 +187,6 @@
             "type": "boolean"
         },
         "kubectlImage": {
-            "type": "object",
             "properties": {
                 "name": {
                     "type": "string"
@@ -127,29 +197,21 @@
                 "tag": {
                     "type": "string"
                 }
-            }
+            },
+            "type": "object"
         },
         "kubernetesVersion": {
             "type": "string"
         },
         "machinePools": {
-            "type": "object",
             "patternProperties": {
                 "^[a-z0-9]{5,10}$": {
                     "$ref": "#/$defs/machinePool"
                 }
-            }
-        },
-        "defaultMachinePools": {
-            "type": "object",
-            "patternProperties": {
-                "^[a-z0-9]{5,10}$": {
-                    "$ref": "#/$defs/machinePool"
-                }
-            }
+            },
+            "type": "object"
         },
         "network": {
-            "type": "object",
             "properties": {
                 "apiMode": {
                     "type": "string"
@@ -161,8 +223,11 @@
                     "type": "string"
                 },
                 "dnsMode": {
-                    "type": "string",
-                    "enum": ["public", "private"]
+                    "enum": [
+                        "public",
+                        "private"
+                    ],
+                    "type": "string"
                 },
                 "podCIDR": {
                     "type": "string"
@@ -171,7 +236,6 @@
                     "type": "string"
                 },
                 "resolverRulesOwnerAccount": {
-                    "type": "string",
                     "oneOf": [
                         {
                             "pattern": "^\\d{12}$"
@@ -179,32 +243,31 @@
                         {
                             "const": ""
                         }
-                    ]
+                    ],
+                    "type": "string"
                 },
                 "serviceCIDR": {
                     "type": "string"
                 },
                 "subnets": {
-                    "type": "array",
                     "items": {
-                        "type": "object",
                         "properties": {
                             "cidrBlocks": {
-                                "type": "array",
                                 "items": {
-                                    "type": "object",
                                     "properties": {
-                                        "cidr": {
+                                        "availabilityZone": {
                                             "type": "string"
                                         },
-                                        "availabilityZone": {
+                                        "cidr": {
                                             "type": "string"
                                         },
                                         "tags": {
                                             "type": "object"
                                         }
-                                    }
-                                }
+                                    },
+                                    "type": "object"
+                                },
+                                "type": "array"
                             },
                             "isPublic": {
                                 "type": "boolean"
@@ -212,8 +275,10 @@
                             "tags": {
                                 "type": "object"
                             }
-                        }
-                    }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
                 },
                 "topologyMode": {
                     "type": "string"
@@ -224,16 +289,16 @@
                 "vpcCIDR": {
                     "type": "string"
                 },
-                "vpcMode": {
-                    "type": "string"
-                },
                 "vpcEndpointMode": {
                     "type": "string"
+                },
+                "vpcMode": {
+                    "type": "string"
                 }
-            }
+            },
+            "type": "object"
         },
         "oidc": {
-            "type": "object",
             "properties": {
                 "caPem": {
                     "type": "string"
@@ -250,13 +315,13 @@
                 "usernameClaim": {
                     "type": "string"
                 }
-            }
+            },
+            "type": "object"
         },
         "organization": {
             "type": "string"
         },
         "proxy": {
-            "type": "object",
             "properties": {
                 "enabled": {
                     "type": "boolean"
@@ -270,74 +335,12 @@
                 "no_proxy": {
                     "type": "string"
                 }
-            }
+            },
+            "type": "object"
         },
         "sshSSOPublicKey": {
             "type": "string"
         }
     },
-    "$defs": {
-        "machinePool": {
-            "type": "object",
-            "properties": {
-                "availabilityZones": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "customNodeLabels": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "customNodeTaints": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "effect": {
-                                "type": "string",
-                                "enum": [
-                                    "NoSchedule",
-                                    "PreferNoSchedule",
-                                    "NoExecute"
-                                ]
-                            },
-                            "key": {
-                                "type": "string"
-                            },
-                            "value": {
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "effect",
-                            "key",
-                            "value"
-                        ]
-                    }
-                },
-                "instanceType": {
-                    "type": "string"
-                },
-                "maxSize": {
-                    "type": "integer"
-                },
-                "minSize": {
-                    "type": "integer"
-                },
-                "rootVolumeSizeGB": {
-                    "type": "integer"
-                },
-                "subnetTags": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    }
-                }
-            }
-        }
-    }
+    "type": "object"
 }
