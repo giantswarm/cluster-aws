@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.27.0] - 2023-03-01
+
 ### Removed
 
 - Remove unused `releaseVersion` setting from `values.yaml`.
@@ -508,7 +510,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.26.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.27.0...HEAD
+[0.27.0]: https://github.com/giantswarm/cluster-aws/compare/v0.26.0...v0.27.0
 [0.26.0]: https://github.com/giantswarm/cluster-aws/compare/v0.25.1...v0.26.0
 [0.25.1]: https://github.com/giantswarm/cluster-aws/compare/v0.25.0...v0.25.1
 [0.25.0]: https://github.com/giantswarm/cluster-aws/compare/v0.24.1...v0.25.0
