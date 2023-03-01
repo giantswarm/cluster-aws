@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove unused `releaseVersion` setting from `values.yaml`.
+
 ## [0.26.0] - 2023-03-01
 
 ### Added
@@ -16,10 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Fail in Helm template if `dnsMode=public` is combined with a `baseDomain` ending with `.internal`.
-
-### Removed
-
-- Remove unused `releaseVersion` setting from `values.yaml`.
 
 ## [0.25.1] - 2023-02-16
 
