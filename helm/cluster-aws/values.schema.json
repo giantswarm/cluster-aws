@@ -82,7 +82,7 @@
     "$schema": "http://json-schema.org/schema#",
     "properties": {
         "ami": {
-            "description": "TODO",
+            "description": "If specified, this image will be used to provision EC2 instances.",
             "title": "Amazon machine image (AMI)",
             "type": "string"
         },
@@ -249,8 +249,8 @@
             "type": "string"
         },
         "hashSalt": {
-            "description": "TODO",
-            "title": "TODO",
+            "description": "If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.",
+            "title": "Hash salt",
             "type": "string"
         },
         "includeClusterResourceSet": {
@@ -291,22 +291,26 @@
         "network": {
             "properties": {
                 "apiMode": {
-                    "description": "TODO",
+                    "description": "Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).",
                     "title": "API mode",
                     "type": "string"
                 },
                 "availabilityZoneUsageLimit": {
-                    "description": "TODO",
-                    "title": "Availability zone usage limit",
+                    "description": "Number of availability zones that should be used for nodes.",
+                    "title": "Availability zones",
                     "type": "integer"
                 },
                 "dnsAssignAdditionalVPCs": {
-                    "description": "TODO",
+                    "description": "If DNS mode is 'private', the VPCs specified here will be assigned to the private hosted zone. Separate multiple entries with comma.",
+                    "examples": [
+                        "vpc-98injA",
+                        "vpc-x2aeasd1d,vpc-98injA"
+                    ],
                     "title": "DNS assign additional VPCs",
                     "type": "string"
                 },
                 "dnsMode": {
-                    "description": "TODO",
+                    "description": "Whether the Route53 hosted zone of this cluster should be public or private.",
                     "enum": [
                         "public",
                         "private"
@@ -357,7 +361,7 @@
                                         },
                                         "cidr": {
                                             "description": "IPv4 address range, in CIDR notation.",
-                                            "title": "Range",
+                                            "title": "Address range",
                                             "type": "string"
                                         },
                                         "tags": {
@@ -366,7 +370,7 @@
                                     },
                                     "type": "object"
                                 },
-                                "title": "IPv4 address ranges",
+                                "title": "Network",
                                 "type": "array"
                             },
                             "isPublic": {
@@ -386,64 +390,94 @@
                     "type": "array"
                 },
                 "topologyMode": {
+                    "description": "Defines the type of cross-cluster networking architecture between management and workload cluster. Valid values: GiantSwarmManaged, UserManaged, None",
+                    "title": "Topology mode",
                     "type": "string"
                 },
                 "transitGatewayID": {
+                    "description": "If the topology mode is set to 'UserManaged', this can be used to specify the transit gateway to use.",
+                    "title": "Transit gateway ID",
                     "type": "string"
                 },
                 "vpcCIDR": {
+                    "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
+                    "title": "VPC subnet",
                     "type": "string"
                 },
                 "vpcEndpointMode": {
+                    "description": "Who is reponsible for creation and management of VPC endpoints.",
+                    "title": "VPC endpoint mode",
                     "type": "string"
                 },
                 "vpcMode": {
+                    "description": "Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).",
+                    "title": "VPC mode",
                     "type": "string"
                 }
             },
+            "title": "Network",
             "type": "object"
         },
         "oidc": {
             "properties": {
                 "caPem": {
+                    "description": "Identity provider's CA certificate in PEM format.",
+                    "title": "Certificate authority",
                     "type": "string"
                 },
                 "clientId": {
+                    "title": "Client ID",
                     "type": "string"
                 },
                 "groupsClaim": {
+                    "title": "Groups claim",
                     "type": "string"
                 },
                 "issuerUrl": {
+                    "description": "Exact issuer URL that will be included in identity tokens.",
+                    "title": "Issuer URL",
                     "type": "string"
                 },
                 "usernameClaim": {
+                    "title": "Username claim",
                     "type": "string"
                 }
             },
+            "title": "OIDC authentication",
             "type": "object"
         },
         "organization": {
+            "title": "Organization",
             "type": "string"
         },
         "proxy": {
+            "description": "Whether/how outgoing traffic is routed through proxy servers.",
             "properties": {
                 "enabled": {
+                    "title": "Enable",
                     "type": "boolean"
                 },
                 "http_proxy": {
+                    "description": "To be passed to the HTTP_PROXY environment variable in all hosts.",
+                    "title": "HTTP proxy",
                     "type": "string"
                 },
                 "https_proxy": {
+                    "description": "To be passed to the HTTPS_PROXY environment variable in all hosts.",
+                    "title": "HTTPS proxy",
                     "type": "string"
                 },
                 "no_proxy": {
+                    "description": "To be passed to the NO_PROXY environment variable in all hosts.",
+                    "title": "No proxy",
                     "type": "string"
                 }
             },
+            "title": "Proxy",
             "type": "object"
         },
         "sshSSOPublicKey": {
+            "title": "SSH public key for single sign-on",
             "type": "string"
         }
     },
