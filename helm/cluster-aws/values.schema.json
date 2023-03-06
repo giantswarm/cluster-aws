@@ -365,6 +365,8 @@
                                             "type": "string"
                                         },
                                         "tags": {
+                                            "description": "TODO",
+                                            "title": "Tags",
                                             "type": "object"
                                         }
                                     },
