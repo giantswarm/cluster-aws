@@ -246,8 +246,8 @@
             "type": "object"
         },
         "flatcarAWSAccount": {
-            "description": "TODO",
-            "title": "AWS account for Flatcar",
+            "description": "AWS account ID owning the Flatcar Container Linux AMI.",
+            "title": "AWS account owning Flatcar image",
             "type": "string"
         },
         "hashSalt": {
