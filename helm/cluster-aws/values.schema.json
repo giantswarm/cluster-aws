@@ -127,12 +127,12 @@
                     "type": "integer"
                 },
                 "subnetTags": {
+                    "description": "TODO",
                     "items": {
                         "title": "Subnet tag",
                         "type": "object"
                     },
                     "title": "Subnet tags",
-                    "description": "TODO",
                     "type": "array"
                 }
             },
