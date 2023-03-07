@@ -132,6 +132,7 @@
                         "type": "object"
                     },
                     "title": "Subnet tags",
+                    "description": "TODO",
                     "type": "array"
                 }
             },
