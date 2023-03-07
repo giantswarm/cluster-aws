@@ -66,7 +66,7 @@
                     "type": "integer"
                 },
                 "subnetTags": {
-                    "description": "Tags to assign to AWS resources for this node pool.",
+                    "description": "Tags to select AWS resources for this node pool by.",
                     "items": {
                         "title": "Subnet tag",
                         "type": "object"
@@ -127,7 +127,7 @@
                     "type": "integer"
                 },
                 "subnetTags": {
-                    "description": "TODO",
+                    "description": "Tags to select AWS resources for the bastion hosts by.",
                     "items": {
                         "title": "Subnet tag",
                         "type": "object"
@@ -224,7 +224,7 @@
                     "type": "integer"
                 },
                 "subnetTags": {
-                    "description": "Tags to assign to AWS resources related to the control plane.",
+                    "description": "Tags to select AWS resources for the control plane by.",
                     "items": {
                         "title": "Subnet tag",
                         "type": "object"
