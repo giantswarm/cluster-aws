@@ -66,7 +66,7 @@
                     "type": "integer"
                 },
                 "subnetTags": {
-                    "description": "TODO",
+                    "description": "Tags to assign to AWS resources for this node pool.",
                     "items": {
                         "title": "Subnet tag",
                         "type": "object"
@@ -223,7 +223,7 @@
                     "type": "integer"
                 },
                 "subnetTags": {
-                    "description": "TODO",
+                    "description": "Tags to assign to AWS resources related to the control plane.",
                     "items": {
                         "title": "Subnet tag",
                         "type": "object"
@@ -241,6 +241,7 @@
                     "$ref": "#/$defs/machinePool"
                 }
             },
+            "title": "Default node pool",
             "type": "object"
         },
         "flatcarAWSAccount": {
@@ -365,7 +366,7 @@
                                             "type": "string"
                                         },
                                         "tags": {
-                                            "description": "TODO",
+                                            "description": "Tags to assign to AWS resources for this CIDR block.",
                                             "title": "Tags",
                                             "type": "object"
                                         }
@@ -380,7 +381,7 @@
                                 "type": "boolean"
                             },
                             "tags": {
-                                "description": "TODO",
+                                "description": "Tags to assign to AWS resources for this subnet.",
                                 "title": "Tags",
                                 "type": "object"
                             }
