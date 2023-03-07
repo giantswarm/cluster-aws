@@ -203,7 +203,7 @@
                             "examples": [
                                 "300s"
                             ],
-                            "title": "Not ready condition timeout",
+                            "title": "Timeout for ready",
                             "type": "string"
                         },
                         "unhealthyUnknownTimeout": {
@@ -211,7 +211,7 @@
                             "examples": [
                                 "300s"
                             ],
-                            "title": "Unknown condition timeout",
+                            "title": "Timeout for unknown condition",
                             "type": "string"
                         }
                     },
