@@ -397,7 +397,7 @@
                     "type": "array"
                 },
                 "topologyMode": {
-                    "description": "Defines the type of cross-cluster networking architecture between management and workload cluster. Valid values: GiantSwarmManaged, UserManaged, None",
+                    "description": "Defines the type of cross-cluster networking architecture between management and workload cluster. Valid values: GiantSwarmManaged, UserManaged, None.",
                     "title": "Topology mode",
                     "type": "string"
                 },
