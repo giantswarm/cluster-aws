@@ -278,6 +278,9 @@
             "type": "object"
         },
         "kubernetesVersion": {
+            "examples": [
+                "1.24.7"
+            ],
             "title": "Kubernetes version",
             "type": "string"
         },
