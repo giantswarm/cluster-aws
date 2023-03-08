@@ -54,7 +54,7 @@
                     "type": "string"
                 },
                 "maxSize": {
-                    "title": "Minimum number of nodes",
+                    "title": "Maximum number of nodes",
                     "type": "integer"
                 },
                 "minSize": {
