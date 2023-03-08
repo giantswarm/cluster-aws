@@ -1,5 +1,13 @@
 {
     "$defs": {
+        "awsResourceTagValue": {
+            "$comment": "Restrictions based on https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions",
+            "maxLength": 256,
+            "minLength": 0,
+            "pattern": "^[ a-zA-Z0-9\\._:/=+-@]+$",
+            "title": "Tag value",
+            "type": "string"
+        },
         "machinePool": {
             "properties": {
                 "availabilityZones": {
@@ -68,6 +76,9 @@
                 "subnetTags": {
                     "description": "Tags to filter which AWS subnets will be used for this node pool.",
                     "items": {
+                        "additionalProperties": {
+                            "$ref": "#/$defs/awsResourceTagValue"
+                        },
                         "title": "Subnet tag",
                         "type": "object"
                     },
@@ -129,6 +140,9 @@
                 "subnetTags": {
                     "description": "Tags to filter which AWS subnets will be used for the bastion hosts.",
                     "items": {
+                        "additionalProperties": {
+                            "$ref": "#/$defs/awsResourceTagValue"
+                        },
                         "title": "Subnet tag",
                         "type": "object"
                     },
@@ -226,6 +240,9 @@
                 "subnetTags": {
                     "description": "Tags to select AWS resources for the control plane by.",
                     "items": {
+                        "additionalProperties": {
+                            "$ref": "#/$defs/awsResourceTagValue"
+                        },
                         "title": "Subnet tag",
                         "type": "object"
                     },
@@ -370,6 +387,9 @@
                                             "type": "string"
                                         },
                                         "tags": {
+                                            "additionalProperties": {
+                                                "$ref": "#/$defs/awsResourceTagValue"
+                                            },
                                             "description": "AWS resource tags to assign to this subnet.",
                                             "title": "Tags",
                                             "type": "object"
@@ -385,6 +405,9 @@
                                 "type": "boolean"
                             },
                             "tags": {
+                                "additionalProperties": {
+                                    "$ref": "#/$defs/awsResourceTagValue"
+                                },
                                 "description": "AWS resource tags to assign to this CIDR block.",
                                 "title": "Tags",
                                 "type": "object"
