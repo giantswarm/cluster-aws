@@ -79,7 +79,7 @@
             "type": "object"
         }
     },
-    "$schema": "http://json-schema.org/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "properties": {
         "ami": {
             "description": "If specified, this image will be used to provision EC2 instances.",
