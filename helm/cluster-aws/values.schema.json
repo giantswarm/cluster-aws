@@ -334,7 +334,7 @@
                     "type": "string"
                 },
                 "resolverRulesOwnerAccount": {
-                    "description": "ARN of the AWS account that created the resolver rules to be associated with the workload cluster VPC.",
+                    "description": "ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.",
                     "oneOf": [
                         {
                             "pattern": "^\\d{12}$"
