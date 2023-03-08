@@ -367,7 +367,7 @@
                                             "type": "string"
                                         },
                                         "tags": {
-                                            "description": "Tags to assign to AWS resources for this CIDR block.",
+                                            "description": "AWS resource tags to assign to this subnet.",
                                             "title": "Tags",
                                             "type": "object"
                                         }
@@ -382,7 +382,7 @@
                                 "type": "boolean"
                             },
                             "tags": {
-                                "description": "Tags to assign to AWS resources for this subnet.",
+                                "description": "AWS resource tags to assign to this CIDR block.",
                                 "title": "Tags",
                                 "type": "object"
                             }
