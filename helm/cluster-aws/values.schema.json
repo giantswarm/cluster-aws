@@ -54,7 +54,7 @@
                     "type": "string"
                 },
                 "maxSize": {
-                    "title": "Minimum number of nodes",
+                    "title": "Maximum number of nodes",
                     "type": "integer"
                 },
                 "minSize": {
@@ -66,7 +66,7 @@
                     "type": "integer"
                 },
                 "subnetTags": {
-                    "description": "Tags to select AWS resources for this node pool by.",
+                    "description": "Tags to filter which AWS subnets will be used for this node pool.",
                     "items": {
                         "title": "Subnet tag",
                         "type": "object"
@@ -127,7 +127,7 @@
                     "type": "integer"
                 },
                 "subnetTags": {
-                    "description": "Tags to select AWS resources for the bastion hosts by.",
+                    "description": "Tags to filter which AWS subnets will be used for the bastion hosts.",
                     "items": {
                         "title": "Subnet tag",
                         "type": "object"
