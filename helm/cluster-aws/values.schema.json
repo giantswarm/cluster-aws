@@ -100,11 +100,15 @@
         "aws": {
             "properties": {
                 "awsClusterRole": {
+                    "$comment": "Please use awsClusterRoleIdentityName.",
                     "deprecated": true,
                     "title": "Cluster role",
                     "type": "string"
                 },
                 "awsClusterRoleIdentityName": {
+                    "$comment": "See also https://cluster-api-aws.sigs.k8s.io/topics/multitenancy.html#awsclusterroleidentity",
+                    "default": "default",
+                    "description": "Name of an AWSClusterRoleIdentity object. This in turn refers to the IAM role used to create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create all resources in that account. Note: This name does not refer directly to an IAM role name/ARN.",
                     "maxLength": 63,
                     "minLength": 1,
                     "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$",
@@ -113,7 +117,8 @@
                 },
                 "region": {
                     "title": "Region",
-                    "type": "string"
+                    "type": "string",
+                    "default": ""
                 }
             },
             "title": "AWS settings",
@@ -126,14 +131,17 @@
         "bastion": {
             "properties": {
                 "enabled": {
+                    "default": true,
                     "title": "Enable",
                     "type": "boolean"
                 },
                 "instanceType": {
+                    "default": "t3.small",
                     "title": "EC2 instance type",
                     "type": "string"
                 },
                 "replicas": {
+                    "default": 1,
                     "title": "Number of hosts",
                     "type": "integer"
                 },
@@ -222,28 +230,34 @@
         "controlPlane": {
             "properties": {
                 "containerdVolumeSizeGB": {
+                    "default": 100,
                     "title": "Containerd volume size (GB)",
                     "type": "integer"
                 },
                 "etcdVolumeSizeGB": {
+                    "default": 100,
                     "title": "Etcd volume size (GB)",
                     "type": "integer"
                 },
                 "instanceType": {
+                    "default": "m5.xlarge",
                     "title": "EC2 instance type",
                     "type": "string"
                 },
                 "kubeletVolumeSizeGB": {
+                    "default": 100,
                     "title": "Kubelet volume size (GB)",
                     "type": "integer"
                 },
                 "machineHealthCheck": {
                     "properties": {
                         "enabled": {
+                            "default": true,
                             "title": "Enable",
                             "type": "boolean"
                         },
                         "maxUnhealthy": {
+                            "default": "40%",
                             "examples": [
                                 "40%"
                             ],
@@ -251,6 +265,7 @@
                             "type": "string"
                         },
                         "nodeStartupTimeout": {
+                            "default": "8m0s",
                             "description": "Determines how long a machine health check should wait for a node to join the cluster, before considering a machine unhealthy.",
                             "examples": [
                                 "10m",
@@ -260,6 +275,7 @@
                             "type": "string"
                         },
                         "unhealthyNotReadyTimeout": {
+                            "default": "10m0s",
                             "description": "If a node is not in condition 'Ready' after this timeout, it will be considered unhealthy.",
                             "examples": [
                                 "300s"
@@ -268,6 +284,7 @@
                             "type": "string"
                         },
                         "unhealthyUnknownTimeout": {
+                            "default": "10m0s",
                             "description": "If a node is in 'Unknown' condition after this timeout, it will be considered unhealthy.",
                             "examples": [
                                 "300s"
@@ -280,6 +297,7 @@
                     "type": "object"
                 },
                 "rootVolumeSizeGB": {
+                    "default": 120,
                     "title": "Root volume size (GB)",
                     "type": "integer"
                 },
@@ -300,6 +318,15 @@
             "type": "object"
         },
         "defaultMachinePools": {
+            "default": {
+                "def00": {
+                    "customNodeLabels": [
+                        "label=default"
+                    ],
+                    "instanceType": "m5.xlarge",
+                    "minSize": 3
+                }
+            },
             "patternProperties": {
                 "^[a-z0-9]{5,10}$": {
                     "$ref": "#/$defs/machinePool"
@@ -309,6 +336,7 @@
             "type": "object"
         },
         "flatcarAWSAccount": {
+            "default": "075585003325",
             "description": "AWS account ID owning the Flatcar Container Linux AMI.",
             "title": "AWS account owning Flatcar image",
             "type": "string"
@@ -319,20 +347,24 @@
             "type": "string"
         },
         "includeClusterResourceSet": {
+            "default": true,
             "title": "Include ClusterResourceSet",
             "type": "boolean"
         },
         "kubectlImage": {
             "properties": {
                 "name": {
+                    "default": "giantswarm/kubectl",
                     "title": "Repository",
                     "type": "string"
                 },
                 "registry": {
+                    "default": "quay.io",
                     "title": "Registry",
                     "type": "string"
                 },
                 "tag": {
+                    "default": "1.23.5",
                     "title": "Tag",
                     "type": "string"
                 }
@@ -341,6 +373,7 @@
             "type": "object"
         },
         "kubernetesVersion": {
+            "default": "1.23.16",
             "examples": [
                 "1.24.7"
             ],
@@ -359,11 +392,17 @@
         "network": {
             "properties": {
                 "apiMode": {
+                    "default": "public",
                     "description": "Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).",
+                    "enum": [
+                        "public",
+                        "private"
+                    ],
                     "title": "API mode",
                     "type": "string"
                 },
                 "availabilityZoneUsageLimit": {
+                    "default": 3,
                     "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
                     "title": "Availability zones",
                     "type": "integer"
@@ -378,6 +417,7 @@
                     "type": "string"
                 },
                 "dnsMode": {
+                    "default": "public",
                     "description": "Whether the Route53 hosted zone of this cluster should be public or private.",
                     "enum": [
                         "public",
@@ -387,6 +427,7 @@
                     "type": "string"
                 },
                 "podCIDR": {
+                    "default": "100.64.0.0/12",
                     "description": "IPv4 address range for pods, in CIDR notation.",
                     "title": "Pod subnet",
                     "type": "string"
@@ -410,11 +451,48 @@
                     "type": "string"
                 },
                 "serviceCIDR": {
+                    "default": "172.31.0.0/16",
                     "description": "IPv4 address range for services, in CIDR notation.",
                     "title": "Service subnet",
                     "type": "string"
                 },
                 "subnets": {
+                    "default": [
+                        {
+                            "cidrBlocks": [
+                                {
+                                    "availabilityZone": "a",
+                                    "cidr": "10.0.0.0/20"
+                                },
+                                {
+                                    "availabilityZone": "b",
+                                    "cidr": "10.0.16.0/20"
+                                },
+                                {
+                                    "availabilityZone": "c",
+                                    "cidr": "10.0.32.0/20"
+                                }
+                            ],
+                            "isPublic": true
+                        },
+                        {
+                            "cidrBlocks": [
+                                {
+                                    "availabilityZone": "a",
+                                    "cidr": "10.0.64.0/18"
+                                },
+                                {
+                                    "availabilityZone": "b",
+                                    "cidr": "10.0.128.0/18"
+                                },
+                                {
+                                    "availabilityZone": "c",
+                                    "cidr": "10.0.192.0/18"
+                                }
+                            ],
+                            "isPublic": false
+                        }
+                    ],
                     "items": {
                         "properties": {
                             "cidrBlocks": {
@@ -466,7 +544,13 @@
                     "type": "array"
                 },
                 "topologyMode": {
+                    "default": "None",
                     "description": "Defines the type of cross-cluster networking architecture between management and workload cluster. Valid values: GiantSwarmManaged, UserManaged, None.",
+                    "enum": [
+                        "None",
+                        "GiantSwarmManaged",
+                        "UserManaged"
+                    ],
                     "title": "Topology mode",
                     "type": "string"
                 },
@@ -476,17 +560,28 @@
                     "type": "string"
                 },
                 "vpcCIDR": {
+                    "default": "10.0.0.0/16",
                     "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
                     "title": "VPC subnet",
                     "type": "string"
                 },
                 "vpcEndpointMode": {
+                    "default": "GiantSwarmManaged",
                     "description": "Who is reponsible for creation and management of VPC endpoints.",
+                    "enum": [
+                        "GiantSwarmManaged",
+                        "UserManaged"
+                    ],
                     "title": "VPC endpoint mode",
                     "type": "string"
                 },
                 "vpcMode": {
+                    "default": "public",
                     "description": "Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).",
+                    "enum": [
+                        "public",
+                        "private"
+                    ],
                     "title": "VPC mode",
                     "type": "string"
                 }
@@ -553,6 +648,7 @@
             "type": "object"
         },
         "sshSSOPublicKey": {
+            "default": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io",
             "title": "SSH public key for single sign-on",
             "type": "string"
         }
