@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Values schema:
   - Added annotations
   - Applied normalization using `schemalint normalize`
+  - Added property schema for subnetTags objects
 
 ## [0.27.0] - 2023-03-01
 
