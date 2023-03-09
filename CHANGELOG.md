@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added property schema for /connectivity/containerRegistries
   - Added property schema for subnetTags objects
 
+### Fixed
+
+- Use region defaulting wherever possible.
+
 ## [0.27.0] - 2023-03-01
 
 ### Removed
