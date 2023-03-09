@@ -100,13 +100,15 @@
         "aws": {
             "properties": {
                 "awsClusterRole": {
-                    "$comment": "Please use 'awsClusterRoleIdentityName'.",
+                    "$comment": "Please use awsClusterRoleIdentityName.",
                     "deprecated": true,
                     "title": "Cluster role",
                     "type": "string"
                 },
                 "awsClusterRoleIdentityName": {
+                    "$comment": "See also https://cluster-api-aws.sigs.k8s.io/topics/multitenancy.html#awsclusterroleidentity",
                     "default": "default",
+                    "description": "Name of an AWSClusterRoleIdentity object. This in turn refers to the IAM role used to create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create all resources in that account. Note: This name does not refer directly to an IAM role name/ARN.",
                     "maxLength": 63,
                     "minLength": 1,
                     "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$",
