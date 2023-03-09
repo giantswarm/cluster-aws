@@ -117,7 +117,8 @@
                 },
                 "region": {
                     "title": "Region",
-                    "type": "string"
+                    "type": "string",
+                    "default": ""
                 }
             },
             "title": "AWS settings",
