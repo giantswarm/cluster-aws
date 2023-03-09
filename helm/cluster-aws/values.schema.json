@@ -166,6 +166,52 @@
         "connectivity": {
             "properties": {
                 "containerRegistries": {
+                    "additionalProperties": {
+                        "description": "Container registries and mirrors",
+                        "items": {
+                            "properties": {
+                                "credentials": {
+                                    "properties": {
+                                        "auth": {
+                                            "description": "Base64-encoded string from the concatenation of the username, a colon, and the password.",
+                                            "title": "Auth",
+                                            "type": "string"
+                                        },
+                                        "identitytoken": {
+                                            "description": "Used to authenticate the user and obtain an access token for the registry.",
+                                            "title": "Identity token",
+                                            "type": "string"
+                                        },
+                                        "password": {
+                                            "description": "Used to authenticate for the registry with username/password.",
+                                            "title": "Password",
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "description": "Used to authenticate for the registry with username/password.",
+                                            "title": "Username",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Credentials",
+                                    "type": "object"
+                                },
+                                "endpoint": {
+                                    "description": "Endpoint for the container registry.",
+                                    "title": "Endpoint",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "endpoint"
+                            ],
+                            "title": "Registry",
+                            "type": "object"
+                        },
+                        "title": "Registries",
+                        "type": "array"
+                    },
+                    "description": "Endpoints and credentials configuration for container registries.",
                     "title": "Container registries",
                     "type": "object"
                 }
