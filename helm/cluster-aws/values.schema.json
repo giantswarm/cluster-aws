@@ -110,10 +110,6 @@
                     "title": "Cluster role identity name",
                     "type": "string"
                 },
-                "region": {
-                    "title": "Region",
-                    "type": "string",
-                    "default": ""
                 }
             },
             "title": "AWS settings",
@@ -631,6 +627,9 @@
                     "minLength": 1,
                     "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$",
                     "title": "Cluster role identity name",
+                    "type": "string"
+                "region": {
+                    "title": "Region",
                     "type": "string"
                 }
             },

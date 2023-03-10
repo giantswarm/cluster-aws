@@ -90,7 +90,7 @@ spec:
           audit-log-maxsize: "100"
           audit-log-path: /var/log/apiserver/audit.log
           audit-policy-file: /etc/kubernetes/policies/audit-policy.yaml
-          api-audiences: "sts.amazonaws.com{{ if hasPrefix "cn-" .Values.aws.region }}.cn{{ end }}"
+          api-audiences: "sts.amazonaws.com{{ if hasPrefix "cn-" .Values.providerSpecific.region }}.cn{{ end }}"
           encryption-provider-config: /etc/kubernetes/encryption/config.yaml
           enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,PodSecurityPolicy
           feature-gates: TTLAfterFinished=true

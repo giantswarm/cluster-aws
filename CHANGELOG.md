@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added default values
   - Move /ami to /providerSpecific/ami
   - Move /awsClusterRoleIdentityName to /providerSpecific/awsClusterRoleIdentityName
+  - Move /region to /providerSpecific/region
 
 ## [0.27.0] - 2023-03-01
 
