@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added property schema for subnetTags objects
   - Added default values
   - Move /ami to /providerSpecific/ami
+  - Move /awsClusterRoleIdentityName to /providerSpecific/awsClusterRoleIdentityName
 
 ## [0.27.0] - 2023-03-01
 
