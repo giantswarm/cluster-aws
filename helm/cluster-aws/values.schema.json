@@ -296,6 +296,34 @@
                     "title": "Machine health check",
                     "type": "object"
                 },
+                "oidc": {
+                    "properties": {
+                        "caPem": {
+                            "description": "Identity provider's CA certificate in PEM format.",
+                            "title": "Certificate authority",
+                            "type": "string"
+                        },
+                        "clientId": {
+                            "title": "Client ID",
+                            "type": "string"
+                        },
+                        "groupsClaim": {
+                            "title": "Groups claim",
+                            "type": "string"
+                        },
+                        "issuerUrl": {
+                            "description": "Exact issuer URL that will be included in identity tokens.",
+                            "title": "Issuer URL",
+                            "type": "string"
+                        },
+                        "usernameClaim": {
+                            "title": "Username claim",
+                            "type": "string"
+                        }
+                    },
+                    "title": "OIDC authentication",
+                    "type": "object"
+                },
                 "rootVolumeSizeGB": {
                     "default": 120,
                     "title": "Root volume size (GB)",
@@ -587,34 +615,6 @@
                 }
             },
             "title": "Network",
-            "type": "object"
-        },
-        "oidc": {
-            "properties": {
-                "caPem": {
-                    "description": "Identity provider's CA certificate in PEM format.",
-                    "title": "Certificate authority",
-                    "type": "string"
-                },
-                "clientId": {
-                    "title": "Client ID",
-                    "type": "string"
-                },
-                "groupsClaim": {
-                    "title": "Groups claim",
-                    "type": "string"
-                },
-                "issuerUrl": {
-                    "description": "Exact issuer URL that will be included in identity tokens.",
-                    "title": "Issuer URL",
-                    "type": "string"
-                },
-                "usernameClaim": {
-                    "title": "Username claim",
-                    "type": "string"
-                }
-            },
-            "title": "OIDC authentication",
             "type": "object"
         },
         "organization": {

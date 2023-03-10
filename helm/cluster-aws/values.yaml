@@ -17,6 +17,7 @@ controlPlane:
     nodeStartupTimeout: 8m0s
     unhealthyNotReadyTimeout: 10m0s
     unhealthyUnknownTimeout: 10m0s
+  oidc: {}
   rootVolumeSizeGB: 120
 defaultMachinePools:
   def00:
@@ -58,6 +59,5 @@ network:
   vpcCIDR: 10.0.0.0/16
   vpcEndpointMode: GiantSwarmManaged
   vpcMode: public
-oidc: {}
 proxy: {}
 sshSSOPublicKey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io
