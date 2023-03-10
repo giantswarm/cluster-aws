@@ -162,9 +162,9 @@ room for such suffix.
 {{- end -}}
 
 {{- define "ami" }}
-{{- if .Values.ami }}
+{{- if .Values.providerSpecific.ami }}
 ami:
-  id: {{ .Values.ami }}
+  id: {{ . | quote }}
 {{- else -}}
 ami: {}
 imageLookupBaseOS: "ubuntu-20.04"
