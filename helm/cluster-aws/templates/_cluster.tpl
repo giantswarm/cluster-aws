@@ -3,7 +3,7 @@ apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
   annotations:
-    cluster.giantswarm.io/description: "{{ .Values.clusterDescription }}"
+    cluster.giantswarm.io/description: "{{ .Values.metadata.description }}"
     network-topology.giantswarm.io/mode: "{{ .Values.network.topologyMode }}"
     {{- if .Values.network.transitGatewayID }}
     network-topology.giantswarm.io/transit-gateway: "{{ .Values.network.transitGatewayID }}"
