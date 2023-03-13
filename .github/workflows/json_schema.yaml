@@ -22,7 +22,7 @@ jobs:
         run: |
           schemalint verify ./helm/cluster-aws/values.schema.json --rule-set cluster-app
 
-  generate:
+  values-diff:
     name: Check that values.yaml is based on values.schema.json
     runs-on: ubuntu-22.04
     steps:
