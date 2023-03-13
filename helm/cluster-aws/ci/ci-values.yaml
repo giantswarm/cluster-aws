@@ -1,4 +1,5 @@
-organization: "test"
+metadata:
+  organization: "test"
 baseDomain: example.com
 providerSpecific:
   region: ""

@@ -19,6 +19,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /awsClusterRoleIdentityName to /providerSpecific/awsClusterRoleIdentityName
   - Move /region to /providerSpecific/region
   - Move /flatcarAWSAccount to /providerSpecific/flatcarAwsAccount
+  - Move /clusterName to /metadata/name
+  - Move /clusterDescription to /medatada/description
+  - Move /organization to /metadata/organization
+
+### Fixed
+
+- Use region defaulting wherever possible, removing `region` from schema.
+
 
 ## [0.27.0] - 2023-03-01
 
