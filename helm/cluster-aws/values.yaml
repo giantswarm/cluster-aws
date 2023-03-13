@@ -1,6 +1,5 @@
 aws:
   awsClusterRoleIdentityName: default
-  region: ""
 bastion:
   enabled: true
   instanceType: t3.small
