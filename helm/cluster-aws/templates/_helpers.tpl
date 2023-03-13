@@ -32,7 +32,7 @@ app: {{ include "name" . | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
 cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" . | quote }}
 giantswarm.io/cluster: {{ include "resource.default.name" . | quote }}
-giantswarm.io/organization: {{ required "You must provide an existing organization" .Values.organization | quote }}
+giantswarm.io/organization: {{ required "You must provide an existing organization name in .metadata.organization" .Values.metadata.organization | quote }}
 cluster.x-k8s.io/watch-filter: capi
 {{- end -}}
 
@@ -43,7 +43,7 @@ Given that Kubernetes allows 63 characters for resource names, the stem is trunc
 room for such suffix.
 */}}
 {{- define "resource.default.name" -}}
-{{- .Values.clusterName | default (.Release.Name | replace "." "-" | trunc 47 | trimSuffix "-") -}}
+{{- .Values.metadata.name | default (.Release.Name | replace "." "-" | trunc 47 | trimSuffix "-") -}}
 {{- end -}}
 
 {{- define "oidcFiles" -}}

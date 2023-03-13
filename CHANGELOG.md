@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added property schema for /connectivity/containerRegistries
   - Added property schema for subnetTags objects
   - Added default values
+  - Move /clusterName to /metadata/name
+  - Move /clusterDescription to /medatada/description
+  - Move /organization to /metadata/organization
 
 ### Fixed
 

@@ -156,16 +156,6 @@
             "title": "Bastion host",
             "type": "object"
         },
-        "clusterDescription": {
-            "description": "User-friendly description of the cluster's purpose.",
-            "title": "Cluster description",
-            "type": "string"
-        },
-        "clusterName": {
-            "description": "Unique identifier, cannot be changed after creation.",
-            "title": "Cluster name",
-            "type": "string"
-        },
         "connectivity": {
             "properties": {
                 "containerRegistries": {
@@ -382,6 +372,26 @@
                 }
             },
             "title": "Node pools",
+            "type": "object"
+        },
+        "metadata": {
+            "properties": {
+                "description": {
+                    "description": "User-friendly description of the cluster's purpose.",
+                    "title": "Cluster description",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Unique identifier, cannot be changed after creation.",
+                    "title": "Cluster name",
+                    "type": "string"
+                },
+                "organization": {
+                    "title": "Organization",
+                    "type": "string"
+                }
+            },
+            "title": "Metadata",
             "type": "object"
         },
         "network": {
@@ -611,10 +621,6 @@
             },
             "title": "OIDC authentication",
             "type": "object"
-        },
-        "organization": {
-            "title": "Organization",
-            "type": "string"
         },
         "proxy": {
             "description": "Whether/how outgoing traffic is routed through proxy servers.",

@@ -30,6 +30,7 @@ kubectlImage:
   registry: quay.io
   tag: 1.23.5
 kubernetesVersion: 1.23.16
+metadata: {}
 network:
   apiMode: public
   availabilityZoneUsageLimit: 3
