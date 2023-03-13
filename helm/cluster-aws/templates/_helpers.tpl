@@ -162,7 +162,7 @@ room for such suffix.
 {{- end -}}
 
 {{- define "ami" }}
-{{- if .Values.providerSpecific.ami }}
+{{- with .Values.providerSpecific.ami }}
 ami:
   id: {{ . | quote }}
 {{- else -}}
