@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Applied normalization using `schemalint normalize`
   - Added property schema for /connectivity/containerRegistries
   - Added property schema for subnetTags objects
+  - Added default values
 
 ### Fixed
 

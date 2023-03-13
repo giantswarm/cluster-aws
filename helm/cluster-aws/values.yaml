@@ -1,166 +1,63 @@
-clusterName: ""  # Cluster name. Defaults to chart release name
-clusterDescription: "test"  # Cluster description used in metadata.
-organization: ""  # Organization in which to create the cluster.
-kubernetesVersion: 1.23.16
-baseDomain: ""  # Customer base domain, generally of the form "<customer codename>.gigantic.io".
-
 aws:
+  awsClusterRoleIdentityName: default
   region: ""
-  # awsClusterRoleIdentityName is the name of an `AWSClusterRoleIdentity` object. This in turn refers to the IAM role used to
-  # create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create
-  # all resources in that account. The value of `awsClusterRoleIdentityName` does not refer directly to an IAM role name/ARN!
-  # See also https://cluster-api-aws.sigs.k8s.io/topics/multitenancy.html#awsclusterroleidentity.
-  awsClusterRoleIdentityName: "default"
-  awsClusterRole: ""  # deprecated, please use `awsClusterRoleIdentityName`
-
-network:
-  availabilityZoneUsageLimit: 3  # amount of AZ that should be used for the machines
-  vpcCIDR: 10.0.0.0/16  # cidr range for the VPC
-  serviceCIDR: 172.31.0.0/16
-  podCIDR: 100.64.0.0/12
-
-  # vpcMode defines if the VPC is created with public, internet facing resources (public subnets, NAT gateway) or not
-  # Valid value: public, private
-  vpcMode: public
-
-  # apiMode defines if the Kubernetes API server load balancer should be public (internet facing) or private (internal only)
-  # Valid value: public, private
-  apiMode: public
-
-  # dnsMode defines if the Route53 Hosted Zone should be public or private
-  # Valid value: public, private
-  dnsMode: public
-
-  # vpcEndpointMode defines if VPC endpoints should be created by GiantSwarm or not
-  # Valid value: UserManaged, GiantSwarmManaged
-  vpcEndpointMode: GiantSwarmManaged
-
-  # dnsAssignAdditionalVPCs - when dnsMode is 'private', listed vpc will be assigned to the private hosted zone
-  # value should be vpc id separated by comma
-  # ie: "vpc-x2aeasd1d,vpc-98injA"
-  dnsAssignAdditionalVPCs: ""
-
-
-  # topologyMode defines the type of cross-cluster networking architecture between MCs and WCs
-  # Valid values: GiantSwarmManaged, UserManaged, None
-  topologyMode: None
-  # transitGatewayID is the ID of the TGW to use when `mode` is set to `UserManaged`.
-  transitGatewayID: ""
-  # prefixListID is the ID of the Managed Prefix List to use when `mode` is set to `UserManaged`.
-  prefixListID: ""
-  # resolverRulesOwnerAccount is the AWS account that created the Resolver Rules that we want to associate with the WC VPC.
-  # When empty, no resolver rules will be associated with the WC VPC.
-  resolverRulesOwnerAccount: ""
-
-  # subnets defines all the subnets for a cluster.
-  subnets:
-  # The CAPA default subnet layout
-  - cidrBlocks:
-    - cidr: 10.0.0.0/20
-      availabilityZone: a
-    - cidr: 10.0.16.0/20
-      availabilityZone: b
-    - cidr: 10.0.32.0/20
-      availabilityZone: c
-    isPublic: true
-  - cidrBlocks:
-    - cidr: 10.0.64.0/18
-      availabilityZone: a
-    - cidr: 10.0.128.0/18
-      availabilityZone: b
-    - cidr: 10.0.192.0/18
-      availabilityZone: c
-    isPublic: false
-
-  # # Our previous default for private clusters
-  # - cidrBlocks:
-  #   - cidr: 10.0.0.0/18
-  #     availabilityZone: a
-  #   - cidr: 10.0.64.0/18
-  #     availabilityZone: b
-  #   - cidr: 10.0.128.0/18
-  #     availabilityZone: c
-  #   isPublic: false
-
 bastion:
   enabled: true
   instanceType: t3.small
   replicas: 1
-  # subnetTags:
-  # - subnet.giantswarm.io/role: bastion
-
+connectivity: {}
 controlPlane:
-  instanceType: m5.xlarge
-  rootVolumeSizeGB: 120
-  etcdVolumeSizeGB: 100
   containerdVolumeSizeGB: 100
+  etcdVolumeSizeGB: 100
+  instanceType: m5.xlarge
   kubeletVolumeSizeGB: 100
-  # machine health check settings
   machineHealthCheck:
     enabled: true
-    maxUnhealthy: "40%"
-    nodeStartupTimeout: "8m0s"
-    unhealthyUnknownTimeout: "10m0s"
-    unhealthyNotReadyTimeout: "10m0s"
-  # subnetTags:
-  # - subnet.giantswarm.io/role: control-plane
-
-
-# For structure of the machine pool object see defaultMachinePools
-machinePools: {}
-
-defaultMachinePools:  # Machine pools used if none is specified by user
-  def00:  # Name of node pool.
-    availabilityZones: []
-    instanceType: m5.xlarge
-    minSize: 3  # Number of replicas in node pool. maxSize: 3 rootVolumeSizeGB: 300
+    maxUnhealthy: 40%
+    nodeStartupTimeout: 8m0s
+    unhealthyNotReadyTimeout: 10m0s
+    unhealthyUnknownTimeout: 10m0s
+  rootVolumeSizeGB: 120
+defaultMachinePools:
+  def00:
     customNodeLabels:
-    - label=default
-    customNodeTaints: []
-    # - key: ""
-    #   value: ""
-    #   effect: "" # Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
-    # subnetTags:
-    # - subnet.giantswarm.io/role: workers
-
-sshSSOPublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io"
+      - label=default
+    instanceType: m5.xlarge
+    minSize: 3
 flatcarAWSAccount: "075585003325"
-
-# Used to override the AMI lookup and instead use a specific image
-ami: ""
-
-oidc:
-  issuerUrl: ""
-  caPem: ""
-  clientId: ""
-  usernameClaim: ""
-  groupsClaim: ""
-
-proxy:
-  enabled: false
-  http_proxy: ""
-  https_proxy: ""
-  no_proxy: ""
-
-# Used by `cluster-shared` library chart
 includeClusterResourceSet: true
 kubectlImage:
-  registry: quay.io
   name: giantswarm/kubectl
+  registry: quay.io
   tag: 1.23.5
-
-# Used to force-recreate resources that use a hash suffix in their name.
-# To use, set this to a random string to trigger new hash values to be generated.
-hashSalt: ""
-
-connectivity:
-  containerRegistries: {}
-#   docker.io:
-#   - endpoint: "registry-1.docker.io"
-#     credentials:
-#       username: ""
-#       password: ""
-#   - endpoint: "my-mirror-registry.mydomain.io"
-#     credentials:
-#       auth: ""
-#       identitytoken: ""
+kubernetesVersion: 1.23.16
+network:
+  apiMode: public
+  availabilityZoneUsageLimit: 3
+  dnsMode: public
+  podCIDR: 100.64.0.0/12
+  serviceCIDR: 172.31.0.0/16
+  subnets:
+    - cidrBlocks:
+        - availabilityZone: a
+          cidr: 10.0.0.0/20
+        - availabilityZone: b
+          cidr: 10.0.16.0/20
+        - availabilityZone: c
+          cidr: 10.0.32.0/20
+      isPublic: true
+    - cidrBlocks:
+        - availabilityZone: a
+          cidr: 10.0.64.0/18
+        - availabilityZone: b
+          cidr: 10.0.128.0/18
+        - availabilityZone: c
+          cidr: 10.0.192.0/18
+      isPublic: false
+  topologyMode: None
+  vpcCIDR: 10.0.0.0/16
+  vpcEndpointMode: GiantSwarmManaged
+  vpcMode: public
+oidc: {}
+proxy: {}
+sshSSOPublicKey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io
