@@ -114,11 +114,6 @@
                     "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$",
                     "title": "Cluster role identity name",
                     "type": "string"
-                },
-                "region": {
-                    "default": "",
-                    "title": "Region",
-                    "type": "string"
                 }
             },
             "title": "AWS settings",
