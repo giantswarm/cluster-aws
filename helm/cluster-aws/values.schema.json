@@ -208,7 +208,32 @@
                             "type": "string"
                         }
                     },
-                    "title": "Network",
+                    "title": "Network"
+                },
+                "proxy": {
+                    "description": "Whether/how outgoing traffic is routed through proxy servers.",
+                    "properties": {
+                        "enabled": {
+                            "title": "Enable",
+                            "type": "boolean"
+                        },
+                        "httpProxy": {
+                            "description": "To be passed to the HTTP_PROXY environment variable in all hosts.",
+                            "title": "HTTP proxy",
+                            "type": "string"
+                        },
+                        "httpsProxy": {
+                            "description": "To be passed to the HTTPS_PROXY environment variable in all hosts.",
+                            "title": "HTTPS proxy",
+                            "type": "string"
+                        },
+                        "noProxy": {
+                            "description": "To be passed to the NO_PROXY environment variable in all hosts.",
+                            "title": "No proxy",
+                            "type": "string"
+                        }
+                    },
+                    "title": "Proxy",
                     "type": "object"
                 }
             },
@@ -640,32 +665,6 @@
                 }
             },
             "title": "AWS settings",
-            "type": "object"
-        },
-        "proxy": {
-            "description": "Whether/how outgoing traffic is routed through proxy servers.",
-            "properties": {
-                "enabled": {
-                    "title": "Enable",
-                    "type": "boolean"
-                },
-                "http_proxy": {
-                    "description": "To be passed to the HTTP_PROXY environment variable in all hosts.",
-                    "title": "HTTP proxy",
-                    "type": "string"
-                },
-                "https_proxy": {
-                    "description": "To be passed to the HTTPS_PROXY environment variable in all hosts.",
-                    "title": "HTTPS proxy",
-                    "type": "string"
-                },
-                "no_proxy": {
-                    "description": "To be passed to the NO_PROXY environment variable in all hosts.",
-                    "title": "No proxy",
-                    "type": "string"
-                }
-            },
-            "title": "Proxy",
             "type": "object"
         },
         "sshSSOPublicKey": {
