@@ -108,41 +108,41 @@
             "title": "Base DNS domain",
             "type": "string"
         },
-        "bastion": {
-            "properties": {
-                "enabled": {
-                    "default": true,
-                    "title": "Enable",
-                    "type": "boolean"
-                },
-                "instanceType": {
-                    "default": "t3.small",
-                    "title": "EC2 instance type",
-                    "type": "string"
-                },
-                "replicas": {
-                    "default": 1,
-                    "title": "Number of hosts",
-                    "type": "integer"
-                },
-                "subnetTags": {
-                    "description": "Tags to filter which AWS subnets will be used for the bastion hosts.",
-                    "items": {
-                        "additionalProperties": {
-                            "$ref": "#/$defs/awsResourceTagValue"
-                        },
-                        "title": "Subnet tag",
-                        "type": "object"
-                    },
-                    "title": "Subnet tags",
-                    "type": "array"
-                }
-            },
-            "title": "Bastion host",
-            "type": "object"
-        },
         "connectivity": {
             "properties": {
+                "bastion": {
+                    "properties": {
+                        "enabled": {
+                            "default": true,
+                            "title": "Enable",
+                            "type": "boolean"
+                        },
+                        "instanceType": {
+                            "default": "t3.small",
+                            "title": "EC2 instance type",
+                            "type": "string"
+                        },
+                        "replicas": {
+                            "default": 1,
+                            "title": "Number of hosts",
+                            "type": "integer"
+                        },
+                        "subnetTags": {
+                            "description": "Tags to filter which AWS subnets will be used for the bastion hosts.",
+                            "items": {
+                                "additionalProperties": {
+                                    "$ref": "#/$defs/awsResourceTagValue"
+                                },
+                                "title": "Subnet tag",
+                                "type": "object"
+                            },
+                            "title": "Subnet tags",
+                            "type": "array"
+                        }
+                    },
+                    "title": "Bastion host",
+                    "type": "object"
+                },
                 "containerRegistries": {
                     "additionalProperties": {
                         "description": "Container registries and mirrors",
