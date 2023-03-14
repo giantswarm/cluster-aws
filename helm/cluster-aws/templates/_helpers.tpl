@@ -83,12 +83,12 @@ room for such suffix.
   content: {{ tpl ($.Files.Get "files/http-proxy.conf") $ | b64enc }}
 {{- end -}}
 {{- define "proxyCommand" -}}
-- export HTTP_PROXY={{ $.Values.proxy.http_proxy }}
-- export HTTPS_PROXY={{ $.Values.proxy.https_proxy }}
-- export NO_PROXY=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.proxy.no_proxy }}
-- export http_proxy={{ $.Values.proxy.http_proxy }}
-- export https_proxy={{ $.Values.proxy.https_proxy }}
-- export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.proxy.no_proxy }}
+- export HTTP_PROXY={{ $.Values.connectivity.proxy.httpProxy }}
+- export HTTPS_PROXY={{ $.Values.connectivity.proxy.httpsProxy }}
+- export NO_PROXY=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
+- export http_proxy={{ $.Values.connectivity.proxy.httpProxy }}
+- export https_proxy={{ $.Values.connectivity.proxy.httpsProxy }}
+- export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.network.serviceCIDR }},{{ $.Values.network.podCIDR }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
 - systemctl daemon-reload
 - systemctl restart containerd
 - systemctl restart kubelet
