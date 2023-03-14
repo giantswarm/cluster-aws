@@ -83,11 +83,11 @@ room for such suffix.
   content: {{ tpl ($.Files.Get "files/http-proxy.conf") $ | b64enc }}
 {{- end -}}
 {{- define "proxyCommand" -}}
-- export HTTP_PROXY={{ $.Values.proxy.httpProxy }}
-- export HTTPS_PROXY={{ $.Values.proxy.httpsProxy }}
+- export HTTP_PROXY={{ $.Values.connectivity.proxy.httpProxy }}
+- export HTTPS_PROXY={{ $.Values.connectivity.proxy.httpsProxy }}
 - export NO_PROXY=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.connectivity.network.serviceCidr }},{{ $.Values.connectivity.network.podCidr }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
-- export http_proxy={{ $.Values.proxy.httpProxy }}
-- export https_proxy={{ $.Values.proxy.httpsProxy }}
+- export http_proxy={{ $.Values.connectivity.proxy.httpProxy }}
+- export https_proxy={{ $.Values.connectivity.proxy.httpsProxy }}
 - export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.network.vpcCIDR }},{{ $.Values.connectivity.network.serviceCidr }},{{ $.Values.connectivity.network.podCidr }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
 - systemctl daemon-reload
 - systemctl restart containerd
