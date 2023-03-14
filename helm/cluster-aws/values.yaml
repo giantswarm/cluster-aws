@@ -3,7 +3,8 @@ bastion:
   enabled: true
   instanceType: t3.small
   replicas: 1
-connectivity: {}
+connectivity:
+  proxy: {}
 controlPlane:
   containerdVolumeSizeGB: 100
   etcdVolumeSizeGB: 100
@@ -60,5 +61,4 @@ network:
 providerSpecific:
   awsClusterRoleIdentityName: default
   flatcarAwsAccount: "075585003325"
-proxy: {}
 sshSSOPublicKey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io

@@ -140,7 +140,7 @@ spec:
     {{- include "diskFiles" . | nindent 4 }}
     {{- include "irsaFiles" . | nindent 4 }}
     {{- include "awsNtpFiles" . | nindent 4 }}
-    {{- if .Values.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
+    {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "registryFiles" . | nindent 4 }}
     initConfiguration:
@@ -188,7 +188,7 @@ spec:
     {{- include "prepare-varLibKubelet-Dir" . | nindent 4 }}
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
-    {{- if .Values.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
+    {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
     {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
