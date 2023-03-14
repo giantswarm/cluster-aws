@@ -193,6 +193,24 @@
                     "title": "Container registries",
                     "type": "object"
                 },
+                "network": {
+                    "properties": {
+                        "podCidr": {
+                            "default": "100.64.0.0/12",
+                            "description": "IPv4 address range for pods, in CIDR notation.",
+                            "title": "Pod subnet",
+                            "type": "string"
+                        },
+                        "serviceCidr": {
+                            "default": "172.31.0.0/16",
+                            "description": "IPv4 address range for services, in CIDR notation.",
+                            "title": "Service subnet",
+                            "type": "string"
+                        }
+                    },
+                    "title": "Network",
+                    "type": "object"
+                },
                 "proxy": {
                     "description": "Whether/how outgoing traffic is routed through proxy servers.",
                     "properties": {
@@ -464,12 +482,6 @@
                     "title": "DNS mode",
                     "type": "string"
                 },
-                "podCIDR": {
-                    "default": "100.64.0.0/12",
-                    "description": "IPv4 address range for pods, in CIDR notation.",
-                    "title": "Pod subnet",
-                    "type": "string"
-                },
                 "prefixListID": {
                     "description": "ID of the managed prefix list to use when the topology mode is set to 'UserManaged'.",
                     "title": "Prefix list ID",
@@ -486,12 +498,6 @@
                         }
                     ],
                     "title": "Resolver rules owner",
-                    "type": "string"
-                },
-                "serviceCIDR": {
-                    "default": "172.31.0.0/16",
-                    "description": "IPv4 address range for services, in CIDR notation.",
-                    "title": "Service subnet",
                     "type": "string"
                 },
                 "subnets": {
