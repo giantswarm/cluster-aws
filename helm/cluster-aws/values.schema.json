@@ -208,7 +208,8 @@
                             "type": "string"
                         }
                     },
-                    "title": "Network"
+                    "title": "Network",
+                    "type": "object"
                 },
                 "proxy": {
                     "description": "Whether/how outgoing traffic is routed through proxy servers.",
