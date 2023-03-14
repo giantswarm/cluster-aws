@@ -1,9 +1,9 @@
 aws: {}
-bastion:
-  enabled: true
-  instanceType: t3.small
-  replicas: 1
 connectivity:
+  bastion:
+    enabled: true
+    instanceType: t3.small
+    replicas: 1
   proxy: {}
 controlPlane:
   containerdVolumeSizeGB: 100
