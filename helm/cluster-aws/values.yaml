@@ -1,5 +1,4 @@
-aws:
-  awsClusterRoleIdentityName: default
+aws: {}
 bastion:
   enabled: true
   instanceType: t3.small
@@ -23,7 +22,6 @@ defaultMachinePools:
       - label=default
     instanceType: m5.xlarge
     minSize: 3
-flatcarAWSAccount: "075585003325"
 includeClusterResourceSet: true
 kubectlImage:
   name: giantswarm/kubectl
@@ -59,5 +57,8 @@ network:
   vpcEndpointMode: GiantSwarmManaged
   vpcMode: public
 oidc: {}
+providerSpecific:
+  awsClusterRoleIdentityName: default
+  flatcarAwsAccount: "075585003325"
 proxy: {}
 sshSSOPublicKey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io

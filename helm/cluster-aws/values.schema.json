@@ -92,27 +92,12 @@
     },
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "properties": {
-        "ami": {
-            "description": "If specified, this image will be used to provision EC2 instances.",
-            "title": "Amazon machine image (AMI)",
-            "type": "string"
-        },
         "aws": {
             "properties": {
                 "awsClusterRole": {
-                    "$comment": "Please use awsClusterRoleIdentityName.",
+                    "$comment": "Please use /providerSpecific/awsClusterRoleIdentityName.",
                     "deprecated": true,
                     "title": "Cluster role",
-                    "type": "string"
-                },
-                "awsClusterRoleIdentityName": {
-                    "$comment": "See also https://cluster-api-aws.sigs.k8s.io/topics/multitenancy.html#awsclusterroleidentity",
-                    "default": "default",
-                    "description": "Name of an AWSClusterRoleIdentity object. This in turn refers to the IAM role used to create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create all resources in that account. Note: This name does not refer directly to an IAM role name/ARN.",
-                    "maxLength": 63,
-                    "minLength": 1,
-                    "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$",
-                    "title": "Cluster role identity name",
                     "type": "string"
                 }
             },
@@ -319,12 +304,6 @@
             },
             "title": "Default node pool",
             "type": "object"
-        },
-        "flatcarAWSAccount": {
-            "default": "075585003325",
-            "description": "AWS account ID owning the Flatcar Container Linux AMI.",
-            "title": "AWS account owning Flatcar image",
-            "type": "string"
         },
         "hashSalt": {
             "description": "If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.",
@@ -620,6 +599,41 @@
                 }
             },
             "title": "OIDC authentication",
+            "type": "object"
+        },
+        "organization": {
+            "title": "Organization",
+            "type": "string"
+        },
+        "providerSpecific": {
+            "properties": {
+                "ami": {
+                    "description": "If specified, this image will be used to provision EC2 instances.",
+                    "title": "Amazon machine image (AMI)",
+                    "type": "string"
+                },
+                "awsClusterRoleIdentityName": {
+                    "$comment": "See also https://cluster-api-aws.sigs.k8s.io/topics/multitenancy.html#awsclusterroleidentity",
+                    "default": "default",
+                    "description": "Name of an AWSClusterRoleIdentity object. This in turn refers to the IAM role used to create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create all resources in that account. Note: This name does not refer directly to an IAM role name/ARN.",
+                    "maxLength": 63,
+                    "minLength": 1,
+                    "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$",
+                    "title": "Cluster role identity name",
+                    "type": "string"
+                },
+                "flatcarAwsAccount": {
+                    "default": "075585003325",
+                    "description": "AWS account ID owning the Flatcar Container Linux AMI.",
+                    "title": "AWS account owning Flatcar image",
+                    "type": "string"
+                },
+                "region": {
+                    "title": "Region",
+                    "type": "string"
+                }
+            },
+            "title": "AWS settings",
             "type": "object"
         },
         "proxy": {
