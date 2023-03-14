@@ -5,6 +5,7 @@ connectivity:
     instanceType: t3.small
     replicas: 1
   network:
+    podCidr: 100.64.0.0/12
     serviceCidr: 172.31.0.0/16
 controlPlane:
   containerdVolumeSizeGB: 100
@@ -36,7 +37,6 @@ network:
   apiMode: public
   availabilityZoneUsageLimit: 3
   dnsMode: public
-  podCIDR: 100.64.0.0/12
   subnets:
     - cidrBlocks:
         - availabilityZone: a

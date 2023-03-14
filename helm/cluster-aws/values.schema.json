@@ -195,6 +195,12 @@
                 },
                 "network": {
                     "properties": {
+                        "podCidr": {
+                            "default": "100.64.0.0/12",
+                            "description": "IPv4 address range for pods, in CIDR notation.",
+                            "title": "Pod subnet",
+                            "type": "string"
+                        },
                         "serviceCidr": {
                             "default": "172.31.0.0/16",
                             "description": "IPv4 address range for services, in CIDR notation.",
@@ -448,12 +454,6 @@
                         "private"
                     ],
                     "title": "DNS mode",
-                    "type": "string"
-                },
-                "podCIDR": {
-                    "default": "100.64.0.0/12",
-                    "description": "IPv4 address range for pods, in CIDR notation.",
-                    "title": "Pod subnet",
                     "type": "string"
                 },
                 "prefixListID": {

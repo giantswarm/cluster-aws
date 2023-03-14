@@ -122,7 +122,7 @@ spec:
           bind-address: 0.0.0.0
           cloud-provider: aws
           allocate-node-cidrs: "true"
-          cluster-cidr: {{ .Values.network.podCIDR }}
+          cluster-cidr: {{ .Values.connectivity.network.podCidr }}
       scheduler:
         extraArgs:
           authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
