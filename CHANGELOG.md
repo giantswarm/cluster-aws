@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /clusterDescription to /medatada/description
   - Move /organization to /metadata/organization
   - Move /oidc to /controlPlane/oidc
+  - Move /bastion to /connectivity/bastion
 
 ### Fixed
 

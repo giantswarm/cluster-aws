@@ -10,7 +10,7 @@ template:
       cluster.x-k8s.io/role: bastion
       {{- include "labels.common" $ | nindent 6 }}
   spec:
-    instanceType: {{ .Values.bastion.instanceType }}
+    instanceType: {{ .Values.connectivity.bastion.instanceType }}
     cloudInit:
       insecureSkipSecretsManager: true
     imageLookupFormat: Flatcar-stable-*
@@ -27,7 +27,7 @@ template:
           values:
           - owned
           - shared
-        {{- range $i, $tags :=  .Values.bastion.subnetTags }}
+        {{- range $i, $tags :=  .Values.connectivity.bastion.subnetTags }}
         - name: tag:{{ keys $tags | first }}
           values:
           - {{ index $tags (keys $tags | first) | quote }}
@@ -59,7 +59,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   clusterName: {{ include "resource.default.name" $ }}
-  replicas: {{ .Values.bastion.replicas }}
+  replicas: {{ .Values.connectivity.bastion.replicas }}
   selector:
     matchLabels:
       cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" $ }}
