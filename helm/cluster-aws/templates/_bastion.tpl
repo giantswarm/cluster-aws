@@ -14,7 +14,7 @@ template:
     cloudInit:
       insecureSkipSecretsManager: true
     imageLookupFormat: Flatcar-stable-*
-    imageLookupOrg: "{{ .Values.flatcarAWSAccount }}"
+    imageLookupOrg: "{{ .Values.providerSpecific.flatcarAwsAccount }}"
     publicIP: {{ if eq .Values.network.vpcMode "private" }}false{{else}}true{{end}}
     sshKeyName: ""
     uncompressedUserData: true
