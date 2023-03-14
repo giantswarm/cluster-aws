@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /organization to /metadata/organization
   - Move /oidc to /controlPlane/oidc
   - Move /bastion to /connectivity/bastion
+  - Move /network/serviceCIDR to /connectivity/network/serviceCidr
 
 ### Fixed
 

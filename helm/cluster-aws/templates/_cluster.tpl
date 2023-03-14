@@ -22,7 +22,7 @@ spec:
   clusterNetwork:
     services:
       cidrBlocks:
-       - {{ .Values.network.serviceCIDR }}
+       - {{ .Values.connectivity.network.serviceCidr }}
     pods:
       cidrBlocks:
       - {{ .Values.network.podCIDR }}

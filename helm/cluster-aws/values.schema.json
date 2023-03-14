@@ -192,6 +192,18 @@
                     "description": "Endpoints and credentials configuration for container registries.",
                     "title": "Container registries",
                     "type": "object"
+                },
+                "network": {
+                    "properties": {
+                        "serviceCidr": {
+                            "default": "172.31.0.0/16",
+                            "description": "IPv4 address range for services, in CIDR notation.",
+                            "title": "Service subnet",
+                            "type": "string"
+                        }
+                    },
+                    "title": "Network",
+                    "type": "object"
                 }
             },
             "title": "Connectivity",
@@ -460,12 +472,6 @@
                         }
                     ],
                     "title": "Resolver rules owner",
-                    "type": "string"
-                },
-                "serviceCIDR": {
-                    "default": "172.31.0.0/16",
-                    "description": "IPv4 address range for services, in CIDR notation.",
-                    "title": "Service subnet",
                     "type": "string"
                 },
                 "subnets": {
