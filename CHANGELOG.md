@@ -22,11 +22,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /clusterName to /metadata/name
   - Move /clusterDescription to /medatada/description
   - Move /organization to /metadata/organization
+  - Move /oidc to /controlPlane/oidc
 
 ### Fixed
 
 - Use region defaulting wherever possible, removing `region` from schema.
-
 
 ## [0.27.0] - 2023-03-01
 

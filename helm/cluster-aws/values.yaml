@@ -15,6 +15,7 @@ controlPlane:
     nodeStartupTimeout: 8m0s
     unhealthyNotReadyTimeout: 10m0s
     unhealthyUnknownTimeout: 10m0s
+  oidc: {}
   rootVolumeSizeGB: 120
 defaultMachinePools:
   def00:
@@ -56,7 +57,6 @@ network:
   vpcCIDR: 10.0.0.0/16
   vpcEndpointMode: GiantSwarmManaged
   vpcMode: public
-oidc: {}
 providerSpecific:
   awsClusterRoleIdentityName: default
   flatcarAwsAccount: "075585003325"
