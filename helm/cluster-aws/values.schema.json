@@ -387,11 +387,6 @@
             "title": "Hash salt",
             "type": "string"
         },
-        "includeClusterResourceSet": {
-            "default": true,
-            "title": "Include ClusterResourceSet",
-            "type": "boolean"
-        },
         "kubectlImage": {
             "properties": {
                 "name": {
