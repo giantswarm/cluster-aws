@@ -236,6 +236,11 @@
                     },
                     "title": "Proxy",
                     "type": "object"
+                },
+                "sshSsoPublicKey": {
+                    "default": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io",
+                    "title": "SSH public key for single sign-on",
+                    "type": "string"
                 }
             },
             "title": "Connectivity",
@@ -667,11 +672,6 @@
             },
             "title": "AWS settings",
             "type": "object"
-        },
-        "sshSSOPublicKey": {
-            "default": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io",
-            "title": "SSH public key for single sign-on",
-            "type": "string"
         }
     },
     "type": "object"
