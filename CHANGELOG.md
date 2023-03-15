@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Rename /proxy/https_proxy to /connectivity/proxy/httpsProxy
   - Move /sshSSOPublicKey to /connectivity/sshSsoPublicKey
   - Remove unused /includeClusterResourceSet
+  - Remove /aws/awsClusterRole (previously deprecated)
 
 ### Fixed
 

@@ -92,18 +92,6 @@
     },
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "properties": {
-        "aws": {
-            "properties": {
-                "awsClusterRole": {
-                    "$comment": "Please use /providerSpecific/awsClusterRoleIdentityName.",
-                    "deprecated": true,
-                    "title": "Cluster role",
-                    "type": "string"
-                }
-            },
-            "title": "AWS settings",
-            "type": "object"
-        },
         "baseDomain": {
             "title": "Base DNS domain",
             "type": "string"
