@@ -30,10 +30,6 @@ spec:
     kind: AWSClusterRoleIdentity
     {{- with .Values.providerSpecific.awsClusterRoleIdentityName }}
     name: {{ . | quote }}
-    {{- else }}
-    {{- with .Values.aws.awsClusterRole }}
-    name: {{ . | quote }}
-    {{- end }}
     {{- end }}
   controlPlaneLoadBalancer:
     scheme: {{ if (eq .Values.network.apiMode "public") }}internet-facing{{ else }}internal{{ end }}

@@ -1,4 +1,3 @@
-aws: {}
 connectivity:
   bastion:
     enabled: true
