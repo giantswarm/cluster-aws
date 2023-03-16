@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /sshSSOPublicKey to /connectivity/sshSsoPublicKey
   - Remove unused /includeClusterResourceSet
   - Remove /aws/awsClusterRole (previously deprecated)
+  - Move /hashSalt to /internal/hashSalt
 
 ### Fixed
 

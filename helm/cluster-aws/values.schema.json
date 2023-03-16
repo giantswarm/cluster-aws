@@ -370,10 +370,17 @@
             "title": "Default node pool",
             "type": "object"
         },
-        "hashSalt": {
-            "description": "If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.",
-            "title": "Hash salt",
-            "type": "string"
+        "internal": {
+            "description": "For Giant Swarm internal use only, not stable, or not supported by UIs.",
+            "properties": {
+                "hashSalt": {
+                    "description": "If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.",
+                    "title": "Hash salt",
+                    "type": "string"
+                }
+            },
+            "title": "Internal",
+            "type": "object"
         },
         "kubectlImage": {
             "properties": {

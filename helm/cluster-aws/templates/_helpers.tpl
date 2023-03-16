@@ -186,6 +186,6 @@ Where `data` is the data to has on and `global` is the top level scope.
 {{- define "hash" -}}
 {{- $data := mustToJson .data | toString  }}
 {{- $salt := "" }}
-{{- if .global.Values.hashSalt }}{{ $salt = .global.Values.hashSalt}}{{end}}
+{{- if .global.Values.internal.hashSalt }}{{ $salt = .global.Values.internal.hashSalt}}{{end}}
 {{- (printf "%s%s" $data $salt) | quote | sha1sum | trunc 8 }}
 {{- end -}}
