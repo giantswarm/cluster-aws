@@ -621,10 +621,6 @@
             "title": "Network",
             "type": "object"
         },
-        "organization": {
-            "title": "Organization",
-            "type": "string"
-        },
         "providerSpecific": {
             "properties": {
                 "ami": {
