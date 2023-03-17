@@ -29,11 +29,12 @@ defaultMachinePools:
       - label=default
     instanceType: m5.xlarge
     minSize: 3
+internal:
+  kubernetesVersion: 1.23.16
 kubectlImage:
   name: giantswarm/kubectl
   registry: quay.io
   tag: 1.23.5
-kubernetesVersion: 1.23.16
 metadata: {}
 network:
   apiMode: public
