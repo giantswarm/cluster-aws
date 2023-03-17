@@ -1,15 +1,17 @@
 {{- define "aws-cluster" }}
-{{- if and (regexMatch "\\.internal$" (required "baseDomain is required" .Values.baseDomain)) (eq (required "network.dnsMode required" .Values.network.dnsMode) "public") }}
-{{- fail "dnsMode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
+{{- if and (regexMatch "\\.internal$" (required "baseDomain is required" .Values.baseDomain)) (eq (required "connectivity.dns.mode required" .Values.connectivity.dns.mode) "public") }}
+{{- fail "connectivity.dns.mode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
 {{- end }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSCluster
 metadata:
   annotations:
     aws.giantswarm.io/vpc-mode: "{{ .Values.network.vpcMode }}"
-    aws.giantswarm.io/dns-mode: {{ if (eq .Values.network.dnsMode "private") }}"private"{{ else }}"public"{{ end }}
-    {{- if (eq .Values.network.dnsMode "private") }}
-    aws.giantswarm.io/dns-assign-additional-vpc: "{{ .Values.network.dnsAssignAdditionalVPCs }}"
+    aws.giantswarm.io/dns-mode: {{ if (eq .Values.connectivity.dns.mode "private") }}"private"{{ else }}"public"{{ end }}
+    {{- if (eq .Values.connectivity.dns.mode "private") }}
+    {{- with .Values.connectivity.dns.additionalVpc }}
+    aws.giantswarm.io/dns-assign-additional-vpc: {{ . | join "," | quote }}
+    {{- end }}
     {{- end }}
     {{- if .Values.network.resolverRulesOwnerAccount }}
     aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.network.resolverRulesOwnerAccount }}"

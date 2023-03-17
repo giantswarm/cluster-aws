@@ -3,6 +3,8 @@ connectivity:
     enabled: true
     instanceType: t3.small
     replicas: 1
+  dns:
+    mode: public
   network:
     podCidr: 100.64.0.0/12
     serviceCidr: 172.31.0.0/16
@@ -36,7 +38,6 @@ metadata: {}
 network:
   apiMode: public
   availabilityZoneUsageLimit: 3
-  dnsMode: public
   subnets:
     - cidrBlocks:
         - availabilityZone: a
