@@ -49,6 +49,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /network/subnets to /connectivity/subnets
   - Disallow additional properties on the root level
 
+### Added
+
+- Values schema:
+  - Add /managementCluster and /provider to account for values injected by controllers.
+
 ### Fixed
 
 - Use region defaulting wherever possible, removing `region` from schema.
