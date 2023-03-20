@@ -210,6 +210,19 @@
                             ],
                             "title": "Mode",
                             "type": "string"
+                        },
+                        "resolverRulesOwnerAccount": {
+                            "description": "ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.",
+                            "oneOf": [
+                                {
+                                    "pattern": "^\\d{12}$"
+                                },
+                                {
+                                    "const": ""
+                                }
+                            ],
+                            "title": "Resolver rules owner",
+                            "type": "string"
                         }
                     },
                     "title": "DNS",
@@ -495,19 +508,6 @@
                 "prefixListID": {
                     "description": "ID of the managed prefix list to use when the topology mode is set to 'UserManaged'.",
                     "title": "Prefix list ID",
-                    "type": "string"
-                },
-                "resolverRulesOwnerAccount": {
-                    "description": "ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.",
-                    "oneOf": [
-                        {
-                            "pattern": "^\\d{12}$"
-                        },
-                        {
-                            "const": ""
-                        }
-                    ],
-                    "title": "Resolver rules owner",
                     "type": "string"
                 },
                 "subnets": {
