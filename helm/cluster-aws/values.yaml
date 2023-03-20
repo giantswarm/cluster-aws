@@ -1,4 +1,5 @@
 connectivity:
+  availabilityZoneUsageLimit: 3
   bastion:
     enabled: true
     instanceType: t3.small
@@ -43,7 +44,6 @@ kubectlImage:
   tag: 1.23.5
 metadata: {}
 network:
-  availabilityZoneUsageLimit: 3
   subnets:
     - cidrBlocks:
         - availabilityZone: a

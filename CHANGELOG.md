@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /network/transitGatewayID to /connectivity/topology/transitGatewayId
   - Move /network/vpcEndpointMode to /connectivity/vpcEndpointMode
   - Move /network/vpcMode to /connectivity/vpcMode
+  - Move /network/availabilityZoneUsageLimit to /connectivity/availabilityZoneUsageLimit
   - Disallow additional properties on the root level
 
 ### Fixed

@@ -43,7 +43,7 @@ spec:
         protocol: "-1"
         toPort: -1
     vpc:
-      availabilityZoneUsageLimit: {{ .Values.network.availabilityZoneUsageLimit }}
+      availabilityZoneUsageLimit: {{ .Values.connectivity.availabilityZoneUsageLimit }}
       cidrBlock: {{ .Values.connectivity.network.vpcCidr }}
     subnets:
     {{- range $j, $subnet := .Values.network.subnets }}

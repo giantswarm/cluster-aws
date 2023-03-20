@@ -103,6 +103,12 @@
         },
         "connectivity": {
             "properties": {
+                "availabilityZoneUsageLimit": {
+                    "default": 3,
+                    "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
+                    "title": "Availability zones",
+                    "type": "integer"
+                },
                 "bastion": {
                     "properties": {
                         "enabled": {
@@ -553,12 +559,6 @@
         },
         "network": {
             "properties": {
-                "availabilityZoneUsageLimit": {
-                    "default": 3,
-                    "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
-                    "title": "Availability zones",
-                    "type": "integer"
-                },
                 "subnets": {
                     "default": [
                         {
