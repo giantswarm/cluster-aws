@@ -13,8 +13,8 @@ metadata:
     aws.giantswarm.io/dns-assign-additional-vpc: {{ . | join "," | quote }}
     {{- end }}
     {{- end }}
-    {{- if .Values.network.resolverRulesOwnerAccount }}
-    aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.network.resolverRulesOwnerAccount }}"
+    {{- if .Values.connectivity.dns.resolverRulesOwnerAccount }}
+    aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.connectivity.dns.resolverRulesOwnerAccount }}"
     {{- end}}
     {{- if (eq .Values.network.vpcMode "private") }}
     cluster.x-k8s.io/paused: "true"
