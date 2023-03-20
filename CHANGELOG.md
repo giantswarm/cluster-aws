@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /network/dnsMode to /connectivity/dns/mode
   - Move /network/dnsAssignAdditionalVPCs to /connectivity/dns/additionalVpc and change to type array
   - Move /network/vpcCIDR to /connectivity/network/vpcCidr
+  - Move /network/resolverRulesOwnerAccount to /connectivity/dns/resolverRulesOwnerAccount
 
 ### Fixed
 
