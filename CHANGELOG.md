@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /network/dnsAssignAdditionalVPCs to /connectivity/dns/additionalVpc and change to type array
   - Move /network/apiMode to /controlPlane/apiMode
   - Move /network/resolverRulesOwnerAccount to /connectivity/dns/resolverRulesOwnerAccount
+  - Disallow additional properties on the root level
 
 ### Fixed
 
