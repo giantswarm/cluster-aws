@@ -47,12 +47,6 @@ controlPlane:
     unhealthyUnknownTimeout: 10m0s
   oidc: {}
   rootVolumeSizeGB: 120
-defaultMachinePools:
-  def00:
-    customNodeLabels:
-      - label=default
-    instanceType: m5.xlarge
-    minSize: 3
 internal:
   kubernetesVersion: 1.23.16
 kubectlImage:
@@ -60,6 +54,13 @@ kubectlImage:
   registry: quay.io
   tag: 1.23.5
 metadata: {}
+nodePools:
+  - customNodeLabels:
+      - label=default
+    instanceType: m5.xlarge
+    maxSize: 3
+    minSize: 3
+    name: def00
 providerSpecific:
   awsClusterRoleIdentityName: default
   flatcarAwsAccount: "075585003325"

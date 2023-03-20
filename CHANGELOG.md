@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /network/availabilityZoneUsageLimit to /connectivity/availabilityZoneUsageLimit
   - Move /network/subnets to /connectivity/subnets
   - Disallow additional properties on the root level
+  - Change node pools to use array structure, move to /nodePools
 
 ### Added
 
