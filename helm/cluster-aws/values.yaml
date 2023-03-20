@@ -13,6 +13,7 @@ connectivity:
   topology:
     mode: None
 controlPlane:
+  apiMode: public
   containerdVolumeSizeGB: 100
   etcdVolumeSizeGB: 100
   instanceType: m5.xlarge
@@ -39,7 +40,6 @@ kubectlImage:
   tag: 1.23.5
 metadata: {}
 network:
-  apiMode: public
   availabilityZoneUsageLimit: 3
   subnets:
     - cidrBlocks:

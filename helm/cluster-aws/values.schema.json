@@ -91,10 +91,15 @@
         }
     },
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
     "properties": {
         "baseDomain": {
             "title": "Base DNS domain",
             "type": "string"
+        },
+        "cluster-shared": {
+            "title": "Library chart",
+            "type": "object"
         },
         "connectivity": {
             "properties": {
@@ -306,6 +311,16 @@
         },
         "controlPlane": {
             "properties": {
+                "apiMode": {
+                    "default": "public",
+                    "description": "Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).",
+                    "enum": [
+                        "public",
+                        "private"
+                    ],
+                    "title": "API mode",
+                    "type": "string"
+                },
                 "containerdVolumeSizeGB": {
                     "default": 100,
                     "title": "Containerd volume size (GB)",
@@ -512,16 +527,6 @@
         },
         "network": {
             "properties": {
-                "apiMode": {
-                    "default": "public",
-                    "description": "Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).",
-                    "enum": [
-                        "public",
-                        "private"
-                    ],
-                    "title": "API mode",
-                    "type": "string"
-                },
                 "availabilityZoneUsageLimit": {
                     "default": 3,
                     "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
