@@ -34,7 +34,7 @@ spec:
     name: {{ . | quote }}
     {{- end }}
   controlPlaneLoadBalancer:
-    scheme: {{ if (eq .Values.network.apiMode "public") }}internet-facing{{ else }}internal{{ end }}
+    scheme: {{ if (eq .Values.controlPlane.apiMode "public") }}internet-facing{{ else }}internal{{ end }}
   network:
     cni:
       cniIngressRules:

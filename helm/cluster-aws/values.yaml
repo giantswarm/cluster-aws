@@ -11,6 +11,7 @@ connectivity:
   proxy: {}
   sshSsoPublicKey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io
 controlPlane:
+  apiMode: public
   containerdVolumeSizeGB: 100
   etcdVolumeSizeGB: 100
   instanceType: m5.xlarge
@@ -37,7 +38,6 @@ kubectlImage:
   tag: 1.23.5
 metadata: {}
 network:
-  apiMode: public
   availabilityZoneUsageLimit: 3
   subnets:
     - cidrBlocks:
