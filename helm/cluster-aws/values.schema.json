@@ -604,21 +604,21 @@
                         "type": "array"
                     },
                     "instanceType": {
+                        "default": "m5.xlarge",
                         "title": "EC2 instance type",
-                        "type": "string",
-                        "default": "m5.xlarge"
+                        "type": "string"
                     },
                     "maxSize": {
-                        "title": "Maximum number of nodes",
-                        "type": "integer",
+                        "default": 3,
                         "minimum": 0,
-                        "default": 3
+                        "title": "Maximum number of nodes",
+                        "type": "integer"
                     },
                     "minSize": {
-                        "title": "Minimum number of nodes",
-                        "type": "integer",
+                        "default": 1,
                         "minimum": 0,
-                        "default": 1
+                        "title": "Minimum number of nodes",
+                        "type": "integer"
                     },
                     "name": {
                         "description": "Unique node pool identifier.",
