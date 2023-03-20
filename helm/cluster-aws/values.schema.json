@@ -320,6 +320,16 @@
                     ],
                     "title": "VPC endpoint mode",
                     "type": "string"
+                },
+                "vpcMode": {
+                    "default": "public",
+                    "description": "Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).",
+                    "enum": [
+                        "public",
+                        "private"
+                    ],
+                    "title": "VPC mode",
+                    "type": "string"
                 }
             },
             "title": "Connectivity",
@@ -648,16 +658,6 @@
                     },
                     "title": "Subnets",
                     "type": "array"
-                },
-                "vpcMode": {
-                    "default": "public",
-                    "description": "Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).",
-                    "enum": [
-                        "public",
-                        "private"
-                    ],
-                    "title": "VPC mode",
-                    "type": "string"
                 }
             },
             "title": "Network",

@@ -6,7 +6,7 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSCluster
 metadata:
   annotations:
-    aws.giantswarm.io/vpc-mode: "{{ .Values.network.vpcMode }}"
+    aws.giantswarm.io/vpc-mode: "{{ .Values.connectivity.vpcMode }}"
     aws.giantswarm.io/dns-mode: {{ if (eq .Values.connectivity.dns.mode "private") }}"private"{{ else }}"public"{{ end }}
     {{- if (eq .Values.connectivity.dns.mode "private") }}
     {{- with .Values.connectivity.dns.additionalVpc }}
@@ -16,7 +16,7 @@ metadata:
     {{- if .Values.connectivity.dns.resolverRulesOwnerAccount }}
     aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.connectivity.dns.resolverRulesOwnerAccount }}"
     {{- end}}
-    {{- if (eq .Values.network.vpcMode "private") }}
+    {{- if (eq .Values.connectivity.vpcMode "private") }}
     cluster.x-k8s.io/paused: "true"
     {{end}}
     aws.cluster.x-k8s.io/external-resource-gc: "true"

@@ -44,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /network/topologyMode to /connectivity/topology/mode
   - Move /network/transitGatewayID to /connectivity/topology/transitGatewayId
   - Move /network/vpcEndpointMode to /connectivity/vpcEndpointMode
+  - Move /network/vpcMode to /connectivity/vpcMode
   - Disallow additional properties on the root level
 
 ### Fixed
