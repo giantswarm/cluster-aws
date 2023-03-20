@@ -9,10 +9,11 @@ As of v0.21.0 it possible to specify more complex subnet layouts that allow usin
 Subnet groupings can be defined by setting `.network.subnets`. For example, to have different subnets for control plane, worker and bastion nodes you might have something similar to the following:
 
 ```yaml
-
+connectivity:
+  network:
+    vpcCidr: 10.0.0.0/16
 network:
   availabilityZoneUsageLimit: 3
-  vpcCIDR: 10.0.0.0/16
   subnets:
   # Control plane nodes subnets
   - cidrBlocks:

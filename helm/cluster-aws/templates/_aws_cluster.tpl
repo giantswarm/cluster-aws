@@ -44,7 +44,7 @@ spec:
         toPort: -1
     vpc:
       availabilityZoneUsageLimit: {{ .Values.network.availabilityZoneUsageLimit }}
-      cidrBlock: {{ .Values.network.vpcCIDR }}
+      cidrBlock: {{ .Values.connectivity.network.vpcCidr }}
     subnets:
     {{- range $j, $subnet := .Values.network.subnets }}
     {{- range $i, $cidr := $subnet.cidrBlocks }}
