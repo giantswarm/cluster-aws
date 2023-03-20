@@ -181,6 +181,35 @@
                     "title": "Container registries",
                     "type": "object"
                 },
+                "dns": {
+                    "properties": {
+                        "additionalVpc": {
+                            "description": "If DNS mode is 'private', the VPCs specified here will be assigned to the private hosted zone.",
+                            "items": {
+                                "examples": [
+                                    "vpc-x2aeasd1d"
+                                ],
+                                "pattern": "^vpc-[0-0a-zA-Z]+$",
+                                "title": "VPC identifier",
+                                "type": "string"
+                            },
+                            "title": "Additional VPCs",
+                            "type": "array"
+                        },
+                        "mode": {
+                            "default": "public",
+                            "description": "Whether the Route53 hosted zone of this cluster should be public or private.",
+                            "enum": [
+                                "public",
+                                "private"
+                            ],
+                            "title": "Mode",
+                            "type": "string"
+                        }
+                    },
+                    "title": "DNS",
+                    "type": "object"
+                },
                 "network": {
                     "properties": {
                         "podCidr": {
@@ -457,25 +486,6 @@
                     "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
                     "title": "Availability zones",
                     "type": "integer"
-                },
-                "dnsAssignAdditionalVPCs": {
-                    "description": "If DNS mode is 'private', the VPCs specified here will be assigned to the private hosted zone. Separate multiple entries with comma.",
-                    "examples": [
-                        "vpc-98injA",
-                        "vpc-x2aeasd1d,vpc-98injA"
-                    ],
-                    "title": "DNS assign additional VPCs",
-                    "type": "string"
-                },
-                "dnsMode": {
-                    "default": "public",
-                    "description": "Whether the Route53 hosted zone of this cluster should be public or private.",
-                    "enum": [
-                        "public",
-                        "private"
-                    ],
-                    "title": "DNS mode",
-                    "type": "string"
                 },
                 "prefixListID": {
                     "description": "ID of the managed prefix list to use when the topology mode is set to 'UserManaged'.",
