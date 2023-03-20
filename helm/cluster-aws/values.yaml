@@ -10,6 +10,8 @@ connectivity:
     serviceCidr: 172.31.0.0/16
   proxy: {}
   sshSsoPublicKey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io
+  topology:
+    mode: None
 controlPlane:
   containerdVolumeSizeGB: 100
   etcdVolumeSizeGB: 100
@@ -56,7 +58,6 @@ network:
         - availabilityZone: c
           cidr: 10.0.192.0/18
       isPublic: false
-  topologyMode: None
   vpcCIDR: 10.0.0.0/16
   vpcEndpointMode: GiantSwarmManaged
   vpcMode: public
