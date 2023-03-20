@@ -34,7 +34,7 @@ spec:
     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
     kind: AWSCluster
     name: {{ include "resource.default.name" $ }}
-  {{- if (eq .Values.network.vpcMode "private") }}
+  {{- if (eq .Values.connectivity.vpcMode "private") }}
   paused: true
   {{- end -}}
 {{- end -}}

@@ -103,6 +103,12 @@
         },
         "connectivity": {
             "properties": {
+                "availabilityZoneUsageLimit": {
+                    "default": 3,
+                    "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
+                    "title": "Availability zones",
+                    "type": "integer"
+                },
                 "bastion": {
                     "properties": {
                         "enabled": {
@@ -283,6 +289,94 @@
                     "title": "SSH public key for single sign-on",
                     "type": "string"
                 },
+                "subnets": {
+                    "default": [
+                        {
+                            "cidrBlocks": [
+                                {
+                                    "availabilityZone": "a",
+                                    "cidr": "10.0.0.0/20"
+                                },
+                                {
+                                    "availabilityZone": "b",
+                                    "cidr": "10.0.16.0/20"
+                                },
+                                {
+                                    "availabilityZone": "c",
+                                    "cidr": "10.0.32.0/20"
+                                }
+                            ],
+                            "isPublic": true
+                        },
+                        {
+                            "cidrBlocks": [
+                                {
+                                    "availabilityZone": "a",
+                                    "cidr": "10.0.64.0/18"
+                                },
+                                {
+                                    "availabilityZone": "b",
+                                    "cidr": "10.0.128.0/18"
+                                },
+                                {
+                                    "availabilityZone": "c",
+                                    "cidr": "10.0.192.0/18"
+                                }
+                            ],
+                            "isPublic": false
+                        }
+                    ],
+                    "description": "Subnets are created and tagged based on this definition.",
+                    "items": {
+                        "properties": {
+                            "cidrBlocks": {
+                                "items": {
+                                    "properties": {
+                                        "availabilityZone": {
+                                            "examples": [
+                                                "a"
+                                            ],
+                                            "title": "Availability zone",
+                                            "type": "string"
+                                        },
+                                        "cidr": {
+                                            "description": "IPv4 address range, in CIDR notation.",
+                                            "title": "Address range",
+                                            "type": "string"
+                                        },
+                                        "tags": {
+                                            "additionalProperties": {
+                                                "$ref": "#/$defs/awsResourceTagValue"
+                                            },
+                                            "description": "AWS resource tags to assign to this subnet.",
+                                            "title": "Tags",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "title": "Network",
+                                "type": "array"
+                            },
+                            "isPublic": {
+                                "title": "Public",
+                                "type": "boolean"
+                            },
+                            "tags": {
+                                "additionalProperties": {
+                                    "$ref": "#/$defs/awsResourceTagValue"
+                                },
+                                "description": "AWS resource tags to assign to this CIDR block.",
+                                "title": "Tags",
+                                "type": "object"
+                            }
+                        },
+                        "title": "Subnet",
+                        "type": "object"
+                    },
+                    "title": "Subnets",
+                    "type": "array"
+                },
                 "topology": {
                     "description": "Networking architecture between management cluster and workload cluster.",
                     "properties": {
@@ -310,6 +404,26 @@
                     },
                     "title": "Topology",
                     "type": "object"
+                },
+                "vpcEndpointMode": {
+                    "default": "GiantSwarmManaged",
+                    "description": "Who is reponsible for creation and management of VPC endpoints.",
+                    "enum": [
+                        "GiantSwarmManaged",
+                        "UserManaged"
+                    ],
+                    "title": "VPC endpoint mode",
+                    "type": "string"
+                },
+                "vpcMode": {
+                    "default": "public",
+                    "description": "Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).",
+                    "enum": [
+                        "public",
+                        "private"
+                    ],
+                    "title": "VPC mode",
+                    "type": "string"
                 }
             },
             "title": "Connectivity",
@@ -529,138 +643,6 @@
                 }
             },
             "title": "Metadata",
-            "type": "object"
-        },
-        "network": {
-            "properties": {
-                "availabilityZoneUsageLimit": {
-                    "default": 3,
-                    "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
-                    "title": "Availability zones",
-                    "type": "integer"
-                },
-                "resolverRulesOwnerAccount": {
-                    "description": "ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.",
-                    "oneOf": [
-                        {
-                            "pattern": "^\\d{12}$"
-                        },
-                        {
-                            "const": ""
-                        }
-                    ],
-                    "title": "Resolver rules owner",
-                    "type": "string"
-                },
-                "subnets": {
-                    "default": [
-                        {
-                            "cidrBlocks": [
-                                {
-                                    "availabilityZone": "a",
-                                    "cidr": "10.0.0.0/20"
-                                },
-                                {
-                                    "availabilityZone": "b",
-                                    "cidr": "10.0.16.0/20"
-                                },
-                                {
-                                    "availabilityZone": "c",
-                                    "cidr": "10.0.32.0/20"
-                                }
-                            ],
-                            "isPublic": true
-                        },
-                        {
-                            "cidrBlocks": [
-                                {
-                                    "availabilityZone": "a",
-                                    "cidr": "10.0.64.0/18"
-                                },
-                                {
-                                    "availabilityZone": "b",
-                                    "cidr": "10.0.128.0/18"
-                                },
-                                {
-                                    "availabilityZone": "c",
-                                    "cidr": "10.0.192.0/18"
-                                }
-                            ],
-                            "isPublic": false
-                        }
-                    ],
-                    "items": {
-                        "properties": {
-                            "cidrBlocks": {
-                                "items": {
-                                    "properties": {
-                                        "availabilityZone": {
-                                            "examples": [
-                                                "a"
-                                            ],
-                                            "title": "Availability zone",
-                                            "type": "string"
-                                        },
-                                        "cidr": {
-                                            "description": "IPv4 address range, in CIDR notation.",
-                                            "title": "Address range",
-                                            "type": "string"
-                                        },
-                                        "tags": {
-                                            "additionalProperties": {
-                                                "$ref": "#/$defs/awsResourceTagValue"
-                                            },
-                                            "description": "AWS resource tags to assign to this subnet.",
-                                            "title": "Tags",
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "title": "Network",
-                                "type": "array"
-                            },
-                            "isPublic": {
-                                "title": "Public",
-                                "type": "boolean"
-                            },
-                            "tags": {
-                                "additionalProperties": {
-                                    "$ref": "#/$defs/awsResourceTagValue"
-                                },
-                                "description": "AWS resource tags to assign to this CIDR block.",
-                                "title": "Tags",
-                                "type": "object"
-                            }
-                        },
-                        "title": "Subnet",
-                        "type": "object"
-                    },
-                    "title": "Subnets",
-                    "type": "array"
-                },
-                "vpcEndpointMode": {
-                    "default": "GiantSwarmManaged",
-                    "description": "Who is reponsible for creation and management of VPC endpoints.",
-                    "enum": [
-                        "GiantSwarmManaged",
-                        "UserManaged"
-                    ],
-                    "title": "VPC endpoint mode",
-                    "type": "string"
-                },
-                "vpcMode": {
-                    "default": "public",
-                    "description": "Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).",
-                    "enum": [
-                        "public",
-                        "private"
-                    ],
-                    "title": "VPC mode",
-                    "type": "string"
-                }
-            },
-            "title": "Network",
             "type": "object"
         },
         "providerSpecific": {

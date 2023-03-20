@@ -43,6 +43,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /network/prefixListID to /connectivity/topology/prefixListId
   - Move /network/topologyMode to /connectivity/topology/mode
   - Move /network/transitGatewayID to /connectivity/topology/transitGatewayId
+  - Move /network/vpcEndpointMode to /connectivity/vpcEndpointMode
+  - Move /network/vpcMode to /connectivity/vpcMode
+  - Move /network/availabilityZoneUsageLimit to /connectivity/availabilityZoneUsageLimit
+  - Move /network/subnets to /connectivity/subnets
   - Disallow additional properties on the root level
 
 ### Fixed

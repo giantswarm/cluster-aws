@@ -10,10 +10,9 @@ Subnet groupings can be defined by setting `.network.subnets`. For example, to h
 
 ```yaml
 connectivity:
+  availabilityZoneUsageLimit: 3
   network:
     vpcCidr: 10.0.0.0/16
-network:
-  availabilityZoneUsageLimit: 3
   subnets:
   # Control plane nodes subnets
   - cidrBlocks:
