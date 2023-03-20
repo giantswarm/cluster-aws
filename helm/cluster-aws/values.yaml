@@ -61,6 +61,7 @@ nodePools:
     maxSize: 3
     minSize: 3
     name: def00
+    rootVolumeSizeGB: 300
 providerSpecific:
   awsClusterRoleIdentityName: default
   flatcarAwsAccount: "075585003325"

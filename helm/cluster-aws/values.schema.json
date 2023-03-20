@@ -551,7 +551,8 @@
                     "instanceType": "m5.xlarge",
                     "maxSize": 3,
                     "minSize": 3,
-                    "name": "def00"
+                    "name": "def00",
+                    "rootVolumeSizeGB": 300
                 }
             ],
             "items": {
@@ -633,6 +634,8 @@
                         "type": "string"
                     },
                     "rootVolumeSizeGB": {
+                        "default": 300,
+                        "minimum": 0,
                         "title": "Root volume size (GB)",
                         "type": "integer"
                     },
