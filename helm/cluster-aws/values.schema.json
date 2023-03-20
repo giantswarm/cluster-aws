@@ -639,22 +639,6 @@
                     "title": "Subnets",
                     "type": "array"
                 },
-                "topologyMode": {
-                    "default": "None",
-                    "description": "Defines the type of cross-cluster networking architecture between management and workload cluster. Valid values: GiantSwarmManaged, UserManaged, None.",
-                    "enum": [
-                        "None",
-                        "GiantSwarmManaged",
-                        "UserManaged"
-                    ],
-                    "title": "Topology mode",
-                    "type": "string"
-                },
-                "transitGatewayID": {
-                    "description": "If the topology mode is set to 'UserManaged', this can be used to specify the transit gateway to use.",
-                    "title": "Transit gateway ID",
-                    "type": "string"
-                },
                 "vpcEndpointMode": {
                     "default": "GiantSwarmManaged",
                     "description": "Who is reponsible for creation and management of VPC endpoints.",

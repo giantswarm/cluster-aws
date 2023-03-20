@@ -59,7 +59,6 @@ network:
         - availabilityZone: c
           cidr: 10.0.192.0/18
       isPublic: false
-  topologyMode: None
   vpcEndpointMode: GiantSwarmManaged
   vpcMode: public
 providerSpecific:
