@@ -97,6 +97,10 @@
             "title": "Base DNS domain",
             "type": "string"
         },
+        "cluster-shared": {
+            "title": "Library chart",
+            "type": "object"
+        },
         "connectivity": {
             "properties": {
                 "bastion": {
