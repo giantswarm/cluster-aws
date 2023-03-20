@@ -559,19 +559,6 @@
                     "title": "Availability zones",
                     "type": "integer"
                 },
-                "resolverRulesOwnerAccount": {
-                    "description": "ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.",
-                    "oneOf": [
-                        {
-                            "pattern": "^\\d{12}$"
-                        },
-                        {
-                            "const": ""
-                        }
-                    ],
-                    "title": "Resolver rules owner",
-                    "type": "string"
-                },
                 "subnets": {
                     "default": [
                         {
