@@ -310,6 +310,16 @@
                     },
                     "title": "Topology",
                     "type": "object"
+                },
+                "vpcEndpointMode": {
+                    "default": "GiantSwarmManaged",
+                    "description": "Who is reponsible for creation and management of VPC endpoints.",
+                    "enum": [
+                        "GiantSwarmManaged",
+                        "UserManaged"
+                    ],
+                    "title": "VPC endpoint mode",
+                    "type": "string"
                 }
             },
             "title": "Connectivity",
@@ -638,16 +648,6 @@
                     },
                     "title": "Subnets",
                     "type": "array"
-                },
-                "vpcEndpointMode": {
-                    "default": "GiantSwarmManaged",
-                    "description": "Who is reponsible for creation and management of VPC endpoints.",
-                    "enum": [
-                        "GiantSwarmManaged",
-                        "UserManaged"
-                    ],
-                    "title": "VPC endpoint mode",
-                    "type": "string"
                 },
                 "vpcMode": {
                     "default": "public",
