@@ -276,6 +276,34 @@
                     "default": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io",
                     "title": "SSH public key for single sign-on",
                     "type": "string"
+                },
+                "topology": {
+                    "description": "Networking architecture between management cluster and workload cluster.",
+                    "properties": {
+                        "mode": {
+                            "default": "None",
+                            "description": "Valid values: GiantSwarmManaged, UserManaged, None.",
+                            "enum": [
+                                "None",
+                                "GiantSwarmManaged",
+                                "UserManaged"
+                            ],
+                            "title": "Mode",
+                            "type": "string"
+                        },
+                        "prefixListId": {
+                            "description": "ID of the managed prefix list to use when the topology mode is set to 'UserManaged'.",
+                            "title": "Prefix list ID",
+                            "type": "string"
+                        },
+                        "transitGatewayId": {
+                            "description": "If the topology mode is set to 'UserManaged', this can be used to specify the transit gateway to use.",
+                            "title": "Transit gateway ID",
+                            "type": "string"
+                        }
+                    },
+                    "title": "Topology",
+                    "type": "object"
                 }
             },
             "title": "Connectivity",
@@ -505,9 +533,17 @@
                     "title": "Availability zones",
                     "type": "integer"
                 },
-                "prefixListID": {
-                    "description": "ID of the managed prefix list to use when the topology mode is set to 'UserManaged'.",
-                    "title": "Prefix list ID",
+                "resolverRulesOwnerAccount": {
+                    "description": "ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.",
+                    "oneOf": [
+                        {
+                            "pattern": "^\\d{12}$"
+                        },
+                        {
+                            "const": ""
+                        }
+                    ],
+                    "title": "Resolver rules owner",
                     "type": "string"
                 },
                 "subnets": {
@@ -596,22 +632,6 @@
                     },
                     "title": "Subnets",
                     "type": "array"
-                },
-                "topologyMode": {
-                    "default": "None",
-                    "description": "Defines the type of cross-cluster networking architecture between management and workload cluster. Valid values: GiantSwarmManaged, UserManaged, None.",
-                    "enum": [
-                        "None",
-                        "GiantSwarmManaged",
-                        "UserManaged"
-                    ],
-                    "title": "Topology mode",
-                    "type": "string"
-                },
-                "transitGatewayID": {
-                    "description": "If the topology mode is set to 'UserManaged', this can be used to specify the transit gateway to use.",
-                    "title": "Transit gateway ID",
-                    "type": "string"
                 },
                 "vpcCIDR": {
                     "default": "10.0.0.0/16",

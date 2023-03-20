@@ -6,12 +6,12 @@ metadata:
     {{- with .Values.metadata.description }}
     cluster.giantswarm.io/description: "{{ . }}"
     {{- end }}
-    network-topology.giantswarm.io/mode: "{{ .Values.network.topologyMode }}"
-    {{- if .Values.network.transitGatewayID }}
-    network-topology.giantswarm.io/transit-gateway: "{{ .Values.network.transitGatewayID }}"
+    network-topology.giantswarm.io/mode: "{{ .Values.connectivity.topology.mode }}"
+    {{- if .Values.connectivity.topology.transitGatewayId }}
+    network-topology.giantswarm.io/transit-gateway: "{{ .Values.connectivity.topology.transitGatewayId }}"
     {{- end }}
-    {{- if .Values.network.prefixListID }}
-    network-topology.giantswarm.io/prefix-list: "{{ .Values.network.prefixListID }}"
+    {{- if .Values.connectivity.topology.prefixListId }}
+    network-topology.giantswarm.io/prefix-list: "{{ .Values.connectivity.topology.prefixListId }}"
     {{- end }}
   labels:
     cluster-apps-operator.giantswarm.io/watching: ""
