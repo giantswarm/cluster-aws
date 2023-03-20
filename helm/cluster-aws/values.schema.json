@@ -326,6 +326,7 @@
                             "isPublic": false
                         }
                     ],
+                    "description": "Subnets are created and tagged based on this definition.",
                     "items": {
                         "properties": {
                             "cidrBlocks": {
@@ -374,7 +375,6 @@
                         "type": "object"
                     },
                     "title": "Subnets",
-                    "description": "Subnets are created and tagged based on this definition.",
                     "type": "array"
                 },
                 "topology": {
