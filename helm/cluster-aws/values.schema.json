@@ -223,6 +223,12 @@
                             "description": "IPv4 address range for services, in CIDR notation.",
                             "title": "Service subnet",
                             "type": "string"
+                        },
+                        "vpcCidr": {
+                            "default": "10.0.0.0/16",
+                            "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
+                            "title": "VPC subnet",
+                            "type": "string"
                         }
                     },
                     "title": "Network",
@@ -606,12 +612,6 @@
                 "transitGatewayID": {
                     "description": "If the topology mode is set to 'UserManaged', this can be used to specify the transit gateway to use.",
                     "title": "Transit gateway ID",
-                    "type": "string"
-                },
-                "vpcCIDR": {
-                    "default": "10.0.0.0/16",
-                    "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
-                    "title": "VPC subnet",
                     "type": "string"
                 },
                 "vpcEndpointMode": {
