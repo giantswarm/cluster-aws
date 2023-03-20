@@ -38,7 +38,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /network/dnsMode to /connectivity/dns/mode
   - Move /network/dnsAssignAdditionalVPCs to /connectivity/dns/additionalVpc and change to type array
   - Move /network/vpcCIDR to /connectivity/network/vpcCidr
+  - Move /network/apiMode to /controlPlane/apiMode
   - Move /network/resolverRulesOwnerAccount to /connectivity/dns/resolverRulesOwnerAccount
+  - Move /network/prefixListID to /connectivity/topology/prefixListId
+  - Move /network/topologyMode to /connectivity/topology/mode
+  - Move /network/transitGatewayID to /connectivity/topology/transitGatewayId
+  - Disallow additional properties on the root level
 
 ### Fixed
 
