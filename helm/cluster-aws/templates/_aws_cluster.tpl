@@ -46,7 +46,7 @@ spec:
       availabilityZoneUsageLimit: {{ .Values.connectivity.availabilityZoneUsageLimit }}
       cidrBlock: {{ .Values.connectivity.network.vpcCidr }}
     subnets:
-    {{- range $j, $subnet := .Values.network.subnets }}
+    {{- range $j, $subnet := .Values.connectivity.subnets }}
     {{- range $i, $cidr := $subnet.cidrBlocks }}
     - cidrBlock: "{{ $cidr.cidr }}"
       {{- if eq (len $cidr.availabilityZone) 1 }}

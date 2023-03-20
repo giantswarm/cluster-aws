@@ -13,7 +13,6 @@ connectivity:
   availabilityZoneUsageLimit: 3
   network:
     vpcCidr: 10.0.0.0/16
-network:
   subnets:
   # Control plane nodes subnets
   - cidrBlocks:

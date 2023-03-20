@@ -289,6 +289,94 @@
                     "title": "SSH public key for single sign-on",
                     "type": "string"
                 },
+                "subnets": {
+                    "default": [
+                        {
+                            "cidrBlocks": [
+                                {
+                                    "availabilityZone": "a",
+                                    "cidr": "10.0.0.0/20"
+                                },
+                                {
+                                    "availabilityZone": "b",
+                                    "cidr": "10.0.16.0/20"
+                                },
+                                {
+                                    "availabilityZone": "c",
+                                    "cidr": "10.0.32.0/20"
+                                }
+                            ],
+                            "isPublic": true
+                        },
+                        {
+                            "cidrBlocks": [
+                                {
+                                    "availabilityZone": "a",
+                                    "cidr": "10.0.64.0/18"
+                                },
+                                {
+                                    "availabilityZone": "b",
+                                    "cidr": "10.0.128.0/18"
+                                },
+                                {
+                                    "availabilityZone": "c",
+                                    "cidr": "10.0.192.0/18"
+                                }
+                            ],
+                            "isPublic": false
+                        }
+                    ],
+                    "items": {
+                        "properties": {
+                            "cidrBlocks": {
+                                "items": {
+                                    "properties": {
+                                        "availabilityZone": {
+                                            "examples": [
+                                                "a"
+                                            ],
+                                            "title": "Availability zone",
+                                            "type": "string"
+                                        },
+                                        "cidr": {
+                                            "description": "IPv4 address range, in CIDR notation.",
+                                            "title": "Address range",
+                                            "type": "string"
+                                        },
+                                        "tags": {
+                                            "additionalProperties": {
+                                                "$ref": "#/$defs/awsResourceTagValue"
+                                            },
+                                            "description": "AWS resource tags to assign to this subnet.",
+                                            "title": "Tags",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "title": "Network",
+                                "type": "array"
+                            },
+                            "isPublic": {
+                                "title": "Public",
+                                "type": "boolean"
+                            },
+                            "tags": {
+                                "additionalProperties": {
+                                    "$ref": "#/$defs/awsResourceTagValue"
+                                },
+                                "description": "AWS resource tags to assign to this CIDR block.",
+                                "title": "Tags",
+                                "type": "object"
+                            }
+                        },
+                        "title": "Subnet",
+                        "type": "object"
+                    },
+                    "title": "Subnets",
+                    "description": "Subnets are created and tagged based on this definition.",
+                    "type": "array"
+                },
                 "topology": {
                     "description": "Networking architecture between management cluster and workload cluster.",
                     "properties": {
@@ -555,99 +643,6 @@
                 }
             },
             "title": "Metadata",
-            "type": "object"
-        },
-        "network": {
-            "properties": {
-                "subnets": {
-                    "default": [
-                        {
-                            "cidrBlocks": [
-                                {
-                                    "availabilityZone": "a",
-                                    "cidr": "10.0.0.0/20"
-                                },
-                                {
-                                    "availabilityZone": "b",
-                                    "cidr": "10.0.16.0/20"
-                                },
-                                {
-                                    "availabilityZone": "c",
-                                    "cidr": "10.0.32.0/20"
-                                }
-                            ],
-                            "isPublic": true
-                        },
-                        {
-                            "cidrBlocks": [
-                                {
-                                    "availabilityZone": "a",
-                                    "cidr": "10.0.64.0/18"
-                                },
-                                {
-                                    "availabilityZone": "b",
-                                    "cidr": "10.0.128.0/18"
-                                },
-                                {
-                                    "availabilityZone": "c",
-                                    "cidr": "10.0.192.0/18"
-                                }
-                            ],
-                            "isPublic": false
-                        }
-                    ],
-                    "items": {
-                        "properties": {
-                            "cidrBlocks": {
-                                "items": {
-                                    "properties": {
-                                        "availabilityZone": {
-                                            "examples": [
-                                                "a"
-                                            ],
-                                            "title": "Availability zone",
-                                            "type": "string"
-                                        },
-                                        "cidr": {
-                                            "description": "IPv4 address range, in CIDR notation.",
-                                            "title": "Address range",
-                                            "type": "string"
-                                        },
-                                        "tags": {
-                                            "additionalProperties": {
-                                                "$ref": "#/$defs/awsResourceTagValue"
-                                            },
-                                            "description": "AWS resource tags to assign to this subnet.",
-                                            "title": "Tags",
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "title": "Network",
-                                "type": "array"
-                            },
-                            "isPublic": {
-                                "title": "Public",
-                                "type": "boolean"
-                            },
-                            "tags": {
-                                "additionalProperties": {
-                                    "$ref": "#/$defs/awsResourceTagValue"
-                                },
-                                "description": "AWS resource tags to assign to this CIDR block.",
-                                "title": "Tags",
-                                "type": "object"
-                            }
-                        },
-                        "title": "Subnet",
-                        "type": "object"
-                    },
-                    "title": "Subnets",
-                    "type": "array"
-                }
-            },
-            "title": "Network",
             "type": "object"
         },
         "providerSpecific": {
