@@ -511,6 +511,11 @@
             "title": "Node pools",
             "type": "object"
         },
+        "managementCluster": {
+            "title": "Management cluster",
+            "description": "Name of the Cluster API cluster managing this workload cluster.",
+            "type": "string"
+        },
         "metadata": {
             "properties": {
                 "description": {
@@ -662,6 +667,10 @@
             },
             "title": "Network",
             "type": "object"
+        },
+        "provider": {
+            "title": "Cluster API provider name",
+            "type": "string"
         },
         "providerSpecific": {
             "properties": {
