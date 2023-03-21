@@ -616,15 +616,6 @@
             "title": "Kubectl image",
             "type": "object"
         },
-        "machinePools": {
-            "patternProperties": {
-                "^[a-z0-9]{5,10}$": {
-                    "$ref": "#/$defs/machinePool"
-                }
-            },
-            "title": "Node pools",
-            "type": "object"
-        },
         "managementCluster": {
             "description": "Name of the Cluster API cluster managing this workload cluster.",
             "title": "Management cluster",
@@ -648,6 +639,15 @@
                 }
             },
             "title": "Metadata",
+            "type": "object"
+        },
+        "nodePools": {
+            "patternProperties": {
+                "^[a-z0-9]{5,10}$": {
+                    "$ref": "#/$defs/machinePool"
+                }
+            },
+            "title": "Node pools",
             "type": "object"
         },
         "provider": {
