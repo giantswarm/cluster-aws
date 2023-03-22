@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Move /network/subnets to /connectivity/subnets
   - Rename /machinePools to /nodePools
   - Disallow additional properties on the root level
+  - Add constraints to string and numeric properties
 
 ### Added
 
