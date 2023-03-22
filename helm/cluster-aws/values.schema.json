@@ -70,6 +70,7 @@
                     "type": "integer"
                 },
                 "rootVolumeSizeGB": {
+                    "exclusiveMinimum": 0,
                     "title": "Root volume size (GB)",
                     "type": "integer"
                 },
@@ -106,6 +107,7 @@
                 "availabilityZoneUsageLimit": {
                     "default": 3,
                     "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
+                    "minimum": 1,
                     "title": "Availability zones",
                     "type": "integer"
                 },
@@ -123,6 +125,7 @@
                         },
                         "replicas": {
                             "default": 1,
+                            "minimum": 1,
                             "title": "Number of hosts",
                             "type": "integer"
                         },
@@ -443,11 +446,13 @@
                 },
                 "containerdVolumeSizeGB": {
                     "default": 100,
+                    "exclusiveMinimum": 0,
                     "title": "Containerd volume size (GB)",
                     "type": "integer"
                 },
                 "etcdVolumeSizeGB": {
                     "default": 100,
+                    "exclusiveMinimum": 0,
                     "title": "Etcd volume size (GB)",
                     "type": "integer"
                 },
@@ -458,6 +463,7 @@
                 },
                 "kubeletVolumeSizeGB": {
                     "default": 100,
+                    "exclusiveMinimum": 0,
                     "title": "Kubelet volume size (GB)",
                     "type": "integer"
                 },
@@ -538,6 +544,7 @@
                 },
                 "rootVolumeSizeGB": {
                     "default": 120,
+                    "exclusiveMinimum": 0,
                     "title": "Root volume size (GB)",
                     "type": "integer"
                 },
