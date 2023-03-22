@@ -28,6 +28,7 @@
 | `.connectivity.containerRegistries.*[*].credentials.password` | **Password** -- Used to authenticate for the registry with username/password. | String |
 | `.connectivity.containerRegistries.*[*].credentials.username` | **Username** -- Used to authenticate for the registry with username/password. | String |
 | `.connectivity.containerRegistries.*[*].endpoint` | **Endpoint** -- Endpoint for the container registry. | String |
+| `.connectivity.fakeProperty.fakeSubProperty.fakeSubSubSubProperty.fakeSubSubSubSubProperty` | **Fake property** -- This is a property key without asterisks and brackets which forces the table renderer to render the key in one line, without line wraps. | Fake |
 
 _Example ends here_
 
