@@ -2,6 +2,110 @@
 
 `cluster-aws` is an app that helps create a CRs for a Cluster API AWS cluster for Giant Swarm platform.
 
+## Configuration
+
+<!-- GENERATED_VALUE_DOCS_START -->
+
+#### `.baseDomain`
+
+**Base DNS domain** (string)
+
+#### `.cluster-shared`
+
+**Library chart** (object)
+
+#### `.connectivity`
+
+**Connectivity** (object)
+
+#### `.connectivity.availabilityZoneUsageLimit`
+
+**Availability zones** (integer) -- Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.
+
+Default: `3`
+
+#### `.connectivity.bastion`
+
+**Bastion host** (object)
+
+#### `.connectivity.bastion.enabled`
+
+**Enable** (boolean)
+
+Default: `true`
+
+#### `.connectivity.bastion.instanceType`
+
+**EC2 instance type** (string)
+
+Default: `"t3.small"`
+
+#### `.connectivity.bastion.replicas`
+
+**Number of hosts** (integer)
+
+Default: `1`
+
+#### `.connectivity.bastion.subnetTags`
+
+**Subnet tags** (array)
+
+#### `.connectivity.bastion.subnetTags[*]`
+
+**Subnet tag** (object) -- Tags to filter which AWS subnets will be used for the bastion hosts.
+
+#### `.connectivity.bastion.subnetTags[*].*`
+
+**Tag value** (string) -- Restrictions based on https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions.
+
+<details>
+
+- Minimum length: 0
+- Maximum length: 256
+- Pattern: `^[ a-zA-Z0-9\\._:/=+-@]+$`
+
+</details>
+
+#### `.connectivity.containerRegistries`
+
+**Container registries** (object) -- Endpoints and credentials configuration for container registries.
+
+#### `.connectivity.containerRegistries.*`
+
+**Registries** (array) -- Container registries and mirrors.
+
+#### `.connectivity.containerRegistries.*[*]`
+
+**Registry** (object)
+
+#### `.connectivity.containerRegistries.*[*].credentials`
+
+**Credentials** (object)
+
+#### `.connectivity.containerRegistries.*[*].credentials.auth`
+
+**Auth** (string) -- Base64-encoded string from the concatenation of the username, a colon, and the password.
+
+#### `.connectivity.containerRegistries.*[*].credentials.identitytoken`
+
+**Identity token** (string) -- Used to authenticate the user and obtain an access token for the registry.
+
+#### `.connectivity.containerRegistries.*[*].credentials.password`
+
+**Password** (string) -- Used to authenticate for the registry with username/password.
+
+#### `.connectivity.containerRegistries.*[*].credentials.username`
+
+**Username** (string) -- Used to authenticate for the registry with username/password.
+
+#### `.connectivity.containerRegistries.*[*].endpoint`
+
+**Endpoint** (string, _required_) -- Endpoint for the container registry.
+
+_Example ends here_
+
+<!-- GENERATED_VALUE_DOCS_END -->
+
 ## Custom Subnet Layouts
 
 As of v0.21.0 it possible to specify more complex subnet layouts that allow using different sets of subnets for different grouping of machines.
