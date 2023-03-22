@@ -242,23 +242,23 @@
                         "podCidr": {
                             "default": "100.64.0.0/12",
                             "description": "IPv4 address range for pods, in CIDR notation.",
+                            "pattern": "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]+$",
                             "title": "Pod subnet",
-                            "type": "string",
-                            "pattern": "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]+$"
+                            "type": "string"
                         },
                         "serviceCidr": {
                             "default": "172.31.0.0/16",
                             "description": "IPv4 address range for services, in CIDR notation.",
+                            "pattern": "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]+$",
                             "title": "Service subnet",
-                            "type": "string",
-                            "pattern": "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]+$"
+                            "type": "string"
                         },
                         "vpcCidr": {
                             "default": "10.0.0.0/16",
                             "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
+                            "pattern": "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]+$",
                             "title": "VPC subnet",
-                            "type": "string",
-                            "pattern": "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]+$"
+                            "type": "string"
                         }
                     },
                     "title": "Network",
@@ -347,9 +347,9 @@
                                         },
                                         "cidr": {
                                             "description": "IPv4 address range, in CIDR notation.",
+                                            "pattern": "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]+$",
                                             "title": "Address range",
-                                            "type": "string",
-                                            "pattern": "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]+$"
+                                            "type": "string"
                                         },
                                         "tags": {
                                             "additionalProperties": {
