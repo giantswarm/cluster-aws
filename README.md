@@ -6,11 +6,27 @@
 
 <!-- GENERATED_VALUE_DOCS_START -->
 
+### Metadata
+
 | Property | Description | More details |
 | :------- | :---------- | :----------- |
-| `.baseDomain` | **Base DNS domain**  | **Type:** `string` |
-| `.cluster-shared` | **Library chart**  | **Type:** `object` |
-| `.connectivity` | **Connectivity**  | **Type:** `object` |
+| `.metadata.description` | **Cluster description**  – User-friendly description of the cluster's purpose.  | **Type:** `string` |
+| `.metadata.name` | **Cluster name**  – Unique identifier, cannot be changed after creation.  | **Type:** `string` |
+| `.metadata.organization` | **Organization**  | **Type:** `string` |
+
+### Provider-specific
+
+| Property | Description | More details |
+| :------- | :---------- | :----------- |
+| `.providerSpecific.ami` | **Amazon machine image (AMI)**  – If specified, this image will be used to provision EC2 instances.  | **Type:** `string` |
+| `.providerSpecific.awsClusterRoleIdentityName` | **Cluster role identity name**  – Name of an AWSClusterRoleIdentity object. This in turn refers to the IAM role used to create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create all resources in that account. Note: This name does not refer directly to an IAM role name/ARN.  | **Type:** `string`<br>**Pattern:** `^[-a-zA-Z0-9_\.]{1,63}$` |
+| `.providerSpecific.flatcarAwsAccount` | **AWS account owning Flatcar image**  – AWS account ID owning the Flatcar Container Linux AMI.  | **Type:** `string` |
+| `.providerSpecific.region` | **Region**  | **Type:** `string` |
+
+### Connectivity
+
+| Property | Description | More details |
+| :------- | :---------- | :----------- |
 | `.connectivity.availabilityZoneUsageLimit` | **Availability zones**  – Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.  | **Type:** `integer` |
 | `.connectivity.bastion` | **Bastion host**  | **Type:** `object` |
 | `.connectivity.bastion.enabled` | **Enable**  | **Type:** `boolean` |
@@ -49,7 +65,11 @@
 | `.connectivity.topology.transitGatewayId` | **Transit gateway ID**  – If the topology mode is set to 'UserManaged', this can be used to specify the transit gateway to use.  | **Type:** `string` |
 | `.connectivity.vpcEndpointMode` | **VPC endpoint mode**  – Who is reponsible for creation and management of VPC endpoints.  | **Type:** `string` |
 | `.connectivity.vpcMode` | **VPC mode**  – Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).  | **Type:** `string` |
-| `.controlPlane` | **Control plane**  | **Type:** `object` |
+
+### Control plane
+
+| Property | Description | More details |
+| :------- | :---------- | :----------- |
 | `.controlPlane.apiMode` | **API mode**  – Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).  | **Type:** `string` |
 | `.controlPlane.containerdVolumeSizeGB` | **Containerd volume size (GB)**  | **Type:** `integer` |
 | `.controlPlane.etcdVolumeSizeGB` | **Etcd volume size (GB)**  | **Type:** `integer` |
@@ -70,26 +90,33 @@
 | `.controlPlane.rootVolumeSizeGB` | **Root volume size (GB)**  | **Type:** `integer` |
 | `.controlPlane.subnetTags` | **Subnet tags**  – Tags to select AWS resources for the control plane by.  | **Type:** `array` |
 | `.controlPlane.subnetTags[*]` | **Subnet tag**  | **Type:** `object` |
-| `.defaultMachinePools` | **Default node pool**  | **Type:** `object` |
-| `.internal` | **Internal**  – For Giant Swarm internal use only, not stable, or not supported by UIs.  | **Type:** `object` |
+
+### Internal
+
+| Property | Description | More details |
+| :------- | :---------- | :----------- |
 | `.internal.hashSalt` | **Hash salt**  – If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.  | **Type:** `string` |
 | `.internal.kubernetesVersion` | **Kubernetes version**  | **Type:** `string`<br>**Example:** `"1.24.7"` |
+
+### Node pools
+
+| Property | Description | More details |
+| :------- | :---------- | :----------- |
+| `.nodePools` | **Node pools**  | **Type:** `object` |
+
+### Other
+
+| Property | Description | More details |
+| :------- | :---------- | :----------- |
+| `.baseDomain` | **Base DNS domain**  | **Type:** `string` |
+| `.cluster-shared` | **Library chart**  | **Type:** `object` |
+| `.defaultMachinePools` | **Default node pool**  | **Type:** `object` |
 | `.kubectlImage` | **Kubectl image**  | **Type:** `object` |
 | `.kubectlImage.name` | **Repository**  | **Type:** `string` |
 | `.kubectlImage.registry` | **Registry**  | **Type:** `string` |
 | `.kubectlImage.tag` | **Tag**  | **Type:** `string` |
 | `.managementCluster` | **Management cluster**  – Name of the Cluster API cluster managing this workload cluster.  | **Type:** `string` |
-| `.metadata` | **Metadata**  | **Type:** `object` |
-| `.metadata.description` | **Cluster description**  – User-friendly description of the cluster's purpose.  | **Type:** `string` |
-| `.metadata.name` | **Cluster name**  – Unique identifier, cannot be changed after creation.  | **Type:** `string` |
-| `.metadata.organization` | **Organization**  | **Type:** `string` |
-| `.nodePools` | **Node pools**  | **Type:** `object` |
 | `.provider` | **Cluster API provider name**  | **Type:** `string` |
-| `.providerSpecific` | **AWS settings**  | **Type:** `object` |
-| `.providerSpecific.ami` | **Amazon machine image (AMI)**  – If specified, this image will be used to provision EC2 instances.  | **Type:** `string` |
-| `.providerSpecific.awsClusterRoleIdentityName` | **Cluster role identity name**  – Name of an AWSClusterRoleIdentity object. This in turn refers to the IAM role used to create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create all resources in that account. Note: This name does not refer directly to an IAM role name/ARN.  | **Type:** `string`<br>**Pattern:** `^[-a-zA-Z0-9_\.]{1,63}$` |
-| `.providerSpecific.flatcarAwsAccount` | **AWS account owning Flatcar image**  – AWS account ID owning the Flatcar Container Linux AMI.  | **Type:** `string` |
-| `.providerSpecific.region` | **Region**  | **Type:** `string` |
 
 <!-- GENERATED_VALUE_DOCS_END -->
 
