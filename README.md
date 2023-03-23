@@ -8,95 +8,105 @@
 
 ### Metadata
 
+Properties within the `.metadata` top-level object
+
 | Property | Description | More details |
 | :------- | :---------- | :----------- |
-| `.metadata.description` | **Cluster description**  – User-friendly description of the cluster's purpose.  | **Type:** `string` |
-| `.metadata.name` | **Cluster name**  – Unique identifier, cannot be changed after creation.  | **Type:** `string` |
-| `.metadata.organization` | **Organization**  | **Type:** `string` |
+| `.description` | **Cluster description**  – User-friendly description of the cluster's purpose.  | **Type:** `string` |
+| `.name` | **Cluster name**  – Unique identifier, cannot be changed after creation.  | **Type:** `string` |
+| `.organization` | **Organization**  | **Type:** `string` |
 
 ### Provider-specific
 
+Properties within the `.providerSpecific` top-level object
+
 | Property | Description | More details |
 | :------- | :---------- | :----------- |
-| `.providerSpecific.ami` | **Amazon machine image (AMI)**  – If specified, this image will be used to provision EC2 instances.  | **Type:** `string` |
-| `.providerSpecific.awsClusterRoleIdentityName` | **Cluster role identity name**  – Name of an AWSClusterRoleIdentity object. This in turn refers to the IAM role used to create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create all resources in that account. Note: This name does not refer directly to an IAM role name/ARN.  | **Type:** `string`<br>**Pattern:** `^[-a-zA-Z0-9_\.]{1,63}$` |
-| `.providerSpecific.flatcarAwsAccount` | **AWS account owning Flatcar image**  – AWS account ID owning the Flatcar Container Linux AMI.  | **Type:** `string` |
-| `.providerSpecific.region` | **Region**  | **Type:** `string` |
+| `.ami` | **Amazon machine image (AMI)**  – If specified, this image will be used to provision EC2 instances.  | **Type:** `string` |
+| `.awsClusterRoleIdentityName` | **Cluster role identity name**  – Name of an AWSClusterRoleIdentity object. This in turn refers to the IAM role used to create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create all resources in that account. Note: This name does not refer directly to an IAM role name/ARN.  | **Type:** `string`<br>**Pattern:** `^[-a-zA-Z0-9_\.]{1,63}$` |
+| `.flatcarAwsAccount` | **AWS account owning Flatcar image**  – AWS account ID owning the Flatcar Container Linux AMI.  | **Type:** `string` |
+| `.region` | **Region**  | **Type:** `string` |
 
 ### Connectivity
 
+Properties within the `.connectivity` top-level object
+
 | Property | Description | More details |
 | :------- | :---------- | :----------- |
-| `.connectivity.availabilityZoneUsageLimit` | **Availability zones**  – Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.  | **Type:** `integer` |
-| `.connectivity.bastion` | **Bastion host**  | **Type:** `object` |
-| `.connectivity.bastion.enabled` | **Enable**  | **Type:** `boolean` |
-| `.connectivity.bastion.instanceType` | **EC2 instance type**  | **Type:** `string` |
-| `.connectivity.bastion.replicas` | **Number of hosts**  | **Type:** `integer` |
-| `.connectivity.bastion.subnetTags` | **Subnet tags**  – Tags to filter which AWS subnets will be used for the bastion hosts.  | **Type:** `array` |
-| `.connectivity.bastion.subnetTags[*]` | **Subnet tag**  | **Type:** `object` |
-| `.connectivity.containerRegistries` | **Container registries**  – Endpoints and credentials configuration for container registries.  | **Type:** `object` |
-| `.connectivity.dns` | **DNS**  | **Type:** `object` |
-| `.connectivity.dns.additionalVpc` | **Additional VPCs**  – If DNS mode is 'private', the VPCs specified here will be assigned to the private hosted zone.  | **Type:** `array` |
-| `.connectivity.dns.additionalVpc[*]` | **VPC identifier**  | **Type:** `string`<br>**Example:** `"vpc-x2aeasd1d"`<br>**Pattern:** `^vpc-[0-0a-zA-Z]+$` |
-| `.connectivity.dns.mode` | **Mode**  – Whether the Route53 hosted zone of this cluster should be public or private.  | **Type:** `string` |
-| `.connectivity.dns.resolverRulesOwnerAccount` | **Resolver rules owner**  – ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.  | **Type:** `string` |
-| `.connectivity.network` | **Network**  | **Type:** `object` |
-| `.connectivity.network.podCidr` | **Pod subnet**  – IPv4 address range for pods, in CIDR notation.  | **Type:** `string` |
-| `.connectivity.network.serviceCidr` | **Service subnet**  – IPv4 address range for services, in CIDR notation.  | **Type:** `string` |
-| `.connectivity.network.vpcCidr` | **VPC subnet**  – IPv4 address range to assign to this cluster's VPC, in CIDR notation.  | **Type:** `string` |
-| `.connectivity.proxy` | **Proxy**  – Whether/how outgoing traffic is routed through proxy servers.  | **Type:** `object` |
-| `.connectivity.proxy.enabled` | **Enable**  | **Type:** `boolean` |
-| `.connectivity.proxy.httpProxy` | **HTTP proxy**  – To be passed to the HTTP_PROXY environment variable in all hosts.  | **Type:** `string` |
-| `.connectivity.proxy.httpsProxy` | **HTTPS proxy**  – To be passed to the HTTPS_PROXY environment variable in all hosts.  | **Type:** `string` |
-| `.connectivity.proxy.noProxy` | **No proxy**  – To be passed to the NO_PROXY environment variable in all hosts.  | **Type:** `string` |
-| `.connectivity.sshSsoPublicKey` | **SSH public key for single sign-on**  | **Type:** `string` |
-| `.connectivity.subnets` | **Subnets**  – Subnets are created and tagged based on this definition.  | **Type:** `array` |
-| `.connectivity.subnets[*]` | **Subnet**  | **Type:** `object` |
-| `.connectivity.subnets[*].cidrBlocks` | **Network**  | **Type:** `array` |
-| `.connectivity.subnets[*].cidrBlocks[*]` | **None**  | **Type:** `object` |
-| `.connectivity.subnets[*].cidrBlocks[*].availabilityZone` | **Availability zone**  | **Type:** `string`<br>**Example:** `"a"` |
-| `.connectivity.subnets[*].cidrBlocks[*].cidr` | **Address range**  – IPv4 address range, in CIDR notation.  | **Type:** `string` |
-| `.connectivity.subnets[*].cidrBlocks[*].tags` | **Tags**  – AWS resource tags to assign to this subnet.  | **Type:** `object` |
-| `.connectivity.subnets[*].isPublic` | **Public**  | **Type:** `boolean` |
-| `.connectivity.subnets[*].tags` | **Tags**  – AWS resource tags to assign to this CIDR block.  | **Type:** `object` |
-| `.connectivity.topology` | **Topology**  – Networking architecture between management cluster and workload cluster.  | **Type:** `object` |
-| `.connectivity.topology.mode` | **Mode**  – Valid values: GiantSwarmManaged, UserManaged, None.  | **Type:** `string` |
-| `.connectivity.topology.prefixListId` | **Prefix list ID**  – ID of the managed prefix list to use when the topology mode is set to 'UserManaged'.  | **Type:** `string` |
-| `.connectivity.topology.transitGatewayId` | **Transit gateway ID**  – If the topology mode is set to 'UserManaged', this can be used to specify the transit gateway to use.  | **Type:** `string` |
-| `.connectivity.vpcEndpointMode` | **VPC endpoint mode**  – Who is reponsible for creation and management of VPC endpoints.  | **Type:** `string` |
-| `.connectivity.vpcMode` | **VPC mode**  – Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).  | **Type:** `string` |
+| `.availabilityZoneUsageLimit` | **Availability zones**  – Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.  | **Type:** `integer` |
+| `.bastion` | **Bastion host**  | **Type:** `object` |
+| `.bastion.enabled` | **Enable**  | **Type:** `boolean` |
+| `.bastion.instanceType` | **EC2 instance type**  | **Type:** `string` |
+| `.bastion.replicas` | **Number of hosts**  | **Type:** `integer` |
+| `.bastion.subnetTags` | **Subnet tags**  – Tags to filter which AWS subnets will be used for the bastion hosts.  | **Type:** `array` |
+| `.bastion.subnetTags[*]` | **Subnet tag**  | **Type:** `object` |
+| `.containerRegistries` | **Container registries**  – Endpoints and credentials configuration for container registries.  | **Type:** `object` |
+| `.dns` | **DNS**  | **Type:** `object` |
+| `.dns.additionalVpc` | **Additional VPCs**  – If DNS mode is 'private', the VPCs specified here will be assigned to the private hosted zone.  | **Type:** `array` |
+| `.dns.additionalVpc[*]` | **VPC identifier**  | **Type:** `string`<br>**Example:** `"vpc-x2aeasd1d"`<br>**Pattern:** `^vpc-[0-0a-zA-Z]+$` |
+| `.dns.mode` | **Mode**  – Whether the Route53 hosted zone of this cluster should be public or private.  | **Type:** `string` |
+| `.dns.resolverRulesOwnerAccount` | **Resolver rules owner**  – ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.  | **Type:** `string` |
+| `.network` | **Network**  | **Type:** `object` |
+| `.network.podCidr` | **Pod subnet**  – IPv4 address range for pods, in CIDR notation.  | **Type:** `string` |
+| `.network.serviceCidr` | **Service subnet**  – IPv4 address range for services, in CIDR notation.  | **Type:** `string` |
+| `.network.vpcCidr` | **VPC subnet**  – IPv4 address range to assign to this cluster's VPC, in CIDR notation.  | **Type:** `string` |
+| `.proxy` | **Proxy**  – Whether/how outgoing traffic is routed through proxy servers.  | **Type:** `object` |
+| `.proxy.enabled` | **Enable**  | **Type:** `boolean` |
+| `.proxy.httpProxy` | **HTTP proxy**  – To be passed to the HTTP_PROXY environment variable in all hosts.  | **Type:** `string` |
+| `.proxy.httpsProxy` | **HTTPS proxy**  – To be passed to the HTTPS_PROXY environment variable in all hosts.  | **Type:** `string` |
+| `.proxy.noProxy` | **No proxy**  – To be passed to the NO_PROXY environment variable in all hosts.  | **Type:** `string` |
+| `.sshSsoPublicKey` | **SSH public key for single sign-on**  | **Type:** `string` |
+| `.subnets` | **Subnets**  – Subnets are created and tagged based on this definition.  | **Type:** `array` |
+| `.subnets[*]` | **Subnet**  | **Type:** `object` |
+| `.subnets[*].cidrBlocks` | **Network**  | **Type:** `array` |
+| `.subnets[*].cidrBlocks[*]` | **None**  | **Type:** `object` |
+| `.subnets[*].cidrBlocks[*].availabilityZone` | **Availability zone**  | **Type:** `string`<br>**Example:** `"a"` |
+| `.subnets[*].cidrBlocks[*].cidr` | **Address range**  – IPv4 address range, in CIDR notation.  | **Type:** `string` |
+| `.subnets[*].cidrBlocks[*].tags` | **Tags**  – AWS resource tags to assign to this subnet.  | **Type:** `object` |
+| `.subnets[*].isPublic` | **Public**  | **Type:** `boolean` |
+| `.subnets[*].tags` | **Tags**  – AWS resource tags to assign to this CIDR block.  | **Type:** `object` |
+| `.topology` | **Topology**  – Networking architecture between management cluster and workload cluster.  | **Type:** `object` |
+| `.topology.mode` | **Mode**  – Valid values: GiantSwarmManaged, UserManaged, None.  | **Type:** `string` |
+| `.topology.prefixListId` | **Prefix list ID**  – ID of the managed prefix list to use when the topology mode is set to 'UserManaged'.  | **Type:** `string` |
+| `.topology.transitGatewayId` | **Transit gateway ID**  – If the topology mode is set to 'UserManaged', this can be used to specify the transit gateway to use.  | **Type:** `string` |
+| `.vpcEndpointMode` | **VPC endpoint mode**  – Who is reponsible for creation and management of VPC endpoints.  | **Type:** `string` |
+| `.vpcMode` | **VPC mode**  – Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).  | **Type:** `string` |
 
 ### Control plane
 
+Properties within the `.controlPlane` top-level object
+
 | Property | Description | More details |
 | :------- | :---------- | :----------- |
-| `.controlPlane.apiMode` | **API mode**  – Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).  | **Type:** `string` |
-| `.controlPlane.containerdVolumeSizeGB` | **Containerd volume size (GB)**  | **Type:** `integer` |
-| `.controlPlane.etcdVolumeSizeGB` | **Etcd volume size (GB)**  | **Type:** `integer` |
-| `.controlPlane.instanceType` | **EC2 instance type**  | **Type:** `string` |
-| `.controlPlane.kubeletVolumeSizeGB` | **Kubelet volume size (GB)**  | **Type:** `integer` |
-| `.controlPlane.machineHealthCheck` | **Machine health check**  | **Type:** `object` |
-| `.controlPlane.machineHealthCheck.enabled` | **Enable**  | **Type:** `boolean` |
-| `.controlPlane.machineHealthCheck.maxUnhealthy` | **Maximum unhealthy nodes**  | **Type:** `string`<br>**Example:** `"40%"` |
-| `.controlPlane.machineHealthCheck.nodeStartupTimeout` | **Node startup timeout**  – Determines how long a machine health check should wait for a node to join the cluster, before considering a machine unhealthy.  | **Type:** `string`<br>**Example:** `"10m"`, `"100s"` |
-| `.controlPlane.machineHealthCheck.unhealthyNotReadyTimeout` | **Timeout for ready**  – If a node is not in condition 'Ready' after this timeout, it will be considered unhealthy.  | **Type:** `string`<br>**Example:** `"300s"` |
-| `.controlPlane.machineHealthCheck.unhealthyUnknownTimeout` | **Timeout for unknown condition**  – If a node is in 'Unknown' condition after this timeout, it will be considered unhealthy.  | **Type:** `string`<br>**Example:** `"300s"` |
-| `.controlPlane.oidc` | **OIDC authentication**  | **Type:** `object` |
-| `.controlPlane.oidc.caPem` | **Certificate authority**  – Identity provider's CA certificate in PEM format.  | **Type:** `string` |
-| `.controlPlane.oidc.clientId` | **Client ID**  | **Type:** `string` |
-| `.controlPlane.oidc.groupsClaim` | **Groups claim**  | **Type:** `string` |
-| `.controlPlane.oidc.issuerUrl` | **Issuer URL**  – Exact issuer URL that will be included in identity tokens.  | **Type:** `string` |
-| `.controlPlane.oidc.usernameClaim` | **Username claim**  | **Type:** `string` |
-| `.controlPlane.rootVolumeSizeGB` | **Root volume size (GB)**  | **Type:** `integer` |
-| `.controlPlane.subnetTags` | **Subnet tags**  – Tags to select AWS resources for the control plane by.  | **Type:** `array` |
-| `.controlPlane.subnetTags[*]` | **Subnet tag**  | **Type:** `object` |
+| `.apiMode` | **API mode**  – Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).  | **Type:** `string` |
+| `.containerdVolumeSizeGB` | **Containerd volume size (GB)**  | **Type:** `integer` |
+| `.etcdVolumeSizeGB` | **Etcd volume size (GB)**  | **Type:** `integer` |
+| `.instanceType` | **EC2 instance type**  | **Type:** `string` |
+| `.kubeletVolumeSizeGB` | **Kubelet volume size (GB)**  | **Type:** `integer` |
+| `.machineHealthCheck` | **Machine health check**  | **Type:** `object` |
+| `.machineHealthCheck.enabled` | **Enable**  | **Type:** `boolean` |
+| `.machineHealthCheck.maxUnhealthy` | **Maximum unhealthy nodes**  | **Type:** `string`<br>**Example:** `"40%"` |
+| `.machineHealthCheck.nodeStartupTimeout` | **Node startup timeout**  – Determines how long a machine health check should wait for a node to join the cluster, before considering a machine unhealthy.  | **Type:** `string`<br>**Example:** `"10m"`, `"100s"` |
+| `.machineHealthCheck.unhealthyNotReadyTimeout` | **Timeout for ready**  – If a node is not in condition 'Ready' after this timeout, it will be considered unhealthy.  | **Type:** `string`<br>**Example:** `"300s"` |
+| `.machineHealthCheck.unhealthyUnknownTimeout` | **Timeout for unknown condition**  – If a node is in 'Unknown' condition after this timeout, it will be considered unhealthy.  | **Type:** `string`<br>**Example:** `"300s"` |
+| `.oidc` | **OIDC authentication**  | **Type:** `object` |
+| `.oidc.caPem` | **Certificate authority**  – Identity provider's CA certificate in PEM format.  | **Type:** `string` |
+| `.oidc.clientId` | **Client ID**  | **Type:** `string` |
+| `.oidc.groupsClaim` | **Groups claim**  | **Type:** `string` |
+| `.oidc.issuerUrl` | **Issuer URL**  – Exact issuer URL that will be included in identity tokens.  | **Type:** `string` |
+| `.oidc.usernameClaim` | **Username claim**  | **Type:** `string` |
+| `.rootVolumeSizeGB` | **Root volume size (GB)**  | **Type:** `integer` |
+| `.subnetTags` | **Subnet tags**  – Tags to select AWS resources for the control plane by.  | **Type:** `array` |
+| `.subnetTags[*]` | **Subnet tag**  | **Type:** `object` |
 
 ### Internal
 
+Properties within the `.internal` top-level object
+
 | Property | Description | More details |
 | :------- | :---------- | :----------- |
-| `.internal.hashSalt` | **Hash salt**  – If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.  | **Type:** `string` |
-| `.internal.kubernetesVersion` | **Kubernetes version**  | **Type:** `string`<br>**Example:** `"1.24.7"` |
+| `.hashSalt` | **Hash salt**  – If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.  | **Type:** `string` |
+| `.kubernetesVersion` | **Kubernetes version**  | **Type:** `string`<br>**Example:** `"1.24.7"` |
 
 ### Node pools
 
@@ -119,7 +129,6 @@
 | `.provider` | **Cluster API provider name**  | **Type:** `string` |
 
 <!-- GENERATED_VALUE_DOCS_END -->
-
 
 ## Custom Subnet Layouts
 
