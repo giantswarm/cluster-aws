@@ -37,6 +37,11 @@ template:
           values:
           - shared
           - owned
+        {{ if eq .Values.connectivity.vpcMode "public" }}
+        - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
+          values:
+          - private
+        {{end}}
         {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
         - name: tag:{{ keys $tags | first }}
           values:
