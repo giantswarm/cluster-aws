@@ -9,6 +9,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.28.0] - 2023-03-23
 
+**Note**: this release includes values schema changes which break compatibility with previous versions.
+
+<details>
+<summary>How to migrate from v0.27.0</summary>
+  
+To migrate values from cluster-aws v0.27.0, we provide below [yq](https://mikefarah.gitbook.io/yq/) script, which assumes your values (not a ConfigMap!) are available in the file `values.yaml`. Note that the file will be overwritten.
+  
+Also be aware that if you were using `.aws.awsClusterRole` to specify a role in v0.27.0, this cannot be migrated automatically. Instead you have to make sure to have a [AWSClusterRoleIdentity](https://cluster-api-aws.sigs.k8s.io/topics/multitenancy.html#awsclusterroleidentity) resource in the management cluster which specifies the identity to use. The name of that resource then has to be specified as `.providerSpecific.awsClusterRoleIdentityName` in the new values for v.28.0.
+  
+```bash
+yq --inplace '
+  .connectivity.availabilityZoneUsageLimit = .network.availabilityZoneUsageLimit |
+  .connectivity.bastion = .bastion |
+  .connectivity.dns.additionalVpc = (.network.dnsAssignAdditionalVPCs | split(",")) |
+  .connectivity.dns.mode = .network.dnsMode |
+  .connectivity.dns.resolverRulesOwnerAccount = .network.resolverRulesOwnerAccount |
+  .connectivity.network.podCidr = .network.podCIDR |
+  .connectivity.network.serviceCidr = .network.serviceCIDR |
+  .connectivity.network.vpcCidr = .network.vpcCIDR |
+  .connectivity.proxy.httpProxy = .proxy.http_proxy |
+  .connectivity.proxy.httpsProxy = .proxy.https_proxy |
+  .connectivity.proxy.noProxy = .proxy.no_proxy |
+  .connectivity.sshSsoPublicKey = .sshSSOPublicKey |
+  .connectivity.subnets = .network.subnets |
+  .connectivity.topology.mode = .network.topologyMode |
+  .connectivity.topology.prefixListId = .network.prefixListID |
+  .connectivity.topology.transitGatewayId = .network.transitGatewayID |
+  .connectivity.vpcEndpointMode = .network.vpcEndpointMode |
+  .connectivity.vpcMode = .network.vpcMode |
+  .controlPlane.apiMode = .network.apiMode |
+  .controlPlane.oidc = .oidc |
+  .internal.hashSalt = .hashSalt |
+  .internal.kubernetesVersion = .kubernetesVersion |
+  .metadata.description = .clusterDescription |
+  .metadata.name = .clusterName |
+  .metadata.organization = .organization |
+  .nodePools = .machinePools |
+  .providerSpecific.ami = .ami |
+  .providerSpecific.awsClusterRoleIdentityName = .aws.awsClusterRoleIdentityName |
+  .providerSpecific.flatcarAwsAccount = .flatcarAWSAccount |
+  .providerSpecific.region = .aws.region |
+
+  del(.ami) |
+  del(.aws) |
+  del(.bastion) |
+  del(.clusterDescription) |
+  del(.clusterName) |
+  del(.flatcarAWSAccount) |
+  del(.hashSalt) |
+  del(.includeClusterResourceSet) |
+  del(.kubernetesVersion) |
+  del(.machinePools) |
+  del(.network) |
+  del(.oidc) |
+  del(.organization) |
+  del(.proxy) |
+  del(.sshSSOPublicKey)
+
+' ./values.yaml
+```
+</details>
+
 ### Changed
 
 - Values schema:
