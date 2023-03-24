@@ -43,7 +43,7 @@ spec:
       values:
       - shared
       - owned
-    {{ if eq .Values.connectivity.vpcMode "public" }}
+    {{ if eq $.Values.connectivity.vpcMode "public" }}
     - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
       values:
       - private
