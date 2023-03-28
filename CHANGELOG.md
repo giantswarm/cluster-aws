@@ -23,37 +23,37 @@ To migrate values from cluster-aws v0.27.0, we provide below [yq](https://mikefa
 Also be aware that if you were using `.aws.awsClusterRole` to specify a role in v0.27.0, this cannot be migrated automatically. Instead you have to make sure to have a [AWSClusterRoleIdentity](https://cluster-api-aws.sigs.k8s.io/topics/multitenancy.html#awsclusterroleidentity) resource in the management cluster which specifies the identity to use. The name of that resource then has to be specified as `.providerSpecific.awsClusterRoleIdentityName` in the new values for v.28.0.
   
 ```bash
-yq --inplace '
-  .connectivity.availabilityZoneUsageLimit = .network.availabilityZoneUsageLimit |
-  .connectivity.bastion = .bastion |
-  .connectivity.dns.additionalVpc = (.network.dnsAssignAdditionalVPCs | split(",")) |
-  .connectivity.dns.mode = .network.dnsMode |
-  .connectivity.dns.resolverRulesOwnerAccount = .network.resolverRulesOwnerAccount |
-  .connectivity.network.podCidr = .network.podCIDR |
-  .connectivity.network.serviceCidr = .network.serviceCIDR |
-  .connectivity.network.vpcCidr = .network.vpcCIDR |
-  .connectivity.proxy.httpProxy = .proxy.http_proxy |
-  .connectivity.proxy.httpsProxy = .proxy.https_proxy |
-  .connectivity.proxy.noProxy = .proxy.no_proxy |
-  .connectivity.sshSsoPublicKey = .sshSSOPublicKey |
-  .connectivity.subnets = .network.subnets |
-  .connectivity.topology.mode = .network.topologyMode |
-  .connectivity.topology.prefixListId = .network.prefixListID |
-  .connectivity.topology.transitGatewayId = .network.transitGatewayID |
-  .connectivity.vpcEndpointMode = .network.vpcEndpointMode |
-  .connectivity.vpcMode = .network.vpcMode |
-  .controlPlane.apiMode = .network.apiMode |
-  .controlPlane.oidc = .oidc |
-  .internal.hashSalt = .hashSalt |
-  .internal.kubernetesVersion = .kubernetesVersion |
-  .metadata.description = .clusterDescription |
-  .metadata.name = .clusterName |
-  .metadata.organization = .organization |
-  .nodePools = .machinePools |
-  .providerSpecific.ami = .ami |
-  .providerSpecific.awsClusterRoleIdentityName = .aws.awsClusterRoleIdentityName |
-  .providerSpecific.flatcarAwsAccount = .flatcarAWSAccount |
-  .providerSpecific.region = .aws.region |
+yq eval --inplace '
+  with(select(.ami != null);                                .providerSpecific.ami = .ami) |
+  with(select(.aws.awsClusterRoleIdentityName != null);     .providerSpecific.awsClusterRoleIdentityName = .aws.awsClusterRoleIdentityName) |
+  with(select(.aws.region != null);                         .providerSpecific.region = .aws.region) |
+  with(select(.bastion != null);                            .connectivity.bastion = .bastion) |
+  with(select(.clusterDescription != null);                 .metadata.description = .clusterDescription) |
+  with(select(.clusterName != null);                        .metadata.name = .clusterName) |
+  with(select(.flatcarAWSAccount != null);                  .providerSpecific.flatcarAwsAccount = .flatcarAWSAccount) |
+  with(select(.hashSalt != null);                           .internal.hashSalt = .hashSalt) |
+  with(select(.kubernetesVersion != null);                  .internal.kubernetesVersion = .kubernetesVersion) |
+  with(select(.machinePools != null);                       .nodePools = .machinePools) |
+  with(select(.network.apiMode != null);                    .controlPlane.apiMode = .network.apiMode) |
+  with(select(.network.availabilityZoneUsageLimit != null); .connectivity.availabilityZoneUsageLimit = .network.availabilityZoneUsageLimit) |
+  with(select(.network.dnsAssignAdditionalVPCs != null);    .connectivity.dns.additionalVpc = (.network.dnsAssignAdditionalVPCs | split(","))) |
+  with(select(.network.dnsMode != null);                    .connectivity.dns.mode = .network.dnsMode) |
+  with(select(.network.podCIDR != null);                    .connectivity.network.podCidr = .network.podCIDR) |
+  with(select(.network.prefixListID != null);               .connectivity.topology.prefixListId = .network.prefixListID) |
+  with(select(.network.resolverRulesOwnerAccount != null);  .connectivity.dns.resolverRulesOwnerAccount = .network.resolverRulesOwnerAccount) |
+  with(select(.network.serviceCIDR != null);                .connectivity.network.serviceCidr = .network.serviceCIDR) |
+  with(select(.network.subnets != null);                    .connectivity.subnets = .network.subnets) |
+  with(select(.network.topologyMode != null);               .connectivity.topology.mode = .network.topologyMode) |
+  with(select(.network.transitGatewayID != null);           .connectivity.topology.transitGatewayId = .network.transitGatewayID) |
+  with(select(.network.vpcCIDR != null);                    .connectivity.network.vpcCidr = .network.vpcCIDR) |
+  with(select(.network.vpcEndpointMode != null);            .connectivity.vpcEndpointMode = .network.vpcEndpointMode) |
+  with(select(.network.vpcMode != null);                    .connectivity.vpcMode = .network.vpcMode) |
+  with(select(.oidc != null);                               .controlPlane.oidc = .oidc) |
+  with(select(.organization != null);                       .metadata.organization = .organization) |
+  with(select(.proxy.http_proxy != null);                   .connectivity.proxy.httpProxy = .proxy.http_proxy) |
+  with(select(.proxy.https_proxy != null);                  .connectivity.proxy.httpsProxy = .proxy.https_proxy) |
+  with(select(.proxy.no_proxy != null);                     .connectivity.proxy.noProxy = .proxy.no_proxy) |
+  with(select(.sshSSOPublicKey != null);                    .connectivity.sshSsoPublicKey = .sshSSOPublicKey) |
 
   del(.ami) |
   del(.aws) |
@@ -70,9 +70,9 @@ yq --inplace '
   del(.organization) |
   del(.proxy) |
   del(.sshSSOPublicKey)
-
 ' ./values.yaml
 ```
+
 </details>
 
 ### Changed
