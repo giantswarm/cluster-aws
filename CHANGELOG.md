@@ -19,11 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <details>
 <summary>How to migrate from v0.27.0</summary>
-  
+
 To migrate values from cluster-aws v0.27.0, we provide below [yq](https://mikefarah.gitbook.io/yq/) script, which assumes your values (not a ConfigMap!) are available in the file `values.yaml`. Note that the file will be overwritten.
-  
+
 Also be aware that if you were using `.aws.awsClusterRole` to specify a role in v0.27.0, this cannot be migrated automatically. Instead you have to make sure to have a [AWSClusterRoleIdentity](https://cluster-api-aws.sigs.k8s.io/topics/multitenancy.html#awsclusterroleidentity) resource in the management cluster which specifies the identity to use. The name of that resource then has to be specified as `.providerSpecific.awsClusterRoleIdentityName` in the new values for v.28.0.
-  
+
 ```bash
 yq eval --inplace '
   with(select(.ami != null);                                .providerSpecific.ami = .ami) |
@@ -52,6 +52,7 @@ yq eval --inplace '
   with(select(.network.vpcMode != null);                    .connectivity.vpcMode = .network.vpcMode) |
   with(select(.oidc != null);                               .controlPlane.oidc = .oidc) |
   with(select(.organization != null);                       .metadata.organization = .organization) |
+  with(select(.proxy.enabled != null);                      .connectivity.proxy.enabled = .proxy.enabled) |
   with(select(.proxy.http_proxy != null);                   .connectivity.proxy.httpProxy = .proxy.http_proxy) |
   with(select(.proxy.https_proxy != null);                  .connectivity.proxy.httpsProxy = .proxy.https_proxy) |
   with(select(.proxy.no_proxy != null);                     .connectivity.proxy.noProxy = .proxy.no_proxy) |
