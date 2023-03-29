@@ -72,6 +72,7 @@ yq eval --inplace '
   del(.oidc) |
   del(.organization) |
   del(.proxy) |
+  del(.releaseVersion) |
   del(.sshSSOPublicKey)
 ' ./values.yaml
 ```
