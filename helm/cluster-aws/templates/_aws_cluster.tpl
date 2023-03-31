@@ -67,7 +67,7 @@ spec:
     controlPlaneIAMInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
     name: {{ include "aws-region" . }}-capa-{{ include "resource.default.name" $ }}
     nodesIAMInstanceProfiles:
-    {{- range .Values.machinePools }}
+    {{- range $name, $value := .Values.nodePools | default .Values.defaultMachinePools }}
     - nodes-{{ .name }}-{{ include "resource.default.name" $ }}
     {{- end }}
   region: {{ include "aws-region" . }}
