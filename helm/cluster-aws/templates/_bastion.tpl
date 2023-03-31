@@ -99,6 +99,7 @@ spec:
       format: ignition
       ignition:
         containerLinuxConfig:
+          additionalConfig: |
             systemd:
               units:
               - name: kubeadm.service
