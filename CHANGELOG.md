@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix rendering `oidc.pem` by mistake when not specified
+
 ## [0.29.0] - 2023-03-27
 
 ### Fixed
