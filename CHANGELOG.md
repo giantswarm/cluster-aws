@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Added
+
+- Configure kubelet `ShutdownGracePeriod` to 5m and `ShutdownGracePeriodCriticalPods` to 1m.
+- Set default Node systemd logind `InhibitDelayMaxSec` to 5m.
+
 ## [0.29.0] - 2023-03-27
 
 ### Fixed
