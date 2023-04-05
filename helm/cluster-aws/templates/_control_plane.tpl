@@ -85,7 +85,7 @@ spec:
           oidc-client-id: {{ .clientId }}
           oidc-username-claim: {{ .usernameClaim }}
           oidc-groups-claim: {{ .groupsClaim }}
-          {{- if ne .caPem "" }}
+          {{- if .caPem }}
           oidc-ca-file: /etc/ssl/certs/oidc.pem
           {{- end }}
           {{- end }}

@@ -11,3 +11,4 @@
 
 /test create
 /test upgrade
+/run cluster-test-suites
