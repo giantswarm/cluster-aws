@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove duplicate label ` cluster.x-k8s.io/cluster-name:` in bastion MachineDeployment
+
 ## [0.29.1] - 2023-04-03
 
 ### Fixed
