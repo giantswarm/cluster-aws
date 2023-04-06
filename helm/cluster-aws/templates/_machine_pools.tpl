@@ -105,11 +105,13 @@ spec:
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
   postKubeadmCommands:
+    {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
     {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   files:
   {{- include "sshFiles" $ | nindent 2 }}
+  {{- include "kubeletConfigFiles" $ | nindent 2 }}
   {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
   {{- include "registryFiles" $ | nindent 2 }}
   {{- include "awsNtpFiles" $ | nindent 2 }}

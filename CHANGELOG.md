@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Added
+
+- Configure kubelet `ShutdownGracePeriod` to 5m and `ShutdownGracePeriodCriticalPods` to 1m. These options let `kubelet` prevent a node from shutting down until it has evicted all the pods from the node. The critical pods will be removed in the last 1m of the total 5m grace period and include pods with their priorityClassName set to system-cluster-critical or system-node-critical.
+- Set default Node systemd logind `InhibitDelayMaxSec` to 5m.
+
 ## [0.29.1] - 2023-04-03
 
 ### Fixed
