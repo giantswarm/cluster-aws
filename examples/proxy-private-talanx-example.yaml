@@ -1,0 +1,235 @@
+---
+apiVersion: v1
+data:
+  values: |
+    metadata:
+      description: Talanx test cluster
+      name: sample
+      organization: shared-clusters 
+    #Possible values: thunder,thor
+    managementCluster: thor
+    baseDomain: eu-central-1.aws.tkp.hdi.cloud
+    provider: capa
+    connectivity:
+      availabilityZoneUsageLimit: 3
+      bastion:
+        enabled: true
+        instanceType: t3.small
+        replicas: 1
+        subnetTags:
+          - subnet.giantswarm.io/bastion: "true"
+      dns:
+        resolverRulesOwnerAccount: "496192190985" 
+        mode: private
+      network:
+        # VPC CIDR must be unique 
+        #  Account Name | Account ID | CIDR |
+        #| ------ | ------ | ------ |
+        #| Auto | 195165329338 | 10.16.0.0/22  | (Thunder MC)
+        #| Auto | 195165329338 | 10.16.4.0/22  | (Thunder WC)
+        #| Auto | 195165329338 | 10.16.8.0/22  | (Thor WC)
+        #| Auto | 195165329338 | 10.16.12.0/22 | (Thor WC) 
+        #| Auto | 195165329338 | 10.16.16.0/22 | (Thor WC)
+        #| Auto | 195165329338 | 10.16.72.0/22 | (Thor WC)
+        #| Auto | 195165329338 | 10.16.24.0/22 | (Thunder WC O11y)
+        #| Auto | 195165329338 | 10.16.28.0/22 |
+        #| Auto | 195165329338 | 10.16.32.0/22 |
+        #| Auto | 195165329338 | 10.16.36.0/22 |
+        #| Dev  | 187332106798 | 10.16.64.0/22 | (Thunder WC dev00)
+        #| Dev  | 187332106798 | 10.16.68.0/22 | ( Thunder WC - reserve)
+        vpcCidr: 10.16.72.0/22
+        podCidr: 10.20.0.0/16
+        serviceCidr: 10.10.0.0/16
+      proxy:
+        enabled: true
+        httpProxy: http://server-proxy.eu-central-1.aws.hdi.de:3128
+        httpsProxy: http://server-proxy.eu-central-1.aws.hdi.de:3128
+        noProxy: .we.decodeinsurance.de,.dkr.ecr.eu-central-1.amazonaws.com
+      subnets:
+      # api-server subnets [HACK: must come first in the list]
+      - cidrBlocks:
+        - cidr: 10.16.72.64/28
+          availabilityZone: a
+        - cidr: 10.16.72.80/28
+          availabilityZone: b
+        - cidr: 10.16.72.96/28
+          availabilityZone: c
+        isPublic: false
+        tags:
+          subnet.giantswarm.io/api-server-elb: "true"
+      # Control plane nodes subnets
+      - cidrBlocks:
+        - cidr: 10.16.72.192/28
+          availabilityZone: a
+        - cidr: 10.16.72.208/28
+          availabilityZone: b
+        - cidr: 10.16.72.224/28
+          availabilityZone: c
+        isPublic: false
+        tags:
+          # Subnet tags can be used to match specific subnets to intended node groups
+          subnet.giantswarm.io/control-plane: "true"
+      # vpc endpoints and (eventually) transit gateway
+      - cidrBlocks:
+        - cidr: 10.16.72.0/28
+          availabilityZone: a
+        - cidr: 10.16.72.16/28
+          availabilityZone: b
+        - cidr: 10.16.72.32/28
+          availabilityZone: c
+        isPublic: true
+        tags:
+          # This tag is used to filter specific subnets for transit gateway attachment
+          subnet.giantswarm.io/tgw: "true"
+          # This tag is used to filter spefific subnet for vpc endpoint attachment
+          subnet.giantswarm.io/endpoints: "true"
+          # 2 tags above are required as they are used by GiantSwarm operators..
+          subnet.giantswarm.io/bastion: "true"
+      # Worker nodes subnets
+      - cidrBlocks:
+        - cidr: 10.16.73.0/24
+          availabilityZone: a
+        - cidr: 10.16.74.0/24
+          availabilityZone: b
+        - cidr: 10.16.75.0/24
+          availabilityZone: c
+        isPublic: false
+        tags:
+          subnet.giantswarm.io/workers: "true"
+      # Ingress LB
+      - cidrBlocks:
+        - cidr: 10.16.72.128/28
+          availabilityZone: a
+          tags:
+            Name: sample-ingress-lb-a
+        - cidr: 10.16.72.144/28
+          availabilityZone: b
+          tags:
+            Name: sample-ingress-lb-b
+        - cidr: 10.16.72.160/28
+          availabilityZone: c
+          tags:
+            Name: sample-ingress-lb-c
+        isPublic: false
+        tags:
+          subnet.giantswarm.io/ingress: "true"
+      topology:
+        mode: UserManaged
+        prefixListId: pl-021af382fdfcf3fab 
+        transitGatewayId: tgw-065422b8790cc1c2c 
+      vpcMode: private
+      vpcEndpointMode: UserManaged 
+    controlPlane:
+      containerdVolumeSizeGB: 100
+      etcdVolumeSizeGB: 100
+      instanceType: m5.xlarge
+      kubeletVolumeSizeGB: 100
+      rootVolumeSizeGB: 120
+      apiMode: private
+      replicas: 3
+      subnetTags:
+        - subnet.giantswarm.io/control-plane: "true"
+    nodePools:
+      nodepool0:
+        instanceType: m5.xlarge
+        maxSize: 10
+        minSize: 3
+        rootVolumeSizeGB: 300
+        subnetTags:
+          - subnet.giantswarm.io/workers: "true"
+    providerSpecific:
+      # It is possible to pass different role identities with different AWS Account.
+      # It is important for cross account cluster creation.
+      awsClusterRoleIdentityName: default2
+      region: eu-central-1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    giantswarm.io/cluster: sample
+  name: sample-userconfig
+  namespace: org-giantswarm
+---
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+  name: sample
+  namespace: org-giantswarm
+spec:
+  catalog: cluster
+  config:
+    configMap:
+      name: ""
+      namespace: ""
+    secret:
+      name: ""
+      namespace: ""
+  kubeConfig:
+    context:
+      name: ""
+    inCluster: true
+    secret:
+      name: ""
+      namespace: ""
+  name: cluster-aws
+  namespace: org-giantswarm
+  userConfig:
+    configMap:
+      name: sample-userconfig
+      namespace: org-giantswarm
+  # Following fields can be used to pass
+  # sensitive configuration details.
+  # extraConfigs:
+  # - kind: Secret
+  #   name: golem-user-values
+  #   namespace: org-giantswarm
+  #   priority: 25 
+  version: 0.29.0
+---
+apiVersion: v1
+data:
+  values: |
+    clusterName: sample
+    organization: giantswarm
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    giantswarm.io/cluster: sample
+  name: sample-default-apps-userconfig
+  namespace: org-giantswarm
+---
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    giantswarm.io/cluster: sample
+    giantswarm.io/managed-by: cluster
+  name: sample-default-apps
+  namespace: org-giantswarm
+spec:
+  catalog: cluster
+  config:
+    configMap:
+      name: sample-cluster-values
+      namespace: org-giantswarm
+    secret:
+      name: ""
+      namespace: ""
+  kubeConfig:
+    context:
+      name: ""
+    inCluster: true
+    secret:
+      name: ""
+      namespace: ""
+  name: default-apps-aws
+  namespace: org-giantswarm
+  userConfig:
+    configMap:
+      name: sample-default-apps-userconfig
+      namespace: org-giantswarm
+  version: 0.23.2
