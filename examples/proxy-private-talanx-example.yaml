@@ -37,7 +37,7 @@ data:
         #| Auto | 195165329338 | 10.16.36.0/22 |
         #| Dev  | 187332106798 | 10.16.64.0/22 | (Thunder WC dev00)
         #| Dev  | 187332106798 | 10.16.68.0/22 | ( Thunder WC - reserve)
-        vpcCidr: 10.16.72.0/22
+        vpcCidr: 10.16.20.0/22
         podCidr: 10.20.0.0/16
         serviceCidr: 10.10.0.0/16
       proxy:
@@ -48,22 +48,22 @@ data:
       subnets:
       # api-server subnets [HACK: must come first in the list]
       - cidrBlocks:
-        - cidr: 10.16.72.64/28
+        - cidr: 10.16.20.64/28
           availabilityZone: a
-        - cidr: 10.16.72.80/28
+        - cidr: 10.16.20.80/28
           availabilityZone: b
-        - cidr: 10.16.72.96/28
+        - cidr: 10.16.20.96/28
           availabilityZone: c
         isPublic: false
         tags:
           subnet.giantswarm.io/api-server-elb: "true"
       # Control plane nodes subnets
       - cidrBlocks:
-        - cidr: 10.16.72.192/28
+        - cidr: 10.16.20.192/28
           availabilityZone: a
-        - cidr: 10.16.72.208/28
+        - cidr: 10.16.20.208/28
           availabilityZone: b
-        - cidr: 10.16.72.224/28
+        - cidr: 10.16.20.224/28
           availabilityZone: c
         isPublic: false
         tags:
@@ -71,11 +71,11 @@ data:
           subnet.giantswarm.io/control-plane: "true"
       # vpc endpoints and (eventually) transit gateway
       - cidrBlocks:
-        - cidr: 10.16.72.0/28
+        - cidr: 10.16.20.0/28
           availabilityZone: a
-        - cidr: 10.16.72.16/28
+        - cidr: 10.16.20.16/28
           availabilityZone: b
-        - cidr: 10.16.72.32/28
+        - cidr: 10.16.20.32/28
           availabilityZone: c
         isPublic: true
         tags:
@@ -87,26 +87,26 @@ data:
           subnet.giantswarm.io/bastion: "true"
       # Worker nodes subnets
       - cidrBlocks:
-        - cidr: 10.16.73.0/24
+        - cidr: 10.16.21.0/24
           availabilityZone: a
-        - cidr: 10.16.74.0/24
+        - cidr: 10.16.22.0/24
           availabilityZone: b
-        - cidr: 10.16.75.0/24
+        - cidr: 10.16.23.0/24
           availabilityZone: c
         isPublic: false
         tags:
           subnet.giantswarm.io/workers: "true"
       # Ingress LB
       - cidrBlocks:
-        - cidr: 10.16.72.128/28
+        - cidr: 10.16.20.128/28
           availabilityZone: a
           tags:
             Name: sample-ingress-lb-a
-        - cidr: 10.16.72.144/28
+        - cidr: 10.16.20.144/28
           availabilityZone: b
           tags:
             Name: sample-ingress-lb-b
-        - cidr: 10.16.72.160/28
+        - cidr: 10.16.20.160/28
           availabilityZone: c
           tags:
             Name: sample-ingress-lb-c
