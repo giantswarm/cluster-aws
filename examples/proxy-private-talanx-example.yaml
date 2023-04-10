@@ -137,11 +137,11 @@ data:
         rootVolumeSizeGB: 300
         subnetTags:
           - subnet.giantswarm.io/workers: "true"
-    providerSpecific:
-      # It is possible to pass different role identities with different AWS Account.
-      # It is important for cross account cluster creation.
-      awsClusterRoleIdentityName: default2
-      region: eu-central-1
+    # It is possible to pass different role identities with different AWS Account.
+    # It is important for cross account cluster creation.
+    # providerSpecific:
+      # awsClusterRoleIdentityName: default2
+      # region: eu-central-1
 kind: ConfigMap
 metadata:
   creationTimestamp: null
