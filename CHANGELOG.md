@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Default to using `quay.io` and `giantswarm.azurecr.io` as Docker Hub mirrors
+
 ### Fixed
 
 - Remove duplicate label ` cluster.x-k8s.io/cluster-name:` in bastion MachineDeployment

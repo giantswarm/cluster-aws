@@ -143,6 +143,13 @@
                     "type": "object"
                 },
                 "containerRegistries": {
+                    "default": {
+                        "docker.io": [
+                            {"endpoint": "registry-1.docker.io"},
+                            {"endpoint": "quay.io"},
+                            {"endpoint": "giantswarm.azurecr.io"}
+                        ]
+                    },
                     "additionalProperties": {
                         "description": "Container registries and mirrors",
                         "items": {
