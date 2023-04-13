@@ -194,7 +194,7 @@ spec:
     {{- include "prepare-varLibKubelet-Dir" . | nindent 4 }}
     {{- include "diskPreKubeadmCommands" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
-    - 'sh -c "env > /tmp/env # attempt 1'
+    - 'sh -c "env > /tmp/env # attempt 1"'
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
