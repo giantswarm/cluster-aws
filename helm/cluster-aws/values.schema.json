@@ -143,13 +143,6 @@
                     "type": "object"
                 },
                 "containerRegistries": {
-                    "default": {
-                        "docker.io": [
-                            {"endpoint": "registry-1.docker.io"},
-                            {"endpoint": "quay.io"},
-                            {"endpoint": "giantswarm.azurecr.io"}
-                        ]
-                    },
                     "additionalProperties": {
                         "description": "Container registries and mirrors",
                         "items": {
@@ -194,6 +187,19 @@
                         },
                         "title": "Registries",
                         "type": "array"
+                    },
+                    "default": {
+                        "docker.io": [
+                            {
+                                "endpoint": "registry-1.docker.io"
+                            },
+                            {
+                                "endpoint": "quay.io"
+                            },
+                            {
+                                "endpoint": "giantswarm.azurecr.io"
+                            }
+                        ]
                     },
                     "description": "Endpoints and credentials configuration for container registries.",
                     "title": "Container registries",
