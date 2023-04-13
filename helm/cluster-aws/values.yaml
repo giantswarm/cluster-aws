@@ -9,7 +9,6 @@ connectivity:
   containerRegistries:
     docker.io:
       - endpoint: registry-1.docker.io
-      - endpoint: quay.io
       - endpoint: giantswarm.azurecr.io
   dns:
     mode: public
