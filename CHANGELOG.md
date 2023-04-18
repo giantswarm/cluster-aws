@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Rename `defaultMachinePools` to `internal.nodePools` to fit new schema requirements and make clear that it should not be changed by customers
+
 ### Fixed
 
-- Remove duplicate label ` cluster.x-k8s.io/cluster-name:` in bastion MachineDeployment
+- Remove duplicate label `cluster.x-k8s.io/cluster-name` in bastion MachineDeployment
 
 ### Removed
 

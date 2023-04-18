@@ -1,5 +1,5 @@
 {{- define "machine-pools" }}
-{{- range $name, $value := .Values.nodePools | default .Values.defaultMachinePools }}
+{{- range $name, $value := .Values.nodePools | default .Values.internal.nodePools }}
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
