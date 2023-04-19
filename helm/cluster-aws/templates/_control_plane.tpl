@@ -160,7 +160,6 @@ spec:
         kubeletExtraArgs:
           cloud-provider: aws
           healthz-bind-address: 0.0.0.0
-          image-pull-progress-deadline: 1m
           node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
           v: "2"
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'

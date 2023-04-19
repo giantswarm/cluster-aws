@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove duplicate label `cluster.x-k8s.io/cluster-name` in bastion MachineDeployment
 
+### Removed
+
+- Remove `image-pull-progress-deadline` kubelet flag, as it's Docker only, and it's removed in k8s v1.24+.
+
 ## [0.30.0] - 2023-04-06
 
 ## Added
