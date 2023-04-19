@@ -188,6 +188,16 @@
                         "title": "Registries",
                         "type": "array"
                     },
+                    "default": {
+                        "docker.io": [
+                            {
+                                "endpoint": "registry-1.docker.io"
+                            },
+                            {
+                                "endpoint": "giantswarm.azurecr.io"
+                            }
+                        ]
+                    },
                     "description": "Endpoints and credentials configuration for container registries.",
                     "title": "Container registries",
                     "type": "object"

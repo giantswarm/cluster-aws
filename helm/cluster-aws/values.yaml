@@ -6,6 +6,10 @@ connectivity:
     enabled: true
     instanceType: t3.small
     replicas: 1
+  containerRegistries:
+    docker.io:
+      - endpoint: registry-1.docker.io
+      - endpoint: giantswarm.azurecr.io
   dns:
     mode: public
   network:
