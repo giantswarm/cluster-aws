@@ -98,7 +98,7 @@ spec:
           api-audiences: "sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}"
           encryption-provider-config: /etc/kubernetes/encryption/config.yaml
           enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,PodSecurityPolicy
-          feature-gates: TTLAfterFinished=true
+          feature-gates: TTLAfterFinished=true,CronJobTimeZone=true
           kubelet-preferred-address-types: InternalIP
           profiling: "false"
           runtime-config: api/all=true,scheduling.k8s.io/v1alpha1=true
@@ -128,10 +128,12 @@ spec:
           cloud-provider: aws
           allocate-node-cidrs: "true"
           cluster-cidr: {{ .Values.connectivity.network.podCidr }}
+          feature-gates: TTLAfterFinished=true,CronJobTimeZone=true
       scheduler:
         extraArgs:
           authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
+          feature-gates: TTLAfterFinished=true,CronJobTimeZone=true
       etcd:
         local:
           extraArgs:
@@ -159,6 +161,7 @@ spec:
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: aws
+          feature-gates: CronJobTimeZone=true
           healthz-bind-address: 0.0.0.0
           node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
           v: "2"
@@ -178,6 +181,7 @@ spec:
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: aws
+          feature-gates: CronJobTimeZone=true
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
         {{- if .Values.controlPlane.customNodeTaints }}
         {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}

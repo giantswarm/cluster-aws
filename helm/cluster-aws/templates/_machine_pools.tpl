@@ -84,6 +84,7 @@ spec:
     nodeRegistration:
       kubeletExtraArgs:
         cloud-provider: aws
+        feature-gates: CronJobTimeZone=true
         healthz-bind-address: 0.0.0.0
         node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
         node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ $name }},{{- join "," $value.customNodeLabels }}
