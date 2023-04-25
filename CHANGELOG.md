@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove old JSON schema workflow.
+
+## [0.31.0] - 2023-04-24
+
 ### Changed
 
 - Rename `defaultMachinePools` to `internal.nodePools` to fit new schema requirements and make clear that it should not be changed by customers.
@@ -662,7 +668,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.30.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.31.0...HEAD
+[0.31.0]: https://github.com/giantswarm/cluster-aws/compare/v0.30.0...v0.31.0
 [0.30.0]: https://github.com/giantswarm/cluster-aws/compare/v0.29.1...v0.30.0
 [0.29.1]: https://github.com/giantswarm/cluster-aws/compare/v0.29.0...v0.29.1
 [0.29.0]: https://github.com/giantswarm/cluster-aws/compare/v0.28.0...v0.29.0
