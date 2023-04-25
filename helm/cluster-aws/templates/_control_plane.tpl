@@ -98,7 +98,6 @@ spec:
           api-audiences: "sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}"
           encryption-provider-config: /etc/kubernetes/encryption/config.yaml
           enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,PodSecurityPolicy
-          feature-gates: TTLAfterFinished=true
           kubelet-preferred-address-types: InternalIP
           profiling: "false"
           runtime-config: api/all=true,scheduling.k8s.io/v1alpha1=true
@@ -137,6 +136,9 @@ spec:
           extraArgs:
             listen-metrics-urls: "http://0.0.0.0:2381"
             quota-backend-bytes: "8589934592"
+      feature-gates:
+        CronJobTimeZone: true
+        TTLAfterFinished: true
       networking:
         serviceSubnet: {{ .Values.connectivity.network.serviceCidr }}
     files:
@@ -159,6 +161,7 @@ spec:
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: aws
+          feature-gates: CronJobTimeZone=true
           healthz-bind-address: 0.0.0.0
           node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
           v: "2"
@@ -178,6 +181,7 @@ spec:
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: aws
+          feature-gates: CronJobTimeZone=true
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
         {{- if .Values.controlPlane.customNodeTaints }}
         {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}

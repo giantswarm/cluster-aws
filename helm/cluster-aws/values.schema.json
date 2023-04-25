@@ -576,7 +576,7 @@
                     "type": "string"
                 },
                 "kubernetesVersion": {
-                    "default": "1.23.16",
+                    "default": "1.24.10",
                     "examples": [
                         "1.24.7"
                     ],

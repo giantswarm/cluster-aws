@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Enable `CronJobTimeZone` feature gate in the kubelet.
+- Set kubernetes `1.24.10` as the default version.
+
 ### Removed
 
 - Remove old JSON schema workflow.
@@ -15,12 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Rename `defaultMachinePools` to `internal.nodePools` to fit new schema requirements and make clear that it should not be changed by customers
-- Default to using `giantswarm.azurecr.io` as Docker Hub mirror
+- Rename `defaultMachinePools` to `internal.nodePools` to fit new schema requirements and make clear that it should not be changed by customers.
+- Default to using `giantswarm.azurecr.io` as Docker Hub mirror.
 
 ### Fixed
 
-- Remove duplicate label `cluster.x-k8s.io/cluster-name` in bastion MachineDeployment
+- Remove duplicate label `cluster.x-k8s.io/cluster-name` in bastion MachineDeployment.
 
 ### Removed
 
