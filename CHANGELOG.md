@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Enable `CronJobTimeZone` feature gate in the kubelet.
 - Set kubernetes `1.24.10` as the default version.
-- Switch from the in-tree cloud-controller-manager to the external one. This requires a minimum version of `default-apps-aws`.
+- Switch from the in-tree cloud-controller-manager to the external one. This requires version `v0.26.0` of `default-apps-aws`.
 
 ### Removed
 
