@@ -77,7 +77,7 @@ spec:
           - "api.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
           - 127.0.0.1
         extraArgs:
-          cloud-provider: aws
+          cloud-provider: external
           service-account-issuer: PLACEHOLDER_CLOUDFRONT_DOMAIN
           {{- if .Values.controlPlane.oidc.issuerUrl }}
           {{- with .Values.controlPlane.oidc }}
@@ -124,7 +124,7 @@ spec:
         extraArgs:
           authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
-          cloud-provider: aws
+          cloud-provider: external
           allocate-node-cidrs: "true"
           cluster-cidr: {{ .Values.connectivity.network.podCidr }}
       scheduler:
@@ -160,7 +160,7 @@ spec:
         bindPort: 0
       nodeRegistration:
         kubeletExtraArgs:
-          cloud-provider: aws
+          cloud-provider: external
           feature-gates: CronJobTimeZone=true
           healthz-bind-address: 0.0.0.0
           node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
@@ -180,7 +180,7 @@ spec:
       discovery: {}
       nodeRegistration:
         kubeletExtraArgs:
-          cloud-provider: aws
+          cloud-provider: external
           feature-gates: CronJobTimeZone=true
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
         {{- if .Values.controlPlane.customNodeTaints }}
