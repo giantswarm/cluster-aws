@@ -18,7 +18,7 @@ spec:
       chart: aws-pod-identity-webhook
       # used by renovate
       # repo: giantswarm/aws-pod-identity-webhook
-      version: 1.8.0
+      version: 1.8.1
       sourceRef:
         kind: HelmRepository
         name: {{ include "resource.default.name" $ }}-default
