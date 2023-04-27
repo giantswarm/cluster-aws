@@ -204,7 +204,7 @@ We only maintain `values.schema.json` and automatically generate `values.yaml` f
 ```
 make normalize-schema
 make validate-schema
-make generate-schema
+make generate-values
 ```
 
 **Details**:
