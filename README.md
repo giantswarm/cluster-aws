@@ -234,5 +234,5 @@ The JSON schema in `values.schema.json` should contain defaults defined with the
 These defaults should be same as those defined in `values.yaml`. 
 This allows us to generate `values.yaml` from `values.schema.json` with:
 ```
-make generate-schema
+make generate-values
 ```
