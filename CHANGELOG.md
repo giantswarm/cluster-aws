@@ -7,16 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.32.0] - 2023-04-26
+
+### Changed
+
+- Enable `CronJobTimeZone` feature gate in the kubelet.
+- Set kubernetes `1.24.10` as the default version.
+- Switch from the in-tree cloud-controller-manager to the external one. This requires version `v0.26.0` of `default-apps-aws`.
+
+### Removed
+
+- Remove old JSON schema workflow.
+
 ## [0.31.0] - 2023-04-24
 
 ### Changed
 
-- Rename `defaultMachinePools` to `internal.nodePools` to fit new schema requirements and make clear that it should not be changed by customers
-- Default to using `giantswarm.azurecr.io` as Docker Hub mirror
+- Rename `defaultMachinePools` to `internal.nodePools` to fit new schema requirements and make clear that it should not be changed by customers.
+- Default to using `giantswarm.azurecr.io` as Docker Hub mirror.
 
 ### Fixed
 
-- Remove duplicate label `cluster.x-k8s.io/cluster-name` in bastion MachineDeployment
+- Remove duplicate label `cluster.x-k8s.io/cluster-name` in bastion MachineDeployment.
 
 ### Removed
 
@@ -662,7 +674,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.31.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.32.0...HEAD
+[0.32.0]: https://github.com/giantswarm/cluster-aws/compare/v0.31.0...v0.32.0
 [0.31.0]: https://github.com/giantswarm/cluster-aws/compare/v0.30.0...v0.31.0
 [0.30.0]: https://github.com/giantswarm/cluster-aws/compare/v0.29.1...v0.30.0
 [0.29.1]: https://github.com/giantswarm/cluster-aws/compare/v0.29.0...v0.29.1

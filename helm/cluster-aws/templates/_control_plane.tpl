@@ -77,7 +77,7 @@ spec:
           - "api.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
           - 127.0.0.1
         extraArgs:
-          cloud-provider: aws
+          cloud-provider: external
           service-account-issuer: PLACEHOLDER_CLOUDFRONT_DOMAIN
           {{- if .Values.controlPlane.oidc.issuerUrl }}
           {{- with .Values.controlPlane.oidc }}
@@ -98,7 +98,6 @@ spec:
           api-audiences: "sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}"
           encryption-provider-config: /etc/kubernetes/encryption/config.yaml
           enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,PodSecurityPolicy
-          feature-gates: TTLAfterFinished=true
           kubelet-preferred-address-types: InternalIP
           profiling: "false"
           runtime-config: api/all=true,scheduling.k8s.io/v1alpha1=true
@@ -125,7 +124,7 @@ spec:
         extraArgs:
           authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
-          cloud-provider: aws
+          cloud-provider: external
           allocate-node-cidrs: "true"
           cluster-cidr: {{ .Values.connectivity.network.podCidr }}
       scheduler:
@@ -137,6 +136,9 @@ spec:
           extraArgs:
             listen-metrics-urls: "http://0.0.0.0:2381"
             quota-backend-bytes: "8589934592"
+      feature-gates:
+        CronJobTimeZone: true
+        TTLAfterFinished: true
       networking:
         serviceSubnet: {{ .Values.connectivity.network.serviceCidr }}
     files:
@@ -158,7 +160,8 @@ spec:
         bindPort: 0
       nodeRegistration:
         kubeletExtraArgs:
-          cloud-provider: aws
+          cloud-provider: external
+          feature-gates: CronJobTimeZone=true
           healthz-bind-address: 0.0.0.0
           node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
           v: "2"
@@ -177,7 +180,8 @@ spec:
       discovery: {}
       nodeRegistration:
         kubeletExtraArgs:
-          cloud-provider: aws
+          cloud-provider: external
+          feature-gates: CronJobTimeZone=true
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
         {{- if .Values.controlPlane.customNodeTaints }}
         {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
