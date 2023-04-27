@@ -7,11 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Moved the core components feature flags to their configuration, as the `featureGates` field is for `kubeadm` feature flags.
+
+### Removed
+
+- Remove `TTLAfterFinished` because it defaults to true.
+
 ## [0.32.0] - 2023-04-26
 
 ### Changed
 
-- Enable `CronJobTimeZone` feature gate in the kubelet.
+- Enable `CronJobTimeZone` feature gate in the kubelet.  
 - Set kubernetes `1.24.10` as the default version.
 - Switch from the in-tree cloud-controller-manager to the external one. This requires version `v0.26.0` of `default-apps-aws`.
 
