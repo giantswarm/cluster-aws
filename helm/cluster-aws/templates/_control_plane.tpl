@@ -136,7 +136,7 @@ spec:
           extraArgs:
             listen-metrics-urls: "http://0.0.0.0:2381"
             quota-backend-bytes: "8589934592"
-      feature-gates:
+      featureGates:
         CronJobTimeZone: true
         TTLAfterFinished: true
       networking:
