@@ -202,9 +202,9 @@ machinePools:
 **tldr**:  
 We only maintain `values.schema.json` and automatically generate `values.yaml` from it.
 ```
-make schema-normalize
-make schmema-validate
-make values-generate
+make normalize-schema
+make validate-schema
+make generate-schema
 ```
 
 **Details**:
@@ -222,11 +222,11 @@ These requirements can be checked with [schemalint](https://github.com/giantswar
 
 The first point can be achieved with:
 ```
-make schema-normalize
+make normalize-schema
 ```
 The second to fourth point can be achieved with:
 ```
-make schmema-validate
+make validate-schema
 ```
 
 
@@ -234,5 +234,5 @@ The JSON schema in `values.schema.json` should contain defaults defined with the
 These defaults should be same as those defined in `values.yaml`. 
 This allows us to generate `values.yaml` from `values.schema.json` with:
 ```
-make values-generate
+make generate-schema
 ```
