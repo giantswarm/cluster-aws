@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add JSON schema related makefile.
+  - generate `values.yaml` from `values.schema.json` with `make generate-values`
+  - normalize `values.schema.json` with `make normalize-schema`
+  - validate that `values.schema.json` is according to requirements with `make validate-schema`
+
 ## [0.32.0] - 2023-04-26
 
 ### Changed
