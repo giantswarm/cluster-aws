@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Moved the core components feature flags to their configuration, as the `featureGates` field is for `kubeadm` feature flags.
+
 ### Fix
 
 - Fix typo in control plane feature gates configuration.
