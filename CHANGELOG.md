@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.32.1] - 2023-04-27
+
 ### Changed
 
 - Moved the core components feature flags to their configuration, as the `featureGates` field is for `kubeadm` feature flags.
@@ -682,7 +684,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.32.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.32.1...HEAD
+[0.32.1]: https://github.com/giantswarm/cluster-aws/compare/v0.32.0...v0.32.1
 [0.32.0]: https://github.com/giantswarm/cluster-aws/compare/v0.31.0...v0.32.0
 [0.31.0]: https://github.com/giantswarm/cluster-aws/compare/v0.30.0...v0.31.0
 [0.30.0]: https://github.com/giantswarm/cluster-aws/compare/v0.29.1...v0.30.0
