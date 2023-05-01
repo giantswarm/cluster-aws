@@ -1,0 +1,1 @@
+irsa.{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }}

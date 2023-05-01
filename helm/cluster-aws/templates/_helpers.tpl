@@ -132,10 +132,8 @@ room for such suffix.
       key: encryption
 - path: /etc/kubernetes/irsa/cloudfront-domain
   permissions: "0600"
-  contentFrom:
-    secret:
-      name: {{ include "resource.default.name" $ }}-irsa-cloudfront
-      key: domain
+  encoding: base64
+  content: {{ tpl ($.Files.Get "files/etc/kubernetes/irsa/cloudfront-domain") $ | b64enc }}
 {{- end -}}
 
 {{- define "awsNtpFiles" -}}
