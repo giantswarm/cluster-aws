@@ -10,7 +10,7 @@ metadata:
     {{- include "labels.common" . | nindent 4 }}
 spec:
   suspend: false # It can be unsuspended by the post-install/post-upgrade hook. Useful if we need to populate some fields later on.
-  releaseName: aws-ebs-csi-driver
+  releaseName: aws-pod-identity-webhook
   targetNamespace: kube-system
   storageNamespace: kube-system
   chart:
@@ -32,3 +32,10 @@ spec:
   install:
     remediation:
       retries: 30
+  {{- if .Values.connectivity.proxy }}
+  values:
+    proxy:
+      noProxy: {{ .Values.connectivity.proxy.noProxy }}
+      http: {{ .Values.connectivity.proxy.httpProxy }}
+      https: {{ .Values.connectivity.proxy.httpsProxy }}
+  {{ end }}

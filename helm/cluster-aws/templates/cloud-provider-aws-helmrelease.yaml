@@ -29,3 +29,10 @@ spec:
   install:
     remediation:
       retries: 30
+  {{- if .Values.connectivity.proxy }}
+  values:
+    proxy:
+      noProxy: {{ .Values.connectivity.proxy.noProxy }}
+      http: {{ .Values.connectivity.proxy.httpProxy }}
+      https: {{ .Values.connectivity.proxy.httpsProxy }}
+  {{ end }}
