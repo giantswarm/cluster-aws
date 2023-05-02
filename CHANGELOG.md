@@ -14,11 +14,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - normalize `values.schema.json` with `make normalize-schema`
   - validate that `values.schema.json` is according to requirements with `make validate-schema`
 
+## [0.32.1] - 2023-04-27
+
+### Changed
+
+- Moved the core components feature flags to their configuration, as the `featureGates` field is for `kubeadm` feature flags.
+
+### Removed
+
+- Remove `TTLAfterFinished` because it defaults to true.
+
 ## [0.32.0] - 2023-04-26
 
 ### Changed
 
-- Enable `CronJobTimeZone` feature gate in the kubelet.
+- Enable `CronJobTimeZone` feature gate in the kubelet.  
 - Set kubernetes `1.24.10` as the default version.
 - Switch from the in-tree cloud-controller-manager to the external one. This requires version `v0.26.0` of `default-apps-aws`.
 
@@ -681,7 +691,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.32.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.32.1...HEAD
+[0.32.1]: https://github.com/giantswarm/cluster-aws/compare/v0.32.0...v0.32.1
 [0.32.0]: https://github.com/giantswarm/cluster-aws/compare/v0.31.0...v0.32.0
 [0.31.0]: https://github.com/giantswarm/cluster-aws/compare/v0.30.0...v0.31.0
 [0.30.0]: https://github.com/giantswarm/cluster-aws/compare/v0.29.1...v0.30.0

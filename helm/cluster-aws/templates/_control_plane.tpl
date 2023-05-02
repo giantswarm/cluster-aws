@@ -98,6 +98,7 @@ spec:
           api-audiences: "sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}"
           encryption-provider-config: /etc/kubernetes/encryption/config.yaml
           enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,PodSecurityPolicy
+          feature-gates: CronJobTimeZone=true
           kubelet-preferred-address-types: InternalIP
           profiling: "false"
           runtime-config: api/all=true,scheduling.k8s.io/v1alpha1=true
@@ -127,18 +128,17 @@ spec:
           cloud-provider: external
           allocate-node-cidrs: "true"
           cluster-cidr: {{ .Values.connectivity.network.podCidr }}
+          feature-gates: CronJobTimeZone=true
       scheduler:
         extraArgs:
           authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
+          feature-gates: CronJobTimeZone=true
       etcd:
         local:
           extraArgs:
             listen-metrics-urls: "http://0.0.0.0:2381"
             quota-backend-bytes: "8589934592"
-      feature-gates:
-        CronJobTimeZone: true
-        TTLAfterFinished: true
       networking:
         serviceSubnet: {{ .Values.connectivity.network.serviceCidr }}
     files:
