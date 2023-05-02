@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add JSON schema related makefile.
+  - generate `values.yaml` from `values.schema.json` with `make generate-values`
+  - normalize `values.schema.json` with `make normalize-schema`
+  - validate that `values.schema.json` is according to requirements with `make validate-schema`
 - Add CNI/CSI/coredns apps as HelmReleases.
 
 ## [0.32.1] - 2023-04-27
