@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Remove `app.kubernetes.io/version` from common labels. We don't want to always roll nodes just because we are deploying a new version. 
+
 ### Added
 
 - Add JSON schema related makefile.
