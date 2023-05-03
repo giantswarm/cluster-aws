@@ -22,11 +22,9 @@ metadata:
 spec:
   clusterNetwork:
     services:
-      cidrBlocks:
-       - {{ .Values.connectivity.network.serviceCidr }}
+      cidrBlocks: {{ .Values.connectivity.clusterNetwork.services.cidrBlocks }}
     pods:
-      cidrBlocks:
-      - {{ .Values.connectivity.network.podCidr }}
+      cidrBlocks: {{ .Values.connectivity.clusterNetwork.pods.cidrBlocks }}
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     kind: KubeadmControlPlane
