@@ -146,62 +146,66 @@
                     }
                 },
                 "clusterNetwork": {
-                    "properties": {
-                        "pods": {
-                            "properties": {
-                                "cidrBlocks": {
-                                    "items": {
-                                        "description": "IPv4 address range for pods, in CIDR notation.",
-                                        "examples": [
-                                            "10.244.0.0/16"
-                                        ],
-                                        "title": "Pod subnet",
-                                        "type": "string"
-                                    },
-                                    "minItems": 1,
-                                    "maxItems": 1,
-                                    "title": "Pod subnets",
-                                    "type": "array",
-                                    "default": ["100.64.0.0/12"]
-                                }
-                            },
-                            "required": [
-                                "cidrBlocks"
-                            ],
-                            "title": "Pods",
-                            "type": "object"
-                        },
-                        "services": {
-                            "properties": {
-                                "cidrBlocks": {
-                                    "items": {
-                                        "description": "IPv4 address range for kubernetes services, in CIDR notation.",
-                                        "examples": [
-                                            "172.31.0.0/16"
-                                        ],
-                                        "title": "Service subnet",
-                                        "type": "string"
-                                    },
-                                    "minItems": 1,
-                                    "maxItems": 1,
-                                    "title": "K8s Service subnets",
-                                    "type": "array",
-                                    "default": ["172.31.0.0/16"]
-                                }
-                            },
-                            "required": [
-                                "cidrBlocks"
-                            ],
-                            "title": "Services",
-                            "type": "object"
-                        },
-                    },
+                    "type": "object",
+                    "title": "ClusterNetwork",
                     "required": [
                         "pods",
                         "services"
                     ],
-                    "title": "ClusterNetwork",
-                    "type": "object"
+                    "properties": {
+                        "pods": {
+                            "type": "object",
+                            "title": "Pods",
+                            "required": [
+                                "cidrBlocks"
+                            ],
+                            "properties": {
+                                "cidrBlocks": {
+                                    "type": "array",
+                                    "title": "Pod subnets",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Pod subnet",
+                                        "description": "IPv4 address range for pods, in CIDR notation.",
+                                        "examples": [
+                                            "10.244.0.0/16"
+                                        ]
+                                    },
+                                    "default": [
+                                        "100.64.0.0/12"
+                                    ],
+                                    "maxItems": 1,
+                                    "minItems": 1
+                                }
+                            }
+                        },
+                        "services": {
+                            "type": "object",
+                            "title": "Services",
+                            "required": [
+                                "cidrBlocks"
+                            ],
+                            "properties": {
+                                "cidrBlocks": {
+                                    "type": "array",
+                                    "title": "K8s Service subnets",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Service subnet",
+                                        "description": "IPv4 address range for kubernetes services, in CIDR notation.",
+                                        "examples": [
+                                            "172.31.0.0/16"
+                                        ]
+                                    },
+                                    "default": [
+                                        "172.31.0.0/16"
+                                    ],
+                                    "maxItems": 1,
+                                    "minItems": 1
+                                }
+                            }
+                        }
+                    }
                 },
                 "containerRegistries": {
                     "type": "object",
