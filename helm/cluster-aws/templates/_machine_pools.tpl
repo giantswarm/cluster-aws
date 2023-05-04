@@ -8,6 +8,7 @@ metadata:
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ $.Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
@@ -33,6 +34,7 @@ metadata:
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ $.Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
@@ -76,6 +78,7 @@ metadata:
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ $.Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
