@@ -145,7 +145,6 @@ spec:
     {{- include "oidcFiles" . | nindent 4 }}
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
-    {{- include "irsaFiles" . | nindent 4 }}
     {{- include "kubeletConfigFiles" . | nindent 4 }}
     {{- include "awsNtpFiles" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
@@ -199,7 +198,6 @@ spec:
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
-    {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
     {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
     users:
