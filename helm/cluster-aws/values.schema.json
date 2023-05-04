@@ -147,7 +147,7 @@
                 },
                 "clusterNetwork": {
                     "type": "object",
-                    "title": "ClusterNetwork",
+                    "title": "Cluster network",
                     "required": [
                         "pods",
                         "services"
