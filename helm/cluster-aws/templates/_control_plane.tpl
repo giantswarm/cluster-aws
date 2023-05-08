@@ -55,6 +55,7 @@ kind: KubeadmControlPlane
 metadata:
   labels:
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}
   namespace: {{ $.Release.Namespace }}
 spec:
@@ -62,6 +63,7 @@ spec:
     metadata:
       labels:
         {{- include "labels.common" $ | nindent 8 }}
+        app.kubernetes.io/version: {{ .Chart.Version | quote }}
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: AWSMachineTemplate
@@ -211,6 +213,7 @@ metadata:
   labels:
     cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
   namespace: {{ $.Release.Namespace }}
 spec: {{ include "controlplane-awsmachinetemplate-spec" $ | nindent 2 }}

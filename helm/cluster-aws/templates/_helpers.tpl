@@ -20,7 +20,6 @@ Common labels
 {{- define "labels.common" -}}
 {{- include "labels.selector" $ }}
 helm.sh/chart: {{ include "chart" . | quote }}
-app.kubernetes.io/version: {{ .Chart.Version | quote }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- end -}}
 

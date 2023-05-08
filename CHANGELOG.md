@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Remove `app.kubernetes.io/version` from common labels. They are part of hashes, but we don't want to always roll nodes just because we are deploying a new version. 
+
+### Added
+
+- Add JSON schema related makefile.
+  - generate `values.yaml` from `values.schema.json` with `make generate-values`
+  - normalize `values.schema.json` with `make normalize-schema`
+  - validate that `values.schema.json` is according to requirements with `make validate-schema`
+
 ## [0.32.1] - 2023-04-27
 
 ### Changed

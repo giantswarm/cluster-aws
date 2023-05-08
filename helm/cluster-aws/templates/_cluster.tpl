@@ -16,6 +16,7 @@ metadata:
   labels:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}
   namespace: {{ .Release.Namespace }}
 spec:
