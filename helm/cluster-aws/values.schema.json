@@ -250,11 +250,6 @@
                 "network": {
                     "type": "object",
                     "title": "Network",
-                    "required": [
-                        "pods",
-                        "services",
-                        "vpcCidr"
-                    ],
                     "properties": {
                         "pods": {
                             "type": "object",
