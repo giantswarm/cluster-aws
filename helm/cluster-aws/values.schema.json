@@ -254,9 +254,6 @@
                         "pods": {
                             "type": "object",
                             "title": "Pods",
-                            "required": [
-                                "cidrBlocks"
-                            ],
                             "properties": {
                                 "cidrBlocks": {
                                     "type": "array",
@@ -280,9 +277,6 @@
                         "services": {
                             "type": "object",
                             "title": "Services",
-                            "required": [
-                                "cidrBlocks"
-                            ],
                             "properties": {
                                 "cidrBlocks": {
                                     "type": "array",
