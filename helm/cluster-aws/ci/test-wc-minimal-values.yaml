@@ -1,0 +1,5 @@
+metadata:
+  name: test-wc-minimal
+  organization: test
+  servicePriority: lowest
+baseDomain: example.com
