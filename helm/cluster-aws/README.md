@@ -2,6 +2,12 @@
 
 This page lists all available configuration options, based on the [configuration values schema](values.schema.json).
 
+<!-- Update the content below by executing (from the repo root directory)
+
+schemadocs generate helm/cluster-aws/values.schema.json -o helm/cluster-aws/README.md
+
+-->
+
 <!-- DOCS_START -->
 
 ### AWS settings
