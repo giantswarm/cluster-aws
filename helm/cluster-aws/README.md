@@ -2,6 +2,8 @@
 
 This page lists all available configuration options, based on the [configuration values schema](values.schema.json).
 
+Note that configuration options can change between releases. Use the GitHub function for selecting a branch/tag to view the documentation matching your cluster-aws version.
+
 <!-- Update the content below by executing (from the repo root directory)
 
 schemadocs generate helm/cluster-aws/values.schema.json -o helm/cluster-aws/README.md
