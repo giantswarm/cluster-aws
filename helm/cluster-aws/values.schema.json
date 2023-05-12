@@ -678,7 +678,7 @@
                     "description": "If specified, this image will be used to provision EC2 instances.",
                     "maxLength": 100,
                     "minLength": 8,
-                    "pattern": "^ami-[0-9abzdefg]+$",
+                    "pattern": "^ami-[0-9abcdefg]+$",
                     "title": "Amazon machine image (AMI)",
                     "type": "string"
                 },
