@@ -1,5 +1,7 @@
 # Values schema documentation
 
+This page lists all available configuration options, based on the [configuration values schema](values.schema.json).
+
 <!-- DOCS_START -->
 
 ### AWS settings

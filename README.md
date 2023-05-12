@@ -2,6 +2,10 @@
 
 `cluster-aws` is an app that helps create a CRs for a Cluster API AWS cluster for Giant Swarm platform.
 
+## Configuration
+
+See our [full list of configuration options](https://github.com/giantswarm/cluster-aws/blob/master/helm/cluster-aws/README.md).
+
 ## Custom Subnet Layouts
 
 As of v0.21.0 it possible to specify more complex subnet layouts that allow using different sets of subnets for different grouping of machines.
