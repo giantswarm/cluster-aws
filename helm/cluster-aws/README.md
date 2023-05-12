@@ -174,4 +174,6 @@ Node pools of the cluster. If not specified, this defaults to the value of `inte
 | `managementCluster` | **Management cluster** - Name of the Cluster API cluster managing this workload cluster.|**Type:** `string`<br/>|
 | `provider` | **Cluster API provider name**|**Type:** `string`<br/>|
 
+
+
 <!-- DOCS_END -->
