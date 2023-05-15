@@ -2,6 +2,10 @@
 
 `cluster-aws` is an app that helps create a CRs for a Cluster API AWS cluster for Giant Swarm platform.
 
+## Configuration
+
+See our [full list of configuration options](helm/cluster-aws/README.md).
+
 ## Custom Subnet Layouts
 
 As of v0.21.0 it possible to specify more complex subnet layouts that allow using different sets of subnets for different grouping of machines.
@@ -229,10 +233,10 @@ The second to fourth point can be achieved with:
 make validate-schema
 ```
 
-
 The JSON schema in `values.schema.json` should contain defaults defined with the `default` keyword.
 These defaults should be same as those defined in `values.yaml`. 
 This allows us to generate `values.yaml` from `values.schema.json` with:
+
 ```
 make generate-values
 ```
