@@ -10,7 +10,7 @@ See our [full list of configuration options](helm/cluster-aws/README.md).
 
 As of v0.21.0 it possible to specify more complex subnet layouts that allow using different sets of subnets for different grouping of machines.
 
-Subnet groupings can be defined by setting `.network.subnets`. For example, to have different subnets for control plane, worker and bastion nodes you might have something similar to the following:
+Subnet groupings can be defined by setting `.connectivity.subnets`. For example, to have different subnets for control plane, worker and bastion nodes you might have something similar to the following:
 
 ```yaml
 connectivity:
@@ -143,63 +143,6 @@ If the `subnet.giantswarm.io/tgw-attachments: "true"` tag isn't found on any sub
 
 > **Warning**
 > Currently not possible, see [giantswarm/roadmap#1866](https://github.com/giantswarm/roadmap/issues/1866)
-
-## Upgrade Migrations
-
-### Upgrading to `v0.21.0`
-
-If your cluster previously has `network.vpcMode` set to private you will need to make a small change to your values when upgrading to this version.
-
-If using the default list of subnets you will need to set the following in your values:
-
-```yaml
-network:
-  subnets:
-  - cidrBlocks:
-    - cidr: 10.0.0.0/18
-      availabilityZone: a
-    - cidr: 10.0.64.0/18
-      availabilityZone: b
-    - cidr: 10.0.128.0/18
-      availabilityZone: c
-    isPublic: false
-```
-
-If you've specified your own CIDR blocks previous you'll need to convert those strings to the block structure like above. Be aware to make sure the correct availability zone is specified for each CIDR block.
-
-### Upgrading to `v0.24.0`
-
-You will need to change the definition of your machine pools from using a list to an object.
-For example, instead of the following:
-
-```yaml
-machinePools:
-- name: def00  # Name of node pool.
-  availabilityZones: []
-  instanceType: m5.xlarge
-  minSize: 3  # Number of replicas in node pool.
-  maxSize: 3
-  rootVolumeSizeGB: 300
-  customNodeLabels:
-  - label=default
-  customNodeTaints: []
-```
-
-You should have:
-
-```yaml
-machinePools:
-  def00:  # Name of node pool.
-    availabilityZones: []
-    instanceType: m5.xlarge
-    minSize: 3  # Number of replicas in node pool.
-    maxSize: 3
-    rootVolumeSizeGB: 300
-    customNodeLabels:
-    - label=default
-    customNodeTaints: []
-```
-
 
 ## Maintaining `values.schema.json` and `values.yaml`
 
