@@ -84,10 +84,10 @@ room for such suffix.
 {{- define "proxyCommand" -}}
 - export HTTP_PROXY={{ $.Values.connectivity.proxy.httpProxy }}
 - export HTTPS_PROXY={{ $.Values.connectivity.proxy.httpsProxy }}
-- export NO_PROXY=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ $.Values.connectivity.network.serviceCidr }},{{ $.Values.connectivity.network.podCidr }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
+- export NO_PROXY=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
 - export http_proxy={{ $.Values.connectivity.proxy.httpProxy }}
 - export https_proxy={{ $.Values.connectivity.proxy.httpsProxy }}
-- export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ $.Values.connectivity.network.serviceCidr }},{{ $.Values.connectivity.network.podCidr }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
+- export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
 - systemctl daemon-reload
 - systemctl restart containerd
 - systemctl restart kubelet
