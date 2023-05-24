@@ -47,7 +47,7 @@ controlPlane:
   apiMode: public
   containerdVolumeSizeGB: 100
   etcdVolumeSizeGB: 100
-  instanceType: m5.xlarge
+  instanceType: m6g.2xlarge
   kubeletVolumeSizeGB: 100
   machineHealthCheck:
     enabled: true
@@ -63,7 +63,7 @@ internal:
     def00:
       customNodeLabels:
         - label=default
-      instanceType: m5.xlarge
+      instanceType: m6g.2xlarge
       minSize: 3
 kubectlImage:
   name: giantswarm/kubectl

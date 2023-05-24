@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed `connectivity.network.podCidr` and `connectivity.network.serviceCidr`. Replaced by `connectivity.network.pods.cidrBlocks` and `connectivity.network.services.cidrBlocks`.
 - Remove `app.kubernetes.io/version` from common labels. They are part of hashes, but we don't want to always roll nodes just because we are deploying a new version.
 - Remove `architect` templating from `Chart.yaml` file.
+- Set `m6g.2xlarge` as the new default AWS instance type for the control plane and node pools.
 
 ### Added
 
