@@ -58,7 +58,7 @@ spec:
   awsLaunchTemplate:
     {{- include "ami" $ | nindent 4 }}
     iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
-    instanceType: {{ $value.instanceType | default "m5.xlarge" }}
+    instanceType: {{ $value.instanceType | default "r6i.xlarge" }}
     rootVolume:
       size: {{ $value.rootVolumeSizeGB | default 300 }}
       type: gp3

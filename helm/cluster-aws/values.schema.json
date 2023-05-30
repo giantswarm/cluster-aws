@@ -501,7 +501,7 @@
                 "instanceType": {
                     "type": "string",
                     "title": "EC2 instance type",
-                    "default": "m5.xlarge"
+                    "default": "r6i.xlarge"
                 },
                 "kubeletVolumeSizeGB": {
                     "type": "integer",
@@ -633,7 +633,7 @@
                             "customNodeLabels": [
                                 "label=default"
                             ],
-                            "instanceType": "m5.xlarge",
+                            "instanceType": "r6i.xlarge",
                             "minSize": 3
                         }
                     }
