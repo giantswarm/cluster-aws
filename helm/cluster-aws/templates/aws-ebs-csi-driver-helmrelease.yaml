@@ -18,7 +18,7 @@ spec:
       chart: aws-ebs-csi-driver-app
       # used by renovate
       # repo: giantswarm/aws-ebs-csi-driver-app
-      version: 2.21.1
+      version: 2.23.0
       sourceRef:
         kind: HelmRepository
         name: {{ include "resource.default.name" $ }}-default
@@ -32,11 +32,8 @@ spec:
   install:
     remediation:
       retries: 30
-  values:
-    controller:
-      nodeSelector:
-        node-role.kubernetes.io/control-plane: ""
   {{- if .Values.connectivity.proxy }}
+  values:
     proxy:
       noProxy: {{ .Values.connectivity.proxy.noProxy }}
       http: {{ .Values.connectivity.proxy.httpProxy }}
