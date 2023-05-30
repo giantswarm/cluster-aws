@@ -1,9 +1,12 @@
 apiVersion: v2
 name: cluster-aws
+home: https://github.com/giantswarm/cluster-aws
+sources:
+  - https://github.com/giantswarm/cluster-aws
 description: A helm chart for creating Cluster API clusters with the AWS infrastructure provider (CAPA).
 icon: https://s.giantswarm.io/app-icons/aws/1/dark.svg
 type: application
-version: [[ .Version ]]
+version: 0.32.1
 annotations:
   application.giantswarm.io/team: "hydra"
   application.giantswarm.io/app-type: "cluster"

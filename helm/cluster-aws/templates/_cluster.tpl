@@ -16,16 +16,17 @@ metadata:
   labels:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}
   namespace: {{ .Release.Namespace }}
 spec:
   clusterNetwork:
     services:
       cidrBlocks:
-       - {{ .Values.connectivity.network.serviceCidr }}
+      {{- toYaml .Values.connectivity.network.services.cidrBlocks | nindent 8 }}
     pods:
       cidrBlocks:
-      - {{ .Values.connectivity.network.podCidr }}
+      {{- toYaml .Values.connectivity.network.pods.cidrBlocks | nindent 8 }}
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     kind: KubeadmControlPlane

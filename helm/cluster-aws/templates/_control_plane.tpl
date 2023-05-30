@@ -55,6 +55,7 @@ kind: KubeadmControlPlane
 metadata:
   labels:
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}
   namespace: {{ $.Release.Namespace }}
 spec:
@@ -62,6 +63,7 @@ spec:
     metadata:
       labels:
         {{- include "labels.common" $ | nindent 8 }}
+        app.kubernetes.io/version: {{ .Chart.Version | quote }}
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: AWSMachineTemplate
@@ -104,7 +106,7 @@ spec:
           runtime-config: api/all=true,scheduling.k8s.io/v1alpha1=true
           service-account-lookup: "true"
           tls-cipher-suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
-          service-cluster-ip-range: {{ .Values.connectivity.network.serviceCidr }}
+          service-cluster-ip-range: {{ .Values.connectivity.network.services.cidrBlocks | first }}
         extraVolumes:
         - name: auditlog
           hostPath: /var/log/apiserver
@@ -127,7 +129,7 @@ spec:
           bind-address: 0.0.0.0
           cloud-provider: external
           allocate-node-cidrs: "true"
-          cluster-cidr: {{ .Values.connectivity.network.podCidr }}
+          cluster-cidr: {{ .Values.connectivity.network.pods.cidrBlocks | first }}
           feature-gates: CronJobTimeZone=true
       scheduler:
         extraArgs:
@@ -140,7 +142,7 @@ spec:
             listen-metrics-urls: "http://0.0.0.0:2381"
             quota-backend-bytes: "8589934592"
       networking:
-        serviceSubnet: {{ .Values.connectivity.network.serviceCidr }}
+        serviceSubnet: {{ join "," .Values.connectivity.network.services.cidrBlocks }}
     files:
     {{- include "oidcFiles" . | nindent 4 }}
     {{- include "sshFiles" . | nindent 4 }}
@@ -213,6 +215,7 @@ metadata:
   labels:
     cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
   namespace: {{ $.Release.Namespace }}
 spec: {{ include "controlplane-awsmachinetemplate-spec" $ | nindent 2 }}
