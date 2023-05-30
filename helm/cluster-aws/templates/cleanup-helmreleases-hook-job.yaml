@@ -51,7 +51,6 @@ rules:
       - "{{ include "resource.default.name" $ }}-cilium"
       - "{{ include "resource.default.name" $ }}-cloud-provider-aws"
       - "{{ include "resource.default.name" $ }}-aws-ebs-csi-driver"
-      - "{{ include "resource.default.name" $ }}-aws-pod-identity-webhook"
       - "{{ include "resource.default.name" $ }}-coredns"
     verbs: ["patch"]
 ---
