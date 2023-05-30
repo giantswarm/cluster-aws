@@ -32,8 +32,11 @@ spec:
   install:
     remediation:
       retries: 30
-  {{- if .Values.connectivity.proxy }}
   values:
+    controller:
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ""
+  {{- if .Values.connectivity.proxy }}
     proxy:
       noProxy: {{ .Values.connectivity.proxy.noProxy }}
       http: {{ .Values.connectivity.proxy.httpProxy }}
