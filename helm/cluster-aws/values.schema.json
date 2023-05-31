@@ -585,8 +585,9 @@
                 },
                 "replicas": {
                     "type": "integer",
-                    "title": "Number of control plane instances",
-                    "default": 3
+                    "title": "Number of control plane nodes",
+                    "default": 3,
+                    "minimum": 1
                 },
                 "rootVolumeSizeGB": {
                     "type": "integer",
