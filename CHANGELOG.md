@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - normalize `values.schema.json` with `make normalize-schema`
   - validate that `values.schema.json` is according to requirements with `make validate-schema`
 - Add full configuration values documentation.
+- Add control plane replicas value `controlPlane.replicas` to the schema. 
 
 ## [0.32.1] - 2023-04-27
 

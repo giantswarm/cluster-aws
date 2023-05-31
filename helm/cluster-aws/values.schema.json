@@ -583,6 +583,11 @@
                         }
                     }
                 },
+                "replicas": {
+                    "type": "integer",
+                    "title": "Number of control plane instances",
+                    "default": 3
+                },
                 "rootVolumeSizeGB": {
                     "type": "integer",
                     "title": "Root volume size (GB)",
