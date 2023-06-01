@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove control plane replicas value `controlPlane.replicas`. Now it's hardcoded to 3 nodes.
 - Set `r6i.xlarge` as the new default AWS instance type for the control plane and node pools.
 - Added value `.metadata.servicePriority` to the schema to set the cluster's relative priority.
+- Updated `cluster-shared` chart dependency to `0.6.5`
 
 ### Added
 
