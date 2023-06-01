@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed `connectivity.network.podCidr` and `connectivity.network.serviceCidr`. Replaced by `connectivity.network.pods.cidrBlocks` and `connectivity.network.services.cidrBlocks`.
 - Remove `app.kubernetes.io/version` from common labels. They are part of hashes, but we don't want to always roll nodes just because we are deploying a new version.
 - Remove `architect` templating from `Chart.yaml` file.
+- Remove control plane replicas value `controlPlane.replicas`. Now it's hardcoded to 3 nodes.
 - Set `r6i.xlarge` as the new default AWS instance type for the control plane and node pools.
 
 ### Added
@@ -23,7 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - normalize `values.schema.json` with `make normalize-schema`
   - validate that `values.schema.json` is according to requirements with `make validate-schema`
 - Add full configuration values documentation.
-- Add control plane replicas value `controlPlane.replicas` to the schema. 
 
 ## [0.32.1] - 2023-04-27
 

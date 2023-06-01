@@ -583,16 +583,6 @@
                         }
                     }
                 },
-                "replicas": {
-                    "type": "integer",
-                    "title": "Number of control plane nodes",
-                    "description": "The number of control plane nodes, which must be an odd number",
-                    "default": 3,
-                    "minimum": 3,
-                    "not": {
-                        "multipleOf": 2
-                    }
-                },
                 "rootVolumeSizeGB": {
                     "type": "integer",
                     "title": "Root volume size (GB)",

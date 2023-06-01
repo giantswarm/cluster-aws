@@ -56,7 +56,6 @@ controlPlane:
     unhealthyNotReadyTimeout: 10m0s
     unhealthyUnknownTimeout: 10m0s
   oidc: {}
-  replicas: 3
   rootVolumeSizeGB: 120
 internal:
   kubernetesVersion: 1.24.10
