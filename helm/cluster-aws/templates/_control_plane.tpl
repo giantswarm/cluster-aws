@@ -206,7 +206,7 @@ spec:
     {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
-  replicas: {{ .Values.controlPlane.replicas | default "3" }}
+  replicas: 3
   version: v{{ trimPrefix "v" .Values.internal.kubernetesVersion }}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
