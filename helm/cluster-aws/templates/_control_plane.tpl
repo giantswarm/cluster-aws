@@ -214,8 +214,6 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachineTemplate
 metadata:
-  annotations:
-    "helm.sh/resource-policy": keep
   labels:
     cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}
