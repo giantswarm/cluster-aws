@@ -3,6 +3,8 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineHealthCheck
 metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
   labels:
     {{- include "labels.common" . | nindent 4 }}
     app.kubernetes.io/version: {{ .Chart.Version | quote }}
