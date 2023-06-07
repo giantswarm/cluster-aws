@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - normalize `values.schema.json` with `make normalize-schema`
   - validate that `values.schema.json` is according to requirements with `make validate-schema`
 - Add full configuration values documentation.
+- Add `"helm.sh/resource-policy": keep` annotation to AWSCluster,
+  (AWS)MachineDeployments, (AWS)MachinePools and KubeadmControlPlane. The
+  deletion of these resources has to be in order and must be handled by the
+  CAPI and CAPA controllers.
 
 ## [0.32.1] - 2023-04-27
 
