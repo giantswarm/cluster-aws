@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Use CAPBK to provision bastion node with Flatcar AMI.
+
+
 ## [0.33.0] - 2023-06-07
 
 ### Changed
