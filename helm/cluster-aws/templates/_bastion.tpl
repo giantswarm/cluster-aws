@@ -105,9 +105,9 @@ spec:
           additionalConfig: |
             systemd:
               units:
-              {{- include "flatcarKubeadmService" . | nindent 14 }}
+              {{- include "flatcarKubeadmService" $ | nindent 14 }}
       preKubeadmCommands:
-      {{- include "flatcarKubeadmPreCommands" }}
+      {{- include "flatcarKubeadmPreCommands" $  | nindent 6 }}
       - systemctl restart sshd
       - sleep infinity
       files:
