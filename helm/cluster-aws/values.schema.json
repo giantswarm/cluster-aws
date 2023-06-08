@@ -735,7 +735,7 @@
                     "type": "string",
                     "title": "AWS account owning Flatcar image",
                     "description": "AWS account ID owning the Flatcar Container Linux AMI.",
-                    "default": "075585003325"
+                    "default": "706635527432"
                 },
                 "region": {
                     "type": "string",
