@@ -53,8 +53,11 @@ template:
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: KubeadmControlPlane
 metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
   labels:
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}
   namespace: {{ $.Release.Namespace }}
 spec:
@@ -62,6 +65,7 @@ spec:
     metadata:
       labels:
         {{- include "labels.common" $ | nindent 8 }}
+        app.kubernetes.io/version: {{ .Chart.Version | quote }}
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: AWSMachineTemplate
@@ -77,7 +81,7 @@ spec:
           - "api.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
           - 127.0.0.1
         extraArgs:
-          cloud-provider: aws
+          cloud-provider: external
           service-account-issuer: PLACEHOLDER_CLOUDFRONT_DOMAIN
           {{- if .Values.controlPlane.oidc.issuerUrl }}
           {{- with .Values.controlPlane.oidc }}
@@ -85,7 +89,7 @@ spec:
           oidc-client-id: {{ .clientId }}
           oidc-username-claim: {{ .usernameClaim }}
           oidc-groups-claim: {{ .groupsClaim }}
-          {{- if ne .caPem "" }}
+          {{- if .caPem }}
           oidc-ca-file: /etc/ssl/certs/oidc.pem
           {{- end }}
           {{- end }}
@@ -98,13 +102,13 @@ spec:
           api-audiences: "sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}"
           encryption-provider-config: /etc/kubernetes/encryption/config.yaml
           enable-admission-plugins: NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,DefaultStorageClass,PersistentVolumeClaimResize,Priority,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,PodSecurityPolicy
-          feature-gates: TTLAfterFinished=true
+          feature-gates: CronJobTimeZone=true
           kubelet-preferred-address-types: InternalIP
           profiling: "false"
           runtime-config: api/all=true,scheduling.k8s.io/v1alpha1=true
           service-account-lookup: "true"
           tls-cipher-suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
-          service-cluster-ip-range: {{ .Values.connectivity.network.serviceCidr }}
+          service-cluster-ip-range: {{ .Values.connectivity.network.services.cidrBlocks | first }}
         extraVolumes:
         - name: auditlog
           hostPath: /var/log/apiserver
@@ -125,25 +129,28 @@ spec:
         extraArgs:
           authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
-          cloud-provider: aws
+          cloud-provider: external
           allocate-node-cidrs: "true"
-          cluster-cidr: {{ .Values.connectivity.network.podCidr }}
+          cluster-cidr: {{ .Values.connectivity.network.pods.cidrBlocks | first }}
+          feature-gates: CronJobTimeZone=true
       scheduler:
         extraArgs:
           authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
+          feature-gates: CronJobTimeZone=true
       etcd:
         local:
           extraArgs:
             listen-metrics-urls: "http://0.0.0.0:2381"
             quota-backend-bytes: "8589934592"
       networking:
-        serviceSubnet: {{ .Values.connectivity.network.serviceCidr }}
+        serviceSubnet: {{ join "," .Values.connectivity.network.services.cidrBlocks }}
     files:
     {{- include "oidcFiles" . | nindent 4 }}
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "diskFiles" . | nindent 4 }}
     {{- include "irsaFiles" . | nindent 4 }}
+    {{- include "kubeletConfigFiles" . | nindent 4 }}
     {{- include "awsNtpFiles" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
@@ -157,9 +164,9 @@ spec:
         bindPort: 0
       nodeRegistration:
         kubeletExtraArgs:
-          cloud-provider: aws
+          cloud-provider: external
+          feature-gates: CronJobTimeZone=true
           healthz-bind-address: 0.0.0.0
-          image-pull-progress-deadline: 1m
           node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
           v: "2"
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
@@ -177,7 +184,8 @@ spec:
       discovery: {}
       nodeRegistration:
         kubeletExtraArgs:
-          cloud-provider: aws
+          cloud-provider: external
+          feature-gates: CronJobTimeZone=true
         name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
         {{- if .Values.controlPlane.customNodeTaints }}
         {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
@@ -196,10 +204,11 @@ spec:
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
+    {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
     {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
-  replicas: {{ .Values.controlPlane.replicas | default "3" }}
+  replicas: 3
   version: v{{ trimPrefix "v" .Values.internal.kubernetesVersion }}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
@@ -208,6 +217,7 @@ metadata:
   labels:
     cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
   namespace: {{ $.Release.Namespace }}
 spec: {{ include "controlplane-awsmachinetemplate-spec" $ | nindent 2 }}

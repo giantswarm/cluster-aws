@@ -7,6 +7,82 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.33.0] - 2023-06-07
+
+### Changed
+
+**Note**: this release includes values schema changes which break compatibility with previous versions.
+
+- Removed `connectivity.network.podCidr` and `connectivity.network.serviceCidr`. Replaced by `connectivity.network.pods.cidrBlocks` and `connectivity.network.services.cidrBlocks`.
+- Remove `app.kubernetes.io/version` from common labels. They are part of hashes, but we don't want to always roll nodes just because we are deploying a new version.
+- Remove `architect` templating from `Chart.yaml` file.
+- Remove control plane replicas value `controlPlane.replicas`. Now it's hardcoded to 3 nodes.
+- Set `r6i.xlarge` as the new default AWS instance type for the control plane and node pools.
+- Added value `.metadata.servicePriority` to the schema to set the cluster's relative priority.
+- Updated `cluster-shared` chart dependency to `0.6.5`
+
+### Added
+
+- Add JSON schema related makefile.
+  - generate `values.yaml` from `values.schema.json` with `make generate-values`
+  - normalize `values.schema.json` with `make normalize-schema`
+  - validate that `values.schema.json` is according to requirements with `make validate-schema`
+- Add full configuration values documentation.
+- Add `"helm.sh/resource-policy": keep` annotation to AWSCluster,
+  (AWS)MachineDeployments, (AWS)MachinePools and KubeadmControlPlane. The
+  deletion of these resources has to be in order and must be handled by the
+  CAPI and CAPA controllers.
+
+## [0.32.1] - 2023-04-27
+
+### Changed
+
+- Moved the core components feature flags to their configuration, as the `featureGates` field is for `kubeadm` feature flags.
+
+### Removed
+
+- Remove `TTLAfterFinished` because it defaults to true.
+
+## [0.32.0] - 2023-04-26
+
+### Changed
+
+- Enable `CronJobTimeZone` feature gate in the kubelet.  
+- Set kubernetes `1.24.10` as the default version.
+- Switch from the in-tree cloud-controller-manager to the external one. This requires version `v0.26.0` of `default-apps-aws`.
+
+### Removed
+
+- Remove old JSON schema workflow.
+
+## [0.31.0] - 2023-04-24
+
+### Changed
+
+- Rename `defaultMachinePools` to `internal.nodePools` to fit new schema requirements and make clear that it should not be changed by customers.
+- Default to using `giantswarm.azurecr.io` as Docker Hub mirror.
+
+### Fixed
+
+- Remove duplicate label `cluster.x-k8s.io/cluster-name` in bastion MachineDeployment.
+
+### Removed
+
+- Remove `image-pull-progress-deadline` kubelet flag, as it's Docker only, and it's removed in k8s v1.24+.
+
+## [0.30.0] - 2023-04-06
+
+## Added
+
+- Configure kubelet `ShutdownGracePeriod` to 5m and `ShutdownGracePeriodCriticalPods` to 1m. These options let `kubelet` prevent a node from shutting down until it has evicted all the pods from the node. The critical pods will be removed in the last 1m of the total 5m grace period and include pods with their priorityClassName set to system-cluster-critical or system-node-critical.
+- Set default Node systemd logind `InhibitDelayMaxSec` to 5m.
+
+## [0.29.1] - 2023-04-03
+
+### Fixed
+
+- Fix rendering `oidc.pem` by mistake when not specified
+
 ## [0.29.0] - 2023-03-27
 
 ### Fixed
@@ -634,7 +710,13 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.29.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.33.0...HEAD
+[0.33.0]: https://github.com/giantswarm/cluster-aws/compare/v0.32.1...v0.33.0
+[0.32.1]: https://github.com/giantswarm/cluster-aws/compare/v0.32.0...v0.32.1
+[0.32.0]: https://github.com/giantswarm/cluster-aws/compare/v0.31.0...v0.32.0
+[0.31.0]: https://github.com/giantswarm/cluster-aws/compare/v0.30.0...v0.31.0
+[0.30.0]: https://github.com/giantswarm/cluster-aws/compare/v0.29.1...v0.30.0
+[0.29.1]: https://github.com/giantswarm/cluster-aws/compare/v0.29.0...v0.29.1
 [0.29.0]: https://github.com/giantswarm/cluster-aws/compare/v0.28.0...v0.29.0
 [0.28.0]: https://github.com/giantswarm/cluster-aws/compare/v0.27.0...v0.28.0
 [0.27.0]: https://github.com/giantswarm/cluster-aws/compare/v0.26.0...v0.27.0

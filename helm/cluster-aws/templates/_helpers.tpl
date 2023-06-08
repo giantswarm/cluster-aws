@@ -20,7 +20,6 @@ Common labels
 {{- define "labels.common" -}}
 {{- include "labels.selector" $ }}
 helm.sh/chart: {{ include "chart" . | quote }}
-app.kubernetes.io/version: {{ .Chart.Version | quote }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- end -}}
 
@@ -47,7 +46,7 @@ room for such suffix.
 {{- end -}}
 
 {{- define "oidcFiles" -}}
-{{- if ne .Values.controlPlane.oidc.caPem "" }}
+{{- if .Values.controlPlane.oidc.caPem }}
 - path: /etc/ssl/certs/oidc.pem
   permissions: "0600"
   encoding: base64
@@ -101,10 +100,10 @@ room for such suffix.
 {{- define "proxyCommand" -}}
 - export HTTP_PROXY={{ $.Values.connectivity.proxy.httpProxy }}
 - export HTTPS_PROXY={{ $.Values.connectivity.proxy.httpsProxy }}
-- export NO_PROXY=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ $.Values.connectivity.network.serviceCidr }},{{ $.Values.connectivity.network.podCidr }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
+- export NO_PROXY=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
 - export http_proxy={{ $.Values.connectivity.proxy.httpProxy }}
 - export https_proxy={{ $.Values.connectivity.proxy.httpsProxy }}
-- export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ $.Values.connectivity.network.serviceCidr }},{{ $.Values.connectivity.network.podCidr }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
+- export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
 - systemctl daemon-reload
 - systemctl restart containerd
 - systemctl restart kubelet
@@ -123,6 +122,16 @@ room for such suffix.
   permissions: "0700"
   encoding: base64
   content: {{ $.Files.Get "files/opt/irsa-cloudfront.sh" | b64enc }}
+{{- end -}}
+{{- define "kubeletConfigFiles" -}}
+- path: /opt/kubelet-config.sh
+  permissions: "0700"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/kubelet-config.sh" | b64enc }}
+- path: /lib/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf
+  permissions: "0700"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/zzz-kubelet-graceful-shutdown.conf" | b64enc }}
 {{- end -}}
 
 {{- define "kubernetesFiles" -}}
@@ -161,6 +170,10 @@ room for such suffix.
 
 {{- define "irsaPostKubeadmCommands" -}}
 - /bin/sh /opt/irsa-cloudfront.sh /etc/kubernetes/manifests/kube-apiserver.yaml
+{{- end -}}
+
+{{- define "kubeletConfigPostKubeadmCommands" -}}
+- /bin/sh /opt/kubelet-config.sh
 {{- end -}}
 
 {{- define "awsNtpPostKubeadmCommands" -}}

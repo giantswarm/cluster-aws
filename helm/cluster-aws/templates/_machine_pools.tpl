@@ -1,13 +1,15 @@
 {{- define "machine-pools" }}
-{{- range $name, $value := .Values.nodePools | default .Values.defaultMachinePools }}
+{{- range $name, $value := .Values.nodePools | default .Values.internal.nodePools }}
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
   annotations:
+    "helm.sh/resource-policy": keep
     machine-pool.giantswarm.io/name: {{ include "resource.default.name" $ }}-{{ $name }}
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ $.Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
@@ -30,9 +32,12 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachinePool
 metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ $.Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
@@ -56,7 +61,7 @@ spec:
   awsLaunchTemplate:
     {{- include "ami" $ | nindent 4 }}
     iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
-    instanceType: {{ $value.instanceType | default "m5.xlarge" }}
+    instanceType: {{ $value.instanceType | default "r6i.xlarge" }}
     rootVolume:
       size: {{ $value.rootVolumeSizeGB | default 300 }}
       type: gp3
@@ -76,6 +81,7 @@ metadata:
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ $.Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
@@ -83,9 +89,9 @@ spec:
     discovery: {}
     nodeRegistration:
       kubeletExtraArgs:
-        cloud-provider: aws
+        cloud-provider: external
+        feature-gates: CronJobTimeZone=true
         healthz-bind-address: 0.0.0.0
-        image-pull-progress-deadline: 1m
         node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
         node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ $name }},{{- join "," $value.customNodeLabels }}
         v: "2"
@@ -105,11 +111,13 @@ spec:
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
   postKubeadmCommands:
+    {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
     {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   files:
   {{- include "sshFiles" $ | nindent 2 }}
+  {{- include "kubeletConfigFiles" $ | nindent 2 }}
   {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
   {{- include "registryFiles" $ | nindent 2 }}
   {{- include "awsNtpFiles" $ | nindent 2 }}

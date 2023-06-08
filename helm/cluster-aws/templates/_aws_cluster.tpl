@@ -6,6 +6,7 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSCluster
 metadata:
   annotations:
+    "helm.sh/resource-policy": keep
     aws.giantswarm.io/vpc-mode: "{{ .Values.connectivity.vpcMode }}"
     aws.giantswarm.io/dns-mode: {{ if (eq .Values.connectivity.dns.mode "private") }}"private"{{ else }}"public"{{ end }}
     {{- if (eq .Values.connectivity.dns.mode "private") }}
@@ -23,6 +24,7 @@ metadata:
     aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.connectivity.vpcEndpointMode }}"
   labels:
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}
   namespace: {{ .Release.Namespace }}
 spec:
