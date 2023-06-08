@@ -105,7 +105,7 @@ spec:
           additionalConfig: |
             systemd:
               units:
-              {{ - include "flatcarKubeadmService" . | nindent 14 }}
+              {{- include "flatcarKubeadmService" . | nindent 14 }}
       preKubeadmCommands:
       {{- include "flatcarKubeadmPreCommands" }}
       - systemctl restart sshd
