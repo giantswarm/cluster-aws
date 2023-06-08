@@ -173,10 +173,6 @@ room for such suffix.
   sudo: ALL=(ALL) NOPASSWD:ALL
 {{- end -}}
 
-{{- define "bastionIgnition" }}
-{{- tpl ($.Files.Get "files/bastion.iqn") . | b64enc}}
-{{- end -}}
-
 {{- define "ami" }}
 {{- with .Values.providerSpecific.ami }}
 ami:
