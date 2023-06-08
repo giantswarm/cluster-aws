@@ -197,6 +197,27 @@ imageLookupOrg: "706635527432"
 - /bin/test ! -d /var/lib/kubelet && (/bin/mkdir -p /var/lib/kubelet && /bin/chmod 0750 /var/lib/kubelet)
 {{- end -}}
 
+{{- define "flatcarKubeadmService" -}}
+- name: kubeadm.service
+  dropins:
+  - name: 10-flatcar.conf
+    contents: |
+      [Unit]
+      # kubeadm must run after coreos-metadata populated /run/metadata directory.
+      Requires=coreos-metadata.service
+      After=coreos-metadata.service
+      [Service]
+      # Ensure kubeadm service has access to kubeadm binary in /opt/bin on Flatcar.
+      Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin
+      # To make metadata environment variables available for pre-kubeadm commands.
+      EnvironmentFile=/run/metadata/*
+{{- end -}}
+
+{{- define "flatcarKubeadmPreCommands" -}}
+- envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
+- mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
+{{- end -}}
+
 {{/*
 Hash function based on data provided
 Expects two arguments (as a `dict`) E.g.

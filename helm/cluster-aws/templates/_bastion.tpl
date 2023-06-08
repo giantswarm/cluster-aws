@@ -13,7 +13,7 @@ template:
     instanceType: {{ .Values.connectivity.bastion.instanceType }}
     cloudInit: {}
     imageLookupBaseOS: flatcar-stable
-    imageLookupFormat: Flatcar-stable-*
+    imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-gs" }}
     imageLookupOrg: "{{ .Values.providerSpecific.flatcarAwsAccount }}"
     iamInstanceProfile: {{ include "resource.default.name" $ }}-bastion
     publicIP: {{ if eq .Values.connectivity.vpcMode "private" }}false{{else}}true{{end}}
@@ -105,22 +105,9 @@ spec:
           additionalConfig: |
             systemd:
               units:
-              - name: kubeadm.service
-                dropins:
-                - name: 10-flatcar.conf
-                  contents: |
-                    [Unit]
-                    # kubeadm must run after coreos-metadata populated /run/metadata directory.
-                    Requires=coreos-metadata.service
-                    After=coreos-metadata.service
-                    [Service]
-                    # Ensure kubeadm service has access to kubeadm binary in /opt/bin on Flatcar.
-                    Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin
-                    # To make metadata environment variables available for pre-kubeadm commands.
-                    EnvironmentFile=/run/metadata/*
+              {{ - include "flatcarKubeadmService" . | nindent 14 }}
       preKubeadmCommands:
-      - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
-      - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
+      {{- include "flatcarKubeadmPreCommands" }}
       - systemctl restart sshd
       - sleep infinity
       files:
