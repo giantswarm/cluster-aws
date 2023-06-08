@@ -76,11 +76,6 @@ room for such suffix.
   content: {{ $.Files.Get "files/etc/ssh/sshd_config_bastion" | b64enc }}
 {{- end -}}
 
-{{- define "ignitionDecodeBase64SSH" -}}
-- 'files="/etc/ssh/trusted-user-ca-keys.pem /etc/ssh/sshd_config"; for f in $files; do tmpFile=$(mktemp); cat "${f}" | base64 -d > ${tmpFile}; if [ "$?" -eq 0 ]; then mv ${tmpFile} ${f};fi;  done;'
-- systemctl restart sshd
-{{- end -}}
-
 {{- define "diskFiles" -}}
 - path: /opt/init-disks.sh
   permissions: "0700"
