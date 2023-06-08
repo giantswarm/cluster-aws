@@ -2,11 +2,15 @@
 
 `cluster-aws` is an app that helps create a CRs for a Cluster API AWS cluster for Giant Swarm platform.
 
+## Configuration
+
+See our [full list of configuration options](helm/cluster-aws/README.md).
+
 ## Custom Subnet Layouts
 
 As of v0.21.0 it possible to specify more complex subnet layouts that allow using different sets of subnets for different grouping of machines.
 
-Subnet groupings can be defined by setting `.network.subnets`. For example, to have different subnets for control plane, worker and bastion nodes you might have something similar to the following:
+Subnet groupings can be defined by setting `.connectivity.subnets`. For example, to have different subnets for control plane, worker and bastion nodes you might have something similar to the following:
 
 ```yaml
 connectivity:
@@ -140,58 +144,42 @@ If the `subnet.giantswarm.io/tgw-attachments: "true"` tag isn't found on any sub
 > **Warning**
 > Currently not possible, see [giantswarm/roadmap#1866](https://github.com/giantswarm/roadmap/issues/1866)
 
-## Upgrade Migrations
+## Maintaining `values.schema.json` and `values.yaml`
 
-### Upgrading to `v0.21.0`
-
-If your cluster previously has `network.vpcMode` set to private you will need to make a small change to your values when upgrading to this version.
-
-If using the default list of subnets you will need to set the following in your values:
-
-```yaml
-network:
-  subnets:
-  - cidrBlocks:
-    - cidr: 10.0.0.0/18
-      availabilityZone: a
-    - cidr: 10.0.64.0/18
-      availabilityZone: b
-    - cidr: 10.0.128.0/18
-      availabilityZone: c
-    isPublic: false
+**tldr**:  
+We only maintain `values.schema.json` and automatically generate `values.yaml` from it.
+```
+make normalize-schema
+make validate-schema
+make generate-values
 ```
 
-If you've specified your own CIDR blocks previous you'll need to convert those strings to the block structure like above. Be aware to make sure the correct availability zone is specified for each CIDR block.
+**Details**:
 
-### Upgrading to `v0.24.0`
+In order to provide a better UX we validate user values against `values.schema.json`.
+In addition we also use the JSON schema in our frontend to dynamically generate a UI for cluster creation from it.
+To succesfully do this, we have some requirements on the `values.schema.json`, which are defined in [this RFC](https://github.com/giantswarm/rfc/pull/55).
+These requirements can be checked with [schemalint](https://github.com/giantswarm/schemalint).
+`schemalint` does a couple of things:
 
-You will need to change the definition of your machine pools from using a list to an object.
-For example, instead of the following:
+- Normalize JSON schema (indentation, white space, sorting)  
+- Validate whether your schema is valid JSON schema
+- Validate whether the requirements for cluster app schemas are met
+- Check whether schema is normalized
 
-```yaml
-machinePools:
-- name: def00  # Name of node pool.
-  availabilityZones: []
-  instanceType: m5.xlarge
-  minSize: 3  # Number of replicas in node pool.
-  maxSize: 3
-  rootVolumeSizeGB: 300
-  customNodeLabels:
-  - label=default
-  customNodeTaints: []
+The first point can be achieved with:
+```
+make normalize-schema
+```
+The second to fourth point can be achieved with:
+```
+make validate-schema
 ```
 
-You should have:
+The JSON schema in `values.schema.json` should contain defaults defined with the `default` keyword.
+These defaults should be same as those defined in `values.yaml`. 
+This allows us to generate `values.yaml` from `values.schema.json` with:
 
-```yaml
-machinePools:
-  def00:  # Name of node pool.
-    availabilityZones: []
-    instanceType: m5.xlarge
-    minSize: 3  # Number of replicas in node pool.
-    maxSize: 3
-    rootVolumeSizeGB: 300
-    customNodeLabels:
-    - label=default
-    customNodeTaints: []
+```
+make generate-values
 ```

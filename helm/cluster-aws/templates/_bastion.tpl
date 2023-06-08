@@ -38,9 +38,12 @@ template:
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
   labels:
     cluster.x-k8s.io/role: bastion
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-bastion
   namespace: {{ .Release.Namespace }}
 spec:
@@ -59,7 +62,6 @@ spec:
     metadata:
       labels:
         cluster.x-k8s.io/role: bastion
-        cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" $ }}
         cluster.x-k8s.io/deployment-name: {{ include "resource.default.name" $ }}-bastion
         {{- include "labels.common" $ | nindent 8 }}
     spec:
@@ -81,6 +83,7 @@ metadata:
   labels:
     cluster.x-k8s.io/role: bastion
     {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
   namespace: {{ .Release.Namespace }}
 spec: {{ include "bastion-awsmachinetemplate-spec" $ | nindent 2 }}
