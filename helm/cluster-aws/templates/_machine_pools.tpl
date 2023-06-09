@@ -85,6 +85,13 @@ metadata:
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
+  format: ignition
+  ignition:
+    containerLinuxConfig:
+      additionalConfig: |
+        systemd:
+          units:
+          {{- include "flatcarKubeadmService" $ | nindent 12 }}
   joinConfiguration:
     discovery: {}
     nodeRegistration:

@@ -71,6 +71,13 @@ spec:
       kind: AWSMachineTemplate
       name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
   kubeadmConfigSpec:
+    format: ignition
+    ignition:
+      containerLinuxConfig:
+        additionalConfig: |
+          systemd:
+            units:
+            {{- include "flatcarKubeadmService" $ | nindent 14 }}
     clusterConfiguration:
       # Avoid accessibility issues (e.g. on private clusters) and potential future rate limits for the default `registry.k8s.io`
       imageRepository: docker.io/giantswarm

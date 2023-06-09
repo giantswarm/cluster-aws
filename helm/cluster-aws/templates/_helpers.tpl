@@ -187,7 +187,7 @@ ami:
   id: {{ . | quote }}
 {{- else -}}
 ami: {}
-imageLookupBaseOS: "ubuntu-20.04"
+imageLookupBaseOS: "flatcar-stable"
 imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-gs" }}
 imageLookupOrg: "706635527432"
 {{- end }}
