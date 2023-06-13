@@ -29,7 +29,7 @@ spec:
         name: {{ include "resource.default.name" $ }}-{{ $name }}
       version: {{ $.Values.internal.kubernetesVersion }}
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachinePool
 metadata:
   annotations:
