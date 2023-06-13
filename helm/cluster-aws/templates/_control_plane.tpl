@@ -211,7 +211,7 @@ spec:
   replicas: 3
   version: v{{ trimPrefix "v" .Values.internal.kubernetesVersion }}
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachineTemplate
 metadata:
   labels:
