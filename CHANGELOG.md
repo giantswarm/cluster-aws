@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update CAPA CRs API version from `v1beta1` to `v1beta2`.
+
 ## [0.33.0] - 2023-06-07
 
 ### Changed
