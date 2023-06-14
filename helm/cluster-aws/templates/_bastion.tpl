@@ -87,7 +87,7 @@ spec:
         configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: KubeadmConfigTemplate
-          name: { include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-kubeadmconfigtemplate-spec" $ ) "global" $) }}
+          name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-kubeadmconfigtemplate-spec" $ ) "global" $) }}
       clusterName: {{ include "resource.default.name" $ }}
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
