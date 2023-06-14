@@ -76,12 +76,6 @@ room for such suffix.
   content: {{ $.Files.Get "files/etc/ssh/sshd_config_bastion" | b64enc }}
 {{- end -}}
 
-{{- define "diskFiles" -}}
-- path: /opt/init-disks.sh
-  permissions: "0700"
-  encoding: base64
-  content: {{ $.Files.Get "files/opt/init-disks.sh" | b64enc }}
-{{- end -}}
 {{- define "proxyFiles" -}}
 - path: /etc/systemd/system/containerd.service.d/http-proxy.conf
   permissions: "0644"
