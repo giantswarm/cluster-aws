@@ -34,6 +34,24 @@ template:
         {{- end }}
 {{- end }}
 
+{{- define "bastion-kubeadmconfigtemplate-spec" -}}
+format: ignition
+ignition:
+  containerLinuxConfig:
+    additionalConfig: |
+      systemd:
+        units:
+        {{- include "flatcarKubeadmService" $ | nindent 8 }}
+preKubeadmCommands:
+{{ include "flatcarKubeadmPreCommands" $  }}
+- systemctl restart sshd
+- sleep infinity
+files:
+{{ include "sshFilesBastion" $ }}
+users:
+{{ include "sshUsers" . }}
+{{- end }}
+
 {{- define "bastion" }}
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
@@ -94,24 +112,9 @@ metadata:
   labels:
     cluster.x-k8s.io/role: bastion
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ include "resource.default.name" $ }}-bastion
+  name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-kubeadmconfigtemplate-spec" $ ) "global" $) }}
   namespace: {{ $.Release.Namespace }}
 spec:
   template:
-    spec:
-      format: ignition
-      ignition:
-        containerLinuxConfig:
-          additionalConfig: |
-            systemd:
-              units:
-              {{- include "flatcarKubeadmService" $ | nindent 14 }}
-      preKubeadmCommands:
-      {{- include "flatcarKubeadmPreCommands" $  | nindent 6 }}
-      - systemctl restart sshd
-      - sleep infinity
-      files:
-      {{- include "sshFilesBastion" $ | nindent 6 }}
-      users:
-      {{- include "sshUsers" . | nindent 6 }}
+    spec: {{ include "bastion-kubeadmconfigtemplate-spec" $ | nindent 6 }}
 {{- end -}}
