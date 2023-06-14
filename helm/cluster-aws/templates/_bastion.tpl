@@ -43,13 +43,13 @@ ignition:
         units:
         {{- include "flatcarKubeadmService" $ | nindent 8 }}
 preKubeadmCommands:
-{{- include "flatcarKubeadmPreCommands" $  }}
+{{ include "flatcarKubeadmPreCommands" $  }}
 - systemctl restart sshd
 - sleep infinity
 files:
-{{- include "sshFilesBastion" $ }}
+{{ include "sshFilesBastion" $ }}
 users:
-{{- include "sshUsers" . }}
+{{ include "sshUsers" . }}
 {{- end }}
 
 {{- define "bastion" }}
