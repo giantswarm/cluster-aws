@@ -41,15 +41,15 @@ ignition:
     additionalConfig: |
       systemd:
         units:
-        {{- include "flatcarKubeadmService" $ | nindent 14 }}
+        {{- include "flatcarKubeadmService" $ | nindent 8 }}
 preKubeadmCommands:
-{{- include "flatcarKubeadmPreCommands" $  | nindent 6 }}
+{{- include "flatcarKubeadmPreCommands" $  }}
 - systemctl restart sshd
 - sleep infinity
 files:
-{{- include "sshFilesBastion" $ | nindent 6 }}
+{{- include "sshFilesBastion" $ }}
 users:
-{{- include "sshUsers" . | nindent 6 }}
+{{- include "sshUsers" . }}
 {{- end }}
 
 {{- define "bastion" }}
