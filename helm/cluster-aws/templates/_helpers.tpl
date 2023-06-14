@@ -123,7 +123,7 @@ room for such suffix.
   permissions: "0700"
   encoding: base64
   content: {{ $.Files.Get "files/opt/kubelet-config.sh" | b64enc }}
-- path: /lib/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf
+- path: /etc/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf
   permissions: "0700"
   encoding: base64
   content: {{ $.Files.Get "files/opt/zzz-kubelet-graceful-shutdown.conf" | b64enc }}
