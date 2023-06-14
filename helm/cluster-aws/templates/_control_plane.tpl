@@ -211,7 +211,6 @@ spec:
     postKubeadmCommands:
     {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
-    {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: 3

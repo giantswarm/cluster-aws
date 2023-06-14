@@ -149,10 +149,10 @@ room for such suffix.
 {{- end -}}
 
 {{- define "awsNtpFiles" -}}
-- path: /opt/set-aws-ntp.sh
-  permissions: "0700"
+- path: /etc/systemd/timesyncd.conf
+  permissions: "0644"
   encoding: base64
-  content: {{ $.Files.Get "files/opt/set-aws-ntp.sh" | b64enc }}
+  content: {{ $.Files.Get "files/etc/systemd/timesyncd.conf" | b64enc }}
 {{- end -}}
 
 {{- define "sshPreKubeadmCommands" -}}
@@ -169,10 +169,6 @@ room for such suffix.
 
 {{- define "kubeletConfigPostKubeadmCommands" -}}
 - /bin/sh /opt/kubelet-config.sh
-{{- end -}}
-
-{{- define "awsNtpPostKubeadmCommands" -}}
-- /bin/sh /opt/set-aws-ntp.sh
 {{- end -}}
 
 {{- define "sshUsers" -}}

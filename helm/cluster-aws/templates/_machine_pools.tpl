@@ -120,7 +120,6 @@ spec:
     {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
   postKubeadmCommands:
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
-    {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   files:
