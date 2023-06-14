@@ -204,6 +204,7 @@ spec:
         {{- end }}
         {{- end }}
     preKubeadmCommands:
+    {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
     {{- include "prepare-varLibKubelet-Dir" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
