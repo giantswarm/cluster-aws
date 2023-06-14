@@ -91,7 +91,7 @@ spec:
       additionalConfig: |
         systemd:
           units:
-          {{- include "flatcarKubeadmService" $ | nindent 12 }}
+          {{- include "flatcarSystemdUnits" $ | nindent 12 }}
   joinConfiguration:
     discovery: {}
     nodeRegistration:

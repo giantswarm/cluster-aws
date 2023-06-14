@@ -149,6 +149,66 @@ room for such suffix.
   content: {{ $.Files.Get "files/etc/systemd/timesyncd.conf" | b64enc }}
 {{- end -}}
 
+{{- define "diskStorageConfig" -}}
+- name: etcd
+  mount:
+    device: /dev/xvdc
+    wipeFilesystem: true
+    label: etcd
+    format: xfs
+- name: containerd
+  mount:
+    device: /dev/xvdd
+    wipeFilesystem: true
+    label: containerd
+    format: xfs
+- name: kubelet
+  mount:
+    device: /dev/xvde
+    wipeFilesystem: true
+    label: kubelet
+    format: xfs
+{{- end -}}
+
+{{- define "diskStorageSystemdUnits" -}}
+- name: var-lib-etcd.mount
+  enabled: true
+  contents: |
+    [Unit] 
+    Description=etcd volume
+    DefaultDependencies=no
+    [Mount]
+    What=/dev/disk/by-label/etcd
+    Where=/var/lib/etcd
+    Type=xfs
+    [Install]
+    WantedBy=local-fs-pre.target
+- name: var-lib-kubelet.mount
+  enabled: true
+  contents: |
+    [Unit]
+    Description=kubelet volume
+    DefaultDependencies=no
+    [Mount]
+    What=/dev/disk/by-label/kubelet
+    Where=/var/lib/kubelet
+    Type=xfs
+    [Install]
+    WantedBy=local-fs-pre.target
+- name: var-lib-containerd.mount
+  enabled: true
+  contents: |
+    [Unit]
+    Description=containerd volume
+    DefaultDependencies=no
+    [Mount]
+    What=/dev/disk/by-label/containerd
+    Where=/var/lib/containerd
+    Type=xfs
+    [Install]
+    WantedBy=local-fs-pre.target
+{{- end -}}
+
 {{- define "sshPreKubeadmCommands" -}}
 - systemctl restart sshd
 {{- end -}}
@@ -187,7 +247,7 @@ imageLookupOrg: "706635527432"
 - /bin/test ! -d /var/lib/kubelet && (/bin/mkdir -p /var/lib/kubelet && /bin/chmod 0750 /var/lib/kubelet)
 {{- end -}}
 
-{{- define "flatcarKubeadmService" -}}
+{{- define "flatcarSystemdUnits" -}}
 - name: kubeadm.service
   dropins:
   - name: 10-flatcar.conf
@@ -201,6 +261,22 @@ imageLookupOrg: "706635527432"
       Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin
       # To make metadata environment variables available for pre-kubeadm commands.
       EnvironmentFile=/run/metadata/*
+- name: containerd.service
+  enabled: true
+  contents: |
+  dropins:
+    - name: 10-change-cgroup.conf
+      contents: |
+        [Service]
+        CPUAccounting=true
+        MemoryAccounting=true
+        Slice=kubereserved.slice
+- name: update-engine.service
+  enabled: false
+  mask: true
+- name: locksmithd.service
+  enabled: false
+  mask: true
 {{- end -}}
 
 {{- define "flatcarKubeadmPreCommands" -}}
