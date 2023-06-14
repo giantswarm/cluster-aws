@@ -65,6 +65,17 @@ room for such suffix.
   content: {{ $.Files.Get "files/etc/ssh/sshd_config" | b64enc }}
 {{- end -}}
 
+{{- define "sshFilesBastion" -}}
+- path: /etc/ssh/trusted-user-ca-keys.pem
+  permissions: "0600"
+  encoding: base64
+  content: {{ tpl ($.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . | b64enc }}
+- path: /etc/ssh/sshd_config
+  permissions: "0600"
+  encoding: base64
+  content: {{ $.Files.Get "files/etc/ssh/sshd_config_bastion" | b64enc }}
+{{- end -}}
+
 {{- define "diskFiles" -}}
 - path: /opt/init-disks.sh
   permissions: "0700"
@@ -170,10 +181,6 @@ room for such suffix.
   sudo: ALL=(ALL) NOPASSWD:ALL
 {{- end -}}
 
-{{- define "bastionIgnition" }}
-{{- tpl ($.Files.Get "files/bastion.iqn") . | b64enc}}
-{{- end -}}
-
 {{- define "ami" }}
 {{- with .Values.providerSpecific.ami }}
 ami:
@@ -188,6 +195,27 @@ imageLookupOrg: "706635527432"
 
 {{- define "prepare-varLibKubelet-Dir" -}}
 - /bin/test ! -d /var/lib/kubelet && (/bin/mkdir -p /var/lib/kubelet && /bin/chmod 0750 /var/lib/kubelet)
+{{- end -}}
+
+{{- define "flatcarKubeadmService" -}}
+- name: kubeadm.service
+  dropins:
+  - name: 10-flatcar.conf
+    contents: |
+      [Unit]
+      # kubeadm must run after coreos-metadata populated /run/metadata directory.
+      Requires=coreos-metadata.service
+      After=coreos-metadata.service
+      [Service]
+      # Ensure kubeadm service has access to kubeadm binary in /opt/bin on Flatcar.
+      Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin
+      # To make metadata environment variables available for pre-kubeadm commands.
+      EnvironmentFile=/run/metadata/*
+{{- end -}}
+
+{{- define "flatcarKubeadmPreCommands" -}}
+- envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
+- mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
 {{- end -}}
 
 {{/*
