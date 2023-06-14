@@ -99,10 +99,10 @@ spec:
         cloud-provider: external
         feature-gates: CronJobTimeZone=true
         healthz-bind-address: 0.0.0.0
-        node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
+        node-ip: ${COREOS_EC2_IPV4_LOCAL}
         node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ $name }},{{- join "," $value.customNodeLabels }}
         v: "2"
-      name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+      name: ${COREOS_EC2_HOSTNAME}
       {{- if $value.customNodeTaints }}
       {{- if (gt (len $value.customNodeTaints) 0) }}
       taints:
