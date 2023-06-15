@@ -93,9 +93,6 @@ room for such suffix.
 - export http_proxy={{ $.Values.connectivity.proxy.httpProxy }}
 - export https_proxy={{ $.Values.connectivity.proxy.httpsProxy }}
 - export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
-- systemctl daemon-reload
-- systemctl restart containerd
-- systemctl restart kubelet
 {{- end -}}
 
 {{- define "registryFiles" -}}
@@ -120,7 +117,7 @@ room for such suffix.
 - path: /etc/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf
   permissions: "0700"
   encoding: base64
-  content: {{ $.Files.Get "files/opt/zzz-kubelet-graceful-shutdown.conf" | b64enc }}
+  content: {{ $.Files.Get "files/etc/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf" | b64enc }}
 {{- end -}}
 
 {{- define "kubernetesFiles" -}}
@@ -142,11 +139,15 @@ room for such suffix.
       key: domain
 {{- end -}}
 
-{{- define "awsNtpFiles" -}}
+{{- define "nodeConfigFiles" -}}
 - path: /etc/systemd/timesyncd.conf
   permissions: "0644"
   encoding: base64
   content: {{ $.Files.Get "files/etc/systemd/timesyncd.conf" | b64enc }}
+- path: /etc/sysctl.d/hardening.conf
+  permissions: "0644"
+  encoding: base64
+  content: {{ $.Files.Get "files/etc/sysctl.d/hardening.conf" | b64enc }}
 {{- end -}}
 
 {{- define "diskStorageConfig" -}}
@@ -243,8 +244,9 @@ imageLookupOrg: "706635527432"
 {{- end }}
 {{- end -}}
 
-{{- define "prepare-varLibKubelet-Dir" -}}
-- /bin/test ! -d /var/lib/kubelet && (/bin/mkdir -p /var/lib/kubelet && /bin/chmod 0750 /var/lib/kubelet)
+{{- define "nodeDirectories" -}}
+- path: /var/lib/kubelet
+  mode: 0750
 {{- end -}}
 
 {{- define "flatcarSystemdUnits" -}}

@@ -92,6 +92,9 @@ spec:
         systemd:
           units:
           {{- include "flatcarSystemdUnits" $ | nindent 12 }}
+        storage:
+          directories:
+          {{- include "nodeDirectories" $ | nindent 12 }}
   joinConfiguration:
     discovery: {}
     nodeRegistration:
@@ -115,7 +118,6 @@ spec:
       {{- end }}
   preKubeadmCommands:
     {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
-    {{- include "prepare-varLibKubelet-Dir" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
   postKubeadmCommands:
@@ -127,7 +129,7 @@ spec:
   {{- include "kubeletConfigFiles" $ | nindent 2 }}
   {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
   {{- include "registryFiles" $ | nindent 2 }}
-  {{- include "awsNtpFiles" $ | nindent 2 }}
+  {{- include "nodeConfigFiles" $ | nindent 2 }}
 ---
 {{ end }}
 {{- end -}}

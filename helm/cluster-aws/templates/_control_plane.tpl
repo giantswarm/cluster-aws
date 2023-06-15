@@ -82,6 +82,8 @@ spec:
           storage:
             filesystems:
             {{- include "diskStorageConfig" $ | nindent 14 }}
+            directories:
+            {{- include "nodeDirectories" $ | nindent 14 }}
     clusterConfiguration:
       # Avoid accessibility issues (e.g. on private clusters) and potential future rate limits for the default `registry.k8s.io`
       imageRepository: docker.io/giantswarm
@@ -161,7 +163,7 @@ spec:
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "irsaFiles" . | nindent 4 }}
     {{- include "kubeletConfigFiles" . | nindent 4 }}
-    {{- include "awsNtpFiles" . | nindent 4 }}
+    {{- include "nodeConfigFiles" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "registryFiles" . | nindent 4 }}
@@ -209,7 +211,6 @@ spec:
         {{- end }}
     preKubeadmCommands:
     {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
-    {{- include "prepare-varLibKubelet-Dir" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
