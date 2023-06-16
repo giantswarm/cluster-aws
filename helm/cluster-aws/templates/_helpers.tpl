@@ -246,6 +246,16 @@ imageLookupOrg: "706635527432"
 {{- end -}}
 
 {{- define "flatcarSystemdUnits" -}}
+- name: kubereserved.slice
+  path: /etc/systemd/system/kubereserved.slice
+  content: |
+    [Unit]
+    Description=Limited resources slice for Kubernetes services
+    Documentation=man:systemd.special(7)
+    DefaultDependencies=no
+    Before=slices.target
+    Requires=-.slice
+    After=-.slice
 - name: kubeadm.service
   dropins:
   - name: 10-flatcar.conf
@@ -269,6 +279,18 @@ imageLookupOrg: "706635527432"
         CPUAccounting=true
         MemoryAccounting=true
         Slice=kubereserved.slice
+- name: os-hardening.service
+  enabled: true
+  contents: |
+    [Unit]
+    Description=Apply os hardening
+    [Service]
+    Type=oneshot
+    ExecStartPre=-/bin/bash -c "gpasswd -d core rkt; gpasswd -d core docker; gpasswd -d core wheel"
+    ExecStartPre=/bin/bash -c "until [ -f '/etc/sysctl.d/hardening.conf' ]; do echo Waiting for sysctl file; sleep 1s;done;"
+    ExecStart=/usr/sbin/sysctl -p /etc/sysctl.d/hardening.conf
+    [Install]
+    WantedBy=multi-user.target
 - name: update-engine.service
   enabled: false
   mask: true
