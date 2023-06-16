@@ -214,10 +214,6 @@ room for such suffix.
 - systemctl restart sshd
 {{- end -}}
 
-{{- define "diskPreKubeadmCommands" -}}
-- /bin/sh /opt/init-disks.sh
-{{- end -}}
-
 {{- define "irsaPostKubeadmCommands" -}}
 - /bin/sh /opt/irsa-cloudfront.sh /etc/kubernetes/manifests/kube-apiserver.yaml
 {{- end -}}

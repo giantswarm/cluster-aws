@@ -65,6 +65,10 @@ internal:
         - label=default
       instanceType: r6i.xlarge
       minSize: 3
+  sandboxContainerImage:
+    name: giantswarm/pause
+    registry: quay.io
+    tag: "3.9"
 kubectlImage:
   name: giantswarm/kubectl
   registry: quay.io

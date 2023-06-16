@@ -637,7 +637,28 @@
                             "minSize": 3
                         }
                     }
-                }
+                },
+		"sandboxContainerImage": {
+                    "type": "object",
+                    "title": "Kubectl image",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "title": "Repository",
+                            "default": "giantswarm/pause"
+                        },
+                        "registry": {
+                            "type": "string",
+                            "title": "Registry",
+                            "default": "quay.io"
+                        },
+                        "tag": {
+                            "type": "string",
+                            "title": "Tag",
+                            "default": "3.9"
+                        }
+                    }
+		}
             }
         },
         "kubectlImage": {

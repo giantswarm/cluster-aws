@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Use CAPBK to provision bastion node with Flatcar AMI.
+- Use CAPBK to provision control plane nodes with Flatcar AMI.
+- Use CAPBK to provision worker nodes with Flatcar AMI.
+- Apply default OS setting for flatcar and os hardening.
 - Update CAPA CRs API version from `v1beta1` to `v1beta2`.
 
 ## [0.33.0] - 2023-06-07

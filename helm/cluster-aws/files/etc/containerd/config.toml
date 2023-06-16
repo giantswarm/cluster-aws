@@ -20,7 +20,7 @@ runtime_type = "io.containerd.runc.v2"
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
 SystemdCgroup = true
 [plugins."io.containerd.grpc.v1.cri"]
-sandbox_image = "quay.io/giantswarm/pause:3.9"
+sandbox_image = "{{ .Values.internal.sandboxContainerImage.registry }}/{{ .Values.internal.sandboxContainerImage.name }}:{{ .Values.internal.sandboxContainerImage.tag }}"
 
 [plugins."io.containerd.grpc.v1.cri".registry]
   [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
