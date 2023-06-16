@@ -291,6 +291,13 @@ imageLookupOrg: "706635527432"
     ExecStart=/usr/sbin/sysctl -p /etc/sysctl.d/hardening.conf
     [Install]
     WantedBy=multi-user.target
+- name: audit-rules.service
+  enabled: true
+  dropins:
+  - name: 10-wait-for-containerd.conf
+    contents: |
+      [Service]
+      ExecStartPre=/bin/bash -c "while [ ! -f /etc/audit/rules.d/containerd.rules ]; do echo 'Waiting for /etc/audit/rules.d/containerd.rules to be written' && sleep 1; done"
 - name: update-engine.service
   enabled: false
   mask: true
