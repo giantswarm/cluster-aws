@@ -638,7 +638,7 @@
                         }
                     }
                 },
-		"sandboxContainerImage": {
+                "sandboxContainerImage": {
                     "type": "object",
                     "title": "Kubectl image",
                     "properties": {
@@ -658,7 +658,7 @@
                             "default": "3.9"
                         }
                     }
-		}
+                }
             }
         },
         "kubectlImage": {
