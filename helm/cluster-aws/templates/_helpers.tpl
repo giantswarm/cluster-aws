@@ -96,8 +96,8 @@ room for such suffix.
 {{- end -}}
 
 {{- define "registryFiles" -}}
-- path: /etc/containerd/conf.d/registry-config.toml
-  permissions: "0600"
+- path: /etc/containerd/config.toml
+  permissions: "0644"
   contentFrom:
     secret:
       name: {{ include "resource.default.name" $ }}-registry-configuration
