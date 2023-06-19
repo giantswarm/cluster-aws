@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use CAPBK to provision bastion node with Flatcar AMI.
 - Update CAPA CRs API version from `v1beta1` to `v1beta2`.
+- Values schema: disallow additional properties on the `.nodePools` object. This is a **breaking change** where node pool names are in use that do not match the pattern `^[a-z0-9]{5,10}$`.
 
 ## [0.33.0] - 2023-06-07
 
