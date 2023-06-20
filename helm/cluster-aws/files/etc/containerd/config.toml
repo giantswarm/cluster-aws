@@ -1,5 +1,6 @@
 version = 2
 
+# recommended defaults from https://github.com/containerd/containerd/blob/main/docs/ops.md#base-configuration
 # set containerd as a subreaper on linux when it is not running as PID 1
 subreaper = true
 # set containerd's OOM score
