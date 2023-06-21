@@ -7,12 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.34.0] - 2023-06-21
+
+### **Breaking change**
+- Migrating from Ubuntu AMI to Flatcar AMI is a **breaking change** that requires manual steps.
+
 ### Changed
 
 - Use CAPBK to provision bastion node with Flatcar AMI.
 - Use CAPBK to provision control plane nodes with Flatcar AMI.
 - Use CAPBK to provision worker nodes with Flatcar AMI.
-- Migrating from Ubuntu AMi to Flatcar AMI is a **breaking change** that requires manual steps.
+- Migrating from Ubuntu AMI to Flatcar AMI is a **breaking change** that requires manual steps.
 - Apply default OS setting for flatcar and os hardening.
 - Update CAPA CRs API version from `v1beta1` to `v1beta2`.
 - Values schema: disallow additional properties on the `.nodePools` object. This is a **breaking change** where node pool names are in use that do not match the pattern `^[a-z0-9]{5,10}$`.
@@ -720,7 +725,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.33.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.34.0...HEAD
+[0.34.0]: https://github.com/giantswarm/cluster-aws/compare/v0.33.0...v0.34.0
 [0.33.0]: https://github.com/giantswarm/cluster-aws/compare/v0.32.1...v0.33.0
 [0.32.1]: https://github.com/giantswarm/cluster-aws/compare/v0.32.0...v0.32.1
 [0.32.0]: https://github.com/giantswarm/cluster-aws/compare/v0.31.0...v0.32.0
