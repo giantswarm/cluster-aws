@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Use CAPBK to provision bastion node with Flatcar AMI.
+- Use CAPBK to provision control plane nodes with Flatcar AMI.
+- Use CAPBK to provision worker nodes with Flatcar AMI.
+- Migrating from Ubuntu AMi to Flatcar AMI is a **breaking change** that requires manual steps.
+- Apply default OS setting for flatcar and os hardening.
 - Update CAPA CRs API version from `v1beta1` to `v1beta2`.
 - Values schema: disallow additional properties on the `.nodePools` object. This is a **breaking change** where node pool names are in use that do not match the pattern `^[a-z0-9]{5,10}$`.
 

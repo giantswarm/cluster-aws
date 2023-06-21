@@ -41,7 +41,7 @@ ignition:
     additionalConfig: |
       systemd:
         units:
-        {{- include "flatcarKubeadmService" $ | nindent 8 }}
+        {{- include "flatcarSystemdUnits" $ | nindent 8 }}
 preKubeadmCommands:
 {{ include "flatcarKubeadmPreCommands" $  }}
 - systemctl restart sshd
