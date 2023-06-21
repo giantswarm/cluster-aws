@@ -723,6 +723,7 @@
             "type": "object",
             "title": "Node pools",
             "description": "Node pools of the cluster. If not specified, this defaults to the value of `internal.nodePools`.",
+            "additionalProperties": false,
             "patternProperties": {
                 "^[a-z0-9]{5,10}$": {
                     "$ref": "#/$defs/machinePool"
