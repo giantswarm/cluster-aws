@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.34.0] - 2023-06-21
 
+### **Breaking change**
+- Migrating from Ubuntu AMi to Flatcar AMI is a **breaking change** that requires manual steps.
+
 ### Changed
 
 - Use CAPBK to provision bastion node with Flatcar AMI.
