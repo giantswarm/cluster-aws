@@ -323,3 +323,10 @@ Where `data` is the data to has on and `global` is the top level scope.
 {{- if .global.Values.internal.hashSalt }}{{ $salt = .global.Values.internal.hashSalt}}{{end}}
 {{- (printf "%s%s" $data $salt) | quote | sha1sum | trunc 8 }}
 {{- end -}}
+
+{{- define "securityContext.runAsUser" -}}
+1000
+{{- end -}}
+{{- define "securityContext.runAsGroup" -}}
+1000
+{{- end -}}

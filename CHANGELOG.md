@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add CNI/CSI/coredns apps as HelmReleases.
+
 ## [0.34.0] - 2023-06-21
 
 ### **Breaking change**
