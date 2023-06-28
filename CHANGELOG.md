@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add CNI/CSI/coredns apps as HelmReleases.
+
+## [0.34.0] - 2023-06-21
+
+### **Breaking change**
+- Migrating from Ubuntu AMI to Flatcar AMI is a **breaking change** that requires manual steps.
+
+### Changed
+
+- Use CAPBK to provision bastion node with Flatcar AMI.
+- Use CAPBK to provision control plane nodes with Flatcar AMI.
+- Use CAPBK to provision worker nodes with Flatcar AMI.
+- Migrating from Ubuntu AMI to Flatcar AMI is a **breaking change** that requires manual steps.
+- Apply default OS setting for flatcar and os hardening.
+- Update CAPA CRs API version from `v1beta1` to `v1beta2`.
+- Values schema: disallow additional properties on the `.nodePools` object. This is a **breaking change** where node pool names are in use that do not match the pattern `^[a-z0-9]{5,10}$`.
+
+## [0.33.0] - 2023-06-07
+
 ### Changed
 
 **Note**: this release includes values schema changes which break compatibility with previous versions.
@@ -14,7 +35,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed `connectivity.network.podCidr` and `connectivity.network.serviceCidr`. Replaced by `connectivity.network.pods.cidrBlocks` and `connectivity.network.services.cidrBlocks`.
 - Remove `app.kubernetes.io/version` from common labels. They are part of hashes, but we don't want to always roll nodes just because we are deploying a new version.
 - Remove `architect` templating from `Chart.yaml` file.
+- Remove control plane replicas value `controlPlane.replicas`. Now it's hardcoded to 3 nodes.
 - Set `r6i.xlarge` as the new default AWS instance type for the control plane and node pools.
+- Added value `.metadata.servicePriority` to the schema to set the cluster's relative priority.
+- Updated `cluster-shared` chart dependency to `0.6.5`
 
 ### Added
 
@@ -23,7 +47,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - normalize `values.schema.json` with `make normalize-schema`
   - validate that `values.schema.json` is according to requirements with `make validate-schema`
 - Add full configuration values documentation.
-- Add CNI/CSI/coredns apps as HelmReleases.
+- Add `"helm.sh/resource-policy": keep` annotation to AWSCluster,
+  (AWS)MachineDeployments, (AWS)MachinePools and KubeadmControlPlane. The
+  deletion of these resources has to be in order and must be handled by the
+  CAPI and CAPA controllers.
 
 ## [0.32.1] - 2023-04-27
 
@@ -702,7 +729,9 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.32.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.34.0...HEAD
+[0.34.0]: https://github.com/giantswarm/cluster-aws/compare/v0.33.0...v0.34.0
+[0.33.0]: https://github.com/giantswarm/cluster-aws/compare/v0.32.1...v0.33.0
 [0.32.1]: https://github.com/giantswarm/cluster-aws/compare/v0.32.0...v0.32.1
 [0.32.0]: https://github.com/giantswarm/cluster-aws/compare/v0.31.0...v0.32.0
 [0.31.0]: https://github.com/giantswarm/cluster-aws/compare/v0.30.0...v0.31.0

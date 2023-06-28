@@ -53,6 +53,8 @@ template:
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: KubeadmControlPlane
 metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
   labels:
     {{- include "labels.common" $ | nindent 4 }}
     app.kubernetes.io/version: {{ .Chart.Version | quote }}
@@ -69,6 +71,19 @@ spec:
       kind: AWSMachineTemplate
       name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
   kubeadmConfigSpec:
+    format: ignition
+    ignition:
+      containerLinuxConfig:
+        additionalConfig: |
+          systemd:
+            units:
+            {{- include "flatcarSystemdUnits" $ | nindent 14 }}
+            {{- include "diskStorageSystemdUnits" $ | nindent 14 }}
+          storage:
+            filesystems:
+            {{- include "diskStorageConfig" $ | nindent 14 }}
+            directories:
+            {{- include "nodeDirectories" $ | nindent 14 }}
     clusterConfiguration:
       # Avoid accessibility issues (e.g. on private clusters) and potential future rate limits for the default `registry.k8s.io`
       imageRepository: docker.io/giantswarm
@@ -146,10 +161,9 @@ spec:
     files:
     {{- include "oidcFiles" . | nindent 4 }}
     {{- include "sshFiles" . | nindent 4 }}
-    {{- include "diskFiles" . | nindent 4 }}
     {{- include "irsaFiles" . | nindent 4 }}
     {{- include "kubeletConfigFiles" . | nindent 4 }}
-    {{- include "awsNtpFiles" . | nindent 4 }}
+    {{- include "nodeConfigFiles" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "registryFiles" . | nindent 4 }}
@@ -165,9 +179,9 @@ spec:
           cloud-provider: external
           feature-gates: CronJobTimeZone=true
           healthz-bind-address: 0.0.0.0
-          node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
+          node-ip: ${COREOS_EC2_IPV4_LOCAL}
           v: "2"
-        name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+        name: ${COREOS_EC2_HOSTNAME}
         {{- if .Values.controlPlane.customNodeTaints }}
         {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
         taints:
@@ -184,7 +198,7 @@ spec:
         kubeletExtraArgs:
           cloud-provider: external
           feature-gates: CronJobTimeZone=true
-        name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+        name: ${COREOS_EC2_HOSTNAME}
         {{- if .Values.controlPlane.customNodeTaints }}
         {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
         taints:
@@ -196,20 +210,18 @@ spec:
         {{- end }}
         {{- end }}
     preKubeadmCommands:
-    {{- include "prepare-varLibKubelet-Dir" . | nindent 4 }}
-    {{- include "diskPreKubeadmCommands" . | nindent 4 }}
+    {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
-    {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
-  replicas: {{ .Values.controlPlane.replicas | default "3" }}
+  replicas: 3
   version: v{{ trimPrefix "v" .Values.internal.kubernetesVersion }}
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachineTemplate
 metadata:
   labels:

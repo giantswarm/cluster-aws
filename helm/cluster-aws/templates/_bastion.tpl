@@ -11,13 +11,13 @@ template:
       {{- include "labels.common" $ | nindent 6 }}
   spec:
     instanceType: {{ .Values.connectivity.bastion.instanceType }}
-    cloudInit:
-      insecureSkipSecretsManager: true
-    imageLookupFormat: Flatcar-stable-*
+    cloudInit: {}
+    imageLookupBaseOS: flatcar-stable
+    imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-gs" }}
     imageLookupOrg: "{{ .Values.providerSpecific.flatcarAwsAccount }}"
+    iamInstanceProfile: {{ include "resource.default.name" $ }}-bastion
     publicIP: {{ if eq .Values.connectivity.vpcMode "private" }}false{{else}}true{{end}}
     sshKeyName: ""
-    uncompressedUserData: true
     subnet:
       filters:
         - name: tag:{{ if eq .Values.connectivity.vpcMode "private" }}github.com/giantswarm/aws-vpc-operator/role{{else}}sigs.k8s.io/cluster-api-provider-aws/role{{end}}
@@ -34,25 +34,30 @@ template:
         {{- end }}
 {{- end }}
 
+{{- define "bastion-kubeadmconfigtemplate-spec" -}}
+format: ignition
+ignition:
+  containerLinuxConfig:
+    additionalConfig: |
+      systemd:
+        units:
+        {{- include "flatcarSystemdUnits" $ | nindent 8 }}
+preKubeadmCommands:
+{{ include "flatcarKubeadmPreCommands" $  }}
+- systemctl restart sshd
+- sleep infinity
+files:
+{{ include "sshFilesBastion" $ }}
+users:
+{{ include "sshUsers" . }}
+{{- end }}
+
 {{- define "bastion" }}
-apiVersion: v1
-kind: Secret
-metadata:
-  labels:
-    cluster.x-k8s.io/role: bastion
-    {{- include "labels.common" $ | nindent 4 }}
-    app.kubernetes.io/version: {{ .Chart.Version | quote }}
-  name: {{ include "resource.default.name" $ }}-bastion-ignition
-  namespace: {{ .Release.Namespace }}
-  finalizers:
-  - bastion.finalizers.giantswarm.io/secret-blocker
-type: cluster.x-k8s.io/secret
-data:
-  value: {{ include "bastionIgnition" . }}
----
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
   labels:
     cluster.x-k8s.io/role: bastion
     {{- include "labels.common" $ | nindent 4 }}
@@ -79,7 +84,10 @@ spec:
         {{- include "labels.common" $ | nindent 8 }}
     spec:
       bootstrap:
-        dataSecretName: {{ include "resource.default.name" $ }}-bastion-ignition
+        configRef:
+          apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+          kind: KubeadmConfigTemplate
+          name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-kubeadmconfigtemplate-spec" $ ) "global" $) }}
       clusterName: {{ include "resource.default.name" $ }}
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
@@ -87,7 +95,7 @@ spec:
         name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
       version: {{ .Values.internal.kubernetesVersion }}
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachineTemplate
 metadata:
   labels:
@@ -97,4 +105,16 @@ metadata:
   name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
   namespace: {{ .Release.Namespace }}
 spec: {{ include "bastion-awsmachinetemplate-spec" $ | nindent 2 }}
+---
+apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+kind: KubeadmConfigTemplate
+metadata:
+  labels:
+    cluster.x-k8s.io/role: bastion
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-kubeadmconfigtemplate-spec" $ ) "global" $) }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  template:
+    spec: {{ include "bastion-kubeadmconfigtemplate-spec" $ | nindent 6 }}
 {{- end -}}

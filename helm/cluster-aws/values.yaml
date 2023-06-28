@@ -65,11 +65,16 @@ internal:
         - label=default
       instanceType: r6i.xlarge
       minSize: 3
+  sandboxContainerImage:
+    name: giantswarm/pause
+    registry: quay.io
+    tag: "3.9"
 kubectlImage:
   name: giantswarm/kubectl
   registry: quay.io
   tag: 1.23.5
-metadata: {}
+metadata:
+  servicePriority: highest
 providerSpecific:
   awsClusterRoleIdentityName: default
-  flatcarAwsAccount: "075585003325"
+  flatcarAwsAccount: "706635527432"

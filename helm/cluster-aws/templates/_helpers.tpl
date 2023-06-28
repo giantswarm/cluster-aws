@@ -65,12 +65,17 @@ room for such suffix.
   content: {{ $.Files.Get "files/etc/ssh/sshd_config" | b64enc }}
 {{- end -}}
 
-{{- define "diskFiles" -}}
-- path: /opt/init-disks.sh
-  permissions: "0700"
+{{- define "sshFilesBastion" -}}
+- path: /etc/ssh/trusted-user-ca-keys.pem
+  permissions: "0600"
   encoding: base64
-  content: {{ $.Files.Get "files/opt/init-disks.sh" | b64enc }}
+  content: {{ tpl ($.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . | b64enc }}
+- path: /etc/ssh/sshd_config
+  permissions: "0600"
+  encoding: base64
+  content: {{ $.Files.Get "files/etc/ssh/sshd_config_bastion" | b64enc }}
 {{- end -}}
+
 {{- define "proxyFiles" -}}
 - path: /etc/systemd/system/containerd.service.d/http-proxy.conf
   permissions: "0644"
@@ -88,14 +93,11 @@ room for such suffix.
 - export http_proxy={{ $.Values.connectivity.proxy.httpProxy }}
 - export https_proxy={{ $.Values.connectivity.proxy.httpsProxy }}
 - export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
-- systemctl daemon-reload
-- systemctl restart containerd
-- systemctl restart kubelet
 {{- end -}}
 
 {{- define "registryFiles" -}}
-- path: /etc/containerd/conf.d/registry-config.toml
-  permissions: "0600"
+- path: /etc/containerd/config.toml
+  permissions: "0644"
   contentFrom:
     secret:
       name: {{ include "resource.default.name" $ }}-registry-configuration
@@ -112,10 +114,10 @@ room for such suffix.
   permissions: "0700"
   encoding: base64
   content: {{ $.Files.Get "files/opt/kubelet-config.sh" | b64enc }}
-- path: /lib/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf
+- path: /etc/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf
   permissions: "0700"
   encoding: base64
-  content: {{ $.Files.Get "files/opt/zzz-kubelet-graceful-shutdown.conf" | b64enc }}
+  content: {{ $.Files.Get "files/etc/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf" | b64enc }}
 {{- end -}}
 
 {{- define "kubernetesFiles" -}}
@@ -137,19 +139,79 @@ room for such suffix.
       key: domain
 {{- end -}}
 
-{{- define "awsNtpFiles" -}}
-- path: /opt/set-aws-ntp.sh
-  permissions: "0700"
+{{- define "nodeConfigFiles" -}}
+- path: /etc/systemd/timesyncd.conf
+  permissions: "0644"
   encoding: base64
-  content: {{ $.Files.Get "files/opt/set-aws-ntp.sh" | b64enc }}
+  content: {{ $.Files.Get "files/etc/systemd/timesyncd.conf" | b64enc }}
+- path: /etc/sysctl.d/hardening.conf
+  permissions: "0644"
+  encoding: base64
+  content: {{ $.Files.Get "files/etc/sysctl.d/hardening.conf" | b64enc }}
+{{- end -}}
+
+{{- define "diskStorageConfig" -}}
+- name: etcd
+  mount:
+    device: /dev/xvdc
+    wipeFilesystem: true
+    label: etcd
+    format: xfs
+- name: containerd
+  mount:
+    device: /dev/xvdd
+    wipeFilesystem: true
+    label: containerd
+    format: xfs
+- name: kubelet
+  mount:
+    device: /dev/xvde
+    wipeFilesystem: true
+    label: kubelet
+    format: xfs
+{{- end -}}
+
+{{- define "diskStorageSystemdUnits" -}}
+- name: var-lib-etcd.mount
+  enabled: true
+  contents: |
+    [Unit] 
+    Description=etcd volume
+    DefaultDependencies=no
+    [Mount]
+    What=/dev/disk/by-label/etcd
+    Where=/var/lib/etcd
+    Type=xfs
+    [Install]
+    WantedBy=local-fs-pre.target
+- name: var-lib-kubelet.mount
+  enabled: true
+  contents: |
+    [Unit]
+    Description=kubelet volume
+    DefaultDependencies=no
+    [Mount]
+    What=/dev/disk/by-label/kubelet
+    Where=/var/lib/kubelet
+    Type=xfs
+    [Install]
+    WantedBy=local-fs-pre.target
+- name: var-lib-containerd.mount
+  enabled: true
+  contents: |
+    [Unit]
+    Description=containerd volume
+    DefaultDependencies=no
+    [Mount]
+    What=/dev/disk/by-label/containerd
+    Where=/var/lib/containerd
+    Type=xfs
+    [Install]
+    WantedBy=local-fs-pre.target
 {{- end -}}
 
 {{- define "sshPreKubeadmCommands" -}}
 - systemctl restart sshd
-{{- end -}}
-
-{{- define "diskPreKubeadmCommands" -}}
-- /bin/sh /opt/init-disks.sh
 {{- end -}}
 
 {{- define "irsaPostKubeadmCommands" -}}
@@ -160,18 +222,10 @@ room for such suffix.
 - /bin/sh /opt/kubelet-config.sh
 {{- end -}}
 
-{{- define "awsNtpPostKubeadmCommands" -}}
-- /bin/sh /opt/set-aws-ntp.sh
-{{- end -}}
-
 {{- define "sshUsers" -}}
 - name: giantswarm
   groups: sudo
   sudo: ALL=(ALL) NOPASSWD:ALL
-{{- end -}}
-
-{{- define "bastionIgnition" }}
-{{- tpl ($.Files.Get "files/bastion.iqn") . | b64enc}}
 {{- end -}}
 
 {{- define "ami" }}
@@ -180,14 +234,81 @@ ami:
   id: {{ . | quote }}
 {{- else -}}
 ami: {}
-imageLookupBaseOS: "ubuntu-20.04"
+imageLookupBaseOS: "flatcar-stable"
 imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-gs" }}
 imageLookupOrg: "706635527432"
 {{- end }}
 {{- end -}}
 
-{{- define "prepare-varLibKubelet-Dir" -}}
-- /bin/test ! -d /var/lib/kubelet && (/bin/mkdir -p /var/lib/kubelet && /bin/chmod 0750 /var/lib/kubelet)
+{{- define "nodeDirectories" -}}
+- path: /var/lib/kubelet
+  mode: 0750
+{{- end -}}
+
+{{- define "flatcarSystemdUnits" -}}
+- name: kubereserved.slice
+  path: /etc/systemd/system/kubereserved.slice
+  content: |
+    [Unit]
+    Description=Limited resources slice for Kubernetes services
+    Documentation=man:systemd.special(7)
+    DefaultDependencies=no
+    Before=slices.target
+    Requires=-.slice
+    After=-.slice
+- name: kubeadm.service
+  dropins:
+  - name: 10-flatcar.conf
+    contents: |
+      [Unit]
+      # kubeadm must run after coreos-metadata populated /run/metadata directory.
+      Requires=coreos-metadata.service
+      After=coreos-metadata.service
+      [Service]
+      # Ensure kubeadm service has access to kubeadm binary in /opt/bin on Flatcar.
+      Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin
+      # To make metadata environment variables available for pre-kubeadm commands.
+      EnvironmentFile=/run/metadata/*
+- name: containerd.service
+  enabled: true
+  contents: |
+  dropins:
+    - name: 10-change-cgroup.conf
+      contents: |
+        [Service]
+        CPUAccounting=true
+        MemoryAccounting=true
+        Slice=kubereserved.slice
+- name: os-hardening.service
+  enabled: true
+  contents: |
+    [Unit]
+    Description=Apply os hardening
+    [Service]
+    Type=oneshot
+    ExecStartPre=-/bin/bash -c "gpasswd -d core rkt; gpasswd -d core docker; gpasswd -d core wheel"
+    ExecStartPre=/bin/bash -c "until [ -f '/etc/sysctl.d/hardening.conf' ]; do echo Waiting for sysctl file; sleep 1s;done;"
+    ExecStart=/usr/sbin/sysctl -p /etc/sysctl.d/hardening.conf
+    [Install]
+    WantedBy=multi-user.target
+- name: audit-rules.service
+  enabled: true
+  dropins:
+  - name: 10-wait-for-containerd.conf
+    contents: |
+      [Service]
+      ExecStartPre=/bin/bash -c "while [ ! -f /etc/audit/rules.d/containerd.rules ]; do echo 'Waiting for /etc/audit/rules.d/containerd.rules to be written' && sleep 1; done"
+- name: update-engine.service
+  enabled: false
+  mask: true
+- name: locksmithd.service
+  enabled: false
+  mask: true
+{{- end -}}
+
+{{- define "flatcarKubeadmPreCommands" -}}
+- envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
+- mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
 {{- end -}}
 
 {{/*

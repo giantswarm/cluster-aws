@@ -4,6 +4,7 @@ apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
   annotations:
+    "helm.sh/resource-policy": keep
     machine-pool.giantswarm.io/name: {{ include "resource.default.name" $ }}-{{ $name }}
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
@@ -28,9 +29,11 @@ spec:
         name: {{ include "resource.default.name" $ }}-{{ $name }}
       version: {{ $.Values.internal.kubernetesVersion }}
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachinePool
 metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
@@ -82,6 +85,16 @@ metadata:
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
+  format: ignition
+  ignition:
+    containerLinuxConfig:
+      additionalConfig: |
+        systemd:
+          units:
+          {{- include "flatcarSystemdUnits" $ | nindent 12 }}
+        storage:
+          directories:
+          {{- include "nodeDirectories" $ | nindent 12 }}
   joinConfiguration:
     discovery: {}
     nodeRegistration:
@@ -89,10 +102,10 @@ spec:
         cloud-provider: external
         feature-gates: CronJobTimeZone=true
         healthz-bind-address: 0.0.0.0
-        node-ip: '{{ `{{ ds.meta_data.local_ipv4 }}` }}'
+        node-ip: ${COREOS_EC2_IPV4_LOCAL}
         node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ $name }},{{- join "," $value.customNodeLabels }}
         v: "2"
-      name: '{{ `{{ ds.meta_data.local_hostname }}` }}'
+      name: ${COREOS_EC2_HOSTNAME}
       {{- if $value.customNodeTaints }}
       {{- if (gt (len $value.customNodeTaints) 0) }}
       taints:
@@ -104,12 +117,11 @@ spec:
       {{- end }}
       {{- end }}
   preKubeadmCommands:
-    {{- include "prepare-varLibKubelet-Dir" . | nindent 4 }}
+    {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
   postKubeadmCommands:
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
-    {{- include "awsNtpPostKubeadmCommands" . | nindent 4 }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   files:
@@ -117,7 +129,7 @@ spec:
   {{- include "kubeletConfigFiles" $ | nindent 2 }}
   {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
   {{- include "registryFiles" $ | nindent 2 }}
-  {{- include "awsNtpFiles" $ | nindent 2 }}
+  {{- include "nodeConfigFiles" $ | nindent 2 }}
 ---
 {{ end }}
 {{- end -}}

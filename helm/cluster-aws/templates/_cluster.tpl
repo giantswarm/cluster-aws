@@ -15,6 +15,9 @@ metadata:
     {{- end }}
   labels:
     cluster-apps-operator.giantswarm.io/watching: ""
+    {{- if .Values.metadata.servicePriority }}
+    giantswarm.io/service-priority: {{ .Values.metadata.servicePriority }}
+    {{- end }}
     {{- include "labels.common" $ | nindent 4 }}
     app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}
