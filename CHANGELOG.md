@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.35.1] - 2023-06-29
+
 ## Fixed
 
 - Fix defaulting of node pool for AWSCluster CR.
@@ -735,7 +737,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.35.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.35.1...HEAD
+[0.35.1]: https://github.com/giantswarm/cluster-aws/compare/v0.35.0...v0.35.1
 [0.35.0]: https://github.com/giantswarm/cluster-aws/compare/v0.34.0...v0.35.0
 [0.34.0]: https://github.com/giantswarm/cluster-aws/compare/v0.33.0...v0.34.0
 [0.33.0]: https://github.com/giantswarm/cluster-aws/compare/v0.32.1...v0.33.0
