@@ -64,6 +64,7 @@ internal:
       customNodeLabels:
         - label=default
       instanceType: r6i.xlarge
+      maxSize: 3
       minSize: 3
   sandboxContainerImage:
     name: giantswarm/pause
