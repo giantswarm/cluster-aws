@@ -1,0 +1,43 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: {{ include "resource.default.name" $ }}-coredns
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.metadata.description }}"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  releaseName: coredns
+  targetNamespace: kube-system
+  storageNamespace: kube-system
+  chart:
+    spec:
+      chart: coredns-app
+      # used by renovate
+      # repo: giantswarm/coredns-app
+      version: 1.17.0
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "resource.default.name" $ }}-default
+  dependsOn:
+      - name: {{ include "resource.default.name" $ }}-cilium
+        namespace: {{ $.Release.Namespace }}
+  kubeConfig:
+    secretRef:
+      name: {{ include "resource.default.name" $ }}-kubeconfig
+  interval: 10m
+  install:
+    remediation:
+      retries: 30
+  # Default values
+  # https://github.com/giantswarm/coredns-app/blob/main/helm/coredns-app/values.yaml
+  values:
+    cluster:
+      calico:
+        CIDR: {{ .Values.connectivity.network.podCidr | quote }}
+      kubernetes:
+        API:
+          clusterIPRange: {{ .Values.connectivity.network.serviceCidr | quote }}
+        DNS:
+          IP: {{ include "clusterDNS" $ | quote }}

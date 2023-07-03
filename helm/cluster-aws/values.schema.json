@@ -251,17 +251,51 @@
                     "type": "object",
                     "title": "Network",
                     "properties": {
-                        "podCidr": {
-                            "type": "string",
-                            "title": "Pod subnet",
-                            "description": "IPv4 address range for pods, in CIDR notation.",
-                            "default": "100.64.0.0/12"
+                        "pods": {
+                            "type": "object",
+                            "title": "Pods",
+                            "properties": {
+                                "cidrBlocks": {
+                                    "type": "array",
+                                    "title": "Pod subnets",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Pod subnet",
+                                        "description": "IPv4 address range for pods, in CIDR notation.",
+                                        "examples": [
+                                            "10.244.0.0/16"
+                                        ]
+                                    },
+                                    "default": [
+                                        "100.64.0.0/12"
+                                    ],
+                                    "maxItems": 1,
+                                    "minItems": 1
+                                }
+                            }
                         },
-                        "serviceCidr": {
-                            "type": "string",
-                            "title": "Service subnet",
-                            "description": "IPv4 address range for services, in CIDR notation.",
-                            "default": "172.31.0.0/16"
+                        "services": {
+                            "type": "object",
+                            "title": "Services",
+                            "properties": {
+                                "cidrBlocks": {
+                                    "type": "array",
+                                    "title": "K8s Service subnets",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Service subnet",
+                                        "description": "IPv4 address range for kubernetes services, in CIDR notation.",
+                                        "examples": [
+                                            "172.31.0.0/16"
+                                        ]
+                                    },
+                                    "default": [
+                                        "172.31.0.0/16"
+                                    ],
+                                    "maxItems": 1,
+                                    "minItems": 1
+                                }
+                            }
                         },
                         "vpcCidr": {
                             "type": "string",
@@ -467,7 +501,7 @@
                 "instanceType": {
                     "type": "string",
                     "title": "EC2 instance type",
-                    "default": "m5.xlarge"
+                    "default": "r6i.xlarge"
                 },
                 "kubeletVolumeSizeGB": {
                     "type": "integer",
@@ -599,8 +633,30 @@
                             "customNodeLabels": [
                                 "label=default"
                             ],
-                            "instanceType": "m5.xlarge",
+                            "instanceType": "r6i.xlarge",
+                            "maxSize": 3,
                             "minSize": 3
+                        }
+                    }
+                },
+                "sandboxContainerImage": {
+                    "type": "object",
+                    "title": "Kubectl image",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "title": "Repository",
+                            "default": "giantswarm/pause"
+                        },
+                        "registry": {
+                            "type": "string",
+                            "title": "Registry",
+                            "default": "quay.io"
+                        },
+                        "tag": {
+                            "type": "string",
+                            "title": "Tag",
+                            "default": "3.9"
                         }
                     }
                 }
@@ -649,6 +705,18 @@
                 "organization": {
                     "type": "string",
                     "title": "Organization"
+                },
+                "servicePriority": {
+                    "type": "string",
+                    "title": "Service priority",
+                    "description": "The relative importance of this cluster.",
+                    "$comment": "Defined in https://github.com/giantswarm/rfc/tree/main/classify-cluster-priority",
+                    "enum": [
+                        "highest",
+                        "medium",
+                        "lowest"
+                    ],
+                    "default": "highest"
                 }
             }
         },
@@ -656,6 +724,7 @@
             "type": "object",
             "title": "Node pools",
             "description": "Node pools of the cluster. If not specified, this defaults to the value of `internal.nodePools`.",
+            "additionalProperties": false,
             "patternProperties": {
                 "^[a-z0-9]{5,10}$": {
                     "$ref": "#/$defs/machinePool"
@@ -689,7 +758,7 @@
                     "type": "string",
                     "title": "AWS account owning Flatcar image",
                     "description": "AWS account ID owning the Flatcar Container Linux AMI.",
-                    "default": "075585003325"
+                    "default": "706635527432"
                 },
                 "region": {
                     "type": "string",

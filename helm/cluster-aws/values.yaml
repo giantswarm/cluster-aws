@@ -13,8 +13,12 @@ connectivity:
   dns:
     mode: public
   network:
-    podCidr: 100.64.0.0/12
-    serviceCidr: 172.31.0.0/16
+    pods:
+      cidrBlocks:
+        - 100.64.0.0/12
+    services:
+      cidrBlocks:
+        - 172.31.0.0/16
     vpcCidr: 10.0.0.0/16
   proxy: {}
   sshSsoPublicKey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io
@@ -43,7 +47,7 @@ controlPlane:
   apiMode: public
   containerdVolumeSizeGB: 100
   etcdVolumeSizeGB: 100
-  instanceType: m5.xlarge
+  instanceType: r6i.xlarge
   kubeletVolumeSizeGB: 100
   machineHealthCheck:
     enabled: true
@@ -59,13 +63,19 @@ internal:
     def00:
       customNodeLabels:
         - label=default
-      instanceType: m5.xlarge
+      instanceType: r6i.xlarge
+      maxSize: 3
       minSize: 3
+  sandboxContainerImage:
+    name: giantswarm/pause
+    registry: quay.io
+    tag: "3.9"
 kubectlImage:
   name: giantswarm/kubectl
   registry: quay.io
   tag: 1.23.5
-metadata: {}
+metadata:
+  servicePriority: highest
 providerSpecific:
   awsClusterRoleIdentityName: default
-  flatcarAwsAccount: "075585003325"
+  flatcarAwsAccount: "706635527432"

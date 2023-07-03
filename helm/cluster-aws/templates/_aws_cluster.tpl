@@ -2,10 +2,11 @@
 {{- if and (regexMatch "\\.internal$" (required "baseDomain is required" .Values.baseDomain)) (eq (required "connectivity.dns.mode required" .Values.connectivity.dns.mode) "public") }}
 {{- fail "connectivity.dns.mode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
 {{- end }}
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSCluster
 metadata:
   annotations:
+    "helm.sh/resource-policy": keep
     aws.giantswarm.io/vpc-mode: "{{ .Values.connectivity.vpcMode }}"
     aws.giantswarm.io/dns-mode: {{ if (eq .Values.connectivity.dns.mode "private") }}"private"{{ else }}"public"{{ end }}
     {{- if (eq .Values.connectivity.dns.mode "private") }}
@@ -64,5 +65,12 @@ spec:
     {{- end }}
     {{- end }}
   sshKeyName: ssh-key
+  s3Bucket:
+    controlPlaneIAMInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
+    name: {{ include "aws-region" . }}-capa-{{ include "resource.default.name" $ }}
+    nodesIAMInstanceProfiles:
+    {{- range $name, $value := .Values.nodePools | default .Values.internal.nodePools }}
+    - nodes-{{ $name }}-{{ include "resource.default.name" $ }}
+    {{- end }}
   region: {{ include "aws-region" . }}
 {{ end }}
