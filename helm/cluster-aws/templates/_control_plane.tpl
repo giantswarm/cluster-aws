@@ -143,6 +143,7 @@ spec:
           authorization-always-allow-paths: "/healthz,/readyz,/livez,/metrics"
           bind-address: 0.0.0.0
           cloud-provider: external
+          terminated-pod-gc-threshold: "125"
           allocate-node-cidrs: "true"
           cluster-cidr: {{ .Values.connectivity.network.pods.cidrBlocks | first }}
           feature-gates: CronJobTimeZone=true
