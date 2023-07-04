@@ -8,7 +8,7 @@ icon: https://s.giantswarm.io/app-icons/aws/1/dark.svg
 type: application
 version: 0.35.1
 annotations:
-  application.giantswarm.io/team: "hydra"
+  application.giantswarm.io/team: "phoenix"
   application.giantswarm.io/app-type: "cluster"
 restrictions:
   compatibleProviders:
