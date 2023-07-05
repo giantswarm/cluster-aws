@@ -79,6 +79,7 @@ spec:
             units:
             {{- include "flatcarSystemdUnits" $ | nindent 14 }}
             {{- include "diskStorageSystemdUnits" $ | nindent 14 }}
+            {{- include "teleportSystemdUnits" $ | nindent 14 }}
           storage:
             filesystems:
             {{- include "diskStorageConfig" $ | nindent 14 }}
@@ -168,6 +169,7 @@ spec:
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "registryFiles" . | nindent 4 }}
+    {{- include "teleportFiles" . | nindent 4 }}
     initConfiguration:
       skipPhases:
       - addon/kube-proxy

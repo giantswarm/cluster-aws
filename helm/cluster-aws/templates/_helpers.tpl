@@ -150,6 +150,19 @@ room for such suffix.
   content: {{ $.Files.Get "files/etc/sysctl.d/hardening.conf" | b64enc }}
 {{- end -}}
 
+{{- define "teleportFiles" -}}
+- path: /opt/teleport-join-token
+  permissions: "0644"
+  contentFrom:
+    secret:
+      name: {{ include "resource.default.name" $ }}-teleport-join-token
+      key: joinToken
+- path: /opt/install-teleport.sh
+  permissions: "0644"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/install-teleport.sh" | b64enc }}
+{{- end -}}
+
 {{- define "diskStorageConfig" -}}
 - name: etcd
   mount:
@@ -208,6 +221,28 @@ room for such suffix.
     Type=xfs
     [Install]
     WantedBy=local-fs-pre.target
+{{- end -}}
+
+
+{{- define "teleportSystemdUnits" -}}
+- name: teleport.service
+  enabled: true
+  contents: |
+    [Unit]
+    Description=Teleport Service
+    After=network.target
+
+    [Service]
+    Type=simple
+    Restart=on-failure
+    ExecStartPre=/bin/bash /opt/install-teleport.sh
+    ExecStart=/usr/local/bin/teleport start --roles=node --config=/etc/teleport.yaml --pid-file=/run/teleport.pid
+    ExecReload=/bin/kill -HUP $MAINPID
+    PIDFile=/run/teleport.pid
+    LimitNOFILE=524288
+
+    [Install]
+    WantedBy=multi-user.target
 {{- end -}}
 
 {{- define "sshPreKubeadmCommands" -}}
