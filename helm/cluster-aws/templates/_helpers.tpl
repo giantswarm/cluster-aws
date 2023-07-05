@@ -163,6 +163,14 @@ room for such suffix.
   content: {{ $.Files.Get "files/opt/install-teleport.sh" | b64enc }}
 {{- end -}}
 
+{{- define "filesConfig" -}}
+- path: "/opt/teleport-v13.1.5-linux-amd64-bin.tar.gz"
+  contents:
+    remote:
+      compression: "gzip"
+      url: "https://cdn.teleport.dev/teleport-v13.1.5-linux-amd64-bin.tar.gz"
+{{- end -}}
+
 {{- define "diskStorageConfig" -}}
 - name: etcd
   mount:

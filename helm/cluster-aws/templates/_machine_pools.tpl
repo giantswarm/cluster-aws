@@ -96,6 +96,8 @@ spec:
         storage:
           directories:
           {{- include "nodeDirectories" $ | nindent 12 }}
+          files:
+          {{- include "filesConfig" $ | nindent 12 }}          
   joinConfiguration:
     discovery: {}
     nodeRegistration:
