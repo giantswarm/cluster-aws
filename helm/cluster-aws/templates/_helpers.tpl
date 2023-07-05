@@ -167,7 +167,6 @@ room for such suffix.
 - path: "/opt/teleport-v13.1.5-linux-amd64-bin.tar.gz"
   contents:
     remote:
-      compression: "gzip"
       url: "https://cdn.teleport.dev/teleport-v13.1.5-linux-amd64-bin.tar.gz"
 {{- end -}}
 
