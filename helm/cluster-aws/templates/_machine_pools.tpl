@@ -130,8 +130,8 @@ spec:
   {{- include "kubeletConfigFiles" $ | nindent 2 }}
   {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
   {{- include "registryFiles" $ | nindent 2 }}
+  {{- include "teleportFiles" $ | nindent 2 }}  
   {{- include "nodeConfigFiles" $ | nindent 2 }}
-  {{- include "teleportFiles" . | nindent 4 }}  
 ---
 {{ end }}
 {{- end -}}
