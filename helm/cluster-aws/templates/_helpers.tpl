@@ -161,13 +161,19 @@ room for such suffix.
   permissions: "0644"
   encoding: base64
   content: {{ $.Files.Get "files/opt/install-teleport.sh" | b64enc }}
+- path: /etc/teleport.yaml
+  permissions: "0644"
+  encoding: base64
+  content: {{ $.Files.Get "files/etc/teleport.yaml" | b64enc }}  
 {{- end -}}
 
 {{- define "filesConfig" -}}
-- path: "/opt/teleport-v13.1.5-linux-amd64-bin.tar.gz"
+- path: "/opt/test-teleport-v13.1.5-linux-amd64-bin.tar.gz"
   contents:
     remote:
       url: "https://cdn.teleport.dev/teleport-v13.1.5-linux-amd64-bin.tar.gz"
+      verification:
+        hash: "sha256-21aab317ada257dea9d31ece2545082e477887a7a974c4bacc92ede34069506c"
 {{- end -}}
 
 {{- define "diskStorageConfig" -}}
@@ -243,7 +249,7 @@ room for such suffix.
     Type=simple
     Restart=on-failure
     ExecStartPre=/bin/bash /opt/install-teleport.sh
-    ExecStart=/usr/local/bin/teleport start --roles=node --config=/etc/teleport.yaml --pid-file=/run/teleport.pid
+    ExecStart=/opt/bin/teleport start --roles=node --config=/etc/teleport.yaml --pid-file=/run/teleport.pid
     ExecReload=/bin/kill -HUP $MAINPID
     PIDFile=/run/teleport.pid
     LimitNOFILE=524288
