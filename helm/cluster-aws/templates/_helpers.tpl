@@ -167,17 +167,6 @@ room for such suffix.
   content: {{ tpl ($.Files.Get "files/etc/teleport.yaml") . | b64enc }}  
 {{- end -}}
 
-{{- define "filesConfig" -}}
-- path: "/opt/test-teleport-v13.1.5-linux-amd64-bin.tar.gz"
-  contents:
-    remote:
-      url: "https://cdn.teleport.dev/teleport-v13.1.5-linux-amd64-bin.tar.gz"
-      verification:
-        hash:
-          function: "sha256"
-          sum: "21aab317ada257dea9d31ece2545082e477887a7a974c4bacc92ede34069506c"
-{{- end -}}
-
 {{- define "diskStorageConfig" -}}
 - name: etcd
   mount:

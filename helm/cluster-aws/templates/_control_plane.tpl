@@ -85,8 +85,6 @@ spec:
             {{- include "diskStorageConfig" $ | nindent 14 }}
             directories:
             {{- include "nodeDirectories" $ | nindent 14 }}
-            files:
-            {{- include "filesConfig" $ | nindent 14 }}
     clusterConfiguration:
       # Avoid accessibility issues (e.g. on private clusters) and potential future rate limits for the default `registry.k8s.io`
       imageRepository: docker.io/giantswarm
