@@ -20,6 +20,8 @@ ssh_service:
   - name: hostname
     command: [hostname]
     period: 1m0s
+  labels:
+    cluster: {{ .Values.managementCluster }}-{{ include "resource.default.name" $ }}    
 proxy_service:
   enabled: "no"
   https_keypairs: []

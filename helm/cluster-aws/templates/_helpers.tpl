@@ -164,7 +164,7 @@ room for such suffix.
 - path: /etc/teleport.yaml
   permissions: "0644"
   encoding: base64
-  content: {{ $.Files.Get "files/etc/teleport.yaml" | b64enc }}  
+  content: {{ tpl ($.Files.Get "files/etc/teleport.yaml") . | b64enc }}  
 {{- end -}}
 
 {{- define "filesConfig" -}}
@@ -173,7 +173,9 @@ room for such suffix.
     remote:
       url: "https://cdn.teleport.dev/teleport-v13.1.5-linux-amd64-bin.tar.gz"
       verification:
-        hash: "sha256-21aab317ada257dea9d31ece2545082e477887a7a974c4bacc92ede34069506c"
+        hash:
+          function: "sha256"
+          sum: "21aab317ada257dea9d31ece2545082e477887a7a974c4bacc92ede34069506c"
 {{- end -}}
 
 {{- define "diskStorageConfig" -}}
