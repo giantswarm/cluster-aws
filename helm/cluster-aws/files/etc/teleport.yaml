@@ -17,11 +17,19 @@ auth_service:
 ssh_service:
   enabled: "yes"
   commands:
-  - name: hostname
+  - name: node
     command: [hostname]
-    period: 1m0s
+    period: 1h0m0s
+  - name: arch
+    command: [uname, -p]
+    period: 1h0m0s
   labels:
-    cluster: {{ .Values.managementCluster }}-{{ include "resource.default.name" $ }}    
+    mc: {{ .Values.managementCluster }}
+    {{- $clusterName := include "resource.default.name" $ }}    
+    {{ if ne .Values.managementCluster $clusterName }}
+    wc: {{ include "resource.default.name" $ }}
+    {{- end }}
+    baseDomain: {{ .Values.baseDomain }}
 proxy_service:
   enabled: "no"
   https_keypairs: []
