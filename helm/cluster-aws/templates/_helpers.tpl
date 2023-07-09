@@ -151,16 +151,16 @@ room for such suffix.
 {{- end -}}
 
 {{- define "teleportFiles" -}}
-- path: /opt/teleport-join-token
+- path: /etc/teleport-join-token
   permissions: "0644"
   contentFrom:
     secret:
       name: {{ include "resource.default.name" $ }}-teleport-join-token
       key: joinToken
-- path: /opt/install-teleport.sh
+- path: /opt/teleport-installer.sh
   permissions: "0644"
   encoding: base64
-  content: {{ $.Files.Get "files/opt/install-teleport.sh" | b64enc }}
+  content: {{ $.Files.Get "files/opt/teleport-installer.sh" | b64enc }}
 - path: /etc/teleport.yaml
   permissions: "0644"
   encoding: base64
@@ -239,7 +239,7 @@ room for such suffix.
     [Service]
     Type=simple
     Restart=on-failure
-    ExecStartPre=/bin/bash /opt/install-teleport.sh
+    ExecStartPre=/bin/bash /opt/teleport-installer.sh {{ .Values.connectivity.teleport.version }}
     ExecStart=/opt/bin/teleport start --roles=node --config=/etc/teleport.yaml --pid-file=/run/teleport.pid
     ExecReload=/bin/kill -HUP $MAINPID
     PIDFile=/run/teleport.pid

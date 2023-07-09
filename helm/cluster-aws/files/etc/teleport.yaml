@@ -2,9 +2,9 @@ version: v3
 teleport:
   data_dir: /var/lib/teleport
   join_params:
-    token_name: /opt/teleport-join-token
+    token_name: /etc/teleport-join-token
     method: token
-  proxy_server: test.teleport.giantswarm.io:443
+  proxy_server: {{ .Values.connectivity.teleport.proxyServer }}
   log:
     output: stderr
     severity: INFO
@@ -21,13 +21,16 @@ ssh_service:
     command: [hostname]
     period: 1h0m0s
   - name: arch
-    command: [uname, -p]
+    command: [uname, -m]
     period: 1h0m0s
   labels:
     mc: {{ .Values.managementCluster }}
     {{- $clusterName := include "resource.default.name" $ }}    
     {{ if ne .Values.managementCluster $clusterName }}
-    wc: {{ include "resource.default.name" $ }}
+    cluster: {{ include "resource.default.name" $ }}
+    role: worker
+    {{- else }}
+    role: control-plane
     {{- end }}
     baseDomain: {{ .Values.baseDomain }}
 proxy_service:
