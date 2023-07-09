@@ -112,6 +112,20 @@
                     "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
                     "default": 3
                 },
+                "teleport": {
+                    "type": "object",
+                    "title": "Teleport",
+                    "properties": {
+                        "proxyServer": {
+                            "type": "string",
+                            "title": "Teleport Proxy Address"
+                        },
+                        "version": {
+                            "type": "string",
+                            "title": "Teleport Version"
+                        }
+                    }
+                },
                 "bastion": {
                     "type": "object",
                     "title": "Bastion host",
