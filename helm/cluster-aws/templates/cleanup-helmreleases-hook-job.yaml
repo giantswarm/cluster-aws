@@ -108,6 +108,7 @@ spec:
             - "-xc"
             - |
               for r in $(kubectl get helmrelease -n {{ $.Release.Namespace }} -l "giantswarm.io/cluster={{ include "resource.default.name" . }}" -o name) ; do
+                  kubectl patch -n {{ $.Release.Namespace }} `kubectl get helmrelease -n {{ $.Release.Namespace }} "${r}" -o jsonpath='{.status.helmChart}'` --type=merge -p '{"metadata": {"finalizers": []}}'
                   kubectl patch -n {{ $.Release.Namespace }} "${r}" --type=merge -p '{"metadata": {"finalizers": []}}'
               done
           securityContext:
