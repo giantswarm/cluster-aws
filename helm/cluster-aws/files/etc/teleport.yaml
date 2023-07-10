@@ -4,7 +4,7 @@ teleport:
   join_params:
     token_name: /etc/teleport-join-token
     method: token
-  proxy_server: {{ .Values.connectivity.teleport.proxyServer }}
+  proxy_server: {{ .Values.connectivity.teleport.proxy }}
   log:
     output: stderr
     severity: INFO
@@ -29,7 +29,7 @@ ssh_service:
   labels:
     mc: {{ .Values.managementCluster }}
     {{- $clusterName := include "resource.default.name" $ }}    
-    {{ if ne .Values.managementCluster $clusterName }}
+    {{- if ne .Values.managementCluster $clusterName }}
     cluster: {{ include "resource.default.name" $ }}
     {{- end }}
     baseDomain: {{ .Values.baseDomain }}
