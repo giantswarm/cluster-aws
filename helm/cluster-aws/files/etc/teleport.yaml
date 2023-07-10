@@ -4,7 +4,6 @@ teleport:
   join_params:
     token_name: /etc/teleport-join-token
     method: token
-  proxy_server: {{ .Values.connectivity.teleport.proxy }}
   log:
     output: stderr
     severity: INFO
