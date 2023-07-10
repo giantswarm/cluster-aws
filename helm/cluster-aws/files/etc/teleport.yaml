@@ -24,7 +24,7 @@ ssh_service:
     command: [uname, -m]
     period: 24h0m0s
   - name: role
-    command: [/opt/teleport-node-role]
+    command: [/opt/teleport-node-role.sh]
     period: 24h0m0s
   labels:
     mc: {{ .Values.managementCluster }}
