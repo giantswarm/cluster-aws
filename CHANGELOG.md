@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Remove finalizers from `HelmCharts` when removing this app to avoid leaving leftovers in the management cluster.
+
 ### Added
 
 - Set value for `controller-manager` `terminated-pod-gc-threshold` to `125` ( consistent with vintage ) 
