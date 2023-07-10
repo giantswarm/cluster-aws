@@ -3,7 +3,7 @@
 connectivity:
   availabilityZoneUsageLimit: 3
   teleport:
-    proxyServer: test.teleport.giantswarm.io:443
+    proxy: test.teleport.giantswarm.io:443
     version: 13.1.5
   bastion:
     enabled: true

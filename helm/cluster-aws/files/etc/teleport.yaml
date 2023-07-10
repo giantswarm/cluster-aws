@@ -19,18 +19,18 @@ ssh_service:
   commands:
   - name: node
     command: [hostname]
-    period: 1h0m0s
+    period: 24h0m0s
   - name: arch
     command: [uname, -m]
-    period: 1h0m0s
+    period: 24h0m0s
+  - name: role
+    command: [/opt/teleport-node-role]
+    period: 24h0m0s
   labels:
     mc: {{ .Values.managementCluster }}
     {{- $clusterName := include "resource.default.name" $ }}    
     {{ if ne .Values.managementCluster $clusterName }}
     cluster: {{ include "resource.default.name" $ }}
-    role: worker
-    {{- else }}
-    role: control-plane
     {{- end }}
     baseDomain: {{ .Values.baseDomain }}
 proxy_service:

@@ -8,13 +8,8 @@ download() {
   TMP_PATH=$2
 
   echo "Downloading $URL"
-  if type curl &>/dev/null; then
-    set -x
-    $SUDO $CURL -o "$TMP_PATH" "$URL"
-  else
-    set -x
-    $SUDO $CURL -O "$TMP_PATH" "$URL"
-  fi
+  set -x
+  $SUDO $CURL -o "$TMP_PATH" "$URL"
   set +x
 }
 
@@ -32,15 +27,7 @@ is_teleport_installed() {
   return 1
 }
 
-is_teleport_install() {
-  GREEN='\033[0;32m'
-  COLOR_OFF='\033[0m'
-
-  echo ""
-  echo -e "${GREEN}$(teleport version) installed successfully!${COLOR_OFF}"
-  echo ""
-}
-
+# downloads teleport binary tarball, verifies its checksum, and installs
 install_via_curl() {
   TEMP_DIR=$(mktemp -d -t teleport-XXXXXXXXXX)
   trap "rm -rf $TEMP_DIR" EXIT
@@ -64,6 +51,7 @@ install_via_curl() {
   set +x
 }
 
+# install teleport if it's not already installed
 install_teleport() {
   if [[ $(uname) != "Linux" ]]; then
     echo "ERROR: This script works only for Linux."

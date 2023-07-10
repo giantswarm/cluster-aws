@@ -116,13 +116,19 @@
                     "type": "object",
                     "title": "Teleport",
                     "properties": {
-                        "proxyServer": {
+                        "proxy": {
                             "type": "string",
-                            "title": "Teleport Proxy Address"
+                            "title": "Teleport Proxy Address:Port",
+                            "examples": [
+                                "test.teleport.giantswarm.io:443"
+                            ]                         
                         },
                         "version": {
                             "type": "string",
-                            "title": "Teleport Version"
+                            "title": "Teleport Version",
+                            "examples": [
+                                "13.1.5"
+                            ]
                         }
                     }
                 },

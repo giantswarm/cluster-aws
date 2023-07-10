@@ -157,6 +157,10 @@ room for such suffix.
     secret:
       name: {{ include "resource.default.name" $ }}-teleport-join-token
       key: joinToken
+- path: /opt/teleport-node-role.sh
+  permissions: "0755"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/teleport-node-role.sh" | b64enc }}
 - path: /opt/teleport-installer.sh
   permissions: "0644"
   encoding: base64
