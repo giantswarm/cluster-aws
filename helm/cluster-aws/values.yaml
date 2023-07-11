@@ -2,9 +2,6 @@
 
 connectivity:
   availabilityZoneUsageLimit: 3
-  teleport:
-    proxy: test.teleport.giantswarm.io:443
-    version: 13.1.5
   bastion:
     enabled: true
     instanceType: t3.small
@@ -42,6 +39,9 @@ connectivity:
         - availabilityZone: c
           cidr: 10.0.192.0/18
       isPublic: false
+  teleport:
+    proxy: test.teleport.giantswarm.io:443
+    version: 13.1.5
   topology:
     mode: None
   vpcEndpointMode: GiantSwarmManaged

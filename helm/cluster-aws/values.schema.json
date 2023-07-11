@@ -431,16 +431,12 @@
                         "proxy": {
                             "type": "string",
                             "title": "Teleport Proxy Address:Port",
-                            "examples": [
-                                "test.teleport.giantswarm.io:443"
-                            ]
+                            "default": "test.teleport.giantswarm.io:443"
                         },
                         "version": {
                             "type": "string",
                             "title": "Teleport Version",
-                            "examples": [
-                                "13.1.5"
-                            ]
+                            "default": "13.1.5"
                         }
                     }
                 },
