@@ -4,6 +4,7 @@ teleport:
   join_params:
     token_name: /etc/teleport-join-token
     method: token
+  proxy_server: {{ .Values.connectivity.teleport.proxy }}
   log:
     output: stderr
     severity: INFO
@@ -24,7 +25,7 @@ ssh_service:
     period: 24h0m0s
   - name: role
     command: [/opt/teleport-node-role.sh]
-    period: 24h0m0s
+    period: 1h0m0s
   labels:
     mc: {{ .Values.managementCluster }}
     {{- $clusterName := include "resource.default.name" $ }}    

@@ -244,7 +244,7 @@ room for such suffix.
     Type=simple
     Restart=on-failure
     ExecStartPre=/bin/bash /opt/teleport-installer.sh {{ .Values.connectivity.teleport.version }}
-    ExecStart=/opt/bin/teleport start --proxy-server {{ .Values.connectivity.teleport.proxy }} --roles=node --config=/etc/teleport.yaml --pid-file=/run/teleport.pid
+    ExecStart=/opt/bin/teleport start --roles=node --config=/etc/teleport.yaml --pid-file=/run/teleport.pid
     ExecReload=/bin/kill -HUP $MAINPID
     PIDFile=/run/teleport.pid
     LimitNOFILE=524288
