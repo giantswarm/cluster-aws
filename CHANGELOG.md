@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.36.1] - 2023-07-11
+
 ### Fixed
 
 - Fix job that removes finalizers by dropping namespace from the `HelmChart` name when using it for patching.
@@ -751,7 +753,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.36.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.36.1...HEAD
+[0.36.1]: https://github.com/giantswarm/cluster-aws/compare/v0.36.0...v0.36.1
 [0.36.0]: https://github.com/giantswarm/cluster-aws/compare/v0.35.1...v0.36.0
 [0.35.1]: https://github.com/giantswarm/cluster-aws/compare/v0.35.0...v0.35.1
 [0.35.0]: https://github.com/giantswarm/cluster-aws/compare/v0.34.0...v0.35.0
