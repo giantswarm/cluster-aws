@@ -25,7 +25,7 @@ ssh_service:
     period: 24h0m0s
   - name: role
     command: [/opt/teleport-node-role.sh]
-    period: 1h0m0s
+    period: 1m0s
   labels:
     mc: {{ .Values.managementCluster }}
     {{- $clusterName := include "resource.default.name" $ }}    
