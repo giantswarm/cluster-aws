@@ -4,8 +4,8 @@
 # for the node (control-plane or worker)
 
 
-if [ -d "/etc/kubernetes" ]; then
-    if [ -f "/etc/kubernetes/manifests/kube-apiserver.yaml" ]; then
+if pgrep "kubelet" > /dev/null; then
+    if pgrep "kube-apiserver" > /dev/null; then
         echo "control-plane"
     else
         echo "worker"
