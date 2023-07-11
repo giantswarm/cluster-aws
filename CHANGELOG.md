@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix job that removes finalizers by dropping namespace from the `HelmChart` name when using it for patching.
+
 ## [0.36.0] - 2023-07-10
 
 ### Changed
