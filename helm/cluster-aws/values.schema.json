@@ -112,26 +112,6 @@
                     "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
                     "default": 3
                 },
-                "teleport": {
-                    "type": "object",
-                    "title": "Teleport",
-                    "properties": {
-                        "proxy": {
-                            "type": "string",
-                            "title": "Teleport Proxy Address:Port",
-                            "examples": [
-                                "test.teleport.giantswarm.io:443"
-                            ]                         
-                        },
-                        "version": {
-                            "type": "string",
-                            "title": "Teleport Version",
-                            "examples": [
-                                "13.1.5"
-                            ]
-                        }
-                    }
-                },
                 "bastion": {
                     "type": "object",
                     "title": "Bastion host",
@@ -443,6 +423,26 @@
                             "isPublic": false
                         }
                     ]
+                },
+                "teleport": {
+                    "type": "object",
+                    "title": "Teleport",
+                    "properties": {
+                        "proxy": {
+                            "type": "string",
+                            "title": "Teleport Proxy Address:Port",
+                            "examples": [
+                                "test.teleport.giantswarm.io:443"
+                            ]
+                        },
+                        "version": {
+                            "type": "string",
+                            "title": "Teleport Version",
+                            "examples": [
+                                "13.1.5"
+                            ]
+                        }
+                    }
                 },
                 "topology": {
                     "type": "object",
