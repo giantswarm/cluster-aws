@@ -205,6 +205,12 @@
                         ]
                     }
                 },
+                "createCiliumNetworkPolicies": {
+                    "type": "boolean",
+                    "title": "Create CiliumNetworkPolicy manifests for DNS and proxy access in critical namespaces",
+                    "description": "For the namespaces `giantswarm` and `kube-system`, this creates a network policy allowing DNS access. If `proxy.enabled` is true, egress to the proxy is allowed as well, but for now this only supports an FQDN, not an IP address, inside the `httpProxy`/`httpsProxy` URLs.",
+                    "default": false
+                },
                 "dns": {
                     "type": "object",
                     "title": "DNS",

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Support creating `CiliumNetworkPolicy` manifests that allow egress requests to DNS and conditionally the proxy host, covering only the `giantswarm` and `kube-system` namespaces
+
 ## [0.36.1] - 2023-07-11
 
 ### Fixed
@@ -21,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Set value for `controller-manager` `terminated-pod-gc-threshold` to `125` ( consistent with vintage ) 
+- Set value for `controller-manager` `terminated-pod-gc-threshold` to `125` ( consistent with vintage )
 
 ## [0.35.1] - 2023-06-29
 
@@ -90,7 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Enable `CronJobTimeZone` feature gate in the kubelet.  
+- Enable `CronJobTimeZone` feature gate in the kubelet.
 - Set kubernetes `1.24.10` as the default version.
 - Switch from the in-tree cloud-controller-manager to the external one. This requires version `v0.26.0` of `default-apps-aws`.
 

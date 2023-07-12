@@ -1,0 +1,11 @@
+metadata:
+  name: test-mc-proxy
+  organization: test
+  servicePriority: lowest
+baseDomain: example.com
+connectivity:
+  createCiliumNetworkPolicies: true
+  proxy:
+    enabled: true
+    httpProxy: http://proxy.mcproxy.example.com:4000
+    httpsProxy: http://proxy.mcproxy.example.com:4000

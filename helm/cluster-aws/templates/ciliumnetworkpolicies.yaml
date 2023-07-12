@@ -1,0 +1,59 @@
+{{- if .Values.connectivity.createCiliumNetworkPolicies }}
+{{- range $_, $ns := (list "giantswarm" "kube-system") }}
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ include "resource.default.name" $ }}-dns
+  namespace: {{ $ns }}
+spec:
+  endpointSelector: {} # any
+
+  egress:
+    - toServices:
+        - k8sServiceSelector:
+            namespace: kube-system
+            selector:
+              matchLabels:
+                k8s-app: coredns
+
+      toPorts:
+        - ports:
+            - port: "1053" # must be the target port, not service port
+              protocol: ANY
+{{- if $.Values.connectivity.proxy.enabled }}
+
+          # Required so Cilium registers DNS responses in the FQDN cache
+          # as needed for the proxy access rule below which uses `toFQDNs`
+          # (https://docs.cilium.io/en/stable/security/policy/language/#example)
+          rules:
+            dns:
+              - matchPattern: "*"
+{{ end -}}
+
+{{- if $.Values.connectivity.proxy.enabled }}
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ include "resource.default.name" $ }}-proxy
+  namespace: {{ $ns }}
+spec:
+  endpointSelector: {} # any
+
+  egress:
+    - toFQDNs:
+        # The whole cluster should be allowed to reach the proxy. This currently does not limit the port range.
+        {{- range $_, $proxyUrl := ((list $.Values.connectivity.proxy.httpProxy $.Values.connectivity.proxy.httpsProxy) | uniq) }}
+        {{- if $proxyUrl }}
+        - matchName: {{ regexReplaceAll "^https?://|:[0-9]+.*" $proxyUrl "" | quote }}
+        {{- end }}
+        {{- end }}
+{{ end -}}
+
+{{ end -}}
+{{ end -}}

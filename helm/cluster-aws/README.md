@@ -44,6 +44,7 @@ Properties within the `.connectivity` top-level object
 | `connectivity.containerRegistries.*[*].credentials.password` | **Password** - Used to authenticate for the registry with username/password.|**Type:** `string`<br/>|
 | `connectivity.containerRegistries.*[*].credentials.username` | **Username** - Used to authenticate for the registry with username/password.|**Type:** `string`<br/>|
 | `connectivity.containerRegistries.*[*].endpoint` | **Endpoint** - Endpoint for the container registry.|**Type:** `string`<br/>|
+| `connectivity.createCiliumNetworkPolicies` | **Create CiliumNetworkPolicy manifests for DNS and proxy access in critical namespaces** - For the namespaces `giantswarm` and `kube-system`, this creates a network policy allowing DNS access. If `proxy.enabled` is true, egress to the proxy is allowed as well, but for now this only supports an FQDN, not an IP address, inside the `httpProxy`/`httpsProxy` URLs.|**Type:** `boolean`<br/>**Default:** `false`|
 | `connectivity.dns` | **DNS**|**Type:** `object`<br/>|
 | `connectivity.dns.additionalVpc` | **Additional VPCs** - If DNS mode is 'private', the VPCs specified here will be assigned to the private hosted zone.|**Type:** `array`<br/>|
 | `connectivity.dns.additionalVpc[*]` | **VPC identifier**|**Type:** `string`<br/>**Example:** `"vpc-x2aeasd1d"`<br/>**Value pattern:** `^vpc-[0-0a-zA-Z]+$`<br/>|
@@ -116,7 +117,7 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | :----------- | :-------------- | :--------------- |
 | `internal.hashSalt` | **Hash salt** - If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.|**Type:** `string`<br/>|
 | `internal.kubernetesVersion` | **Kubernetes version**|**Type:** `string`<br/>**Example:** `"1.24.7"`<br/>**Default:** `"1.24.10"`|
-| `internal.nodePools` | **Default node pool**|**Type:** `object`<br/>**Default:** `{"def00":{"customNodeLabels":["label=default"],"instanceType":"r6i.xlarge","minSize":3}}`|
+| `internal.nodePools` | **Default node pool**|**Type:** `object`<br/>**Default:** `{"def00":{"customNodeLabels":["label=default"],"instanceType":"r6i.xlarge","maxSize":3,"minSize":3}}`|
 | `internal.nodePools.PATTERN` | **Node pool**|**Type:** `object`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `internal.nodePools.PATTERN.availabilityZones` | **Availability zones**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `internal.nodePools.PATTERN.availabilityZones[*]` | **Availability zone**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
