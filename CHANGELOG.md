@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Specify `HelmChart` type when patching `HelmCharts` in job that removes finalizers.
+
 ## [0.36.1] - 2023-07-11
 
 ### Fixed

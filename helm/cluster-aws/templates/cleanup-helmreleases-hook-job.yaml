@@ -43,7 +43,7 @@ metadata:
     {{- include "labels.common" $ | nindent 4 }}
 rules:
   - apiGroups: ["helm.toolkit.fluxcd.io"]
-    resources: ["helmreleases"]
+    resources: ["helmreleases", "helmcharts"]
     verbs: ["get", "list"]
   - apiGroups: ["helm.toolkit.fluxcd.io"]
     resources: ["helmreleases"]
@@ -53,6 +53,8 @@ rules:
       - "{{ include "resource.default.name" $ }}-aws-ebs-csi-driver"
       - "{{ include "resource.default.name" $ }}-coredns"
       - "{{ include "resource.default.name" $ }}-vertical-pod-autoscaler-crd"
+  - apiGroups: ["helm.toolkit.fluxcd.io"]
+    resources: ["helmcharts"]
     verbs: ["patch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -108,8 +110,8 @@ spec:
             - "-xc"
             - |
               for r in $(kubectl get helmrelease -n {{ $.Release.Namespace }} -l "giantswarm.io/cluster={{ include "resource.default.name" . }}" -o name) ; do
-                  kubectl patch -n {{ $.Release.Namespace }} `kubectl get -n {{ $.Release.Namespace }} "${r}" -o jsonpath='{.status.helmChart}' | cut -d/ -f2` --type=merge -p '{"metadata": {"finalizers": []}}'
-                  kubectl patch -n {{ $.Release.Namespace }} helmchart "${r}" --type=merge -p '{"metadata": {"finalizers": []}}'
+                  kubectl patch -n {{ $.Release.Namespace }} helmchart `kubectl get -n {{ $.Release.Namespace }} "${r}" -o jsonpath='{.status.helmChart}' | cut -d/ -f2` --type=merge -p '{"metadata": {"finalizers": []}}'
+                  kubectl patch -n {{ $.Release.Namespace }} "${r}" --type=merge -p '{"metadata": {"finalizers": []}}'
               done
           securityContext:
             readOnlyRootFilesystem: true
