@@ -86,6 +86,7 @@ metadata:
     "helm.sh/hook": "post-delete"
     "helm.sh/hook-delete-policy": "before-hook-creation"
     "helm.sh/hook-weight": "0"
+    "helm.sh/resource-policy": keep
   labels:
     {{- include "labels.common" $ | nindent 4 }}
 spec:
