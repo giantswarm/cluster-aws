@@ -3,6 +3,7 @@ apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
   annotations:
+    cluster.x-k8s.io/paused: "true"
     {{- with .Values.metadata.description }}
     cluster.giantswarm.io/description: "{{ . }}"
     {{- end }}
@@ -23,6 +24,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}
   namespace: {{ .Release.Namespace }}
 spec:
+  paused: true
   clusterNetwork:
     services:
       cidrBlocks:

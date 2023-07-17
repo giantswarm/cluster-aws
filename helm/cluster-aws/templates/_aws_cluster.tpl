@@ -6,6 +6,7 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSCluster
 metadata:
   annotations:
+    cluster.x-k8s.io/paused: "true"
     "helm.sh/resource-policy": keep
     aws.giantswarm.io/vpc-mode: "{{ .Values.connectivity.vpcMode }}"
     aws.giantswarm.io/dns-mode: {{ if (eq .Values.connectivity.dns.mode "private") }}"private"{{ else }}"public"{{ end }}
