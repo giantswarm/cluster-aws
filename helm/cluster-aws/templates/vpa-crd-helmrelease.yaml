@@ -23,7 +23,7 @@ spec:
   kubeConfig:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
-  interval: 3m
+  interval: 1m
   install:
     remediation:
       retries: 30
