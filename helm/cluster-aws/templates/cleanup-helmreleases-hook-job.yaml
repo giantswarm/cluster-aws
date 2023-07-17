@@ -113,6 +113,7 @@ spec:
                   kubectl patch -n {{ $.Release.Namespace }} helmchart `kubectl get -n {{ $.Release.Namespace }} "${r}" -o jsonpath='{.status.helmChart}' | cut -d/ -f2` --type=merge -p '{"metadata": {"finalizers": []}}'
                   kubectl patch -n {{ $.Release.Namespace }} "${r}" --type=merge -p '{"metadata": {"finalizers": []}}'
               done
+              sleep 60
           securityContext:
             readOnlyRootFilesystem: true
           resources:
