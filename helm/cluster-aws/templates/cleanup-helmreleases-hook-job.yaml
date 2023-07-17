@@ -53,12 +53,6 @@ rules:
       - "{{ include "resource.default.name" $ }}-aws-ebs-csi-driver"
       - "{{ include "resource.default.name" $ }}-coredns"
       - "{{ include "resource.default.name" $ }}-vertical-pod-autoscaler-crd"
-  - apiGroups: ["source.toolkit.fluxcd.io"]
-    resources: ["helmcharts"]
-    verbs: [ "get", "list" ]
-  - apiGroups: ["source.toolkit.fluxcd.io"]
-    resources: ["helmcharts"]
-    verbs: ["patch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
