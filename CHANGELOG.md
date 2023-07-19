@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.37.0] - 2023-07-19
+
+### Changed
+
+- Decrease `interval` on `HelmReleases` to make things more reactive.
+
+### Fixed
+
+- Fix RBAC for `HelmReleases` clean up job.
+
+## [0.36.2] - 2023-07-12
+
+### Fixed
+
+- Specify `HelmChart` type when patching `HelmCharts` in job that removes finalizers.
+
+## [0.36.1] - 2023-07-11
+
+### Fixed
+
+- Fix job that removes finalizers by dropping namespace from the `HelmChart` name when using it for patching.
+
+## [0.36.0] - 2023-07-10
+
+### Changed
+
+- Remove finalizers from `HelmCharts` when removing this app to avoid leaving leftovers in the management cluster.
+
 ### Added
 
 - Set value for `controller-manager` `terminated-pod-gc-threshold` to `125` ( consistent with vintage ) 
@@ -742,7 +770,11 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.35.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.37.0...HEAD
+[0.37.0]: https://github.com/giantswarm/cluster-aws/compare/v0.36.2...v0.37.0
+[0.36.2]: https://github.com/giantswarm/cluster-aws/compare/v0.36.1...v0.36.2
+[0.36.1]: https://github.com/giantswarm/cluster-aws/compare/v0.36.0...v0.36.1
+[0.36.0]: https://github.com/giantswarm/cluster-aws/compare/v0.35.1...v0.36.0
 [0.35.1]: https://github.com/giantswarm/cluster-aws/compare/v0.35.0...v0.35.1
 [0.35.0]: https://github.com/giantswarm/cluster-aws/compare/v0.34.0...v0.35.0
 [0.34.0]: https://github.com/giantswarm/cluster-aws/compare/v0.33.0...v0.34.0
