@@ -26,7 +26,7 @@ spec:
   dependsOn:
     - name: {{ include "resource.default.name" $ }}-cloud-provider-aws
       namespace: {{ $.Release.Namespace }}
-  interval: 10m
+  interval: 5m
   install:
     remediation:
       retries: 30
