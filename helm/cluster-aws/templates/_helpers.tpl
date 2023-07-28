@@ -103,12 +103,6 @@ room for such suffix.
       name: {{ include "resource.default.name" $ }}-registry-configuration
       key: registry-config.toml
 {{- end -}}
-{{- define "irsaFiles" -}}
-- path: /opt/irsa-cloudfront.sh
-  permissions: "0700"
-  encoding: base64
-  content: {{ $.Files.Get "files/opt/irsa-cloudfront.sh" | b64enc }}
-{{- end -}}
 {{- define "kubeletConfigFiles" -}}
 - path: /opt/kubelet-config.sh
   permissions: "0700"
@@ -131,12 +125,6 @@ room for such suffix.
     secret:
       name: {{ include "resource.default.name" $ }}-encryption-provider-config
       key: encryption
-- path: /etc/kubernetes/irsa/cloudfront-domain
-  permissions: "0600"
-  contentFrom:
-    secret:
-      name: {{ include "resource.default.name" $ }}-irsa-cloudfront
-      key: domain
 {{- end -}}
 
 {{- define "nodeConfigFiles" -}}
@@ -212,10 +200,6 @@ room for such suffix.
 
 {{- define "sshPreKubeadmCommands" -}}
 - systemctl restart sshd
-{{- end -}}
-
-{{- define "irsaPostKubeadmCommands" -}}
-- /bin/sh /opt/irsa-cloudfront.sh /etc/kubernetes/manifests/kube-apiserver.yaml
 {{- end -}}
 
 {{- define "kubeletConfigPostKubeadmCommands" -}}

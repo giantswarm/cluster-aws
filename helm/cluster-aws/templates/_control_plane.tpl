@@ -95,7 +95,7 @@ spec:
           - 127.0.0.1
         extraArgs:
           cloud-provider: external
-          service-account-issuer: PLACEHOLDER_CLOUDFRONT_DOMAIN
+          service-account-issuer: "irsa.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
           {{- if .Values.controlPlane.oidc.issuerUrl }}
           {{- with .Values.controlPlane.oidc }}
           oidc-issuer-url: {{ .issuerUrl }}
@@ -162,7 +162,6 @@ spec:
     files:
     {{- include "oidcFiles" . | nindent 4 }}
     {{- include "sshFiles" . | nindent 4 }}
-    {{- include "irsaFiles" . | nindent 4 }}
     {{- include "kubeletConfigFiles" . | nindent 4 }}
     {{- include "nodeConfigFiles" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
@@ -215,7 +214,6 @@ spec:
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
-    {{- include "irsaPostKubeadmCommands" . | nindent 4 }}
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
