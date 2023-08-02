@@ -138,6 +138,10 @@ room for such suffix.
   content: {{ $.Files.Get "files/etc/sysctl.d/hardening.conf" | b64enc }}
 {{- end -}}
 
+{{/*
+The secret `-teleport-join-token` is created by the teleport-operator in cluster namespace
+and is used to join the node to the teleport cluster.
+*/}}
 {{- define "teleportFiles" -}}
 - path: /etc/teleport-join-token
   permissions: "0644"
