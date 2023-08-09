@@ -32,10 +32,10 @@ spec:
   install:
     remediation:
       retries: 30
-  {{- if .Values.connectivity.proxy }}
+  {{- if .Values.connectivity.proxy.enabled }}
   values:
     proxy:
-      noProxy: "127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}"
+      noProxy: "{{ include "noProxyList" $ }}"
       http: {{ .Values.connectivity.proxy.httpProxy | quote }}
       https: {{ .Values.connectivity.proxy.httpsProxy | quote }}
   {{ end }}
