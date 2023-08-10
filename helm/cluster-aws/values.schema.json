@@ -309,6 +309,7 @@
                     "type": "object",
                     "title": "Proxy",
                     "description": "Whether/how outgoing traffic is routed through proxy servers.",
+                    "additionalProperties": false,
                     "properties": {
                         "enabled": {
                             "type": "boolean",

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Add always-required values to `noProxy` list for aws-cloud-controller-manager-app and aws-ebs-csi-driver-app (only relevant for private clusters with proxy)
+- Forbid additional properties under `connectivity.proxy` to avoid typos
+
 ## [0.37.0] - 2023-07-19
 
 ### Changed
@@ -37,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Set value for `controller-manager` `terminated-pod-gc-threshold` to `125` ( consistent with vintage ) 
+- Set value for `controller-manager` `terminated-pod-gc-threshold` to `125` ( consistent with vintage )
 
 ## [0.35.1] - 2023-06-29
 
