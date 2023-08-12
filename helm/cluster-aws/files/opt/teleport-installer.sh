@@ -15,7 +15,7 @@ download() {
 
 # if teleport is already installed, exit
 is_teleport_installed() {
-  if type teleport &>/dev/null; then
+  if type /opt/bin/teleport &>/dev/null; then
     GREEN='\033[0;32m'
     COLOR_OFF='\033[0m'
 
@@ -33,6 +33,7 @@ install_via_curl() {
   trap "rm -rf $TEMP_DIR" EXIT
 
   INSTALL_DIR=/opt/bin
+  mkdir -vp $INSTALL_DIR
 
   TELEPORT_FILENAME="teleport-v${TELEPORT_VERSION}-linux-${ARCH}-bin.tar.gz"
   URL="https://get.gravitational.com/${TELEPORT_FILENAME}"
