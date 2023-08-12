@@ -34,7 +34,7 @@ install_via_curl() {
 
   INSTALL_DIR=/opt/bin
 
-  TELEPORT_FILENAME="teleport-v$TELEPORT_VERSION-linux-$ARCH-bin.tar.gz"
+  TELEPORT_FILENAME="teleport-v${TELEPORT_VERSION}-linux-${ARCH}-bin.tar.gz"
   URL="https://get.gravitational.com/${TELEPORT_FILENAME}"
   download "${URL}" "${TEMP_DIR}/${TELEPORT_FILENAME}"
 
