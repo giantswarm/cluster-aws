@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Add always-required values to `noProxy` list for aws-cloud-controller-manager-app and aws-ebs-csi-driver-app (only relevant for private clusters with proxy)
+- Forbid additional properties under `connectivity.proxy` to avoid typos
+
+### Changed
+
+- Use fixed alias CloudFront domain for IRSA
+
+### Added
+
+- Add teleport
+
 ## [0.37.0] - 2023-07-19
 
 ### Changed
@@ -38,7 +51,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Set value for `controller-manager` `terminated-pod-gc-threshold` to `125` ( consistent with vintage ) 
-- Add teleport
 
 ## [0.35.1] - 2023-06-29
 
@@ -98,7 +110,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Moved the core components feature flags to their configuration, as the `featureGates` field is for `kubeadm` feature flags.
-- Use fixed alias cloudfront domain for IRSA
 
 ### Removed
 

@@ -76,6 +76,9 @@ room for such suffix.
   content: {{ $.Files.Get "files/etc/ssh/sshd_config_bastion" | b64enc }}
 {{- end -}}
 
+{{- define "noProxyList" -}}
+127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
+{{- end -}}
 {{- define "proxyFiles" -}}
 - path: /etc/systemd/system/containerd.service.d/http-proxy.conf
   permissions: "0644"
@@ -89,10 +92,10 @@ room for such suffix.
 {{- define "proxyCommand" -}}
 - export HTTP_PROXY={{ $.Values.connectivity.proxy.httpProxy }}
 - export HTTPS_PROXY={{ $.Values.connectivity.proxy.httpsProxy }}
-- export NO_PROXY=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
+- export NO_PROXY="{{ include "noProxyList" $ }}"
 - export http_proxy={{ $.Values.connectivity.proxy.httpProxy }}
 - export https_proxy={{ $.Values.connectivity.proxy.httpsProxy }}
-- export no_proxy=127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
+- export no_proxy="{{ include "noProxyList" $ }}"
 {{- end -}}
 
 {{- define "registryFiles" -}}
@@ -188,7 +191,7 @@ and is used to join the node to the teleport cluster.
 - name: var-lib-etcd.mount
   enabled: true
   contents: |
-    [Unit] 
+    [Unit]
     Description=etcd volume
     DefaultDependencies=no
     [Mount]
