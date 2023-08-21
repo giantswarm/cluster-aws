@@ -425,22 +425,6 @@
                         }
                     ]
                 },
-                "teleport": {
-                    "type": "object",
-                    "title": "Teleport",
-                    "properties": {
-                        "proxy": {
-                            "type": "string",
-                            "title": "Teleport Proxy Address:Port",
-                            "default": "test.teleport.giantswarm.io:443"
-                        },
-                        "version": {
-                            "type": "string",
-                            "title": "Teleport Version",
-                            "default": "13.1.5"
-                        }
-                    }
-                },
                 "topology": {
                     "type": "object",
                     "title": "Topology",
@@ -624,6 +608,27 @@
             "title": "Internal",
             "description": "For Giant Swarm internal use only, not stable, or not supported by UIs.",
             "properties": {
+                "teleport": {
+                    "type": "object",
+                    "title": "Teleport",
+                    "properties": {
+                        "proxyAddr": {
+                            "type": "string",
+                            "title": "Teleport proxy address",
+                            "default": "test.teleport.giantswarm.io:443"
+                        },
+                        "version": {
+                            "type": "string",
+                            "title": "Teleport version",
+                            "default": "13.1.5"
+                        },
+                        "enabled": {
+                            "type": "boolean",
+                            "title": "Enable teleport",
+                            "default": false
+                        }
+                    }
+                },                
                 "hashSalt": {
                     "type": "string",
                     "title": "Hash salt",

@@ -39,9 +39,6 @@ connectivity:
         - availabilityZone: c
           cidr: 10.0.192.0/18
       isPublic: false
-  teleport:
-    proxy: test.teleport.giantswarm.io:443
-    version: 13.1.5
   topology:
     mode: None
   vpcEndpointMode: GiantSwarmManaged
@@ -61,6 +58,10 @@ controlPlane:
   oidc: {}
   rootVolumeSizeGB: 120
 internal:
+  teleport:
+    proxyAddr: test.teleport.giantswarm.io:443
+    version: 13.1.5
+    enabled: false
   kubernetesVersion: 1.24.10
   nodePools:
     def00:

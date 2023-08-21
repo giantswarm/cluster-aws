@@ -92,7 +92,9 @@ spec:
         systemd:
           units:
           {{- include "flatcarSystemdUnits" $ | nindent 12 }}
+          {{- if .Values.internal.teleport.enabled }}
           {{- include "teleportSystemdUnits" $ | nindent 12 }}
+          {{- end }}
         storage:
           directories:
           {{- include "nodeDirectories" $ | nindent 12 }}
@@ -130,7 +132,9 @@ spec:
   {{- include "kubeletConfigFiles" $ | nindent 2 }}
   {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
   {{- include "registryFiles" $ | nindent 2 }}
-  {{- include "teleportFiles" $ | nindent 2 }}  
+  {{- if .Values.internal.teleport.enabled }}
+  {{- include "teleportFiles" $ | nindent 2 }}
+  {{- end }}
   {{- include "nodeConfigFiles" $ | nindent 2 }}
 ---
 {{ end }}
