@@ -163,7 +163,7 @@ spec:
           extraArgs:
             listen-metrics-urls: "http://0.0.0.0:2381"
             quota-backend-bytes: "8589934592"
-            {{- if .Values.controlPlane.apiExtraArgs -}}
+            {{- if .Values.internal.migration.etcdExtraArgs -}}
             {{- toYaml .Values.internal.migration.etcdExtraArgs | nindent 12 }}
             {{- end }}
       networking:
