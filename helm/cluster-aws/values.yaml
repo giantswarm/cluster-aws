@@ -59,6 +59,7 @@ controlPlane:
   rootVolumeSizeGB: 120
 internal:
   kubernetesVersion: 1.24.10
+  migration: {}
   nodePools:
     def00:
       customNodeLabels:

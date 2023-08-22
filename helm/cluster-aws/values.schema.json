@@ -479,6 +479,32 @@
             "type": "object",
             "title": "Control plane",
             "properties": {
+                "apiExtraArgs": {
+                    "type": "object",
+                    "title": "API extra arguments",
+                    "description": "Extra arguments passed to the kubernetes API server.",
+                    "patternProperties": {
+                        "^.+:.+$": {
+                            "type": "string",
+                            "title": "argument"
+                        }
+                    },
+                    "example": [
+                        "audit-log-maxsize: 100"
+                    ]
+                },
+                "apiExtraCertSANs": {
+                    "type": "array",
+                    "title": "API extra cert SANs",
+                    "description": "Extra certs SANs passed to the kubeadmcontrolplane CR.",
+                    "items": {
+                        "type": "string",
+                        "title": "cert SAN",
+                        "example": [
+                            "test.mydomain.com"
+                        ]
+                    }
+                },
                 "apiMode": {
                     "type": "string",
                     "title": "API mode",
@@ -620,6 +646,55 @@
                         "1.24.7"
                     ],
                     "default": "1.24.10"
+                },
+                "migration": {
+                    "type": "object",
+                    "title": "Migration values",
+                    "description": "Section used for migration of cluster from vintage to CAPI",
+                    "properties": {
+                        "controlPlaneExtraFiles": {
+                            "type": "array",
+                            "title": "Control Plane extra files",
+                            "description": "Additional fiels that will be provisioned to control-plane nodes, reference is from secret in the same namespace.",
+                            "items": {
+                                "type": "object",
+                                "title": "file",
+                                "properties": {
+                                    "path": {
+                                        "type": "string",
+                                        "title": "file path"
+                                    },
+                                    "secretKey": {
+                                        "type": "string",
+                                        "title": "secret key for file content"
+                                    },
+                                    "secretName": {
+                                        "type": "string",
+                                        "title": "secret name for file content"
+                                    }
+                                }
+                            }
+                        },
+                        "controlPlanePreKubeadmCommands": {
+                            "type": "array",
+                            "title": "Control Plane Pre Kubeadm Commands",
+                            "description": "Additional Pre-Kubeadm Commands executed on the control plane node.",
+                            "items": {
+                                "type": "string",
+                                "title": "command"
+                            }
+                        },
+                        "etcdExtraArgs": {
+                            "type": "object",
+                            "title": "Etcd extra arguments",
+                            "patternProperties": {
+                                "^.+:.+$": {
+                                    "type": "string",
+                                    "title": "argument"
+                                }
+                            }
+                        }
+                    }
                 },
                 "nodePools": {
                     "type": "object",
