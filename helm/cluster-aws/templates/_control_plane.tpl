@@ -185,7 +185,7 @@ spec:
          name: {{ $file.secretName }}
          key: {{ $file.secretKey }}
     {{- end -}}
-    {{- end -}}
+    {{- end }}
     initConfiguration:
       skipPhases:
       - addon/kube-proxy
