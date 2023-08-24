@@ -66,9 +66,9 @@ spec:
       size: {{ $value.rootVolumeSizeGB | default 300 }}
       type: gp3
     sshKeyName: ""
-    {{- if .$value.additionalSecurityGroupID }}
+    {{- if $value.additionalSecurityGroupID }}
     additionalSecurityGroups:
-    - id: {{ .$value.additionalSecurityGroupID }}
+    - id: {{ $value.additionalSecurityGroupID }}
     {{- end }}
   minSize: {{ $value.minSize | default 1 }}
   maxSize: {{ $value.maxSize | default 3 }}

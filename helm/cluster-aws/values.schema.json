@@ -256,6 +256,11 @@
                     "type": "object",
                     "title": "Network",
                     "properties": {
+                        "internetGatewayId": {
+                            "type": "string",
+                            "title": "Internet Gateway ID",
+                            "description": "ID of the Internet gateway for the VPC."
+                        },
                         "pods": {
                             "type": "object",
                             "title": "Pods",
@@ -307,6 +312,11 @@
                             "title": "VPC subnet",
                             "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
                             "default": "10.0.0.0/16"
+                        },
+                        "vpcId": {
+                            "type": "string",
+                            "title": "VPC id",
+                            "description": "ID of the VPC, whre the cluster will be deployed."
                         }
                     }
                 },
@@ -379,9 +389,24 @@
                                     }
                                 }
                             },
+                            "id": {
+                                "type": "string",
+                                "title": "ID of the subnet",
+                                "description": "ID of the subnets, used inc ase we want to reuse already existing subnet."
+                            },
                             "isPublic": {
                                 "type": "boolean",
                                 "title": "Public"
+                            },
+                            "natGatewayId": {
+                                "type": "string",
+                                "title": "ID of the NAT Gateway",
+                                "description": "ID of the NAT Gateway used for this existing subnet."
+                            },
+                            "routeTableId": {
+                                "type": "string",
+                                "title": "ID of route table",
+                                "description": "ID of the route table, assigned to the existing subnet. Must be provided when defining subnet via ID."
                             },
                             "tags": {
                                 "type": "object",
