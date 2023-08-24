@@ -46,7 +46,14 @@ spec:
         toPort: -1
     vpc:
       availabilityZoneUsageLimit: {{ .Values.connectivity.availabilityZoneUsageLimit }}
+      {{- if .Values.connectivity.network.vpcId }}
+      id: {{ .Values.connectivity.network.vpcId }}
+      {{- else }}
       cidrBlock: {{ .Values.connectivity.network.vpcCidr }}
+      {{- end }}
+      {{- if .Values.connectivity.network.internetGatewayId }}
+      internetGatewayId: {{ .Values.connectivity.network.internetGatewayId }}
+      {{- end }}
     subnets:
     {{- range $j, $subnet := .Values.connectivity.subnets }}
     {{- range $i, $cidr := $subnet.cidrBlocks }}

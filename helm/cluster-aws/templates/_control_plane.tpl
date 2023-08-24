@@ -30,6 +30,10 @@ template:
       size: {{ .Values.controlPlane.rootVolumeSizeGB }}
       type: gp3
     iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
+    {{- if .Values.controlPlane.additionalSecurityGroupID }}
+    additionalSecurityGroups:
+    - id: {{ .Values.controlPlane.additionalSecurityGroupID }}
+    {{- end }}
     sshKeyName: ""
     subnet:
       filters:

@@ -13,6 +13,11 @@
             "type": "object",
             "title": "Node pool",
             "properties": {
+                "additionalSecurityGroupID": {
+                    "type": "string",
+                    "title": "machine pool additional security group id",
+                    "description": "Additional security groups id that will be added to the machine pool nodes."
+                },
                 "availabilityZones": {
                     "type": "array",
                     "title": "Availability zones",
@@ -479,6 +484,11 @@
             "type": "object",
             "title": "Control plane",
             "properties": {
+                "additionalSecurityGroupID": {
+                    "type": "string",
+                    "title": "Control Plane additional security group id",
+                    "description": "Additional security groups id that will be added to the control plane nodes."
+                },
                 "apiExtraArgs": {
                     "type": "object",
                     "title": "API extra arguments",
