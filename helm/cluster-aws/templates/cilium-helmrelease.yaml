@@ -41,6 +41,15 @@ spec:
     hubble:
       relay:
         enabled: true
+        tolerations:
+          - key: "node.cluster.x-k8s.io/uninitialized"
+            operator: "Exists"
+            effect: "NoSchedule"
+      ui:
+        tolerations:
+          - key: "node.cluster.x-k8s.io/uninitialized"
+            operator: "Exists"
+            effect: "NoSchedule"
     defaultPolicies:
       enabled: true
       tolerations:

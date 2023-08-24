@@ -7,8 +7,11 @@
 
 ### Trigger e2e tests
 
-<!-- If for some reason you want to skip the e2e tests, remove the following lines. You can check the results of the e2e tests on [tekton](https://tekton.giantswarm.io/). -->
+<!--
+We currently have one pipeline that tests both cluster creation and cluster upgrades. You can trigger this pipeline by writing this commands in a pull request comment or description
+- `/run cluster-test-suites`
 
-/test upgrade
+If for some reason you want to skip the e2e tests, remove the following line.
+-->
 
 /run cluster-test-suites
