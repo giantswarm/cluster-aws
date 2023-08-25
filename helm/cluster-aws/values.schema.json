@@ -316,7 +316,7 @@
                         "vpcId": {
                             "type": "string",
                             "title": "VPC id",
-                            "description": "ID of the VPC, whre the cluster will be deployed."
+                            "description": "ID of the VPC, where the cluster will be deployed."
                         }
                     }
                 },
