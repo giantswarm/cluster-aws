@@ -619,7 +619,7 @@
                     "examples": [
                         "1.24.7"
                     ],
-                    "default": "1.24.10"
+                    "default": "1.24.14"
                 },
                 "nodePools": {
                     "type": "object",
