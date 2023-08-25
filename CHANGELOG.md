@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.38.0] - 2023-08-24
+
 ### Fixed
 
 - Add always-required values to `noProxy` list for aws-cloud-controller-manager-app and aws-ebs-csi-driver-app (only relevant for private clusters with proxy)
@@ -15,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Use fixed alias CloudFront domain for IRSA
+- Tolerate CAPI taints on uninitialized nodes when scheduling cilium relay and ui.
 
 ## [0.37.0] - 2023-07-19
 
@@ -778,7 +781,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.37.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.38.0...HEAD
+[0.38.0]: https://github.com/giantswarm/cluster-aws/compare/v0.37.0...v0.38.0
 [0.37.0]: https://github.com/giantswarm/cluster-aws/compare/v0.36.2...v0.37.0
 [0.36.2]: https://github.com/giantswarm/cluster-aws/compare/v0.36.1...v0.36.2
 [0.36.1]: https://github.com/giantswarm/cluster-aws/compare/v0.36.0...v0.36.1
