@@ -117,6 +117,7 @@ spec:
                   kubectl patch -n {{ $.Release.Namespace }} helmchart $(kubectl get -n {{ $.Release.Namespace }} "${r}" -o jsonpath='{.status.helmChart}' | cut -d/ -f2) --type=merge -p '{"metadata": {"finalizers": []}}'
                   kubectl patch -n {{ $.Release.Namespace }} "${r}" --type=merge -p '{"metadata": {"finalizers": []}}'
               done
+              kubectl get helmchart -n {{ $.Release.Namespace }} | grep "{{ include "resource.default.name" . }}" | awk '{print $1}' | xargs kubectl patch -n {{ $.Release.Namespace }} helmchart --type=merge -p '{"metadata": {"finalizers": []}}'
           securityContext:
             readOnlyRootFilesystem: true
           resources:
