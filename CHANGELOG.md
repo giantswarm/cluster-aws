@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix job that removes `HelmReleases` and `HelmCharts`.
+
 ## [0.38.2] - 2023-08-29
 
 ### Fixed
