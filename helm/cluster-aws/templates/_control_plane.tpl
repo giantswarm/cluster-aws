@@ -234,11 +234,11 @@ spec:
         {{- end }}
     preKubeadmCommands:
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
+    {{- if .Values.internal.migration.controlPlanePreKubeadmCommands -}}
     {{- toYaml .Values.internal.migration.controlPlanePreKubeadmCommands | nindent 4 }}
     {{- end }}
     {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
-    {{- if .Values.internal.migration.controlPlanePreKubeadmCommands -}}
     postKubeadmCommands:
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
     users:
