@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix job that removes `HelmReleases` and `HelmCharts`.
+- Delete `HelmReleases` and `HelmCharts` clean-up jobs when they are successful.
 
 ## [0.38.2] - 2023-08-29
 
