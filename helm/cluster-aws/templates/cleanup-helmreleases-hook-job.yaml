@@ -113,10 +113,8 @@ spec:
             - "/bin/sh"
             - "-xc"
             - |
-              for r in $(kubectl get helmrelease -n {{ $.Release.Namespace }} -l "giantswarm.io/cluster={{ include "resource.default.name" . }}" -o name) ; do
-                  kubectl patch -n {{ $.Release.Namespace }} helmchart $(kubectl get -n {{ $.Release.Namespace }} "${r}" -o jsonpath='{.status.helmChart}' | cut -d/ -f2) --type=merge -p '{"metadata": {"finalizers": []}}'
-                  kubectl patch -n {{ $.Release.Namespace }} "${r}" --type=merge -p '{"metadata": {"finalizers": []}}'
-              done
+              kubectl get helmrelease -n {{ $.Release.Namespace }} -o name -l "giantswarm.io/cluster={{ include "resource.default.name" . }}" | xargs kubectl patch -n {{ $.Release.Namespace }} --type=merge -p '{"metadata": {"finalizers": []}}'
+              kubectl get helmchart -n {{ $.Release.Namespace }} -o name | grep "{{ include "resource.default.name" . }}" | xargs kubectl patch -n {{ $.Release.Namespace }} --type=merge -p '{"metadata": {"finalizers": []}}'
           securityContext:
             readOnlyRootFilesystem: true
           resources:
