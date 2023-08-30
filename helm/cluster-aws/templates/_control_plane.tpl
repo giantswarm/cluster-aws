@@ -95,7 +95,7 @@ spec:
           - 127.0.0.1
         extraArgs:
           cloud-provider: external
-          service-account-issuer: "irsa.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
+          service-account-issuer: "https://irsa.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
           {{- if .Values.controlPlane.oidc.issuerUrl }}
           {{- with .Values.controlPlane.oidc }}
           oidc-issuer-url: {{ .issuerUrl }}

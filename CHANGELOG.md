@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Add `scheme` to service-account-issuer URI.
+
 ## [0.38.3] - 2023-08-29
 
 ### Fixed
