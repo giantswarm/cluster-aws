@@ -196,7 +196,7 @@ spec:
       - addon/coredns
       localAPIEndpoint:
         advertiseAddress: ""
-        bindPort: 0
+        bindPort: {{ .Values.internal.migration.apiBindPort }}
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: external
@@ -217,6 +217,9 @@ spec:
         {{- end }}
     joinConfiguration:
       discovery: {}
+      controlPlane:
+        localAPIEndpoint:
+          bindPort: {{ .Values.internal.migration.apiBindPort }}
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: external

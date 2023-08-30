@@ -687,6 +687,12 @@
                     "title": "Migration values",
                     "description": "Section used for migration of cluster from vintage to CAPI",
                     "properties": {
+			"apiBindPort": {
+				"type": "integer",
+				"title": "Kubernetes API bind port",
+				"default": 443,
+				"description": "Kubernetes API bind port used for kube api pod"
+			},
                         "controlPlaneExtraFiles": {
                             "type": "array",
                             "title": "Control Plane extra files",
