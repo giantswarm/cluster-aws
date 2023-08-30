@@ -327,6 +327,7 @@ imageLookupOrg: "706635527432"
     contents: |
       [Service]
       ExecStartPre=/bin/bash -c "while [ ! -f /etc/audit/rules.d/containerd.rules ]; do echo 'Waiting for /etc/audit/rules.d/containerd.rules to be written' && sleep 1; done"
+      Restart=on-failure
 - name: update-engine.service
   enabled: false
   mask: true
