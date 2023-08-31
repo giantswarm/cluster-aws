@@ -716,6 +716,15 @@
                                 }
                             }
                         },
+                        "controlPlanePostKubeadmCommands": {
+                            "type": "array",
+                            "title": "Control Plane Post Kubeadm Commands",
+                            "description": "Additional Post-Kubeadm Commands executed on the control plane node.",
+                            "items": {
+                                "type": "string",
+                                "title": "command"
+                            }
+                        },
                         "controlPlanePreKubeadmCommands": {
                             "type": "array",
                             "title": "Control Plane Pre Kubeadm Commands",

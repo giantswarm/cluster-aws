@@ -244,6 +244,9 @@ spec:
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
+    {{- if .Values.internal.migration.controlPlanePostKubeadmCommands -}}
+    {{- toYaml .Values.internal.migration.controlPlanePostKubeadmCommands | nindent 4 }}
+    {{- end }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: 3
