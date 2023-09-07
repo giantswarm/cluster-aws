@@ -11,6 +11,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove dependency between `cilium` and CPI so that `cilium` is installed as soon as possible. 
 
+## [0.38.4] - 2023-08-30
+
+### Fixed
+
+- Add `scheme` to service-account-issuer URI.
+
+## [0.38.3] - 2023-08-29
+
+### Fixed
+
+- Fix job that removes `HelmReleases` and `HelmCharts`.
+- Delete `HelmReleases` and `HelmCharts` clean-up jobs when they are successful.
+
+## [0.38.2] - 2023-08-29
+
+### Fixed
+
+- Delete all `HelmCharts` on the organization namespace that contain the cluster name on its name.
+
+## [0.38.1] - 2023-08-25
+
+### Changed
+
+- Update kubernetes version to `1.24.14`.
+
 ## [0.38.0] - 2023-08-24
 
 ### Fixed
@@ -785,7 +810,11 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.38.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.38.4...HEAD
+[0.38.4]: https://github.com/giantswarm/cluster-aws/compare/v0.38.3...v0.38.4
+[0.38.3]: https://github.com/giantswarm/cluster-aws/compare/v0.38.2...v0.38.3
+[0.38.2]: https://github.com/giantswarm/cluster-aws/compare/v0.38.1...v0.38.2
+[0.38.1]: https://github.com/giantswarm/cluster-aws/compare/v0.38.0...v0.38.1
 [0.38.0]: https://github.com/giantswarm/cluster-aws/compare/v0.37.0...v0.38.0
 [0.37.0]: https://github.com/giantswarm/cluster-aws/compare/v0.36.2...v0.37.0
 [0.36.2]: https://github.com/giantswarm/cluster-aws/compare/v0.36.1...v0.36.2
