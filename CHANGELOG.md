@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Remove dependency between `cilium` and CPI so that `cilium` is installed as soon as possible. 
+
 ## [0.38.4] - 2023-08-30
 
 ### Fixed
