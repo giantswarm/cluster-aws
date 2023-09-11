@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support creating `CiliumNetworkPolicy` manifests that allow egress requests to DNS and conditionally the proxy host (via [`cilium-app`](https://github.com/giantswarm/cilium-app))
 
+### Changed
+
+- Remove dependency between `cilium` and CPI so that `cilium` is installed as soon as possible.
+
 ## [0.38.4] - 2023-08-30
 
 ### Fixed
