@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add support for Spot VM instances.
+
 ## [0.39.0] - 2023-09-12
 
 ### Added

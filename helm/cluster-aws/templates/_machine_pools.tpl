@@ -66,14 +66,20 @@ spec:
       size: {{ $value.rootVolumeSizeGB | default 300 }}
       type: gp3
     sshKeyName: ""
+    {{- if and $value.spotInstances $value.spotInstances.enabled }}
+    spotMarketOptions:
+      maxPrice: {{ $value.spotInstances.maxPrice | quote }}
+    {{- end }}
   minSize: {{ $value.minSize | default 1 }}
   maxSize: {{ $value.maxSize | default 3 }}
+  {{- if or (not $value.spotInstances) (not $value.spotInstances.enabled) }}
   mixedInstancesPolicy:
     instancesDistribution:
       onDemandAllocationStrategy: prioritized
       onDemandBaseCapacity: 0
       onDemandPercentageAboveBaseCapacity: 100
       spotAllocationStrategy: lowest-price
+  {{- end }}
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfig

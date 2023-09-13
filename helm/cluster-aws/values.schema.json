@@ -76,6 +76,23 @@
                     "type": "integer",
                     "title": "Root volume size (GB)"
                 },
+                "spotInstances": {
+                    "type": "object",
+                    "title": "Spot VM instances",
+                    "description": "Spot VM instances configuration",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "title": "Enable",
+                            "default": false
+                        },
+                        "maxPrice": {
+                            "type": "string",
+                            "title": "Maximum price to pay for Spot VM instances",
+                            "pattern": "^[0-9]+(\\.[0-9]+)?$"
+                        }
+                    }
+                },
                 "subnetTags": {
                     "type": "array",
                     "title": "Subnet tags",

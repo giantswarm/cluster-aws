@@ -1,0 +1,12 @@
+metadata:
+  name: test-wc-minimal
+  organization: test
+  servicePriority: lowest
+baseDomain: example.com
+nodePools:
+  pool0:
+    maxSize: 2
+    minSize: 2
+    spotInstances:
+      enabled: true
+      maxPrice: "1.2"
