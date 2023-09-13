@@ -9,4 +9,4 @@ nodePools:
     minSize: 2
     spotInstances:
       enabled: true
-      maxPrice: "1.2"
+      maxPrice: 1.2
