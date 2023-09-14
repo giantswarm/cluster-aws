@@ -260,7 +260,6 @@ imageLookupOrg: "706635527432"
       Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin
       # To make metadata environment variables available for pre-kubeadm commands.
       EnvironmentFile=/run/metadata/*
-      ExecStart=/bin/bash -c "while ! /etc/kubeadm.sh ; do sleep 1; done"
 - name: containerd.service
   enabled: true
   contents: |
