@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+⚠️ When upgrading, please use v0.41.0 (_this release_) or newer. See our note on the breaking change in v0.38.4.
+
+### Fixed
+
+- Accept old service account issuer URI without `https://` prefix as well. This fixes the breaking change introduced in v0.38.4. Existing service account tokens, and the operators/applications using them, will keep working even before the tokens get rotated with the new service account issuer URI. When upgrading, it is recommended to skip earlier releases and immediately jump from v0.38.3 (or older) to _this one_.
+
 ## [0.40.0] - 2023-09-18
+
+⚠️ When upgrading, please use v0.41.0 or newer. See our note on the breaking change in v0.38.4.
 
 ### Added
 
@@ -15,11 +23,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.39.0] - 2023-09-12
 
+⚠️ When upgrading, please use v0.41.0 or newer. See our note on the breaking change in v0.38.4.
+
 ### Added
 
 - Support creating `CiliumNetworkPolicy` manifests that allow egress requests to DNS and conditionally the proxy host (via [`cilium-app`](https://github.com/giantswarm/cilium-app))
 
 ## [0.38.5] - 2023-09-12
+
+⚠️ When upgrading, please use v0.41.0 or newer. See our note on the breaking change in v0.38.4.
 
 ### Changed
 
@@ -27,9 +39,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.38.4] - 2023-08-30
 
-### Fixed
+⚠️ We advise not to upgrade from v0.38.3 (or older) to v0.38.4. Please use v0.41.0 or newer which ensures that both the old and new service account issuer URIs are allowed (difference is only the `https://` prefix, which is a breaking change), avoiding that operators lose access to the Kubernetes API which could render the cluster unhealthy.
 
-- Add `scheme` to service-account-issuer URI.
+### Changed
+
+- Add `https://` scheme prefix to service-account-issuer URI
 
 ## [0.38.3] - 2023-08-29
 
