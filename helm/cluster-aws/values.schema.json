@@ -76,6 +76,22 @@
                     "type": "integer",
                     "title": "Root volume size (GB)"
                 },
+                "spotInstances": {
+                    "type": "object",
+                    "title": "Spot instances",
+                    "description": "Compared to on-demand instances, spot instances can help you save cost.",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "title": "Enable",
+                            "default": false
+                        },
+                        "maxPrice": {
+                            "type": "number",
+                            "title": "Maximum price to pay per instance per hour, in USD."
+                        }
+                    }
+                },
                 "subnetTags": {
                     "type": "array",
                     "title": "Subnet tags",
