@@ -160,7 +160,7 @@ spec:
       networking:
         serviceSubnet: {{ join "," .Values.connectivity.network.services.cidrBlocks }}
     files:
-    {{- include "oidcFiles" . | nindent 4 }}
+    {{- include "controlPlaneFiles" . | nindent 4 }}
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "kubeletConfigFiles" . | nindent 4 }}
     {{- include "nodeConfigFiles" . | nindent 4 }}
@@ -215,6 +215,7 @@ spec:
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
+    {{- include "controlPlanePostKubeadmCommands" . | nindent 4 }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: 3
