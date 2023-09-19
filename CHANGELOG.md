@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- make AWS instances independent of helm label to prevent unnecessary rolling.
+
 ## [0.41.0] - 2023-09-19
 
 ⚠️ When upgrading, please use v0.41.0 (_this release_) or newer. See our note on the breaking change in v0.38.4.
