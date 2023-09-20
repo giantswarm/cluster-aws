@@ -45,13 +45,17 @@ room for such suffix.
 {{- .Values.metadata.name | default (.Release.Name | replace "." "-" | trunc 47 | trimSuffix "-") -}}
 {{- end -}}
 
-{{- define "oidcFiles" -}}
+{{- define "controlPlaneFiles" -}}
 {{- if .Values.controlPlane.oidc.caPem }}
 - path: /etc/ssl/certs/oidc.pem
   permissions: "0600"
   encoding: base64
   content: {{ tpl ($.Files.Get "files/etc/ssl/certs/oidc.pem") . | b64enc }}
 {{- end }}
+- path: /opt/control-plane-config.sh
+  permissions: "0700"
+  encoding: base64
+  content: {{ $.Files.Get "files/opt/control-plane-config.sh" | b64enc }}
 {{- end -}}
 
 {{- define "sshFiles" -}}
@@ -249,6 +253,10 @@ and is used to join the node to the teleport cluster.
 
 {{- define "sshPreKubeadmCommands" -}}
 - systemctl restart sshd
+{{- end -}}
+
+{{- define "controlPlanePostKubeadmCommands" -}}
+- /opt/control-plane-config.sh
 {{- end -}}
 
 {{- define "kubeletConfigPostKubeadmCommands" -}}
