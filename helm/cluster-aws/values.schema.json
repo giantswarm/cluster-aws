@@ -241,7 +241,7 @@
                         "mode": {
                             "type": "string",
                             "title": "Mode",
-                            "description": "Whether the Route53 hosted zone of this cluster should be public or private. Only 'public' mode is allowed at the moment",
+                            "description": "Whether the Route53 hosted zone of this cluster should be public or private. Only 'public' mode is allowed at the moment.",
                             "enum": [
                                 "public"
                             ],
