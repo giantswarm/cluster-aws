@@ -694,7 +694,7 @@
                         "version": {
                             "type": "string",
                             "title": "Teleport version",
-                            "default": "13.1.5"
+                            "default": "13.3.8"
                         }
                     }
                 }
