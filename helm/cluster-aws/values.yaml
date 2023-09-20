@@ -73,7 +73,7 @@ internal:
   teleport:
     enabled: false
     proxyAddr: test.teleport.giantswarm.io:443
-    version: 13.1.5
+    version: 13.3.8
 kubectlImage:
   name: giantswarm/kubectl
   registry: quay.io
