@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add teleport
+
 ## [0.42.0] - 2023-09-21
 
 ### Removed
@@ -84,10 +88,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use fixed alias CloudFront domain for IRSA
 - Tolerate CAPI taints on uninitialized nodes when scheduling cilium relay and ui.
 
-### Added
-
-- Add teleport
-
 ## [0.37.0] - 2023-07-19
 
 ### Changed
@@ -118,7 +118,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Set value for `controller-manager` `terminated-pod-gc-threshold` to `125` ( consistent with vintage ) 
+- Set value for `controller-manager` `terminated-pod-gc-threshold` to `125` ( consistent with vintage )
 
 ## [0.35.1] - 2023-06-29
 
