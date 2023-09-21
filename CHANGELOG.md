@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Remove `dnsMode: private` support.
+- Remove `connectivity.dns.mode` and `connectivity.dns.additionalVpc` properties due dropping support for private DNS.
 
 ## [0.41.0] - 2023-09-19
 
