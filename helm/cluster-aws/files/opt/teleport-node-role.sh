@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if systemctl is-active --quiet kubelet.service; then
+if systemctl is-active -q kubelet.service; then
     if [ -e "/etc/kubernetes/manifests/kube-apiserver.yaml" ]; then
         echo "control-plane"
     else
