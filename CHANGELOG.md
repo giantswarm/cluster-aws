@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.42.0] - 2023-09-21
+
 ### Removed
 
 - Remove `connectivity.dns.mode` and `connectivity.dns.additionalVpc` properties due dropping support for private DNS.
@@ -844,7 +846,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.41.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.42.0...HEAD
+[0.42.0]: https://github.com/giantswarm/cluster-aws/compare/v0.41.0...v0.42.0
 [0.41.0]: https://github.com/giantswarm/cluster-aws/compare/v0.40.0...v0.41.0
 [0.40.0]: https://github.com/giantswarm/cluster-aws/compare/v0.39.0...v0.40.0
 [0.39.0]: https://github.com/giantswarm/cluster-aws/compare/v0.38.5...v0.39.0
