@@ -152,6 +152,7 @@ We only maintain `values.schema.json` and automatically generate `values.yaml` f
 make normalize-schema
 make validate-schema
 make generate-values
+make generate-docs
 ```
 
 **Details**:
