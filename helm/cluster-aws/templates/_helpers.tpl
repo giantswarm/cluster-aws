@@ -92,10 +92,12 @@ room for such suffix.
   permissions: "0644"
   encoding: base64
   content: {{ tpl ($.Files.Get "files/http-proxy.conf") $ | b64enc }}
+{{- if $.Values.internal.teleport.enabled }}
 - path: /etc/systemd/system/teleport.service.d/http-proxy.conf
   permissions: "0644"
   encoding: base64
-  content: {{ tpl ($.Files.Get "files/http-proxy.conf") $ | b64enc }}  
+  content: {{ tpl ($.Files.Get "files/http-proxy.conf") $ | b64enc }}
+{{- end }}
 {{- end -}}
 {{- define "proxyCommand" -}}
 - export HTTP_PROXY={{ $.Values.connectivity.proxy.httpProxy }}
