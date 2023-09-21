@@ -8,7 +8,7 @@ metadata:
   annotations:
     "helm.sh/resource-policy": keep
     aws.giantswarm.io/vpc-mode: "{{ .Values.connectivity.vpcMode }}"
-    aws.giantswarm.io/dns-mode: {{ if (eq .Values.connectivity.dns.mode "private") }}"private"{{ else }}"public"{{ end }}
+    aws.giantswarm.io/dns-mode: "public"
     {{- if .Values.connectivity.dns.resolverRulesOwnerAccount }}
     aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.connectivity.dns.resolverRulesOwnerAccount }}"
     {{- end}}

@@ -45,7 +45,6 @@ Properties within the `.connectivity` top-level object
 | `connectivity.containerRegistries.*[*].credentials.username` | **Username** - Used to authenticate for the registry with username/password.|**Type:** `string`<br/>|
 | `connectivity.containerRegistries.*[*].endpoint` | **Endpoint** - Endpoint for the container registry.|**Type:** `string`<br/>|
 | `connectivity.dns` | **DNS**|**Type:** `object`<br/>|
-| `connectivity.dns.mode` | **Mode** - Whether the Route53 hosted zone of this cluster should be public or private. Only 'public' mode is allowed at the moment.|**Type:** `string`<br/>**Default:** `"public"`|
 | `connectivity.dns.resolverRulesOwnerAccount` | **Resolver rules owner** - ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.|**Type:** `string`<br/>|
 | `connectivity.network` | **Network**|**Type:** `object`<br/>|
 | `connectivity.network.pods` | **Pods**|**Type:** `object`<br/>|
