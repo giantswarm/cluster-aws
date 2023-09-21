@@ -225,29 +225,6 @@
                     "type": "object",
                     "title": "DNS",
                     "properties": {
-                        "additionalVpc": {
-                            "type": "array",
-                            "title": "Additional VPCs",
-                            "description": "If DNS mode is 'private', the VPCs specified here will be assigned to the private hosted zone.",
-                            "items": {
-                                "type": "string",
-                                "title": "VPC identifier",
-                                "examples": [
-                                    "vpc-x2aeasd1d"
-                                ],
-                                "pattern": "^vpc-[0-0a-zA-Z]+$"
-                            }
-                        },
-                        "mode": {
-                            "type": "string",
-                            "title": "Mode",
-                            "description": "Whether the Route53 hosted zone of this cluster should be public or private.",
-                            "enum": [
-                                "public",
-                                "private"
-                            ],
-                            "default": "public"
-                        },
                         "resolverRulesOwnerAccount": {
                             "type": "string",
                             "title": "Resolver rules owner",
