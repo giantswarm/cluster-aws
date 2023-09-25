@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- make AWS instances independent of helm label to prevent unnecessary rolling.
+- Make AWS instances names independent of helm label to prevent unnecessary rolling.
 
 ## [0.42.0] - 2023-09-21
 
