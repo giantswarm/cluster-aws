@@ -173,7 +173,7 @@ spec:
       networking:
         serviceSubnet: {{ join "," .Values.connectivity.network.services.cidrBlocks }}
     files:
-    {{- include "oidcFiles" . | nindent 4 }}
+    {{- include "controlPlaneFiles" . | nindent 4 }}
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "kubeletConfigFiles" . | nindent 4 }}
     {{- include "nodeConfigFiles" . | nindent 4 }}
@@ -243,7 +243,8 @@ spec:
     {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
-    {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
+    {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}    
+    {{- include "controlPlanePostKubeadmCommands" . | nindent 4 }}
     {{- if .Values.internal.migration.controlPlanePostKubeadmCommands -}}
     {{- toYaml .Values.internal.migration.controlPlanePostKubeadmCommands | nindent 4 }}
     {{- end }}
