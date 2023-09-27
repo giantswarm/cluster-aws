@@ -48,9 +48,7 @@ spec:
             operator: "Exists"
             effect: "NoSchedule"
     defaultPolicies:
-      # Operators need to define their own network policies. Disable/undeploy the overarching allow rules.
-      enabled: false
-      remove: true
+      enabled: true
 
       tolerations:
         - effect: NoSchedule
