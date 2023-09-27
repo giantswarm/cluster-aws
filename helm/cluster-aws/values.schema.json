@@ -780,10 +780,10 @@
                     "title": "Region"
                 }
             }
-        },
-        "teleport": {
-            "type": "object",
-            "title": "Teleport"
         }
+    },
+    "teleport": {
+        "type": "object",
+        "title": "Teleport"
     }
 }
