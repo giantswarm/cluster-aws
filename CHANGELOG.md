@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Revert to install default Cilium policies again. Some operators' "allow access to API nodes" `NetworkPolicy`s are not effective and Cilium first needs to be upgraded, including a recent upstream fix to the [known issue](https://github.com/cilium/cilium/issues/20550).
+
+## [0.43.0] - 2023-09-27
+
+### Removed
+
+- Remove installation of Cilium policies that allow certain cluster traffic unconditionally (`defaultPolicies.enabled` in `cilium-app`). This is no longer necessary as all operators have been adapted with own network policies.
+
 ## [0.42.0] - 2023-09-21
 
 ### Removed
@@ -846,7 +856,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.42.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.43.0...HEAD
+[0.43.0]: https://github.com/giantswarm/cluster-aws/compare/v0.42.0...v0.43.0
 [0.42.0]: https://github.com/giantswarm/cluster-aws/compare/v0.41.0...v0.42.0
 [0.41.0]: https://github.com/giantswarm/cluster-aws/compare/v0.40.0...v0.41.0
 [0.40.0]: https://github.com/giantswarm/cluster-aws/compare/v0.39.0...v0.40.0
