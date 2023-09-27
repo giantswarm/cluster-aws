@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add teleport
+- Add teleport subchart
 
 ## [0.42.0] - 2023-09-21
 
