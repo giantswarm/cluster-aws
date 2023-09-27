@@ -23,7 +23,7 @@ ssh_service:
     period: 1m0s
   labels:
     mc: {{ .Values.managementCluster }}
-    {{- $clusterName := include "resource.default.name" $ }}    
+    {{- $clusterName := include "resource.default.name" $ }}
     {{- if ne .Values.managementCluster $clusterName }}
     cluster: {{ include "resource.default.name" $ }}
     {{- end }}
