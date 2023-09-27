@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Revert to install default Cilium policies again. Some operators' "allow access to API nodes" `NetworkPolicy`s are not effective and Cilium first needs to be upgraded, including a recent upstream fix to the [known issue](https://github.com/cilium/cilium/issues/20550).
+
 ## [0.43.0] - 2023-09-27
 
 ### Removed
