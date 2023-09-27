@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Align job that cleans `HelmReleases` and `HelmCharts` with other providers.
+
 ### Removed
 
 - Remove installation of Cilium policies that allow certain cluster traffic unconditionally (`defaultPolicies.enabled` in `cilium-app`). This is no longer necessary as all operators have been adapted with own network policies.
