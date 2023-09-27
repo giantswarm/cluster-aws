@@ -750,10 +750,6 @@
             "type": "string",
             "title": "Cluster API provider name"
         },
-        "teleport": {
-            "type": "object",
-            "title": "Teleport"
-        },
         "providerSpecific": {
             "type": "object",
             "title": "AWS settings",
@@ -784,6 +780,10 @@
                     "title": "Region"
                 }
             }
+        },
+        "teleport": {
+            "type": "object",
+            "title": "Teleport"
         }
     }
 }
