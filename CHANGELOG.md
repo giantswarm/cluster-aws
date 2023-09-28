@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Align job that cleans `HelmReleases` and `HelmCharts` with other providers.
+
 ## [0.43.1] - 2023-09-27
 
 ### Fixed
