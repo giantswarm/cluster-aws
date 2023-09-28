@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Make AWS instances names independent of helm label to prevent unnecessary rolling.
+
 ### Changed
 
 - Align job that cleans `HelmReleases` and `HelmCharts` with other providers.
