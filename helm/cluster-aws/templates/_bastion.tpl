@@ -92,7 +92,7 @@ spec:
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: AWSMachineTemplate
-        name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
+        name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $ | mustRegexReplaceAll "helm.sh/chart: .*" "") "global" .) }}
       version: {{ .Values.internal.kubernetesVersion }}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
@@ -102,7 +102,7 @@ metadata:
     cluster.x-k8s.io/role: bastion
     {{- include "labels.common" $ | nindent 4 }}
     app.kubernetes.io/version: {{ .Chart.Version | quote }}
-  name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $) "global" .) }}
+  name: {{ include "resource.default.name" $ }}-bastion-{{ include "hash" (dict "data" (include "bastion-awsmachinetemplate-spec" $ | mustRegexReplaceAll "helm.sh/chart: .*" "") "global" .) }}
   namespace: {{ .Release.Namespace }}
 spec: {{ include "bastion-awsmachinetemplate-spec" $ | nindent 2 }}
 ---
