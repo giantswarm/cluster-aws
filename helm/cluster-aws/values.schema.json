@@ -13,10 +13,21 @@
             "type": "object",
             "title": "Node pool",
             "properties": {
-                "additionalSecurityGroupID": {
-                    "type": "string",
-                    "title": "machine pool additional security group id",
-                    "description": "Additional security groups id that will be added to the machine pool nodes."
+                "additionalSecurityGroups": {
+                    "type": "array",
+                    "title": "Machine pool additional security groups",
+                    "description": "Additional security groups that will be added to the machine pool nodes.",
+                    "items": {
+                        "type": "object",
+                        "title": "security group",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "title": "Id of the security group",
+                                "description": "ID of the security group that will be added to the machine pool nodes. The security group must exist."
+                            }
+                        }
+                    }
                 },
                 "availabilityZones": {
                     "type": "array",
@@ -309,7 +320,7 @@
                         "vpcId": {
                             "type": "string",
                             "title": "VPC id",
-                            "description": "ID of the VPC, where the cluster will be deployed."
+                            "description": "ID of the VPC, where the cluster will be deployed. The VPC must exist and it case this is set, VPC wont be created by controllers."
                         }
                     }
                 },
@@ -502,10 +513,21 @@
             "type": "object",
             "title": "Control plane",
             "properties": {
-                "additionalSecurityGroupID": {
-                    "type": "string",
-                    "title": "Control Plane additional security group id",
-                    "description": "Additional security groups id that will be added to the control plane nodes."
+                "additionalSecurityGroups": {
+                    "type": "array",
+                    "title": "Control Plane additional security groups",
+                    "description": "Additional security groups that will be added to the control plane nodes.",
+                    "items": {
+                        "type": "object",
+                        "title": "Subnet",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "title": "Id of the security group",
+                                "description": "ID of the security group that will be added to the control plane nodes. The security group must exist."
+                            }
+                        }
+                    }
                 },
                 "apiExtraArgs": {
                     "type": "object",

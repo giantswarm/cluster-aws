@@ -47,6 +47,7 @@ Properties within the `.connectivity` top-level object
 | `connectivity.dns` | **DNS**|**Type:** `object`<br/>|
 | `connectivity.dns.resolverRulesOwnerAccount` | **Resolver rules owner** - ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.|**Type:** `string`<br/>|
 | `connectivity.network` | **Network**|**Type:** `object`<br/>|
+| `connectivity.network.internetGatewayId` | **Internet Gateway ID** - ID of the Internet gateway for the VPC.|**Type:** `string`<br/>|
 | `connectivity.network.pods` | **Pods**|**Type:** `object`<br/>|
 | `connectivity.network.pods.cidrBlocks` | **Pod subnets**|**Type:** `array`<br/>**Default:** `["100.64.0.0/12"]`|
 | `connectivity.network.pods.cidrBlocks[*]` | **Pod subnet** - IPv4 address range for pods, in CIDR notation.|**Type:** `string`<br/>**Example:** `"10.244.0.0/16"`<br/>|
@@ -54,6 +55,7 @@ Properties within the `.connectivity` top-level object
 | `connectivity.network.services.cidrBlocks` | **K8s Service subnets**|**Type:** `array`<br/>**Default:** `["172.31.0.0/16"]`|
 | `connectivity.network.services.cidrBlocks[*]` | **Service subnet** - IPv4 address range for kubernetes services, in CIDR notation.|**Type:** `string`<br/>**Example:** `"172.31.0.0/16"`<br/>|
 | `connectivity.network.vpcCidr` | **VPC subnet** - IPv4 address range to assign to this cluster's VPC, in CIDR notation.|**Type:** `string`<br/>**Default:** `"10.0.0.0/16"`|
+| `connectivity.network.vpcId` | **VPC id** - ID of the VPC, where the cluster will be deployed. The VPC must exist and it case this is set, VPC wont be created by controllers.|**Type:** `string`<br/>|
 | `connectivity.proxy` | **Proxy** - Whether/how outgoing traffic is routed through proxy servers.|**Type:** `object`<br/>|
 | `connectivity.proxy.enabled` | **Enable**|**Type:** `boolean`<br/>|
 | `connectivity.proxy.httpProxy` | **HTTP proxy** - To be passed to the HTTP_PROXY environment variable in all hosts.|**Type:** `string`<br/>|
@@ -68,7 +70,10 @@ Properties within the `.connectivity` top-level object
 | `connectivity.subnets[*].cidrBlocks[*].cidr` | **Address range** - IPv4 address range, in CIDR notation.|**Type:** `string`<br/>|
 | `connectivity.subnets[*].cidrBlocks[*].tags` | **Tags** - AWS resource tags to assign to this subnet.|**Type:** `object`<br/>|
 | `connectivity.subnets[*].cidrBlocks[*].tags.*` | **Tag value**|**Type:** `string`<br/>**Value pattern:** `^[ a-zA-Z0-9\._:/=+-@]+$`<br/>|
+| `connectivity.subnets[*].id` | **ID of the subnet** - ID of the subnets, used inc ase we want to reuse already existing subnet.|**Type:** `string`<br/>|
 | `connectivity.subnets[*].isPublic` | **Public**|**Type:** `boolean`<br/>|
+| `connectivity.subnets[*].natGatewayId` | **ID of the NAT Gateway** - ID of the NAT Gateway used for this existing subnet.|**Type:** `string`<br/>|
+| `connectivity.subnets[*].routeTableId` | **ID of route table** - ID of the route table, assigned to the existing subnet. Must be provided when defining subnet via ID.|**Type:** `string`<br/>|
 | `connectivity.subnets[*].tags` | **Tags** - AWS resource tags to assign to this CIDR block.|**Type:** `object`<br/>|
 | `connectivity.subnets[*].tags.*` | **Tag value**|**Type:** `string`<br/>**Value pattern:** `^[ a-zA-Z0-9\._:/=+-@]+$`<br/>|
 | `connectivity.topology` | **Topology** - Networking architecture between management cluster and workload cluster.|**Type:** `object`<br/>|
@@ -83,6 +88,13 @@ Properties within the `.controlPlane` top-level object
 
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
+| `controlPlane.additionalSecurityGroups` | **Control Plane additional security groups** - Additional security groups that will be added to the control plane nodes.|**Type:** `array`<br/>|
+| `controlPlane.additionalSecurityGroups[*]` | **Subnet**|**Type:** `object`<br/>|
+| `controlPlane.additionalSecurityGroups[*].id` | **Id of the security group** - ID of the security group that will be added to the control plane nodes. The security group must exist.|**Type:** `string`<br/>|
+| `controlPlane.apiExtraArgs` | **API extra arguments** - Extra arguments passed to the kubernetes API server.|**Type:** `object`<br/>|
+| `controlPlane.apiExtraArgs.PATTERN` | **argument**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^.+:.+$`<br/>|
+| `controlPlane.apiExtraCertSANs` | **API extra cert SANs** - Extra certs SANs passed to the kubeadmcontrolplane CR.|**Type:** `array`<br/>|
+| `controlPlane.apiExtraCertSANs[*]` | **cert SAN**|**Type:** `string`<br/>|
 | `controlPlane.apiMode` | **API mode** - Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).|**Type:** `string`<br/>**Default:** `"public"`|
 | `controlPlane.containerdVolumeSizeGB` | **Containerd volume size (GB)**|**Type:** `integer`<br/>**Default:** `100`|
 | `controlPlane.etcdVolumeSizeGB` | **Etcd volume size (GB)**|**Type:** `integer`<br/>**Default:** `100`|
@@ -113,8 +125,24 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | :----------- | :-------------- | :--------------- |
 | `internal.hashSalt` | **Hash salt** - If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.|**Type:** `string`<br/>|
 | `internal.kubernetesVersion` | **Kubernetes version**|**Type:** `string`<br/>**Example:** `"1.24.7"`<br/>**Default:** `"1.24.14"`|
+| `internal.migration` | **Migration values** - Section used for migration of cluster from vintage to CAPI|**Type:** `object`<br/>|
+| `internal.migration.apiBindPort` | **Kubernetes API bind port** - Kubernetes API bind port used for kube api pod|**Type:** `integer`<br/>**Default:** `6443`|
+| `internal.migration.controlPlaneExtraFiles` | **Control Plane extra files** - Additional fiels that will be provisioned to control-plane nodes, reference is from secret in the same namespace.|**Type:** `array`<br/>|
+| `internal.migration.controlPlaneExtraFiles[*]` | **file**|**Type:** `object`<br/>|
+| `internal.migration.controlPlaneExtraFiles[*].path` | **file path**|**Type:** `string`<br/>|
+| `internal.migration.controlPlaneExtraFiles[*].secretKey` | **secret key for file content**|**Type:** `string`<br/>|
+| `internal.migration.controlPlaneExtraFiles[*].secretName` | **secret name for file content**|**Type:** `string`<br/>|
+| `internal.migration.controlPlanePostKubeadmCommands` | **Control Plane Post Kubeadm Commands** - Additional Post-Kubeadm Commands executed on the control plane node.|**Type:** `array`<br/>|
+| `internal.migration.controlPlanePostKubeadmCommands[*]` | **command**|**Type:** `string`<br/>|
+| `internal.migration.controlPlanePreKubeadmCommands` | **Control Plane Pre Kubeadm Commands** - Additional Pre-Kubeadm Commands executed on the control plane node.|**Type:** `array`<br/>|
+| `internal.migration.controlPlanePreKubeadmCommands[*]` | **command**|**Type:** `string`<br/>|
+| `internal.migration.etcdExtraArgs` | **Etcd extra arguments**|**Type:** `object`<br/>|
+| `internal.migration.etcdExtraArgs.PATTERN` | **argument**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^.+:.+$`<br/>|
 | `internal.nodePools` | **Default node pool**|**Type:** `object`<br/>**Default:** `{"def00":{"customNodeLabels":["label=default"],"instanceType":"r6i.xlarge","maxSize":3,"minSize":3}}`|
 | `internal.nodePools.PATTERN` | **Node pool**|**Type:** `object`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
+| `internal.nodePools.PATTERN.additionalSecurityGroups` | **Machine pool additional security groups** - Additional security groups that will be added to the machine pool nodes.|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
+| `internal.nodePools.PATTERN.additionalSecurityGroups[*]` | **security group**|**Type:** `object`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
+| `internal.nodePools.PATTERN.additionalSecurityGroups[*].id` | **Id of the security group** - ID of the security group that will be added to the machine pool nodes. The security group must exist.|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `internal.nodePools.PATTERN.availabilityZones` | **Availability zones**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `internal.nodePools.PATTERN.availabilityZones[*]` | **Availability zone**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `internal.nodePools.PATTERN.customNodeLabels` | **Custom node labels**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
@@ -165,6 +193,9 @@ Node pools of the cluster. If not specified, this defaults to the value of `inte
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
 | `nodePools.PATTERN` | **Node pool**|**Type:** `object`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
+| `nodePools.PATTERN.additionalSecurityGroups` | **Machine pool additional security groups** - Additional security groups that will be added to the machine pool nodes.|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
+| `nodePools.PATTERN.additionalSecurityGroups[*]` | **security group**|**Type:** `object`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
+| `nodePools.PATTERN.additionalSecurityGroups[*].id` | **Id of the security group** - ID of the security group that will be added to the machine pool nodes. The security group must exist.|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `nodePools.PATTERN.availabilityZones` | **Availability zones**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `nodePools.PATTERN.availabilityZones[*]` | **Availability zone**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `nodePools.PATTERN.customNodeLabels` | **Custom node labels**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|

@@ -66,9 +66,9 @@ spec:
       size: {{ $value.rootVolumeSizeGB | default 300 }}
       type: gp3
     sshKeyName: ""
-    {{- if $value.additionalSecurityGroupID }}
+    {{- if $value.additionalSecurityGroups }}
     additionalSecurityGroups:
-    - id: {{ $value.additionalSecurityGroupID }}
+    {{- toYaml $value.value.additionalSecurityGroups | nindent 4 }}
     {{- end }}
     {{- if and $value.spotInstances $value.spotInstances.enabled }}
     spotMarketOptions:

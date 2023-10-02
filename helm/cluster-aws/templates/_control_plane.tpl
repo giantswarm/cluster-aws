@@ -30,9 +30,9 @@ template:
       size: {{ .Values.controlPlane.rootVolumeSizeGB }}
       type: gp3
     iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
-    {{- if .Values.controlPlane.additionalSecurityGroupID }}
+    {{- if .Values.controlPlane.additionalSecurityGroups }}
     additionalSecurityGroups:
-    - id: {{ .Values.controlPlane.additionalSecurityGroupID }}
+    {{- toYaml .Values.controlPlane.additionalSecurityGroups | nindent 4 }}
     {{- end }}
     sshKeyName: ""
     subnet:
@@ -243,7 +243,7 @@ spec:
     {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
-    {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}    
+    {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
     {{- include "controlPlanePostKubeadmCommands" . | nindent 4 }}
     {{- if .Values.internal.migration.controlPlanePostKubeadmCommands -}}
     {{- toYaml .Values.internal.migration.controlPlanePostKubeadmCommands | nindent 4 }}
