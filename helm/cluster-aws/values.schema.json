@@ -519,7 +519,7 @@
                     "description": "Additional security groups that will be added to the control plane nodes.",
                     "items": {
                         "type": "object",
-                        "title": "Subnet",
+                        "title": "Security group",
                         "properties": {
                             "id": {
                                 "type": "string",

@@ -89,7 +89,7 @@ Properties within the `.controlPlane` top-level object
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
 | `controlPlane.additionalSecurityGroups` | **Control Plane additional security groups** - Additional security groups that will be added to the control plane nodes.|**Type:** `array`<br/>|
-| `controlPlane.additionalSecurityGroups[*]` | **Subnet**|**Type:** `object`<br/>|
+| `controlPlane.additionalSecurityGroups[*]` | **Security group**|**Type:** `object`<br/>|
 | `controlPlane.additionalSecurityGroups[*].id` | **Id of the security group** - ID of the security group that will be added to the control plane nodes. The security group must exist.|**Type:** `string`<br/>|
 | `controlPlane.apiExtraArgs` | **API extra arguments** - Extra arguments passed to the kubernetes API server.|**Type:** `object`<br/>|
 | `controlPlane.apiExtraArgs.PATTERN` | **argument**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^.+:.+$`<br/>|
