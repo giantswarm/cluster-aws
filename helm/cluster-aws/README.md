@@ -70,7 +70,7 @@ Properties within the `.connectivity` top-level object
 | `connectivity.subnets[*].cidrBlocks[*].cidr` | **Address range** - IPv4 address range, in CIDR notation.|**Type:** `string`<br/>|
 | `connectivity.subnets[*].cidrBlocks[*].tags` | **Tags** - AWS resource tags to assign to this subnet.|**Type:** `object`<br/>|
 | `connectivity.subnets[*].cidrBlocks[*].tags.*` | **Tag value**|**Type:** `string`<br/>**Value pattern:** `^[ a-zA-Z0-9\._:/=+-@]+$`<br/>|
-| `connectivity.subnets[*].id` | **ID of the subnet** - ID of the subnets, used inc ase we want to reuse already existing subnet.|**Type:** `string`<br/>|
+| `connectivity.subnets[*].id` | **ID of the subnet** - ID of an existing subnet. When set, this subnet will be used instead of creating a new one.|**Type:** `string`<br/>|
 | `connectivity.subnets[*].isPublic` | **Public**|**Type:** `boolean`<br/>|
 | `connectivity.subnets[*].natGatewayId` | **ID of the NAT Gateway** - ID of the NAT Gateway used for this existing subnet.|**Type:** `string`<br/>|
 | `connectivity.subnets[*].routeTableId` | **ID of route table** - ID of the route table, assigned to the existing subnet. Must be provided when defining subnet via ID.|**Type:** `string`<br/>|
@@ -129,9 +129,12 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | `internal.migration.apiBindPort` | **Kubernetes API bind port** - Kubernetes API bind port used for kube api pod|**Type:** `integer`<br/>**Default:** `6443`|
 | `internal.migration.controlPlaneExtraFiles` | **Control Plane extra files** - Additional fiels that will be provisioned to control-plane nodes, reference is from secret in the same namespace.|**Type:** `array`<br/>|
 | `internal.migration.controlPlaneExtraFiles[*]` | **file**|**Type:** `object`<br/>|
+| `internal.migration.controlPlaneExtraFiles[*].contentFrom` | **content from**|**Type:** `object`<br/>|
+| `internal.migration.controlPlaneExtraFiles[*].contentFrom.secret` | **secret**|**Type:** `object`<br/>|
+| `internal.migration.controlPlaneExtraFiles[*].contentFrom.secret.key` | **secret key for file content**|**Type:** `string`<br/>|
+| `internal.migration.controlPlaneExtraFiles[*].contentFrom.secret.name` | **secret name for file content**|**Type:** `string`<br/>|
 | `internal.migration.controlPlaneExtraFiles[*].path` | **file path**|**Type:** `string`<br/>|
-| `internal.migration.controlPlaneExtraFiles[*].secretKey` | **secret key for file content**|**Type:** `string`<br/>|
-| `internal.migration.controlPlaneExtraFiles[*].secretName` | **secret name for file content**|**Type:** `string`<br/>|
+| `internal.migration.controlPlaneExtraFiles[*].permissions` | **file permissions in form 0644**|**Type:** `string`<br/>**Default:** `"0644"`|
 | `internal.migration.controlPlanePostKubeadmCommands` | **Control Plane Post Kubeadm Commands** - Additional Post-Kubeadm Commands executed on the control plane node.|**Type:** `array`<br/>|
 | `internal.migration.controlPlanePostKubeadmCommands[*]` | **command**|**Type:** `string`<br/>|
 | `internal.migration.controlPlanePreKubeadmCommands` | **Control Plane Pre Kubeadm Commands** - Additional Pre-Kubeadm Commands executed on the control plane node.|**Type:** `array`<br/>|

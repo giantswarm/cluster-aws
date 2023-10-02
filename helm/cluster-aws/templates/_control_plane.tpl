@@ -181,14 +181,7 @@ spec:
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "registryFiles" . | nindent 4 }}
     {{- if .Values.internal.migration.controlPlaneExtraFiles }}
-    {{- range $file := .Values.internal.migration.controlPlaneExtraFiles }}
-    - path: {{ $file.path }}
-      permissions: "0644"
-      contentFrom:
-        secret:
-         name: {{ $file.secretName }}
-         key: {{ $file.secretKey }}
-    {{- end -}}
+    {{- toYaml .Values.internal.migration.controlPlaneExtraFiles }}
     {{- end }}
     initConfiguration:
       skipPhases:

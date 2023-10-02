@@ -716,17 +716,34 @@
                                 "type": "object",
                                 "title": "file",
                                 "properties": {
+                                    "contentFrom": {
+                                        "type": "object",
+                                        "title": "content from",
+                                        "properties": {
+                                            "secret": {
+                                                "type": "object",
+                                                "title": "secret",
+                                                "properties": {
+                                                    "key": {
+                                                        "type": "string",
+                                                        "title": "secret key for file content"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "title": "secret name for file content"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
                                     "path": {
                                         "type": "string",
                                         "title": "file path"
                                     },
-                                    "secretKey": {
+                                    "permissions": {
                                         "type": "string",
-                                        "title": "secret key for file content"
-                                    },
-                                    "secretName": {
-                                        "type": "string",
-                                        "title": "secret name for file content"
+                                        "title": "file permissions in form 0644",
+                                        "default": "0644"
                                     }
                                 }
                             }
