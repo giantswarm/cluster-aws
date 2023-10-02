@@ -396,7 +396,7 @@
                             "id": {
                                 "type": "string",
                                 "title": "ID of the subnet",
-                                "description": "ID of the subnets, used inc ase we want to reuse already existing subnet."
+                                "description": "ID of an existing subnet. When set, this subnet will be used instead of creating a new one."
                             },
                             "isPublic": {
                                 "type": "boolean",
