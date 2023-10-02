@@ -68,7 +68,7 @@ spec:
     sshKeyName: ""
     {{- if $value.additionalSecurityGroups }}
     additionalSecurityGroups:
-    {{- toYaml $value.value.additionalSecurityGroups | nindent 4 }}
+    {{- toYaml $value.additionalSecurityGroups | nindent 4 }}
     {{- end }}
     {{- if and $value.spotInstances $value.spotInstances.enabled }}
     spotMarketOptions:
