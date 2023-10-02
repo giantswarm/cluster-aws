@@ -181,7 +181,7 @@ spec:
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "registryFiles" . | nindent 4 }}
     {{- if .Values.internal.migration.controlPlaneExtraFiles }}
-    {{- toYaml .Values.internal.migration.controlPlaneExtraFiles }}
+    {{- toYaml .Values.internal.migration.controlPlaneExtraFiles | nindent 4}}
     {{- end }}
     initConfiguration:
       skipPhases:
