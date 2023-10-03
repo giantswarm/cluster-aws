@@ -783,13 +783,7 @@
         },
         "teleport": {
             "type": "object",
-            "title": "Teleport",
-            "properties": {
-                "version": {
-                    "type": "string",
-                    "title": "Teleport version"
-                }
-            }
+            "title": "Teleport chart"
         }
     }
 }
