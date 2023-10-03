@@ -10,3 +10,7 @@ connectivity:
           username: giantswarmpull
           password: abcdef
       - endpoint: quay.io
+
+internal:
+  teleport:
+    enabled: true
