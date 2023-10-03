@@ -13,6 +13,22 @@
             "type": "object",
             "title": "Node pool",
             "properties": {
+                "additionalSecurityGroups": {
+                    "type": "array",
+                    "title": "Machine pool additional security groups",
+                    "description": "Additional security groups that will be added to the machine pool nodes.",
+                    "items": {
+                        "type": "object",
+                        "title": "security group",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "title": "Id of the security group",
+                                "description": "ID of the security group that will be added to the machine pool nodes. The security group must exist."
+                            }
+                        }
+                    }
+                },
                 "availabilityZones": {
                     "type": "array",
                     "title": "Availability zones",
@@ -244,6 +260,11 @@
                     "type": "object",
                     "title": "Network",
                     "properties": {
+                        "internetGatewayId": {
+                            "type": "string",
+                            "title": "Internet Gateway ID",
+                            "description": "ID of the Internet gateway for the VPC."
+                        },
                         "pods": {
                             "type": "object",
                             "title": "Pods",
@@ -295,6 +316,11 @@
                             "title": "VPC subnet",
                             "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
                             "default": "10.0.0.0/16"
+                        },
+                        "vpcId": {
+                            "type": "string",
+                            "title": "VPC id",
+                            "description": "ID of the VPC, where the cluster will be deployed. The VPC must exist and it case this is set, VPC wont be created by controllers."
                         }
                     }
                 },
@@ -367,9 +393,24 @@
                                     }
                                 }
                             },
+                            "id": {
+                                "type": "string",
+                                "title": "ID of the subnet",
+                                "description": "ID of an existing subnet. When set, this subnet will be used instead of creating a new one."
+                            },
                             "isPublic": {
                                 "type": "boolean",
                                 "title": "Public"
+                            },
+                            "natGatewayId": {
+                                "type": "string",
+                                "title": "ID of the NAT Gateway",
+                                "description": "ID of the NAT Gateway used for this existing subnet."
+                            },
+                            "routeTableId": {
+                                "type": "string",
+                                "title": "ID of route table",
+                                "description": "ID of the route table, assigned to the existing subnet. Must be provided when defining subnet via ID."
                             },
                             "tags": {
                                 "type": "object",
@@ -472,6 +513,48 @@
             "type": "object",
             "title": "Control plane",
             "properties": {
+                "additionalSecurityGroups": {
+                    "type": "array",
+                    "title": "Control Plane additional security groups",
+                    "description": "Additional security groups that will be added to the control plane nodes.",
+                    "items": {
+                        "type": "object",
+                        "title": "Security group",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "title": "Id of the security group",
+                                "description": "ID of the security group that will be added to the control plane nodes. The security group must exist."
+                            }
+                        }
+                    }
+                },
+                "apiExtraArgs": {
+                    "type": "object",
+                    "title": "API extra arguments",
+                    "description": "Extra arguments passed to the kubernetes API server.",
+                    "patternProperties": {
+                        "^.+:.+$": {
+                            "type": "string",
+                            "title": "argument"
+                        }
+                    },
+                    "example": [
+                        "audit-log-maxsize: 100"
+                    ]
+                },
+                "apiExtraCertSANs": {
+                    "type": "array",
+                    "title": "API extra cert SANs",
+                    "description": "Extra certs SANs passed to the kubeadmcontrolplane CR.",
+                    "items": {
+                        "type": "string",
+                        "title": "cert SAN",
+                        "example": [
+                            "test.mydomain.com"
+                        ]
+                    }
+                },
                 "apiMode": {
                     "type": "string",
                     "title": "API mode",
@@ -613,6 +696,87 @@
                         "1.24.7"
                     ],
                     "default": "1.24.14"
+                },
+                "migration": {
+                    "type": "object",
+                    "title": "Migration values",
+                    "description": "Section used for migration of cluster from vintage to CAPI",
+                    "properties": {
+                        "apiBindPort": {
+                            "type": "integer",
+                            "title": "Kubernetes API bind port",
+                            "description": "Kubernetes API bind port used for kube api pod",
+                            "default": 6443
+                        },
+                        "controlPlaneExtraFiles": {
+                            "type": "array",
+                            "title": "Control Plane extra files",
+                            "description": "Additional fiels that will be provisioned to control-plane nodes, reference is from secret in the same namespace.",
+                            "items": {
+                                "type": "object",
+                                "title": "file",
+                                "properties": {
+                                    "contentFrom": {
+                                        "type": "object",
+                                        "title": "content from",
+                                        "properties": {
+                                            "secret": {
+                                                "type": "object",
+                                                "title": "secret",
+                                                "properties": {
+                                                    "key": {
+                                                        "type": "string",
+                                                        "title": "secret key for file content"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "title": "secret name for file content"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "path": {
+                                        "type": "string",
+                                        "title": "file path"
+                                    },
+                                    "permissions": {
+                                        "type": "string",
+                                        "title": "file permissions in form 0644",
+                                        "default": "0644"
+                                    }
+                                }
+                            }
+                        },
+                        "controlPlanePostKubeadmCommands": {
+                            "type": "array",
+                            "title": "Control Plane Post Kubeadm Commands",
+                            "description": "Additional Post-Kubeadm Commands executed on the control plane node.",
+                            "items": {
+                                "type": "string",
+                                "title": "command"
+                            }
+                        },
+                        "controlPlanePreKubeadmCommands": {
+                            "type": "array",
+                            "title": "Control Plane Pre Kubeadm Commands",
+                            "description": "Additional Pre-Kubeadm Commands executed on the control plane node.",
+                            "items": {
+                                "type": "string",
+                                "title": "command"
+                            }
+                        },
+                        "etcdExtraArgs": {
+                            "type": "object",
+                            "title": "Etcd extra arguments",
+                            "patternProperties": {
+                                "^.+:.+$": {
+                                    "type": "string",
+                                    "title": "argument"
+                                }
+                            }
+                        }
+                    }
                 },
                 "nodePools": {
                     "type": "object",
