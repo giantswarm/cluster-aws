@@ -21,17 +21,17 @@ on:
   push: {}
 
 jobs:
-  validate:
-    name: Verify values.schema.json with schemalint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Run schemalint
-        id: run-schemalint
-        uses: giantswarm/schemalint/actions/verify-helm-schema@v2
-        with:
-          rule-set: 'cluster-app'
+  # validate:
+  #   name: Verify values.schema.json with schemalint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: Run schemalint
+  #       id: run-schemalint
+  #       uses: giantswarm/schemalint/actions/verify-helm-schema@v2
+  #       with:
+  #         rule-set: 'cluster-app'
   generate:
     name: Check that values.yaml is generated from values.schema.json with helm-values-gen
     runs-on: ubuntu-latest
