@@ -41,9 +41,24 @@ spec:
         toPort: -1
     vpc:
       availabilityZoneUsageLimit: {{ .Values.connectivity.availabilityZoneUsageLimit }}
+      {{- if .Values.connectivity.network.vpcId }}
+      id: {{ .Values.connectivity.network.vpcId }}
+      {{- else }}
       cidrBlock: {{ .Values.connectivity.network.vpcCidr }}
+      {{- end }}
+      {{- if .Values.connectivity.network.internetGatewayId }}
+      internetGatewayId: {{ .Values.connectivity.network.internetGatewayId }}
+      {{- end }}
     subnets:
     {{- range $j, $subnet := .Values.connectivity.subnets }}
+    {{- if $subnet.id }}
+    - id: {{ $subnet.id }}
+      isPublic: {{ $subnet.isPublic }}
+      routeTableId: {{ $subnet.routeTableId }}
+      {{- if $subnet.natGatewayId }}
+      natGatewayId: {{ $subnet.natGatewayId }}
+      {{- end }}
+    {{- else }}
     {{- range $i, $cidr := $subnet.cidrBlocks }}
     - cidrBlock: "{{ $cidr.cidr }}"
       {{- if eq (len $cidr.availabilityZone) 1 }}
@@ -57,6 +72,7 @@ spec:
         {{- if $cidr.tags }}
         {{- toYaml $cidr.tags | nindent 8 }}
         {{- end }}
+    {{- end }}
     {{- end }}
     {{- end }}
   sshKeyName: ssh-key

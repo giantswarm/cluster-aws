@@ -30,6 +30,10 @@ template:
       size: {{ .Values.controlPlane.rootVolumeSizeGB }}
       type: gp3
     iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
+    {{- if .Values.controlPlane.additionalSecurityGroups }}
+    additionalSecurityGroups:
+    {{- toYaml .Values.controlPlane.additionalSecurityGroups | nindent 4 }}
+    {{- end }}
     sshKeyName: ""
     subnet:
       filters:
@@ -69,7 +73,7 @@ spec:
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: AWSMachineTemplate
-      name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
+      name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $ | mustRegexReplaceAll "helm.sh/chart: .*" "") "global" .) }}
   kubeadmConfigSpec:
     format: ignition
     ignition:
@@ -96,6 +100,9 @@ spec:
         certSANs:
           - "api.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
           - 127.0.0.1
+          {{- if .Values.controlPlane.apiExtraCertSANs -}}
+          {{- toYaml .Values.controlPlane.apiExtraCertSANs | nindent 10 }}
+          {{- end }}
         extraArgs:
           cloud-provider: external
           service-account-issuer: "https://irsa.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
@@ -125,6 +132,9 @@ spec:
           service-account-lookup: "true"
           tls-cipher-suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
           service-cluster-ip-range: {{ .Values.connectivity.network.services.cidrBlocks | first }}
+          {{- if .Values.controlPlane.apiExtraArgs -}}
+          {{- toYaml .Values.controlPlane.apiExtraArgs | nindent 10 }}
+          {{- end }}
         extraVolumes:
         - name: auditlog
           hostPath: /var/log/apiserver
@@ -160,6 +170,9 @@ spec:
           extraArgs:
             listen-metrics-urls: "http://0.0.0.0:2381"
             quota-backend-bytes: "8589934592"
+            {{- if .Values.internal.migration.etcdExtraArgs -}}
+            {{- toYaml .Values.internal.migration.etcdExtraArgs | nindent 12 }}
+            {{- end }}
       networking:
         serviceSubnet: {{ join "," .Values.connectivity.network.services.cidrBlocks }}
     files:
@@ -172,6 +185,8 @@ spec:
     {{- include "registryFiles" . | nindent 4 }}
     {{- if .Values.internal.teleport.enabled }}
     {{- include "teleportFiles" . | nindent 4 }}
+    {{- if .Values.internal.migration.controlPlaneExtraFiles }}
+    {{- toYaml .Values.internal.migration.controlPlaneExtraFiles | nindent 4}}
     {{- end }}
     initConfiguration:
       skipPhases:
@@ -179,7 +194,7 @@ spec:
       - addon/coredns
       localAPIEndpoint:
         advertiseAddress: ""
-        bindPort: 0
+        bindPort: {{ .Values.internal.migration.apiBindPort }}
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: external
@@ -200,6 +215,9 @@ spec:
         {{- end }}
     joinConfiguration:
       discovery: {}
+      controlPlane:
+        localAPIEndpoint:
+          bindPort: {{ .Values.internal.migration.apiBindPort }}
       nodeRegistration:
         kubeletExtraArgs:
           cloud-provider: external
@@ -216,12 +234,18 @@ spec:
         {{- end }}
         {{- end }}
     preKubeadmCommands:
-    {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
+    {{- if .Values.internal.migration.controlPlanePreKubeadmCommands -}}
+    {{- toYaml .Values.internal.migration.controlPlanePreKubeadmCommands | nindent 4 }}
+    {{- end }}
+    {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
     {{- include "controlPlanePostKubeadmCommands" . | nindent 4 }}
+    {{- if .Values.internal.migration.controlPlanePostKubeadmCommands -}}
+    {{- toYaml .Values.internal.migration.controlPlanePostKubeadmCommands | nindent 4 }}
+    {{- end }}
     users:
     {{- include "sshUsers" . | nindent 4 }}
   replicas: 3
@@ -234,7 +258,7 @@ metadata:
     cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}
     app.kubernetes.io/version: {{ .Chart.Version | quote }}
-  name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
+  name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $ | mustRegexReplaceAll "helm.sh/chart: .*" "") "global" .) }}
   namespace: {{ $.Release.Namespace }}
 spec: {{ include "controlplane-awsmachinetemplate-spec" $ | nindent 2 }}
 {{- end -}}

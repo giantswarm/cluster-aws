@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add teleport.service: Secure SSH access via Teleport
 
+## [0.44.0] - 2023-09-28
+
+### Fixed
+
+- Make AWS instances names independent of helm label to prevent unnecessary rolling.
+
+### Changed
+
+- Align job that cleans `HelmReleases` and `HelmCharts` with other providers.
+
 ## [0.43.1] - 2023-09-27
 
 ### Fixed
@@ -862,7 +872,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.43.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.44.0...HEAD
+[0.44.0]: https://github.com/giantswarm/cluster-aws/compare/v0.43.1...v0.44.0
 [0.43.1]: https://github.com/giantswarm/cluster-aws/compare/v0.43.0...v0.43.1
 [0.43.0]: https://github.com/giantswarm/cluster-aws/compare/v0.42.0...v0.43.0
 [0.42.0]: https://github.com/giantswarm/cluster-aws/compare/v0.41.0...v0.42.0
