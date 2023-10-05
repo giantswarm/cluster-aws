@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Add values to configure HelmRelease reconcilation interval and remediation retries.
+* Add values to configure HelmRelease reconciliation interval and remediation retries.
 
 ## [0.45.0] - 2023-10-04
 
