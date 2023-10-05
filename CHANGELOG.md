@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Configure upgrade timeout and upgrade retry count for cilium `HelmRelease`.
+
 ## [0.45.0] - 2023-10-04
 
 ### Added
