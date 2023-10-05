@@ -23,10 +23,10 @@ spec:
   kubeConfig:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
-  interval: 5m
+  interval: {{ .Values.internal.helmRelease.reconcilationInterval }}
   install:
     remediation:
-      retries: 30
+      retries: {{ .Values.internal.helmRelease.remediationRetries }}
   # Default values
   # https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/values.yaml
   values:

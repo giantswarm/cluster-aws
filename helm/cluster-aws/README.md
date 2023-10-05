@@ -124,6 +124,9 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
 | `internal.hashSalt` | **Hash salt** - If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.|**Type:** `string`<br/>|
+| `internal.helmRelease` | **Helm release configuration** - Helm release configuration values.|**Type:** `object`<br/>|
+| `internal.helmRelease.reconcilationInterval` | **Reconcilation interval**|**Type:** `string`<br/>**Default:** `"5m"`|
+| `internal.helmRelease.remediationRetries` | **Remediation retries**|**Type:** `integer`<br/>**Default:** `30`|
 | `internal.kubernetesVersion` | **Kubernetes version**|**Type:** `string`<br/>**Example:** `"1.24.7"`<br/>**Default:** `"1.24.14"`|
 | `internal.migration` | **Migration values** - Section used for migration of cluster from vintage to CAPI|**Type:** `object`<br/>|
 | `internal.migration.apiBindPort` | **Kubernetes API bind port** - Kubernetes API bind port used for kube api pod|**Type:** `integer`<br/>**Default:** `6443`|

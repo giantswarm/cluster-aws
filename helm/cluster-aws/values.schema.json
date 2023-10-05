@@ -689,6 +689,23 @@
                     "title": "Hash salt",
                     "description": "If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources."
                 },
+                "helmRelease": {
+                    "type": "object",
+                    "title": "Helm release configuration",
+                    "description": "Helm release configuration values.",
+                    "properties": {
+                        "reconcilationInterval": {
+                            "type": "string",
+                            "title": "Reconcilation interval",
+                            "default": "5m"
+                        },
+                        "remediationRetries": {
+                            "type": "integer",
+                            "title": "Remediation retries",
+                            "default": 30
+                        }
+                    }
+                },
                 "kubernetesVersion": {
                     "type": "string",
                     "title": "Kubernetes version",

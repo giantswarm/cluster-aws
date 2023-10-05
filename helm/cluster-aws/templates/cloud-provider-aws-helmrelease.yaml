@@ -28,10 +28,10 @@ spec:
   kubeConfig:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
-  interval: 5m
+  interval: {{ .Values.internal.helmRelease.reconcilationInterval }}
   install:
     remediation:
-      retries: 30
+      retries: {{ .Values.internal.helmRelease.remediationRetries }}
   {{- if .Values.connectivity.proxy.enabled }}
   values:
     proxy:
