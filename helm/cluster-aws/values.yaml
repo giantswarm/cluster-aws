@@ -58,7 +58,7 @@ controlPlane:
   rootVolumeSizeGB: 120
 internal:
   helmRelease:
-    reconcilationInterval: 5m
+    reconciliationInterval: 5m
     remediationRetries: 30
   kubernetesVersion: 1.24.14
   migration:
