@@ -185,6 +185,7 @@ spec:
     {{- include "registryFiles" . | nindent 4 }}
     {{- if .Values.internal.teleport.enabled }}
     {{- include "teleportFiles" . | nindent 4 }}
+    {{- end }}
     {{- if .Values.internal.migration.controlPlaneExtraFiles }}
     {{- toYaml .Values.internal.migration.controlPlaneExtraFiles | nindent 4}}
     {{- end }}
