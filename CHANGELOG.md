@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add teleport.service: Secure SSH access via Teleport
 
+## [0.45.0] - 2023-10-04
+
+### Added
+
+- Add values neccessery for migration from vintage.
+
 ## [0.44.0] - 2023-09-28
 
 ### Fixed
@@ -872,7 +878,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.44.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.45.0...HEAD
+[0.45.0]: https://github.com/giantswarm/cluster-aws/compare/v0.44.0...v0.45.0
 [0.44.0]: https://github.com/giantswarm/cluster-aws/compare/v0.43.1...v0.44.0
 [0.43.1]: https://github.com/giantswarm/cluster-aws/compare/v0.43.0...v0.43.1
 [0.43.0]: https://github.com/giantswarm/cluster-aws/compare/v0.42.0...v0.43.0
