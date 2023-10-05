@@ -32,6 +32,10 @@ spec:
   install:
     remediation:
       retries: 30
+  upgrade:
+    remediation:
+      retries: 30
+    timeout: 20m
   {{- if .Values.connectivity.proxy.enabled }}
   values:
     proxy:
