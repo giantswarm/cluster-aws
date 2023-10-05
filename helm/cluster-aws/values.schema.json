@@ -694,9 +694,9 @@
                     "title": "Helm release configuration",
                     "description": "Helm release configuration values.",
                     "properties": {
-                        "reconcilationInterval": {
+                        "reconciliationInterval": {
                             "type": "string",
-                            "title": "Reconcilation interval",
+                            "title": "Reconciliation Interval",
                             "default": "5m"
                         },
                         "remediationRetries": {

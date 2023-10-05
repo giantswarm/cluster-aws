@@ -26,7 +26,7 @@ spec:
   kubeConfig:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
-  interval: {{ .Values.internal.helmRelease.reconcilationInterval }}
+  interval: {{ .Values.internal.helmRelease.reconciliationInterval }}
   install:
     remediation:
       retries: {{ .Values.internal.helmRelease.remediationRetries }}
