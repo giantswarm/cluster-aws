@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add teleport.service: Secure SSH access via Teleport
+
 ## [0.45.0] - 2023-10-04
 
 ### Added

@@ -83,6 +83,9 @@ spec:
             units:
             {{- include "flatcarSystemdUnits" $ | nindent 14 }}
             {{- include "diskStorageSystemdUnits" $ | nindent 14 }}
+            {{- if .Values.internal.teleport.enabled }}
+            {{- include "teleportSystemdUnits" $ | nindent 14 }}
+            {{- end }}
           storage:
             filesystems:
             {{- include "diskStorageConfig" $ | nindent 14 }}
@@ -180,6 +183,9 @@ spec:
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "registryFiles" . | nindent 4 }}
+    {{- if .Values.internal.teleport.enabled }}
+    {{- include "teleportFiles" . | nindent 4 }}
+    {{- end }}
     {{- if .Values.internal.migration.controlPlaneExtraFiles }}
     {{- toYaml .Values.internal.migration.controlPlaneExtraFiles | nindent 4}}
     {{- end }}
