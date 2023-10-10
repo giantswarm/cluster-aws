@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add teleport.service: Secure SSH access via Teleport.
-- Add `controlPlane.loadBalancerIngressRules` to configure control plane load balancer ingress rules.
+- Add `controlPlane.loadBalancerIngressAllowCidrBlocks` to configure control plane load balancer ingress rules.
 
 ## [0.45.0] - 2023-10-04
 

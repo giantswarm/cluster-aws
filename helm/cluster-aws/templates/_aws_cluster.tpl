@@ -32,14 +32,14 @@ spec:
     {{- end }}
   controlPlaneLoadBalancer:
     scheme: {{ if (eq .Values.controlPlane.apiMode "public") }}internet-facing{{ else }}internal{{ end }}
-    {{- if .Values.controlPlane.loadBalancerIngressRules }}
+    {{- if .Values.controlPlane.loadBalancerIngressAllowCidrBlocks }}
     ingressRules:
     - description: "Kubernetes API"
       protocol: tcp
       fromPort: 6443
       toPort: 6443
       cidrBlocks:
-      {{- toYaml .Values.controlPlane.loadBalancerIngressRules | nindent 6 }}
+      {{- toYaml .Values.controlPlane.loadBalancerIngressAllowCidrBlocks | nindent 6 }}
     {{- end }}
   network:
     cni:
