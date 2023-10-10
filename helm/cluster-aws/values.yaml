@@ -48,6 +48,8 @@ controlPlane:
   etcdVolumeSizeGB: 100
   instanceType: r6i.xlarge
   kubeletVolumeSizeGB: 100
+  loadBalancerIngressRules:
+    - 0.0.0.0/0
   machineHealthCheck:
     enabled: true
     maxUnhealthy: 40%
