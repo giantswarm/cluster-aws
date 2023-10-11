@@ -39,6 +39,8 @@ spec:
       fromPort: 6443
       toPort: 6443
       cidrBlocks:
+      - 185.102.95.187/32
+      - 95.179.153.65/32
       {{- toYaml .Values.controlPlane.loadBalancerIngressAllowCidrBlocks | nindent 6 }}
     {{- end }}
   network:
