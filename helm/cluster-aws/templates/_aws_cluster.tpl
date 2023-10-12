@@ -39,8 +39,10 @@ spec:
       fromPort: 6443
       toPort: 6443
       cidrBlocks:
+      # Giant Swarm VPN IPs (internal link: https://github.com/giantswarm/vpn/tree/master/hosts_inventory, https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/tc_api_whitelisting/)
       - 185.102.95.187/32
       - 95.179.153.65/32
+
       {{- toYaml .Values.controlPlane.loadBalancerIngressAllowCidrBlocks | nindent 6 }}
     {{- end }}
   network:
