@@ -585,6 +585,15 @@
                     "title": "Kubelet volume size (GB)",
                     "default": 100
                 },
+                "loadBalancerIngressAllowCidrBlocks": {
+                    "type": "array",
+                    "title": "Load balancer allow list",
+                    "description": "IPv4 address ranges that are allowed to connect to the control plane load balancer, in CIDR notation. When setting this field, remember to add the Management cluster Nat Gateway IPs provided by Giant Swarm so that the cluster can still be managed. These Nat Gateway IPs can be found in the Management Cluster AWSCluster '.status.networkStatus.natGatewaysIPs' field.",
+                    "items": {
+                        "type": "string",
+                        "title": "Address range"
+                    }
+                },
                 "machineHealthCheck": {
                     "type": "object",
                     "title": "Machine health check",
