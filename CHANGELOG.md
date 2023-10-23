@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Move labels to AWSMachineTemplate manifest to avoid unnecessary rolling/no rolling.
+
 ### Added
 
 - Add teleport.service: Secure SSH access via Teleport.
