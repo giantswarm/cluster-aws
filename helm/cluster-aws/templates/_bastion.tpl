@@ -104,7 +104,8 @@ spec:
       labels:
         cluster.x-k8s.io/role: bastion
         {{- include "labels.common" $ | nindent 8 }}
-    spec:{{- include "controlplane-awsmachinetemplate-spec" $ | nindent 6 }}
+    spec:
+      {{- include "bastion-awsmachinetemplate-spec" $ | nindent 6 }}
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfigTemplate

@@ -261,5 +261,6 @@ spec:
       labels:
         cluster.x-k8s.io/role: control-plane
         {{- include "labels.common" $ | nindent 8 }}
-    spec:{{- include "controlplane-awsmachinetemplate-spec" $ | nindent 6 }}
+    spec:
+      {{- include "controlplane-awsmachinetemplate-spec" $ | nindent 6 }}
 {{- end -}}
