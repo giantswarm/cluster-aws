@@ -4,53 +4,47 @@ This function is used for both the `.Spec` value and as the data for the hash fu
 Any changes to this will trigger the resource to be recreated rather than attempting to update in-place.
 */}}
 {{- define "controlplane-awsmachinetemplate-spec" -}}
-template:
-  metadata:
-    labels:
-      cluster.x-k8s.io/role: control-plane
-      {{- include "labels.common" $ | nindent 6 }}
-  spec:
-    {{- include "ami" $ | nindent 4 }}
-    cloudInit: {}
-    instanceType: {{ .Values.controlPlane.instanceType }}
-    nonRootVolumes:
-    - deviceName: /dev/xvdc
-      encrypted: true
-      size: {{ .Values.controlPlane.etcdVolumeSizeGB }}
-      type: gp3
-    - deviceName: /dev/xvdd
-      encrypted: true
-      size: {{ .Values.controlPlane.containerdVolumeSizeGB }}
-      type: gp3
-    - deviceName: /dev/xvde
-      encrypted: true
-      size: {{ .Values.controlPlane.kubeletVolumeSizeGB }}
-      type: gp3
-    rootVolume:
-      size: {{ .Values.controlPlane.rootVolumeSizeGB }}
-      type: gp3
-    iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
-    {{- if .Values.controlPlane.additionalSecurityGroups }}
-    additionalSecurityGroups:
-    {{- toYaml .Values.controlPlane.additionalSecurityGroups | nindent 4 }}
+{{- include "ami" $ }}
+cloudInit: {}
+instanceType: {{ .Values.controlPlane.instanceType }}
+nonRootVolumes:
+- deviceName: /dev/xvdc
+  encrypted: true
+  size: {{ .Values.controlPlane.etcdVolumeSizeGB }}
+  type: gp3
+- deviceName: /dev/xvdd
+  encrypted: true
+  size: {{ .Values.controlPlane.containerdVolumeSizeGB }}
+  type: gp3
+- deviceName: /dev/xvde
+  encrypted: true
+  size: {{ .Values.controlPlane.kubeletVolumeSizeGB }}
+  type: gp3
+rootVolume:
+  size: {{ .Values.controlPlane.rootVolumeSizeGB }}
+  type: gp3
+iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
+{{- if .Values.controlPlane.additionalSecurityGroups }}
+additionalSecurityGroups:
+{{- toYaml .Values.controlPlane.additionalSecurityGroups | nindent 2 }}
+{{- end }}
+sshKeyName: ""
+subnet:
+  filters:
+    - name: tag:kubernetes.io/cluster/{{ include "resource.default.name" $ }}
+      values:
+      - shared
+      - owned
+    {{ if eq $.Values.connectivity.vpcMode "public" }}
+    - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
+      values:
+      - private
+    {{end}}
+    {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
+    - name: tag:{{ keys $tags | first }}
+      values:
+      - {{ index $tags (keys $tags | first) | quote }}
     {{- end }}
-    sshKeyName: ""
-    subnet:
-      filters:
-        - name: tag:kubernetes.io/cluster/{{ include "resource.default.name" $ }}
-          values:
-          - shared
-          - owned
-        {{ if eq $.Values.connectivity.vpcMode "public" }}
-        - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
-          values:
-          - private
-        {{end}}
-        {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
-        - name: tag:{{ keys $tags | first }}
-          values:
-          - {{ index $tags (keys $tags | first) | quote }}
-        {{- end }}
 {{- end }}
 
 {{- define "control-plane" }}
@@ -73,7 +67,7 @@ spec:
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: AWSMachineTemplate
-      name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $ | mustRegexReplaceAll "helm.sh/chart: .*" "") "global" .) }}
+      name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
   kubeadmConfigSpec:
     format: ignition
     ignition:
@@ -259,7 +253,14 @@ metadata:
     cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}
     app.kubernetes.io/version: {{ .Chart.Version | quote }}
-  name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $ | mustRegexReplaceAll "helm.sh/chart: .*" "") "global" .) }}
+  name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
   namespace: {{ $.Release.Namespace }}
-spec: {{ include "controlplane-awsmachinetemplate-spec" $ | nindent 2 }}
+spec:
+  template:
+    metadata:
+      labels:
+        cluster.x-k8s.io/role: control-plane
+        {{- include "labels.common" $ | nindent 8 }}
+    spec:
+      {{- include "controlplane-awsmachinetemplate-spec" $ | nindent 6 }}
 {{- end -}}
