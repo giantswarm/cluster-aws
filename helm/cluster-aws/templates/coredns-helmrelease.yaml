@@ -16,7 +16,7 @@ spec:
       chart: coredns-app
       # used by renovate
       # repo: giantswarm/coredns-app
-      version: 1.17.0
+      version: 1.19.0
       sourceRef:
         kind: HelmRepository
         name: {{ include "resource.default.name" $ }}-default
@@ -35,9 +35,9 @@ spec:
   values:
     cluster:
       calico:
-        CIDR: {{ .Values.connectivity.network.podCidr | quote }}
+        CIDR: {{ first .Values.connectivity.network.pods.cidrBlocks | quote }}
       kubernetes:
         API:
-          clusterIPRange: {{ .Values.connectivity.network.serviceCidr | quote }}
+          clusterIPRange: {{ first .Values.connectivity.network.services.cidrBlocks | quote }}
         DNS:
           IP: {{ include "clusterDNS" $ | quote }}
