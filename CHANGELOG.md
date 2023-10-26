@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add teleport.service: Secure SSH access via Teleport.
 - Add `controlPlane.loadBalancerIngressAllowCidrBlocks` to configure control plane load balancer ingress rules.
 
+### Changed
+
+- Bump `coredns` version to `1.19.0` and fix values.
+
 ## [0.45.0] - 2023-10-04
 
 ### Added
