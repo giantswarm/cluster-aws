@@ -16,10 +16,10 @@ spec:
       chart: cilium
       # used by renovate
       # repo: giantswarm/cilium-app
-      version: 0.13.0
+      version: 0.17.0-d708915d81f9511e7dd3cb614a2bcd085cc3c91f
       sourceRef:
         kind: HelmRepository
-        name: {{ include "resource.default.name" $ }}-default
+        name: {{ include "resource.default.name" $ }}-default-test
   kubeConfig:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
