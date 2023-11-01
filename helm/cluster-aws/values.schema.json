@@ -927,6 +927,14 @@
             "type": "object",
             "title": "AWS settings",
             "properties": {
+                "additionalResourceTags": {
+                    "type": "object",
+                    "title": "Additional resource tags",
+                    "description": "Additional tags to add to AWS resources created by the cluster.",
+                    "additionalProperties": {
+                        "$ref": "#/$defs/awsResourceTagValue"
+                    }
+                },
                 "ami": {
                     "type": "string",
                     "title": "Amazon machine image (AMI)",
