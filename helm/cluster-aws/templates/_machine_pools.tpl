@@ -116,10 +116,13 @@ spec:
     nodeRegistration:
       kubeletExtraArgs:
         cloud-provider: external
+        {{- if $value.cgroupv1 }}
+        cgroupDriver: cgroupfs
+        {{- end }}
         feature-gates: CronJobTimeZone=true
         healthz-bind-address: 0.0.0.0
         node-ip: ${COREOS_EC2_IPV4_LOCAL}
-        node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ $name }},{{- join "," $value.customNodeLabels }}
+        node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ $name }},cgroups.giantswarm.io/version={{ if $value.cgroupv1 }}v1{{else}}v2{{end}},{{- join "," $value.customNodeLabels }}
         v: "2"
       name: ${COREOS_EC2_HOSTNAME}
       {{- if $value.customNodeTaints }}
@@ -144,9 +147,12 @@ spec:
   {{- include "sshFiles" $ | nindent 2 }}
   {{- include "kubeletConfigFiles" $ | nindent 2 }}
   {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
-  {{- include "registryFiles" $ | nindent 2 }}
+  {{- include "registryFiles" . | nindent 2 }}
   {{- if $.Values.internal.teleport.enabled }}
   {{- include "teleportFiles" $ | nindent 2 }}
+  {{- end }}
+  {{- if $value.cgroupv1 }}
+  {{- include "cgroupv1Files" $ | nindent 2 }}
   {{- end }}
   {{- include "nodeConfigFiles" $ | nindent 2 }}
 ---

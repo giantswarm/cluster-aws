@@ -76,6 +76,11 @@
                         }
                     }
                 },
+                "cgroupv1": {
+                    "type": "boolean",
+                    "title": "CGroup v1",
+                    "description": "Force use of CGroup v1."
+                },
                 "instanceType": {
                     "type": "string",
                     "title": "EC2 instance type"

@@ -108,6 +108,11 @@ room for such suffix.
 - export no_proxy="{{ include "noProxyList" $ }}"
 {{- end -}}
 
+{{- define "cgroupv1Files" -}}
+- path: /etc/flatcar-cgroupv1
+  filesystem: root
+  permissions: 0444
+{{- end -}}
 {{- define "registryFiles" -}}
 - path: /etc/containerd/config.toml
   permissions: "0644"
