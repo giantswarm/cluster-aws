@@ -37,6 +37,11 @@
                         "title": "Availability zone"
                     }
                 },
+                "cgroupv1": {
+                    "type": "boolean",
+                    "title": "CGroup v1",
+                    "description": "Force use of CGroup v1."
+                },
                 "customNodeLabels": {
                     "type": "array",
                     "title": "Custom node labels",
@@ -75,11 +80,6 @@
                             }
                         }
                     }
-                },
-                "cgroupv1": {
-                    "type": "boolean",
-                    "title": "CGroup v1",
-                    "description": "Force use of CGroup v1."
                 },
                 "instanceType": {
                     "type": "string",
