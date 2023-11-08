@@ -56,6 +56,9 @@ controlPlane:
     unhealthyUnknownTimeout: 10m0s
   oidc: {}
   rootVolumeSizeGB: 120
+global:
+  metadata:
+    preventDeletion: false
 internal:
   kubernetesVersion: 1.24.14
   migration:

@@ -19,6 +19,7 @@ metadata:
     giantswarm.io/service-priority: {{ .Values.metadata.servicePriority }}
     {{- end }}
     {{- include "labels.common" $ | nindent 4 }}
+    {{- include "preventDeletionLabel" $ | nindent 4 -}}
     app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}
   namespace: {{ .Release.Namespace }}

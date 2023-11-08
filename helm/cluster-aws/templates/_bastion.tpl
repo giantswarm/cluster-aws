@@ -55,6 +55,7 @@ metadata:
   labels:
     cluster.x-k8s.io/role: bastion
     {{- include "labels.common" $ | nindent 4 }}
+    {{- include "preventDeletionLabel" $ | nindent 4 -}}
     app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-bastion
   namespace: {{ .Release.Namespace }}
