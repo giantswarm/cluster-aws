@@ -122,7 +122,7 @@ spec:
         feature-gates: CronJobTimeZone=true
         healthz-bind-address: 0.0.0.0
         node-ip: ${COREOS_EC2_IPV4_LOCAL}
-        node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ $name }},cgroups.giantswarm.io/version={{ if $value.cgroupv1 }}v1{{else}}v2{{end}},{{- join "," $value.customNodeLabels }}
+        node-labels: role=worker,giantswarm.io/machine-pool={{ include "resource.default.name" $ }}-{{ $name }},{{- join "," $value.customNodeLabels }}
         v: "2"
       name: ${COREOS_EC2_HOSTNAME}
       {{- if $value.customNodeTaints }}
