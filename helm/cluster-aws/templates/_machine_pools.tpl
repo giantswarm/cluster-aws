@@ -117,7 +117,7 @@ spec:
       kubeletExtraArgs:
         cloud-provider: external
         {{- if $.Values.providerSpecific.cgroupv1 }}
-        cgroupDriver: cgroupfs
+        cgroup-driver: cgroupfs
         {{- end }}
         feature-gates: CronJobTimeZone=true
         healthz-bind-address: 0.0.0.0

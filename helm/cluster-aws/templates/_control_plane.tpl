@@ -196,7 +196,7 @@ spec:
       nodeRegistration:
         kubeletExtraArgs:
           {{- if $.Values.providerSpecific.cgroupv1 }}
-          cgroupDriver: cgroupfs
+          cgroup-driver: cgroupfs
           {{- end }}
           cloud-provider: external
           feature-gates: CronJobTimeZone=true
@@ -222,7 +222,7 @@ spec:
       nodeRegistration:
         kubeletExtraArgs:
           {{- if $.Values.providerSpecific.cgroupv1 }}
-          cgroupDriver: cgroupfs
+          cgroup-driver: cgroupfs
           {{- end }}
           cloud-provider: external
           feature-gates: CronJobTimeZone=true
