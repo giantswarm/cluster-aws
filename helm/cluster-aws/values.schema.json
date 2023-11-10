@@ -950,7 +950,7 @@
                     "minLength": 1,
                     "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$"
                 },
-                "cgroupv1": {
+                "cgroupsv1": {
                     "type": "boolean",
                     "title": "CGroup v1",
                     "description": "Force use of CGroup v1 for whole cluster.",
