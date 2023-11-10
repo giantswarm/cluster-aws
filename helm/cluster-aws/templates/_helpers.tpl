@@ -113,7 +113,7 @@ room for such suffix.
   filesystem: root
   permissions: 0444
 {{- end -}}
-{{- define "registryFiles" -}}
+{{- define "containerdConfigFiles" -}}
 - path: /etc/containerd/config.toml
   permissions: "0644"
   contentFrom:

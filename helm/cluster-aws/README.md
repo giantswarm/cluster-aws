@@ -21,6 +21,7 @@ Properties within the `.providerSpecific` top-level object
 | `providerSpecific.additionalResourceTags.*` | **Tag value**|**Type:** `string`<br/>**Value pattern:** `^[ a-zA-Z0-9\._:/=+-@]+$`<br/>|
 | `providerSpecific.ami` | **Amazon machine image (AMI)** - If specified, this image will be used to provision EC2 instances.|**Type:** `string`<br/>|
 | `providerSpecific.awsClusterRoleIdentityName` | **Cluster role identity name** - Name of an AWSClusterRoleIdentity object. This in turn refers to the IAM role used to create all AWS cloud resources when creating the cluster. The role can be in another AWS account in order to create all resources in that account. Note: This name does not refer directly to an IAM role name/ARN.|**Type:** `string`<br/>**Value pattern:** `^[-a-zA-Z0-9_\.]{1,63}$`<br/>**Default:** `"default"`|
+| `providerSpecific.cgroupv1` | **CGroup v1** - Force use of CGroup v1 for whole cluster.|**Type:** `boolean`<br/>**Default:** `false`|
 | `providerSpecific.flatcarAwsAccount` | **AWS account owning Flatcar image** - AWS account ID owning the Flatcar Container Linux AMI.|**Type:** `string`<br/>**Default:** `"706635527432"`|
 | `providerSpecific.region` | **Region**|**Type:** `string`<br/>|
 
@@ -152,7 +153,6 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | `internal.nodePools.PATTERN.additionalSecurityGroups[*].id` | **Id of the security group** - ID of the security group that will be added to the machine pool nodes. The security group must exist.|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `internal.nodePools.PATTERN.availabilityZones` | **Availability zones**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `internal.nodePools.PATTERN.availabilityZones[*]` | **Availability zone**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
-| `internal.nodePools.PATTERN.cgroupv1` | **CGroup v1** - Force use of CGroup v1.|**Type:** `boolean`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `internal.nodePools.PATTERN.customNodeLabels` | **Custom node labels**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `internal.nodePools.PATTERN.customNodeLabels[*]` | **Label**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `internal.nodePools.PATTERN.customNodeTaints` | **Custom node taints**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
@@ -210,7 +210,6 @@ Node pools of the cluster. If not specified, this defaults to the value of `inte
 | `nodePools.PATTERN.additionalSecurityGroups[*].id` | **Id of the security group** - ID of the security group that will be added to the machine pool nodes. The security group must exist.|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `nodePools.PATTERN.availabilityZones` | **Availability zones**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `nodePools.PATTERN.availabilityZones[*]` | **Availability zone**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
-| `nodePools.PATTERN.cgroupv1` | **CGroup v1** - Force use of CGroup v1.|**Type:** `boolean`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `nodePools.PATTERN.customNodeLabels` | **Custom node labels**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `nodePools.PATTERN.customNodeLabels[*]` | **Label**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|
 | `nodePools.PATTERN.customNodeTaints` | **Custom node taints**|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9]{5,10}$`<br/>|

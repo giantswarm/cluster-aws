@@ -83,4 +83,5 @@ metadata:
   servicePriority: highest
 providerSpecific:
   awsClusterRoleIdentityName: default
+  cgroupv1: false
   flatcarAwsAccount: "706635527432"
