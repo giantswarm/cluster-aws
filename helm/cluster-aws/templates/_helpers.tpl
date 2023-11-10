@@ -111,7 +111,7 @@ room for such suffix.
 {{- define "cgroupv1Files" -}}
 - path: /etc/flatcar-cgroupv1
   filesystem: root
-  permissions: 0444
+  permissions: "0444"
 {{- end -}}
 {{- define "containerdConfigFiles" -}}
 - path: /etc/containerd/config.toml
