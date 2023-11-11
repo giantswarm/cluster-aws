@@ -3,7 +3,7 @@ apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
   annotations:
-    {{- with .Values.metadata.description }}
+    {{- with .Values.global.metadata.description }}
     cluster.giantswarm.io/description: "{{ . }}"
     {{- end }}
     network-topology.giantswarm.io/mode: "{{ .Values.connectivity.topology.mode }}"
@@ -15,8 +15,8 @@ metadata:
     {{- end }}
   labels:
     cluster-apps-operator.giantswarm.io/watching: ""
-    {{- if .Values.metadata.servicePriority }}
-    giantswarm.io/service-priority: {{ .Values.metadata.servicePriority }}
+    {{- if .Values.global.metadata.servicePriority }}
+    giantswarm.io/service-priority: {{ .Values.global.metadata.servicePriority }}
     {{- end }}
     {{- include "labels.common" $ | nindent 4 }}
     {{- include "preventDeletionLabel" $ | nindent 4 -}}
