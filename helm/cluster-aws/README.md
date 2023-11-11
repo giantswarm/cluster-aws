@@ -195,17 +195,11 @@ Properties within the `.global.metadata` object
 
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
+| `global.metadata.description` | **Cluster description** - User-friendly description of the cluster's purpose.|**Type:** `string`<br/>|
+| `global.metadata.name` | **Cluster name** - Unique identifier, cannot be changed after creation.|**Type:** `string`<br/>|
+| `global.metadata.organization` | **Organization**|**Type:** `string`<br/>|
 | `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
-
-### Metadata
-Properties within the `.metadata` top-level object
-
-| **Property** | **Description** | **More Details** |
-| :----------- | :-------------- | :--------------- |
-| `metadata.description` | **Cluster description** - User-friendly description of the cluster's purpose.|**Type:** `string`<br/>|
-| `metadata.name` | **Cluster name** - Unique identifier, cannot be changed after creation.|**Type:** `string`<br/>|
-| `metadata.organization` | **Organization**|**Type:** `string`<br/>|
-| `metadata.servicePriority` | **Service priority** - The relative importance of this cluster.|**Type:** `string`<br/>**Default:** `"highest"`|
+| `global.metadata.servicePriority` | **Service priority** - The relative importance of this cluster.|**Type:** `string`<br/>**Default:** `"highest"`|
 
 ### Node pools
 Properties within the `.nodePools` top-level object

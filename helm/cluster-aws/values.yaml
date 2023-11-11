@@ -59,6 +59,7 @@ controlPlane:
 global:
   metadata:
     preventDeletion: false
+    servicePriority: highest
 internal:
   cgroupsv1: false
   kubernetesVersion: 1.24.14
@@ -83,8 +84,6 @@ kubectlImage:
   name: giantswarm/kubectl
   registry: quay.io
   tag: 1.23.5
-metadata:
-  servicePriority: highest
 providerSpecific:
   awsClusterRoleIdentityName: default
   flatcarAwsAccount: "706635527432"
