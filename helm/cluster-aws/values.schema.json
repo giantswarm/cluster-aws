@@ -688,6 +688,48 @@
                 }
             }
         },
+        "global": {
+            "type": "object",
+            "title": "Global properties",
+            "description": "Properties that are available to all charts and subcharts.",
+            "required": [
+                "metadata"
+            ],
+            "properties": {
+                "metadata": {
+                    "type": "object",
+                    "title": "Metadata",
+                    "properties": {
+                        "description": {
+                            "type": "string",
+                            "title": "Cluster description",
+                            "description": "User-friendly description of the cluster's purpose."
+                        },
+                        "name": {
+                            "type": "string",
+                            "title": "Cluster name",
+                            "description": "Unique identifier, cannot be changed after creation."
+                        },
+                        "organization": {
+                            "type": "string",
+                            "title": "Organization"
+                        },
+                        "servicePriority": {
+                            "type": "string",
+                            "title": "Service priority",
+                            "description": "The relative importance of this cluster.",
+                            "$comment": "Defined in https://github.com/giantswarm/rfc/tree/main/classify-cluster-priority",
+                            "enum": [
+                                "highest",
+                                "medium",
+                                "lowest"
+                            ],
+                            "default": "highest"
+                        }
+                    }
+                }
+            }
+        },
         "internal": {
             "type": "object",
             "title": "Internal",
@@ -875,38 +917,6 @@
             "type": "string",
             "title": "Management cluster",
             "description": "Name of the Cluster API cluster managing this workload cluster."
-        },
-        "metadata": {
-            "type": "object",
-            "title": "Metadata",
-            "properties": {
-                "description": {
-                    "type": "string",
-                    "title": "Cluster description",
-                    "description": "User-friendly description of the cluster's purpose."
-                },
-                "name": {
-                    "type": "string",
-                    "title": "Cluster name",
-                    "description": "Unique identifier, cannot be changed after creation."
-                },
-                "organization": {
-                    "type": "string",
-                    "title": "Organization"
-                },
-                "servicePriority": {
-                    "type": "string",
-                    "title": "Service priority",
-                    "description": "The relative importance of this cluster.",
-                    "$comment": "Defined in https://github.com/giantswarm/rfc/tree/main/classify-cluster-priority",
-                    "enum": [
-                        "highest",
-                        "medium",
-                        "lowest"
-                    ],
-                    "default": "highest"
-                }
-            }
         },
         "nodePools": {
             "type": "object",

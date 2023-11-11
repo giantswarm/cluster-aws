@@ -1,5 +1,6 @@
-metadata:
-  organization: "test"
+global:
+  metadata:
+    organization: "test"
 baseDomain: example.com
 
 connectivity:

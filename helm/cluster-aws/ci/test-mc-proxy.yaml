@@ -1,7 +1,8 @@
-metadata:
-  name: test-mc-proxy
-  organization: test
-  servicePriority: lowest
+global:
+  metadata:
+    name: test-mc-proxy
+    organization: test
+    servicePriority: lowest
 baseDomain: example.com
 connectivity:
   proxy:
