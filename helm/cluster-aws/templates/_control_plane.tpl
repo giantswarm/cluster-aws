@@ -6,27 +6,27 @@ Any changes to this will trigger the resource to be recreated rather than attemp
 {{- define "controlplane-awsmachinetemplate-spec" -}}
 {{- include "ami" $ }}
 cloudInit: {}
-instanceType: {{ .Values.controlPlane.instanceType }}
+instanceType: {{ .Values.global.controlPlane.instanceType }}
 nonRootVolumes:
 - deviceName: /dev/xvdc
   encrypted: true
-  size: {{ .Values.controlPlane.etcdVolumeSizeGB }}
+  size: {{ .Values.global.controlPlane.etcdVolumeSizeGB }}
   type: gp3
 - deviceName: /dev/xvdd
   encrypted: true
-  size: {{ .Values.controlPlane.containerdVolumeSizeGB }}
+  size: {{ .Values.global.controlPlane.containerdVolumeSizeGB }}
   type: gp3
 - deviceName: /dev/xvde
   encrypted: true
-  size: {{ .Values.controlPlane.kubeletVolumeSizeGB }}
+  size: {{ .Values.global.controlPlane.kubeletVolumeSizeGB }}
   type: gp3
 rootVolume:
-  size: {{ .Values.controlPlane.rootVolumeSizeGB }}
+  size: {{ .Values.global.controlPlane.rootVolumeSizeGB }}
   type: gp3
 iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
-{{- if .Values.controlPlane.additionalSecurityGroups }}
+{{- if .Values.global.controlPlane.additionalSecurityGroups }}
 additionalSecurityGroups:
-{{- toYaml .Values.controlPlane.additionalSecurityGroups | nindent 2 }}
+{{- toYaml .Values.global.controlPlane.additionalSecurityGroups | nindent 2 }}
 {{- end }}
 sshKeyName: ""
 subnet:
@@ -40,7 +40,7 @@ subnet:
       values:
       - private
     {{end}}
-    {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
+    {{- range $i, $tags :=  .Values.global.controlPlane.subnetTags }}
     - name: tag:{{ keys $tags | first }}
       values:
       - {{ index $tags (keys $tags | first) | quote }}
@@ -94,14 +94,14 @@ spec:
         certSANs:
           - "api.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
           - 127.0.0.1
-          {{- if .Values.controlPlane.apiExtraCertSANs -}}
-          {{- toYaml .Values.controlPlane.apiExtraCertSANs | nindent 10 }}
+          {{- if .Values.global.controlPlane.apiExtraCertSANs -}}
+          {{- toYaml .Values.global.controlPlane.apiExtraCertSANs | nindent 10 }}
           {{- end }}
         extraArgs:
           cloud-provider: external
           service-account-issuer: "https://irsa.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
-          {{- if .Values.controlPlane.oidc.issuerUrl }}
-          {{- with .Values.controlPlane.oidc }}
+          {{- if .Values.global.controlPlane.oidc.issuerUrl }}
+          {{- with .Values.global.controlPlane.oidc }}
           oidc-issuer-url: {{ .issuerUrl }}
           oidc-client-id: {{ .clientId }}
           oidc-username-claim: {{ .usernameClaim }}
@@ -126,8 +126,8 @@ spec:
           service-account-lookup: "true"
           tls-cipher-suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
           service-cluster-ip-range: {{ .Values.global.connectivity.network.services.cidrBlocks | first }}
-          {{- if .Values.controlPlane.apiExtraArgs -}}
-          {{- toYaml .Values.controlPlane.apiExtraArgs | nindent 10 }}
+          {{- if .Values.global.controlPlane.apiExtraArgs -}}
+          {{- toYaml .Values.global.controlPlane.apiExtraArgs | nindent 10 }}
           {{- end }}
         extraVolumes:
         - name: auditlog
@@ -198,10 +198,10 @@ spec:
           node-ip: ${COREOS_EC2_IPV4_LOCAL}
           v: "2"
         name: ${COREOS_EC2_HOSTNAME}
-        {{- if .Values.controlPlane.customNodeTaints }}
-        {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
+        {{- if .Values.global.controlPlane.customNodeTaints }}
+        {{- if (gt (len .Values.global.controlPlane.customNodeTaints) 0) }}
         taints:
-        {{- range .Values.controlPlane.customNodeTaints }}
+        {{- range .Values.global.controlPlane.customNodeTaints }}
         - key: {{ .key | quote }}
           value: {{ .value | quote }}
           effect: {{ .effect | quote }}
@@ -218,10 +218,10 @@ spec:
           cloud-provider: external
           feature-gates: CronJobTimeZone=true
         name: ${COREOS_EC2_HOSTNAME}
-        {{- if .Values.controlPlane.customNodeTaints }}
-        {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
+        {{- if .Values.global.controlPlane.customNodeTaints }}
+        {{- if (gt (len .Values.global.controlPlane.customNodeTaints) 0) }}
         taints:
-        {{- range .Values.controlPlane.customNodeTaints }}
+        {{- range .Values.global.controlPlane.customNodeTaints }}
         - key: {{ .key | quote }}
           value: {{ .value | quote }}
           effect: {{ .effect | quote }}
