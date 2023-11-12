@@ -61,6 +61,6 @@ spec:
       allowEgressToCoreDNS:
         enabled: true
       allowEgressToProxy:
-        enabled: {{ $.Values.connectivity.proxy.enabled }}
-        httpProxy: {{ $.Values.connectivity.proxy.httpProxy | quote }}
-        httpsProxy: {{ $.Values.connectivity.proxy.httpsProxy | quote }}
+        enabled: {{ $.Values.global.connectivity.proxy.enabled }}
+        httpProxy: {{ $.Values.global.connectivity.proxy.httpProxy | quote }}
+        httpsProxy: {{ $.Values.global.connectivity.proxy.httpsProxy | quote }}
