@@ -10,7 +10,7 @@
 ---
 {{- include "control-plane" . }}
 ---
-{{ if .Values.connectivity.bastion.enabled }}
+{{ if .Values.global.connectivity.bastion.enabled }}
 {{- include "bastion" . }}
 ---
 {{ end }}
