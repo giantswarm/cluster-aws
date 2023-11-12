@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move Helm values property `.Values.metadata` to `.Values.global.metadata`.
 - Move Helm values property `.Values.connectivity` to `.Values.global.connectivity`.
 - Move Helm values property `.Values.controlPlane` to `.Values.global.controlPlane`.
+- Move Helm values property `.Values.nodePools` to `.Values.global.nodePools`.
 
 ## [0.47.0] - 2023-11-07
 
