@@ -3,9 +3,9 @@ global:
     name: test-mc-proxy
     organization: test
     servicePriority: lowest
+  connectivity:
+    proxy:
+      enabled: true
+      httpProxy: http://proxy.mcproxy.example.com:4000
+      httpsProxy: http://proxy.mcproxy.example.com:4000
 baseDomain: example.com
-connectivity:
-  proxy:
-    enabled: true
-    httpProxy: http://proxy.mcproxy.example.com:4000
-    httpsProxy: http://proxy.mcproxy.example.com:4000
