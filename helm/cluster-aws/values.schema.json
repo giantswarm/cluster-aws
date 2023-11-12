@@ -144,185 +144,6 @@
             "type": "object",
             "title": "Library chart"
         },
-        "controlPlane": {
-            "type": "object",
-            "title": "Control plane",
-            "properties": {
-                "additionalSecurityGroups": {
-                    "type": "array",
-                    "title": "Control Plane additional security groups",
-                    "description": "Additional security groups that will be added to the control plane nodes.",
-                    "items": {
-                        "type": "object",
-                        "title": "Security group",
-                        "properties": {
-                            "id": {
-                                "type": "string",
-                                "title": "Id of the security group",
-                                "description": "ID of the security group that will be added to the control plane nodes. The security group must exist."
-                            }
-                        }
-                    }
-                },
-                "apiExtraArgs": {
-                    "type": "object",
-                    "title": "API extra arguments",
-                    "description": "Extra arguments passed to the kubernetes API server.",
-                    "patternProperties": {
-                        "^.+:.+$": {
-                            "type": "string",
-                            "title": "argument"
-                        }
-                    },
-                    "example": [
-                        "audit-log-maxsize: 100"
-                    ]
-                },
-                "apiExtraCertSANs": {
-                    "type": "array",
-                    "title": "API extra cert SANs",
-                    "description": "Extra certs SANs passed to the kubeadmcontrolplane CR.",
-                    "items": {
-                        "type": "string",
-                        "title": "cert SAN",
-                        "example": [
-                            "test.mydomain.com"
-                        ]
-                    }
-                },
-                "apiMode": {
-                    "type": "string",
-                    "title": "API mode",
-                    "description": "Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).",
-                    "enum": [
-                        "public",
-                        "private"
-                    ],
-                    "default": "public"
-                },
-                "containerdVolumeSizeGB": {
-                    "type": "integer",
-                    "title": "Containerd volume size (GB)",
-                    "default": 100
-                },
-                "etcdVolumeSizeGB": {
-                    "type": "integer",
-                    "title": "Etcd volume size (GB)",
-                    "default": 100
-                },
-                "instanceType": {
-                    "type": "string",
-                    "title": "EC2 instance type",
-                    "default": "r6i.xlarge"
-                },
-                "kubeletVolumeSizeGB": {
-                    "type": "integer",
-                    "title": "Kubelet volume size (GB)",
-                    "default": 100
-                },
-                "loadBalancerIngressAllowCidrBlocks": {
-                    "type": "array",
-                    "title": "Load balancer allow list",
-                    "description": "IPv4 address ranges that are allowed to connect to the control plane load balancer, in CIDR notation. When setting this field, remember to add the Management cluster Nat Gateway IPs provided by Giant Swarm so that the cluster can still be managed. These Nat Gateway IPs can be found in the Management Cluster AWSCluster '.status.networkStatus.natGatewaysIPs' field.",
-                    "items": {
-                        "type": "string",
-                        "title": "Address range"
-                    }
-                },
-                "machineHealthCheck": {
-                    "type": "object",
-                    "title": "Machine health check",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "title": "Enable",
-                            "default": true
-                        },
-                        "maxUnhealthy": {
-                            "type": "string",
-                            "title": "Maximum unhealthy nodes",
-                            "examples": [
-                                "40%"
-                            ],
-                            "default": "40%"
-                        },
-                        "nodeStartupTimeout": {
-                            "type": "string",
-                            "title": "Node startup timeout",
-                            "description": "Determines how long a machine health check should wait for a node to join the cluster, before considering a machine unhealthy.",
-                            "examples": [
-                                "10m",
-                                "100s"
-                            ],
-                            "default": "8m0s"
-                        },
-                        "unhealthyNotReadyTimeout": {
-                            "type": "string",
-                            "title": "Timeout for ready",
-                            "description": "If a node is not in condition 'Ready' after this timeout, it will be considered unhealthy.",
-                            "examples": [
-                                "300s"
-                            ],
-                            "default": "10m0s"
-                        },
-                        "unhealthyUnknownTimeout": {
-                            "type": "string",
-                            "title": "Timeout for unknown condition",
-                            "description": "If a node is in 'Unknown' condition after this timeout, it will be considered unhealthy.",
-                            "examples": [
-                                "300s"
-                            ],
-                            "default": "10m0s"
-                        }
-                    }
-                },
-                "oidc": {
-                    "type": "object",
-                    "title": "OIDC authentication",
-                    "properties": {
-                        "caPem": {
-                            "type": "string",
-                            "title": "Certificate authority",
-                            "description": "Identity provider's CA certificate in PEM format."
-                        },
-                        "clientId": {
-                            "type": "string",
-                            "title": "Client ID"
-                        },
-                        "groupsClaim": {
-                            "type": "string",
-                            "title": "Groups claim"
-                        },
-                        "issuerUrl": {
-                            "type": "string",
-                            "title": "Issuer URL",
-                            "description": "Exact issuer URL that will be included in identity tokens."
-                        },
-                        "usernameClaim": {
-                            "type": "string",
-                            "title": "Username claim"
-                        }
-                    }
-                },
-                "rootVolumeSizeGB": {
-                    "type": "integer",
-                    "title": "Root volume size (GB)",
-                    "default": 120
-                },
-                "subnetTags": {
-                    "type": "array",
-                    "title": "Subnet tags",
-                    "description": "Tags to select AWS resources for the control plane by.",
-                    "items": {
-                        "type": "object",
-                        "title": "Subnet tag",
-                        "additionalProperties": {
-                            "$ref": "#/$defs/awsResourceTagValue"
-                        }
-                    }
-                }
-            }
-        },
         "global": {
             "type": "object",
             "title": "Global",
@@ -704,6 +525,185 @@
                                 "private"
                             ],
                             "default": "public"
+                        }
+                    }
+                },
+                "controlPlane": {
+                    "type": "object",
+                    "title": "Control plane",
+                    "properties": {
+                        "additionalSecurityGroups": {
+                            "type": "array",
+                            "title": "Control Plane additional security groups",
+                            "description": "Additional security groups that will be added to the control plane nodes.",
+                            "items": {
+                                "type": "object",
+                                "title": "Security group",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "title": "Id of the security group",
+                                        "description": "ID of the security group that will be added to the control plane nodes. The security group must exist."
+                                    }
+                                }
+                            }
+                        },
+                        "apiExtraArgs": {
+                            "type": "object",
+                            "title": "API extra arguments",
+                            "description": "Extra arguments passed to the kubernetes API server.",
+                            "patternProperties": {
+                                "^.+:.+$": {
+                                    "type": "string",
+                                    "title": "argument"
+                                }
+                            },
+                            "example": [
+                                "audit-log-maxsize: 100"
+                            ]
+                        },
+                        "apiExtraCertSANs": {
+                            "type": "array",
+                            "title": "API extra cert SANs",
+                            "description": "Extra certs SANs passed to the kubeadmcontrolplane CR.",
+                            "items": {
+                                "type": "string",
+                                "title": "cert SAN",
+                                "example": [
+                                    "test.mydomain.com"
+                                ]
+                            }
+                        },
+                        "apiMode": {
+                            "type": "string",
+                            "title": "API mode",
+                            "description": "Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).",
+                            "enum": [
+                                "public",
+                                "private"
+                            ],
+                            "default": "public"
+                        },
+                        "containerdVolumeSizeGB": {
+                            "type": "integer",
+                            "title": "Containerd volume size (GB)",
+                            "default": 100
+                        },
+                        "etcdVolumeSizeGB": {
+                            "type": "integer",
+                            "title": "Etcd volume size (GB)",
+                            "default": 100
+                        },
+                        "instanceType": {
+                            "type": "string",
+                            "title": "EC2 instance type",
+                            "default": "r6i.xlarge"
+                        },
+                        "kubeletVolumeSizeGB": {
+                            "type": "integer",
+                            "title": "Kubelet volume size (GB)",
+                            "default": 100
+                        },
+                        "loadBalancerIngressAllowCidrBlocks": {
+                            "type": "array",
+                            "title": "Load balancer allow list",
+                            "description": "IPv4 address ranges that are allowed to connect to the control plane load balancer, in CIDR notation. When setting this field, remember to add the Management cluster Nat Gateway IPs provided by Giant Swarm so that the cluster can still be managed. These Nat Gateway IPs can be found in the Management Cluster AWSCluster '.status.networkStatus.natGatewaysIPs' field.",
+                            "items": {
+                                "type": "string",
+                                "title": "Address range"
+                            }
+                        },
+                        "machineHealthCheck": {
+                            "type": "object",
+                            "title": "Machine health check",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean",
+                                    "title": "Enable",
+                                    "default": true
+                                },
+                                "maxUnhealthy": {
+                                    "type": "string",
+                                    "title": "Maximum unhealthy nodes",
+                                    "examples": [
+                                        "40%"
+                                    ],
+                                    "default": "40%"
+                                },
+                                "nodeStartupTimeout": {
+                                    "type": "string",
+                                    "title": "Node startup timeout",
+                                    "description": "Determines how long a machine health check should wait for a node to join the cluster, before considering a machine unhealthy.",
+                                    "examples": [
+                                        "10m",
+                                        "100s"
+                                    ],
+                                    "default": "8m0s"
+                                },
+                                "unhealthyNotReadyTimeout": {
+                                    "type": "string",
+                                    "title": "Timeout for ready",
+                                    "description": "If a node is not in condition 'Ready' after this timeout, it will be considered unhealthy.",
+                                    "examples": [
+                                        "300s"
+                                    ],
+                                    "default": "10m0s"
+                                },
+                                "unhealthyUnknownTimeout": {
+                                    "type": "string",
+                                    "title": "Timeout for unknown condition",
+                                    "description": "If a node is in 'Unknown' condition after this timeout, it will be considered unhealthy.",
+                                    "examples": [
+                                        "300s"
+                                    ],
+                                    "default": "10m0s"
+                                }
+                            }
+                        },
+                        "oidc": {
+                            "type": "object",
+                            "title": "OIDC authentication",
+                            "properties": {
+                                "caPem": {
+                                    "type": "string",
+                                    "title": "Certificate authority",
+                                    "description": "Identity provider's CA certificate in PEM format."
+                                },
+                                "clientId": {
+                                    "type": "string",
+                                    "title": "Client ID"
+                                },
+                                "groupsClaim": {
+                                    "type": "string",
+                                    "title": "Groups claim"
+                                },
+                                "issuerUrl": {
+                                    "type": "string",
+                                    "title": "Issuer URL",
+                                    "description": "Exact issuer URL that will be included in identity tokens."
+                                },
+                                "usernameClaim": {
+                                    "type": "string",
+                                    "title": "Username claim"
+                                }
+                            }
+                        },
+                        "rootVolumeSizeGB": {
+                            "type": "integer",
+                            "title": "Root volume size (GB)",
+                            "default": 120
+                        },
+                        "subnetTags": {
+                            "type": "array",
+                            "title": "Subnet tags",
+                            "description": "Tags to select AWS resources for the control plane by.",
+                            "items": {
+                                "type": "object",
+                                "title": "Subnet tag",
+                                "additionalProperties": {
+                                    "$ref": "#/$defs/awsResourceTagValue"
+                                }
+                            }
                         }
                     }
                 },
