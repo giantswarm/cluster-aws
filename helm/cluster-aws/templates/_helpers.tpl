@@ -81,7 +81,7 @@ room for such suffix.
 {{- end -}}
 
 {{- define "noProxyList" -}}
-127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.connectivity.network.vpcCidr }},{{ join "," $.Values.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.connectivity.proxy.noProxy }}
+127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.global.connectivity.network.vpcCidr }},{{ join "," $.Values.global.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.global.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.global.connectivity.proxy.noProxy }}
 {{- end -}}
 {{- define "proxyFiles" -}}
 - path: /etc/systemd/system/containerd.service.d/http-proxy.conf
@@ -100,11 +100,11 @@ room for such suffix.
 {{- end }}
 {{- end -}}
 {{- define "proxyCommand" -}}
-- export HTTP_PROXY={{ $.Values.connectivity.proxy.httpProxy }}
-- export HTTPS_PROXY={{ $.Values.connectivity.proxy.httpsProxy }}
+- export HTTP_PROXY={{ $.Values.global.connectivity.proxy.httpProxy }}
+- export HTTPS_PROXY={{ $.Values.global.connectivity.proxy.httpsProxy }}
 - export NO_PROXY="{{ include "noProxyList" $ }}"
-- export http_proxy={{ $.Values.connectivity.proxy.httpProxy }}
-- export https_proxy={{ $.Values.connectivity.proxy.httpsProxy }}
+- export http_proxy={{ $.Values.global.connectivity.proxy.httpProxy }}
+- export https_proxy={{ $.Values.global.connectivity.proxy.httpsProxy }}
 - export no_proxy="{{ include "noProxyList" $ }}"
 {{- end -}}
 
