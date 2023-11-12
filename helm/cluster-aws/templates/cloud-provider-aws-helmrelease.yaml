@@ -32,10 +32,10 @@ spec:
   install:
     remediation:
       retries: 30
-  {{- if .Values.connectivity.proxy.enabled }}
+  {{- if .Values.global.connectivity.proxy.enabled }}
   values:
     proxy:
       noProxy: "{{ include "noProxyList" $ }}"
-      http: {{ .Values.connectivity.proxy.httpProxy | quote }}
-      https: {{ .Values.connectivity.proxy.httpsProxy | quote }}
+      http: {{ .Values.global.connectivity.proxy.httpProxy | quote }}
+      https: {{ .Values.global.connectivity.proxy.httpsProxy | quote }}
   {{ end }}
