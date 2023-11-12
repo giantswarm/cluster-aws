@@ -35,7 +35,7 @@ subnet:
       values:
       - shared
       - owned
-    {{ if eq $.Values.connectivity.vpcMode "public" }}
+    {{ if eq $.Values.global.connectivity.vpcMode "public" }}
     - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
       values:
       - private
@@ -125,7 +125,7 @@ spec:
           runtime-config: api/all=true,scheduling.k8s.io/v1alpha1=true
           service-account-lookup: "true"
           tls-cipher-suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
-          service-cluster-ip-range: {{ .Values.connectivity.network.services.cidrBlocks | first }}
+          service-cluster-ip-range: {{ .Values.global.connectivity.network.services.cidrBlocks | first }}
           {{- if .Values.controlPlane.apiExtraArgs -}}
           {{- toYaml .Values.controlPlane.apiExtraArgs | nindent 10 }}
           {{- end }}
@@ -152,7 +152,7 @@ spec:
           cloud-provider: external
           terminated-pod-gc-threshold: "125"
           allocate-node-cidrs: "true"
-          cluster-cidr: {{ .Values.connectivity.network.pods.cidrBlocks | first }}
+          cluster-cidr: {{ .Values.global.connectivity.network.pods.cidrBlocks | first }}
           feature-gates: CronJobTimeZone=true
       scheduler:
         extraArgs:
@@ -168,13 +168,13 @@ spec:
             {{- toYaml .Values.internal.migration.etcdExtraArgs | nindent 12 }}
             {{- end }}
       networking:
-        serviceSubnet: {{ join "," .Values.connectivity.network.services.cidrBlocks }}
+        serviceSubnet: {{ join "," .Values.global.connectivity.network.services.cidrBlocks }}
     files:
     {{- include "controlPlaneFiles" . | nindent 4 }}
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "kubeletConfigFiles" . | nindent 4 }}
     {{- include "nodeConfigFiles" . | nindent 4 }}
-    {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
+    {{- if .Values.global.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "containerdConfigFiles" . | nindent 4 }}
     {{- if .Values.internal.teleport.enabled }}
@@ -243,7 +243,7 @@ spec:
     {{- toYaml .Values.internal.migration.controlPlanePreKubeadmCommands | nindent 4 }}
     {{- end }}
     {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
-    {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
+    {{- if .Values.global.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "controlPlanePostKubeadmCommands" . | nindent 4 }}
     {{- if .Values.internal.migration.controlPlanePostKubeadmCommands -}}
