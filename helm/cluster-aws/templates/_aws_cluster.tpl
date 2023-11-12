@@ -35,15 +35,15 @@ spec:
     name: {{ . | quote }}
     {{- end }}
   controlPlaneLoadBalancer:
-    scheme: {{ if (eq .Values.controlPlane.apiMode "public") }}internet-facing{{ else }}internal{{ end }}
-    {{- if .Values.controlPlane.loadBalancerIngressAllowCidrBlocks }}
+    scheme: {{ if (eq .Values.global.controlPlane.apiMode "public") }}internet-facing{{ else }}internal{{ end }}
+    {{- if .Values.global.controlPlane.loadBalancerIngressAllowCidrBlocks }}
     ingressRules:
     - description: "Kubernetes API"
       protocol: tcp
       fromPort: 6443
       toPort: 6443
       # We append the Giant Swarm VPN IPs (internal link: https://github.com/giantswarm/vpn/tree/master/hosts_inventory, https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/tc_api_whitelisting/)
-      cidrBlocks: {{- toYaml ((concat .Values.controlPlane.loadBalancerIngressAllowCidrBlocks (list "95.179.153.65/32" "185.102.95.187/32")) | uniq) | nindent 6 }}
+      cidrBlocks: {{- toYaml ((concat .Values.global.controlPlane.loadBalancerIngressAllowCidrBlocks (list "95.179.153.65/32" "185.102.95.187/32")) | uniq) | nindent 6 }}
     {{- end }}
   network:
     cni:
