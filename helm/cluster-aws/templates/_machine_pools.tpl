@@ -51,7 +51,7 @@ spec:
       values:
       - shared
       - owned
-    {{ if eq $.Values.connectivity.vpcMode "public" }}
+    {{ if eq $.Values.global.connectivity.vpcMode "public" }}
     - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
       values:
       - private
@@ -135,7 +135,7 @@ spec:
   preKubeadmCommands:
     {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
-    {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
+    {{- if $.Values.global.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
   postKubeadmCommands:
     {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
   users:
@@ -143,7 +143,7 @@ spec:
   files:
   {{- include "sshFiles" $ | nindent 2 }}
   {{- include "kubeletConfigFiles" $ | nindent 2 }}
-  {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
+  {{- if $.Values.global.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
   {{- include "registryFiles" $ | nindent 2 }}
   {{- if $.Values.internal.teleport.enabled }}
   {{- include "teleportFiles" $ | nindent 2 }}
