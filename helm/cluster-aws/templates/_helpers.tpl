@@ -46,7 +46,7 @@ room for such suffix.
 {{- end -}}
 
 {{- define "controlPlaneFiles" -}}
-{{- if .Values.controlPlane.oidc.caPem }}
+{{- if .Values.global.controlPlane.oidc.caPem }}
 - path: /etc/ssl/certs/oidc.pem
   permissions: "0600"
   encoding: base64
