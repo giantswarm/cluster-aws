@@ -58,6 +58,12 @@ room for such suffix.
   content: {{ $.Files.Get "files/opt/control-plane-config.sh" | b64enc }}
 {{- end -}}
 
+{{- define "preventDeletionLabel" -}}
+{{- if $.Values.global.metadata.preventDeletion -}}
+giantswarm.io/prevent-deletion: "true"
+{{ end -}}
+{{- end -}}
+
 {{- define "sshFiles" -}}
 - path: /etc/ssh/trusted-user-ca-keys.pem
   permissions: "0600"
@@ -169,7 +175,7 @@ and is used to join the node to the teleport cluster.
 - path: /etc/teleport.yaml
   permissions: "0644"
   encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/teleport.yaml") . | b64enc }}  
+  content: {{ tpl ($.Files.Get "files/etc/teleport.yaml") . | b64enc }}
 {{- end -}}
 
 {{- define "diskStorageConfig" -}}
