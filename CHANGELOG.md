@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The value to configure the control plane load balancer ingress rules is filtered to avoid duplicates and to always contain GiantSwarm VPN IPs.
+
 ## [0.48.0] - 2023-11-13
 
 ### Added
