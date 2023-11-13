@@ -707,6 +707,11 @@
                         }
                     }
                 },
+                "managementCluster": {
+                    "type": "string",
+                    "title": "Management cluster",
+                    "description": "Name of the Cluster API cluster managing this workload cluster."
+                },
                 "metadata": {
                     "type": "object",
                     "title": "Metadata",
@@ -946,11 +951,6 @@
                     "default": "1.23.5"
                 }
             }
-        },
-        "managementCluster": {
-            "type": "string",
-            "title": "Management cluster",
-            "description": "Name of the Cluster API cluster managing this workload cluster."
         },
         "provider": {
             "type": "string",
