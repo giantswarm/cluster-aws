@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.48.1] - 2023-11-13
+
 ### Fixed
 
 - The value to configure the control plane load balancer ingress rules is filtered to avoid duplicates and to always contain GiantSwarm VPN IPs.
@@ -912,7 +914,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.48.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.48.1...HEAD
+[0.48.1]: https://github.com/giantswarm/cluster-aws/compare/v0.48.0...v0.48.1
 [0.48.0]: https://github.com/giantswarm/cluster-aws/compare/v0.47.0...v0.48.0
 [0.47.0]: https://github.com/giantswarm/cluster-aws/compare/v0.46.1...v0.47.0
 [0.46.1]: https://github.com/giantswarm/cluster-aws/compare/v0.46.0...v0.46.1
