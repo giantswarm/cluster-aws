@@ -695,7 +695,7 @@
             "properties": {
                 "cgroupsv1": {
                     "type": "boolean",
-                    "title": "CGroup v1",
+                    "title": "CGroups v1",
                     "description": "Force use of CGroups v1 for whole cluster.",
                     "default": false
                 },
