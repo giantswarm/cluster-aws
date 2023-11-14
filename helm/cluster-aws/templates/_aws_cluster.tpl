@@ -19,6 +19,7 @@ metadata:
     aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.connectivity.vpcEndpointMode }}"
   labels:
     {{- include "labels.common" $ | nindent 4 }}
+    {{- include "preventDeletionLabel" $ | nindent 4 -}}
     app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}
   namespace: {{ .Release.Namespace }}
@@ -41,12 +42,8 @@ spec:
       protocol: tcp
       fromPort: 6443
       toPort: 6443
-      cidrBlocks:
-      # Giant Swarm VPN IPs (internal link: https://github.com/giantswarm/vpn/tree/master/hosts_inventory, https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/tc_api_whitelisting/)
-      - 185.102.95.187/32
-      - 95.179.153.65/32
-
-      {{- toYaml .Values.controlPlane.loadBalancerIngressAllowCidrBlocks | nindent 6 }}
+      # We append the Giant Swarm VPN IPs (internal link: https://github.com/giantswarm/vpn/tree/master/hosts_inventory, https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/tc_api_whitelisting/)
+      cidrBlocks: {{- toYaml ((concat .Values.controlPlane.loadBalancerIngressAllowCidrBlocks (list "95.179.153.65/32" "185.102.95.187/32")) | uniq) | nindent 6 }}
     {{- end }}
   network:
     cni:
