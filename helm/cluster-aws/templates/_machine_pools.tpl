@@ -116,7 +116,7 @@ spec:
     nodeRegistration:
       kubeletExtraArgs:
         cloud-provider: external
-        {{- if $.Values.providerSpecific.cgroupsv1 }}
+        {{- if $.Values.internal.cgroupsv1 }}
         cgroup-driver: cgroupfs
         {{- end }}
         feature-gates: CronJobTimeZone=true
@@ -151,7 +151,7 @@ spec:
   {{- if $.Values.internal.teleport.enabled }}
   {{- include "teleportFiles" $ | nindent 2 }}
   {{- end }}
-  {{- if $.Values.providerSpecific.cgroupsv1 }}
+  {{- if $.Values.internal.cgroupsv1 }}
   {{- include "cgroupv1Files" $ | nindent 2 }}
   {{- end }}
   {{- include "nodeConfigFiles" $ | nindent 2 }}

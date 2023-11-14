@@ -57,6 +57,7 @@ controlPlane:
   oidc: {}
   rootVolumeSizeGB: 120
 internal:
+  cgroupsv1: false
   kubernetesVersion: 1.24.14
   migration:
     apiBindPort: 6443
@@ -83,5 +84,4 @@ metadata:
   servicePriority: highest
 providerSpecific:
   awsClusterRoleIdentityName: default
-  cgroupsv1: false
   flatcarAwsAccount: "706635527432"

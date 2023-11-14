@@ -693,6 +693,12 @@
             "title": "Internal",
             "description": "For Giant Swarm internal use only, not stable, or not supported by UIs.",
             "properties": {
+                "cgroupsv1": {
+                    "type": "boolean",
+                    "title": "CGroup v1",
+                    "description": "Force use of CGroups v1 for whole cluster.",
+                    "default": false
+                },
                 "hashSalt": {
                     "type": "string",
                     "title": "Hash salt",
@@ -949,12 +955,6 @@
                     "maxLength": 63,
                     "minLength": 1,
                     "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$"
-                },
-                "cgroupsv1": {
-                    "type": "boolean",
-                    "title": "CGroup v1",
-                    "description": "Force use of CGroup v1 for whole cluster.",
-                    "default": false
                 },
                 "flatcarAwsAccount": {
                     "type": "string",

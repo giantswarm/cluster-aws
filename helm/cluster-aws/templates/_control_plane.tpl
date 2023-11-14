@@ -180,7 +180,7 @@ spec:
     {{- if .Values.internal.teleport.enabled }}
     {{- include "teleportFiles" . | nindent 4 }}
     {{- end }}
-    {{- if $.Values.providerSpecific.cgroupsv1 }}
+    {{- if $.Values.internal.cgroupsv1 }}
     {{- include "cgroupv1Files" $ | nindent 4 }}
     {{- end }}
     {{- if .Values.internal.migration.controlPlaneExtraFiles }}
@@ -195,7 +195,7 @@ spec:
         bindPort: {{ .Values.internal.migration.apiBindPort }}
       nodeRegistration:
         kubeletExtraArgs:
-          {{- if $.Values.providerSpecific.cgroupsv1 }}
+          {{- if $.Values.internal.cgroupsv1 }}
           cgroup-driver: cgroupfs
           {{- end }}
           cloud-provider: external
@@ -221,7 +221,7 @@ spec:
           bindPort: {{ .Values.internal.migration.apiBindPort }}
       nodeRegistration:
         kubeletExtraArgs:
-          {{- if $.Values.providerSpecific.cgroupsv1 }}
+          {{- if $.Values.internal.cgroupsv1 }}
           cgroup-driver: cgroupfs
           {{- end }}
           cloud-provider: external
