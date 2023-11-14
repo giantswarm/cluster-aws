@@ -121,6 +121,15 @@ Properties within the `.controlPlane` top-level object
 | `controlPlane.subnetTags[*]` | **Subnet tag**|**Type:** `object`<br/>|
 | `controlPlane.subnetTags[*].*` | **Tag value**|**Type:** `string`<br/>**Value pattern:** `^[ a-zA-Z0-9\._:/=+-@]+$`<br/>|
 
+### Global properties
+Properties within the `.global` top-level object
+Properties that are available to all charts and subcharts.
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `global.metadata` | **Metadata**|**Type:** `object`<br/>|
+| `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
+
 ### Internal
 Properties within the `.internal` top-level object
 For Giant Swarm internal use only, not stable, or not supported by UIs.

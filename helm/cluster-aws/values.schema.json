@@ -688,6 +688,26 @@
                 }
             }
         },
+        "global": {
+            "type": "object",
+            "title": "Global properties",
+            "description": "Properties that are available to all charts and subcharts.",
+            "additionalProperties": false,
+            "properties": {
+                "metadata": {
+                    "type": "object",
+                    "title": "Metadata",
+                    "additionalProperties": true,
+                    "properties": {
+                        "preventDeletion": {
+                            "type": "boolean",
+                            "title": "Prevent cluster deletion",
+                            "default": false
+                        }
+                    }
+                }
+            }
+        },
         "internal": {
             "type": "object",
             "title": "Internal",
