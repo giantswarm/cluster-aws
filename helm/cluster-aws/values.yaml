@@ -60,6 +60,7 @@ global:
   metadata:
     preventDeletion: false
 internal:
+  cgroupsv1: false
   kubernetesVersion: 1.24.14
   migration:
     apiBindPort: 6443

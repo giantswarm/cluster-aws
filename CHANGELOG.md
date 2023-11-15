@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Allow cluster-autoscaler handling MachinePools.
 - Add additional tag for cluster autoscaler to MachinePool ASGs.
+- Add option to force CGroups v1.
 
 ## [0.46.1] - 2023-11-01
 

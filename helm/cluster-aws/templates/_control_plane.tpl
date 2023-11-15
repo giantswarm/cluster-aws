@@ -176,9 +176,12 @@ spec:
     {{- include "nodeConfigFiles" . | nindent 4 }}
     {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
-    {{- include "registryFiles" . | nindent 4 }}
+    {{- include "containerdConfigFiles" . | nindent 4 }}
     {{- if .Values.internal.teleport.enabled }}
     {{- include "teleportFiles" . | nindent 4 }}
+    {{- end }}
+    {{- if $.Values.internal.cgroupsv1 }}
+    {{- include "cgroupv1Files" $ | nindent 4 }}
     {{- end }}
     {{- if .Values.internal.migration.controlPlaneExtraFiles }}
     {{- toYaml .Values.internal.migration.controlPlaneExtraFiles | nindent 4}}
@@ -192,6 +195,9 @@ spec:
         bindPort: {{ .Values.internal.migration.apiBindPort }}
       nodeRegistration:
         kubeletExtraArgs:
+          {{- if $.Values.internal.cgroupsv1 }}
+          cgroup-driver: cgroupfs
+          {{- end }}
           cloud-provider: external
           feature-gates: CronJobTimeZone=true
           healthz-bind-address: 0.0.0.0
@@ -215,6 +221,9 @@ spec:
           bindPort: {{ .Values.internal.migration.apiBindPort }}
       nodeRegistration:
         kubeletExtraArgs:
+          {{- if $.Values.internal.cgroupsv1 }}
+          cgroup-driver: cgroupfs
+          {{- end }}
           cloud-provider: external
           feature-gates: CronJobTimeZone=true
         name: ${COREOS_EC2_HOSTNAME}

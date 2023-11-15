@@ -116,6 +116,9 @@ spec:
     nodeRegistration:
       kubeletExtraArgs:
         cloud-provider: external
+        {{- if $.Values.internal.cgroupsv1 }}
+        cgroup-driver: cgroupfs
+        {{- end }}
         feature-gates: CronJobTimeZone=true
         healthz-bind-address: 0.0.0.0
         node-ip: ${COREOS_EC2_IPV4_LOCAL}
@@ -144,9 +147,12 @@ spec:
   {{- include "sshFiles" $ | nindent 2 }}
   {{- include "kubeletConfigFiles" $ | nindent 2 }}
   {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
-  {{- include "registryFiles" $ | nindent 2 }}
+  {{- include "containerdConfigFiles" $ | nindent 2 }}
   {{- if $.Values.internal.teleport.enabled }}
   {{- include "teleportFiles" $ | nindent 2 }}
+  {{- end }}
+  {{- if $.Values.internal.cgroupsv1 }}
+  {{- include "cgroupv1Files" $ | nindent 2 }}
   {{- end }}
   {{- include "nodeConfigFiles" $ | nindent 2 }}
 ---
