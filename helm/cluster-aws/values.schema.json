@@ -690,7 +690,7 @@
         },
         "global": {
             "type": "object",
-            "title": "Global properties",
+            "title": "Global",
             "description": "Properties that are available to all charts and subcharts.",
             "required": [
                 "metadata"
