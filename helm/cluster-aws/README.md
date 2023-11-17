@@ -30,6 +30,7 @@ Properties within the `.global.connectivity` object
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
 | `global.connectivity.availabilityZoneUsageLimit` | **Availability zones** - Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.|**Type:** `integer`<br/>**Default:** `3`|
+| `global.connectivity.baseDomain` | **Base DNS domain**|**Type:** `string`<br/>|
 | `global.connectivity.bastion` | **Bastion host**|**Type:** `object`<br/>|
 | `global.connectivity.bastion.enabled` | **Enable**|**Type:** `boolean`<br/>**Default:** `true`|
 | `global.connectivity.bastion.instanceType` | **EC2 instance type**|**Type:** `string`<br/>**Default:** `"t3.small"`|
@@ -237,7 +238,6 @@ Node pools of the cluster. If not specified, this defaults to the value of `inte
 
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
-| `baseDomain` | **Base DNS domain**|**Type:** `string`<br/>|
 | `cluster-shared` | **Library chart**|**Type:** `object`<br/>|
 | `provider` | **Cluster API provider name**|**Type:** `string`<br/>|
 

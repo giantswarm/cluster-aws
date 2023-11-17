@@ -81,7 +81,7 @@ room for such suffix.
 {{- end -}}
 
 {{- define "noProxyList" -}}
-127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.global.connectivity.network.vpcCidr }},{{ join "," $.Values.global.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.global.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.baseDomain }},elb.amazonaws.com,{{ $.Values.global.connectivity.proxy.noProxy }}
+127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.global.connectivity.network.vpcCidr }},{{ join "," $.Values.global.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.global.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.global.connectivity.baseDomain }},elb.amazonaws.com,{{ $.Values.global.connectivity.proxy.noProxy }}
 {{- end -}}
 {{- define "proxyFiles" -}}
 - path: /etc/systemd/system/containerd.service.d/http-proxy.conf

@@ -2,6 +2,7 @@ global:
   metadata:
     organization: "test"
   connectivity:
+    baseDomain: example.com
     containerRegistries:
       with-auth.example.com:
       - endpoint: with-auth.example.com
@@ -9,4 +10,3 @@ global:
           username: giantswarmpull
           password: abcdef
       - endpoint: quay.io
-baseDomain: example.com

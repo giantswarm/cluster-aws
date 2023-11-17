@@ -126,10 +126,6 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
-        "baseDomain": {
-            "type": "string",
-            "title": "Base DNS domain"
-        },
         "cluster-shared": {
             "type": "object",
             "title": "Library chart"
@@ -151,6 +147,10 @@
                             "title": "Availability zones",
                             "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
                             "default": 3
+                        },
+                        "baseDomain": {
+                            "type": "string",
+                            "title": "Base DNS domain"
                         },
                         "bastion": {
                             "type": "object",
