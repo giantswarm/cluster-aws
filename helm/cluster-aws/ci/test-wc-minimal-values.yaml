@@ -3,4 +3,5 @@ global:
     name: test-wc-minimal
     organization: test
     servicePriority: lowest
-baseDomain: example.com
+  connectivity:
+    baseDomain: example.com

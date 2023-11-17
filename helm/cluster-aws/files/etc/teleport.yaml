@@ -27,6 +27,6 @@ ssh_service:
     {{- if ne .Values.global.managementCluster $clusterName }}
     cluster: {{ include "resource.default.name" $ }}
     {{- end }}
-    baseDomain: {{ .Values.baseDomain }}
+    baseDomain: {{ .Values.global.connectivity.baseDomain }}
 proxy_service:
   enabled: "no"
