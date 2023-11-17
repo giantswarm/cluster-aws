@@ -3,7 +3,7 @@
 connectivity:
   availabilityZoneUsageLimit: 3
   bastion:
-    enabled: true
+    enabled: false
     instanceType: t3.small
     replicas: 1
   containerRegistries:

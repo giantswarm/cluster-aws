@@ -31,7 +31,7 @@ Properties within the `.connectivity` top-level object
 | :----------- | :-------------- | :--------------- |
 | `connectivity.availabilityZoneUsageLimit` | **Availability zones** - Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.|**Type:** `integer`<br/>**Default:** `3`|
 | `connectivity.bastion` | **Bastion host**|**Type:** `object`<br/>|
-| `connectivity.bastion.enabled` | **Enable**|**Type:** `boolean`<br/>**Default:** `true`|
+| `connectivity.bastion.enabled` | **Enable**|**Type:** `boolean`<br/>**Default:** `false`|
 | `connectivity.bastion.instanceType` | **EC2 instance type**|**Type:** `string`<br/>**Default:** `"t3.small"`|
 | `connectivity.bastion.replicas` | **Number of hosts**|**Type:** `integer`<br/>**Default:** `1`|
 | `connectivity.bastion.subnetTags` | **Subnet tags** - Tags to filter which AWS subnets will be used for the bastion hosts.|**Type:** `array`<br/>|

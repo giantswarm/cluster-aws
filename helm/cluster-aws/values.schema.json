@@ -151,7 +151,7 @@
                         "enabled": {
                             "type": "boolean",
                             "title": "Enable",
-                            "default": true
+                            "default": false
                         },
                         "instanceType": {
                             "type": "string",

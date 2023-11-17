@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Enable teleport by default.
+- Disable bastion by default.
 - Set default teleport proxy address to `teleport.giantswarm.io:443`.
 
 ### Removed
