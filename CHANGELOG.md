@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix containerd config that was breaking in newer flatcar versions.
+
 ## [0.48.1] - 2023-11-13
 
 ### Fixed
