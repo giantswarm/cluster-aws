@@ -121,15 +121,6 @@ Properties within the `.controlPlane` top-level object
 | `controlPlane.subnetTags[*]` | **Subnet tag**|**Type:** `object`<br/>|
 | `controlPlane.subnetTags[*].*` | **Tag value**|**Type:** `string`<br/>**Value pattern:** `^[ a-zA-Z0-9\._:/=+-@]+$`<br/>|
 
-### Global properties
-Properties within the `.global` top-level object
-Properties that are available to all charts and subcharts.
-
-| **Property** | **Description** | **More Details** |
-| :----------- | :-------------- | :--------------- |
-| `global.metadata` | **Metadata**|**Type:** `object`<br/>|
-| `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
-
 ### Internal
 Properties within the `.internal` top-level object
 For Giant Swarm internal use only, not stable, or not supported by UIs.
@@ -205,6 +196,13 @@ Properties within the `.metadata` top-level object
 | `metadata.name` | **Cluster name** - Unique identifier, cannot be changed after creation.|**Type:** `string`<br/>|
 | `metadata.organization` | **Organization**|**Type:** `string`<br/>|
 | `metadata.servicePriority` | **Service priority** - The relative importance of this cluster.|**Type:** `string`<br/>**Default:** `"highest"`|
+
+### Metadata
+Properties within the `.global.metadata` object
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
 
 ### Node pools
 Properties within the `.nodePools` top-level object
