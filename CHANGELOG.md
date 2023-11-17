@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Enable teleport by default.
+- Set default teleport proxy address to `teleport.giantswarm.io:443`.
+
+### Removed
+
+- Remove unused `internal.teleport.proxyAddr` chart value.
+
+
 ## [0.48.1] - 2023-11-13
 
 ### Fixed
