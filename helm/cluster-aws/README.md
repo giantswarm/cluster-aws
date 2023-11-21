@@ -189,6 +189,13 @@ Properties within the `.kubectlImage` top-level object
 | `kubectlImage.tag` | **Tag**|**Type:** `string`<br/>**Default:** `"1.23.5"`|
 
 ### Metadata
+Properties within the `.global.metadata` object
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
+
+### Metadata
 Properties within the `.metadata` top-level object
 
 | **Property** | **Description** | **More Details** |
