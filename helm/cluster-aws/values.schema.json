@@ -88,6 +88,11 @@
                     "type": "integer",
                     "title": "Minimum number of nodes"
                 },
+                "podShutdownGracePeriodSec": {
+                    "type": "integer",
+                    "title": "Pod shutdown grace period (seconds)",
+                    "description": "How long will kubelet wait for pods to gracefully shutdown before forcefully terminating them. Value must in seconds."
+                },
                 "rootVolumeSizeGB": {
                     "type": "integer",
                     "title": "Root volume size (GB)"

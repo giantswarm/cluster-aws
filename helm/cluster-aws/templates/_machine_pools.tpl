@@ -139,8 +139,6 @@ spec:
     {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
     {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
-  postKubeadmCommands:
-    {{- include "kubeletConfigPostKubeadmCommands" . | nindent 4 }}
   users:
   {{- include "sshUsers" . | nindent 2 }}
   files:

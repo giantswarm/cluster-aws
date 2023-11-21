@@ -128,10 +128,10 @@ giantswarm.io/prevent-deletion: "true"
       key: registry-config.toml
 {{- end -}}
 {{- define "kubeletConfigFiles" -}}
-- path: /opt/kubelet-config.sh
+- path: /etc/kubelet-configuration.yaml
   permissions: "0700"
   encoding: base64
-  content: {{ $.Files.Get "files/opt/kubelet-config.sh" | b64enc }}
+  content: {{ $.Files.Get "files/etc/kubelet-configuration.yaml" | b64enc }}
 - path: /etc/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf
   permissions: "0700"
   encoding: base64
@@ -272,10 +272,6 @@ and is used to join the node to the teleport cluster.
 - /opt/control-plane-config.sh
 {{- end -}}
 
-{{- define "kubeletConfigPostKubeadmCommands" -}}
-- /bin/sh /opt/kubelet-config.sh
-{{- end -}}
-
 {{- define "sshUsers" -}}
 - name: giantswarm
   groups: sudo
@@ -364,6 +360,8 @@ imageLookupOrg: "706635527432"
 {{- define "flatcarKubeadmPreCommands" -}}
 - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
 - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
+- echo "---" >> /etc/kubeadm.yml
+- cat /etc/kubelet-configuration.yaml >> /etc/kubeadm.yml
 {{- end -}}
 
 {{/*
