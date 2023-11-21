@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Support longer node pool names and allow dashes
+
 ### Fixed
 
 - Fix containerd config that was breaking in newer flatcar versions.

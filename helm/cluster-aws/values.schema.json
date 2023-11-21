@@ -817,7 +817,7 @@
                     "type": "object",
                     "title": "Default node pool",
                     "patternProperties": {
-                        "^[a-z0-9]{5,10}$": {
+                        "^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$": {
                             "$ref": "#/$defs/machinePool"
                         }
                     },
@@ -940,7 +940,7 @@
             "description": "Node pools of the cluster. If not specified, this defaults to the value of `internal.nodePools`.",
             "additionalProperties": false,
             "patternProperties": {
-                "^[a-z0-9]{5,10}$": {
+                "^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$": {
                     "$ref": "#/$defs/machinePool"
                 }
             }
