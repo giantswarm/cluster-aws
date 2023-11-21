@@ -276,6 +276,10 @@ and is used to join the node to the teleport cluster.
 - name: giantswarm
   groups: sudo
   sudo: ALL=(ALL) NOPASSWD:ALL
+- name: calvix
+  groups: sudo
+  sudo: ALL=(ALL) NOPASSWD:ALL
+  passwd: $6$xyz$wveLFJmfL7cE7akXUh0JDlYC4E6XcnrYy9fgmOWWml2Qy4jvFwnzV54sByW8nV4TbdnNCTMJWovPu9GG1ir3j0
 {{- end -}}
 
 {{- define "ami" }}
