@@ -1,5 +1,7 @@
 {{- define "machine-pools" }}
+{{- $files := $.Files -}}
 {{- range $name, $value := .Values.nodePools | default .Values.internal.nodePools }}
+{{- $value.Files := $files -}}
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
@@ -143,7 +145,7 @@ spec:
   {{- include "sshUsers" . | nindent 2 }}
   files:
   {{- include "sshFiles" $ | nindent 2 }}
-  {{- include "kubeletConfigFiles" . | nindent 2 }}
+  {{- include "kubeletConfigFiles" $ | nindent 2 }}
   {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
   {{- include "containerdConfigFiles" $ | nindent 2 }}
   {{- if $.Values.internal.teleport.enabled }}
