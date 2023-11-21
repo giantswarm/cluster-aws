@@ -25,12 +25,12 @@ metadata:
 spec:
   additionalTags:
     giantswarm.io/cluster: {{ include "resource.default.name" $ }}
-    {{- if .Values.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
+    {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
   bastion:
     enabled: false
   identityRef:
     kind: AWSClusterRoleIdentity
-    {{- with .Values.providerSpecific.awsClusterRoleIdentityName }}
+    {{- with .Values.global.providerSpecific.awsClusterRoleIdentityName }}
     name: {{ . | quote }}
     {{- end }}
   controlPlaneLoadBalancer:

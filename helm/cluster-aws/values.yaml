@@ -59,6 +59,9 @@ global:
     rootVolumeSizeGB: 120
   metadata:
     servicePriority: highest
+  providerSpecific:
+    awsClusterRoleIdentityName: default
+    flatcarAwsAccount: "706635527432"
 internal:
   kubernetesVersion: 1.24.14
   migration:
@@ -82,6 +85,3 @@ kubectlImage:
   name: giantswarm/kubectl
   registry: quay.io
   tag: 1.23.5
-providerSpecific:
-  awsClusterRoleIdentityName: default
-  flatcarAwsAccount: "706635527432"

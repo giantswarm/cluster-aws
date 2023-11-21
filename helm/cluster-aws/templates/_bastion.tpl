@@ -8,7 +8,7 @@ instanceType: {{ .Values.global.connectivity.bastion.instanceType }}
 cloudInit: {}
 imageLookupBaseOS: flatcar-stable
 imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-gs" }}
-imageLookupOrg: "{{ .Values.providerSpecific.flatcarAwsAccount }}"
+imageLookupOrg: "{{ .Values.global.providerSpecific.flatcarAwsAccount }}"
 iamInstanceProfile: {{ include "resource.default.name" $ }}-bastion
 publicIP: {{ if eq .Values.global.connectivity.vpcMode "private" }}false{{else}}true{{end}}
 sshKeyName: ""
