@@ -143,7 +143,7 @@ spec:
   {{- include "sshUsers" . | nindent 2 }}
   files:
   {{- include "sshFiles" $ | nindent 2 }}
-  {{- include "kubeletConfigFiles" $ | nindent 2 }}
+  {{- include "kubeletConfigFiles" . | nindent 2 }}
   {{- if $.Values.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
   {{- include "containerdConfigFiles" $ | nindent 2 }}
   {{- if $.Values.internal.teleport.enabled }}

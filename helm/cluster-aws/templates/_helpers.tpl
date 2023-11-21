@@ -131,7 +131,7 @@ giantswarm.io/prevent-deletion: "true"
 - path: /etc/kubelet-configuration.yaml
   permissions: "0700"
   encoding: base64
-  content: {{ $.Files.Get "files/etc/kubelet-configuration.yaml" | b64enc }}
+  content: {{ tpl ($.Files.Get "files/etc/kubelet-configuration.yaml") . | b64enc }}
 - path: /etc/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf
   permissions: "0700"
   encoding: base64
