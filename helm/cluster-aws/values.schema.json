@@ -80,6 +80,16 @@
                     "type": "string",
                     "title": "EC2 instance type"
                 },
+                "instanceTypeOverrides": {
+                    "type": "array",
+                    "title": "Instance type overrides",
+                    "description": "Overrides for instance types in this node pool.",
+                    "items": {
+                        "type": "string",
+                        "title": "EC2 instance type"
+                    },
+                    "default": []
+                },
                 "maxSize": {
                     "type": "integer",
                     "title": "Maximum number of nodes"

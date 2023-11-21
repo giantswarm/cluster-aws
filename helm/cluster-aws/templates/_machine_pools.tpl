@@ -86,6 +86,12 @@ spec:
       onDemandBaseCapacity: 0
       onDemandPercentageAboveBaseCapacity: 100
       spotAllocationStrategy: lowest-price
+    {{- if and ($value.instanceTypeOverrides) (gt (len $value.instanceTypeOverrides) 0) }}
+    overrides:
+    {{- range $instanceType := $value.instanceTypeOverrides }}
+    - instanceType: {{ $instanceType }}
+    {{- end }}
+    {{- end }}
   {{- end }}
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
