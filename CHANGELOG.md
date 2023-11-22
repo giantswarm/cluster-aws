@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move Helm values property `.Values.baseDomain` to `.Values.global.connectivity.baseDomain`.
 - Move Helm values property `.Values.providerSpecific` to `.Values.global.providerSpecific`.
 - Move Helm values property `.Values.global.connectivity.containerRegistries` to `.Values.global.components.containerd.containerRegistries`.
+- Add Helm values for overriding default cilium HelmRelease values.
+- Add Helm values for overriding default aws-ebs-csi-driver HelmRelease values.
 
 ### Added
 

@@ -1,6 +1,6 @@
 {{/* Default values*/}}
 {{/* https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/values.yaml*/}}
-{{- define "defaultCiliumConfig" }}
+{{- define "defaultCiliumHelmValues" }}
 ipam:
   mode: kubernetes
 k8sServiceHost: api.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}
@@ -65,10 +65,11 @@ spec:
   install:
     remediation:
       retries: 30
-  # Use default cilium config values and override them with custom values
-  {{- $ciliumHelmValues := (include "defaultCiliumConfig" .) | fromYaml -}}
-  {{- $customHelmValues := ($.Values.global.apps).cilium -}}
-  {{- if $customHelmValues }}
-  {{- $ciliumHelmValues = merge (deepCopy $customHelmValues) $ciliumHelmValues -}}
+  {{- $ciliumHelmValues := (include "defaultCiliumHelmValues" .) | fromYaml -}}
+  {{- $customCiliumHelmValues := ($.Values.global.apps).cilium -}}
+  {{- if $customCiliumHelmValues }}
+  {{- $ciliumHelmValues = merge (deepCopy $customCiliumHelmValues) $ciliumHelmValues -}}
   {{- end }}
+  {{- if $ciliumHelmValues }}
   values: {{ $ciliumHelmValues | toYaml | nindent 4 }}
+  {{- end }}

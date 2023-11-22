@@ -1,3 +1,13 @@
+{{/* Default Helm values for the app */}}
+{{/* See schema for the appropriate app version here https://github.com/giantswarm/aws-ebs-csi-driver-app/blob/master/helm/aws-ebs-csi-driver-app/values.schema.json */}}
+{{- define "defaultAwsEbsCsiDriverHelmValues" }}
+{{- if .Values.global.connectivity.proxy.enabled }}
+proxy:
+  noProxy: "{{ include "noProxyList" $ }}"
+  http: {{ .Values.global.connectivity.proxy.httpProxy | quote }}
+  https: {{ .Values.global.connectivity.proxy.httpsProxy | quote }}
+{{- end }}
+{{- end }}
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -32,10 +42,11 @@ spec:
   install:
     remediation:
       retries: 30
-  {{- if .Values.global.connectivity.proxy.enabled }}
-  values:
-    proxy:
-      noProxy: "{{ include "noProxyList" $ }}"
-      http: {{ .Values.global.connectivity.proxy.httpProxy | quote }}
-      https: {{ .Values.global.connectivity.proxy.httpsProxy | quote }}
-  {{ end }}
+  {{- $awsEbsCsiDriverHelmValues := (include "defaultAwsEbsCsiDriverHelmValues" .) | fromYaml -}}
+  {{- $customAwsEbsCsiDriverHelmValues := ($.Values.global.apps).awsEbsCsiDriver -}}
+  {{- if $customAwsEbsCsiDriverHelmValues }}
+  {{- $awsEbsCsiDriverHelmValues = merge (deepCopy $customAwsEbsCsiDriverHelmValues) $awsEbsCsiDriverHelmValues -}}
+  {{- end }}
+  {{- if $awsEbsCsiDriverHelmValues }}
+  values: {{ $awsEbsCsiDriverHelmValues | toYaml | nindent 4 }}
+  {{- end }}
