@@ -153,6 +153,19 @@
             ],
             "additionalProperties": true,
             "properties": {
+                "apps": {
+                    "type": "object",
+                    "title": "Apps",
+                    "description": "Configuration of apps that are part of the cluster.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "cilium": {
+                            "type": "object",
+                            "title": "Cilium",
+                            "description": "Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app."
+                        }
+                    }
+                },
                 "components": {
                     "type": "object",
                     "title": "Components",
