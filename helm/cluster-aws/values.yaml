@@ -2,6 +2,7 @@
 
 global:
   apps:
+    awsCloudControllerManager: {}
     awsEbsCsiDriver: {}
     cilium: {}
   components:

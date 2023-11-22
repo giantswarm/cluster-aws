@@ -159,6 +159,18 @@
                     "description": "Configuration of apps that are part of the cluster.",
                     "additionalProperties": false,
                     "properties": {
+                        "awsCloudControllerManager": {
+                            "type": "object",
+                            "title": "AWS cloud controller manager",
+                            "description": "Configuration of aws-cloud-controller-manager-app. For all available values see https://github.com/giantswarm/aws-cloud-controller-manager-app.",
+                            "properties": {
+                                "dummyValue": {
+                                    "type": "null",
+                                    "title": "Dummy",
+                                    "description": "Linter is failing without at least one property."
+                                }
+                            }
+                        },
                         "awsEbsCsiDriver": {
                             "type": "object",
                             "title": "AWS EBS CSI driver",
