@@ -162,7 +162,14 @@
                         "cilium": {
                             "type": "object",
                             "title": "Cilium",
-                            "description": "Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app."
+                            "description": "Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app.",
+                            "properties": {
+                                "dummyValue": {
+                                    "type": "null",
+                                    "title": "Dummy",
+                                    "description": "Linter is failing without at least one property."
+                                }
+                            }
                         }
                     }
                 },
