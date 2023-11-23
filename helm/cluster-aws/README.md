@@ -179,6 +179,13 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | `internal.teleport.proxyAddr` | **Teleport proxy address**|**Type:** `string`<br/>**Default:** `"test.teleport.giantswarm.io:443"`|
 | `internal.teleport.version` | **Teleport version**|**Type:** `string`<br/>**Default:** `"13.3.8"`|
 
+### Global 
+Properties within the `.global.metadata` object
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
+
 ### Kubectl image
 Properties within the `.kubectlImage` top-level object
 
@@ -197,13 +204,6 @@ Properties within the `.metadata` top-level object
 | `metadata.name` | **Cluster name** - Unique identifier, cannot be changed after creation.|**Type:** `string`<br/>|
 | `metadata.organization` | **Organization**|**Type:** `string`<br/>|
 | `metadata.servicePriority` | **Service priority** - The relative importance of this cluster.|**Type:** `string`<br/>**Default:** `"highest"`|
-
-### Metadata
-Properties within the `.global.metadata` object
-
-| **Property** | **Description** | **More Details** |
-| :----------- | :-------------- | :--------------- |
-| `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
 
 ### Node pools
 Properties within the `.nodePools` top-level object
