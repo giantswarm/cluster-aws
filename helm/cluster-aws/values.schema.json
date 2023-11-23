@@ -692,7 +692,7 @@
             "type": "object",
             "title": "Global properties",
             "description": "Properties that are available to all charts and subcharts.",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "metadata": {
                     "type": "object",
