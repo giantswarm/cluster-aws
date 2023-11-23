@@ -189,13 +189,6 @@ Properties within the `.kubectlImage` top-level object
 | `kubectlImage.tag` | **Tag**|**Type:** `string`<br/>**Default:** `"1.23.5"`|
 
 ### Metadata
-Properties within the `.global.metadata` object
-
-| **Property** | **Description** | **More Details** |
-| :----------- | :-------------- | :--------------- |
-| `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
-
-### Metadata
 Properties within the `.metadata` top-level object
 
 | **Property** | **Description** | **More Details** |
@@ -204,6 +197,13 @@ Properties within the `.metadata` top-level object
 | `metadata.name` | **Cluster name** - Unique identifier, cannot be changed after creation.|**Type:** `string`<br/>|
 | `metadata.organization` | **Organization**|**Type:** `string`<br/>|
 | `metadata.servicePriority` | **Service priority** - The relative importance of this cluster.|**Type:** `string`<br/>**Default:** `"highest"`|
+
+### Metadata
+Properties within the `.global.metadata` object
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
 
 ### Node pools
 Properties within the `.nodePools` top-level object
