@@ -206,6 +206,18 @@
                                     "description": "Linter is failing without at least one property."
                                 }
                             }
+                        },
+                        "verticalPodAutoscalerCrd": {
+                            "type": "object",
+                            "title": "Vertical-pod-autoscaler CRD",
+                            "description": "Configuration of vertical-pod-autoscaler-crd-app. For all available values see https://github.com/giantswarm/vertical-pod-autoscaler-crd.",
+                            "properties": {
+                                "dummyValue": {
+                                    "type": "null",
+                                    "title": "Dummy",
+                                    "description": "Linter is failing without at least one property."
+                                }
+                            }
                         }
                     }
                 },

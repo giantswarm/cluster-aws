@@ -6,6 +6,7 @@ global:
     awsEbsCsiDriver: {}
     cilium: {}
     coreDns: {}
+    verticalPodAutoscalerCrd: {}
   components:
     containerd:
       containerRegistries:

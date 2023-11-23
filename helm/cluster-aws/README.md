@@ -38,6 +38,8 @@ Configuration of apps that are part of the cluster.
 | `global.apps.cilium.dummyValue` | **Dummy** - Linter is failing without at least one property.|**Type:** `null`<br/>|
 | `global.apps.coreDns` | **CoreDNS** - Configuration of coredns-app. For all available values see https://github.com/giantswarm/coredns-app.|**Type:** `object`<br/>|
 | `global.apps.coreDns.dummyValue` | **Dummy** - Linter is failing without at least one property.|**Type:** `null`<br/>|
+| `global.apps.verticalPodAutoscalerCrd` | **Vertical-pod-autoscaler CRD** - Configuration of vertical-pod-autoscaler-crd-app. For all available values see https://github.com/giantswarm/vertical-pod-autoscaler-crd.|**Type:** `object`<br/>|
+| `global.apps.verticalPodAutoscalerCrd.dummyValue` | **Dummy** - Linter is failing without at least one property.|**Type:** `null`<br/>|
 
 ### Components
 Properties within the `.global.components` object
