@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Change schema validation allowing to add additional properties in `global`.
 - Support longer node pool names and allow dashes
 
 ### Fixed
