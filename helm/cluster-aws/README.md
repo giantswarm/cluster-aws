@@ -179,13 +179,6 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | `internal.teleport.proxyAddr` | **Teleport proxy address**|**Type:** `string`<br/>**Default:** `"test.teleport.giantswarm.io:443"`|
 | `internal.teleport.version` | **Teleport version**|**Type:** `string`<br/>**Default:** `"13.3.8"`|
 
-### Global 
-Properties within the `.global.metadata` object
-
-| **Property** | **Description** | **More Details** |
-| :----------- | :-------------- | :--------------- |
-| `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
-
 ### Kubectl image
 Properties within the `.kubectlImage` top-level object
 
@@ -194,6 +187,13 @@ Properties within the `.kubectlImage` top-level object
 | `kubectlImage.name` | **Repository**|**Type:** `string`<br/>**Default:** `"giantswarm/kubectl"`|
 | `kubectlImage.registry` | **Registry**|**Type:** `string`<br/>**Default:** `"quay.io"`|
 | `kubectlImage.tag` | **Tag**|**Type:** `string`<br/>**Default:** `"1.23.5"`|
+
+### Metadata
+Properties within the `.global.metadata` object
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `global.metadata.preventDeletion` | **Prevent cluster deletion**|**Type:** `boolean`<br/>**Default:** `false`|
 
 ### Metadata
 Properties within the `.metadata` top-level object
