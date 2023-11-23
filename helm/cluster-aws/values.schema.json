@@ -194,6 +194,18 @@
                                     "description": "Linter is failing without at least one property."
                                 }
                             }
+                        },
+                        "coreDns": {
+                            "type": "object",
+                            "title": "CoreDNS",
+                            "description": "Configuration of coredns-app. For all available values see https://github.com/giantswarm/coredns-app.",
+                            "properties": {
+                                "dummyValue": {
+                                    "type": "null",
+                                    "title": "Dummy",
+                                    "description": "Linter is failing without at least one property."
+                                }
+                            }
                         }
                     }
                 },

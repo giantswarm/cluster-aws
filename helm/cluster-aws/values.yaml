@@ -5,6 +5,7 @@ global:
     awsCloudControllerManager: {}
     awsEbsCsiDriver: {}
     cilium: {}
+    coreDns: {}
   components:
     containerd:
       containerRegistries:

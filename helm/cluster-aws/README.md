@@ -36,6 +36,8 @@ Configuration of apps that are part of the cluster.
 | `global.apps.awsEbsCsiDriver.dummyValue` | **Dummy** - Linter is failing without at least one property.|**Type:** `null`<br/>|
 | `global.apps.cilium` | **Cilium** - Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app.|**Type:** `object`<br/>|
 | `global.apps.cilium.dummyValue` | **Dummy** - Linter is failing without at least one property.|**Type:** `null`<br/>|
+| `global.apps.coreDns` | **CoreDNS** - Configuration of coredns-app. For all available values see https://github.com/giantswarm/coredns-app.|**Type:** `object`<br/>|
+| `global.apps.coreDns.dummyValue` | **Dummy** - Linter is failing without at least one property.|**Type:** `null`<br/>|
 
 ### Components
 Properties within the `.global.components` object

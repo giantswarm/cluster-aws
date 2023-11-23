@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add Helm values for overriding default cilium HelmRelease values.
 - Add Helm values for overriding default aws-ebs-csi-driver HelmRelease values.
 - Add Helm values for overriding default aws-cloud-controller-manager HelmRelease values.
+- Add Helm values for overriding default coredns HelmRelease values.
 
 ### Added
 
