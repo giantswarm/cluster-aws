@@ -19,7 +19,8 @@ connectivity:
     vpcCidr: 10.0.0.0/16
   subnets:
   # Control plane nodes subnets
-  - cidrBlocks:
+  - id: control-plane-nodes
+    cidrBlocks:
     - cidr: 10.0.32.0/19
       availabilityZone: a
     - cidr: 10.0.64.0/19
@@ -30,7 +31,8 @@ connectivity:
     tags:
       subnet.giantswarm.io/role: control-plane
   # Worker nodes subnets
-  - cidrBlocks:
+  - id: worker-nodes
+    cidrBlocks:
     - cidr: 10.0.128.0/19
       availabilityZone: a
     - cidr: 10.0.160.0/19
@@ -41,7 +43,8 @@ connectivity:
     tags:
       subnet.giantswarm.io/role: workers
   # Bastion nodes subnets
-  - cidrBlocks:
+  - id: bastion-nodes
+    cidrBlocks:
     - cidr: 10.0.0.0/24
       availabilityZone: a
     - cidr: 10.0.1.0/24
@@ -52,7 +55,8 @@ connectivity:
     tags:
       subnet.giantswarm.io/role: bastion
   # Ingress load balancer subnets
-  - cidrBlocks:
+  - id: load-balancer
+    cidrBlocks:
     - cidr: 10.0.3.0/24
       availabilityZone: a
       tags:
@@ -73,16 +77,16 @@ connectivity:
 The desired subnet can then be targetted by using the `subnetTags` value to set the AWS tags to match on. For example:
 
 ```yaml
-
-bastion:
-  subnetTags:
-    - subnet.giantswarm.io/role: bastion
+connectivity:
+  bastion:
+    subnetTags:
+      - subnet.giantswarm.io/role: bastion
 
 controlPlane:
   subnetTags:
     - subnet.giantswarm.io/role: control-plane
 
-machinePools:
+nodePools:
   def00:
     subnetTags:
       - subnet.giantswarm.io/role: workers
@@ -146,7 +150,7 @@ If the `subnet.giantswarm.io/tgw-attachments: "true"` tag isn't found on any sub
 
 ## Maintaining `values.schema.json` and `values.yaml`
 
-**tldr**:  
+**tldr**:
 We only maintain `values.schema.json` and automatically generate `values.yaml` from it.
 ```
 make normalize-schema
@@ -163,7 +167,7 @@ To succesfully do this, we have some requirements on the `values.schema.json`, w
 These requirements can be checked with [schemalint](https://github.com/giantswarm/schemalint).
 `schemalint` does a couple of things:
 
-- Normalize JSON schema (indentation, white space, sorting)  
+- Normalize JSON schema (indentation, white space, sorting)
 - Validate whether your schema is valid JSON schema
 - Validate whether the requirements for cluster app schemas are met
 - Check whether schema is normalized
@@ -178,7 +182,7 @@ make validate-schema
 ```
 
 The JSON schema in `values.schema.json` should contain defaults defined with the `default` keyword.
-These defaults should be same as those defined in `values.yaml`. 
+These defaults should be same as those defined in `values.yaml`.
 This allows us to generate `values.yaml` from `values.schema.json` with:
 
 ```

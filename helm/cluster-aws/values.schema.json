@@ -369,6 +369,10 @@
                                 "title": "Network",
                                 "items": {
                                     "type": "object",
+                                    "required": [
+                                        "availabilityZone",
+                                        "cidr"
+                                    ],
                                     "properties": {
                                         "availabilityZone": {
                                             "type": "string",

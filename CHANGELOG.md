@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Fill `AWSCluster.spec.network.subnets[*].id` field for managed subnets for compatibility with CAPA v2.3.0
+
 ## [0.49.0] - 2023-11-23
 
 ### Changed
