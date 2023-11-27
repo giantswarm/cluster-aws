@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- There is no need to annotate node pool manifests with `"helm.sh/resource-policy": keep`, because that's the first thing that CAPI will remove anyway.
+
 ## [0.49.0] - 2023-11-23
 
 ### Changed
