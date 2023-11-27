@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Label worker nodes with the `node.kubernetes.io/worker: ""` label.
+
 ## [0.49.0] - 2023-11-23
 
 ### Changed
