@@ -61,7 +61,7 @@ global:
     preventDeletion: false
 internal:
   cgroupsv1: false
-  kubernetesVersion: 1.24.14
+  kubernetesVersion: 1.26.11
   migration:
     apiBindPort: 6443
   nodePools:
