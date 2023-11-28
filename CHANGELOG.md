@@ -11,12 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - There is no need to annotate node pool manifests with `"helm.sh/resource-policy": keep`, because that's the first thing that CAPI will remove anyway.
 
+### Added
+
+- Expose value to configure launch template overrides, used to override the instance type specified by the launch template with multiple instance types that can be used to launch instances.
+
 ## [0.49.0] - 2023-11-23
 
 ### Changed
 
 - Change schema validation allowing to add additional properties in `global`.
-- Support longer node pool names and allow dashes
+- Support longer node pool names and allow dashes.
 
 ### Fixed
 
