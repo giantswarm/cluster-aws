@@ -3,13 +3,6 @@ global:
     organization: "test"
   connectivity:
     baseDomain: example.com
-    containerRegistries:
-      with-auth.example.com:
-      - endpoint: with-auth.example.com
-        credentials:
-          username: giantswarmpull
-          password: abcdef
-      - endpoint: quay.io
   nodePools:
     pool0:
       maxSize: 2
@@ -17,3 +10,12 @@ global:
       instanceTypeOverrides:
         - r6i.xlarge
         - m5.xlarge
+  components:
+    containerd:
+      containerRegistries:
+        with-auth.example.com:
+        - endpoint: with-auth.example.com
+          credentials:
+            username: giantswarmpull
+            password: abcdef
+        - endpoint: quay.io
