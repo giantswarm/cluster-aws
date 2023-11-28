@@ -136,6 +136,10 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
+        "baseDomain": {
+            "type": "string",
+            "title": "Base DNS domain"
+        },
         "cluster-shared": {
             "type": "object",
             "title": "Library chart"
@@ -951,6 +955,11 @@
                     "default": "1.23.5"
                 }
             }
+        },
+        "managementCluster": {
+            "type": "string",
+            "title": "Management cluster",
+            "description": "Name of the Cluster API cluster managing this workload cluster."
         },
         "provider": {
             "type": "string",
