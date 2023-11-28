@@ -2,6 +2,7 @@ global:
   metadata:
     organization: "test"
   connectivity:
+    baseDomain: example.com
     containerRegistries:
       with-auth.example.com:
       - endpoint: with-auth.example.com
@@ -16,4 +17,3 @@ global:
       instanceTypeOverrides:
         - r6i.xlarge
         - m5.xlarge
-baseDomain: example.com
