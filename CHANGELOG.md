@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- There is no need to annotate node pool manifests with `"helm.sh/resource-policy": keep`, because that's the first thing that CAPI will remove anyway.
+- Fixed issue when deleting node pools that would prevent the deletion, caused by the fact that `MachinePool` and `AWSMachinePool` CRs were annotated with `"helm.sh/resource-policy": keep`.
 
 ### Added
 
