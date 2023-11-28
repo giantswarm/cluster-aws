@@ -80,6 +80,16 @@
                     "type": "string",
                     "title": "EC2 instance type"
                 },
+                "instanceTypeOverrides": {
+                    "type": "array",
+                    "title": "Instance type overrides",
+                    "description": "Ordered list of instance types to be used for the machine pool. The first instance type that is available in the region will be used. Read more in our docs https://docs.giantswarm.io/advanced/cluster-management/node-pools-capi/",
+                    "items": {
+                        "type": "string",
+                        "title": "EC2 instance type"
+                    },
+                    "default": []
+                },
                 "maxSize": {
                     "type": "integer",
                     "title": "Maximum number of nodes"
