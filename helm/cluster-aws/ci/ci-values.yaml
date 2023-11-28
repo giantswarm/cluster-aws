@@ -2,7 +2,6 @@ global:
   metadata:
     organization: "test"
   connectivity:
-    baseDomain: example.com
     containerRegistries:
       with-auth.example.com:
       - endpoint: with-auth.example.com
@@ -10,10 +9,11 @@ global:
           username: giantswarmpull
           password: abcdef
       - endpoint: quay.io
-  nodePools:
-    pool0:
-      maxSize: 2
-      minSize: 2
-      instanceTypeOverrides:
-        - r6i.xlarge
-        - m5.xlarge
+baseDomain: example.com
+nodePools:
+  pool0:
+    maxSize: 2
+    minSize: 2
+    instanceTypeOverrides:
+      - r6i.xlarge
+      - m5.xlarge
