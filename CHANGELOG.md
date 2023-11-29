@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### **Breaking change**
+
+- Move Helm values property `.Values.metadata` to `.Values.global.metadata`.
+
 ### Added
 
 - Expose value to configure launch template overrides, used to override the instance type specified by the launch template with multiple instance types that can be used to launch instances.

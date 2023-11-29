@@ -4,7 +4,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-cloud-provider-aws
   namespace: {{ $.Release.Namespace }}
   annotations:
-    cluster.giantswarm.io/description: "{{ .Values.metadata.description }}"
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
   labels:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" . | nindent 4 }}
