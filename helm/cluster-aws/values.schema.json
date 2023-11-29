@@ -144,381 +144,6 @@
             "type": "object",
             "title": "Library chart"
         },
-        "connectivity": {
-            "type": "object",
-            "title": "Connectivity",
-            "properties": {
-                "availabilityZoneUsageLimit": {
-                    "type": "integer",
-                    "title": "Availability zones",
-                    "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
-                    "default": 3
-                },
-                "bastion": {
-                    "type": "object",
-                    "title": "Bastion host",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "title": "Enable",
-                            "default": true
-                        },
-                        "instanceType": {
-                            "type": "string",
-                            "title": "EC2 instance type",
-                            "default": "t3.small"
-                        },
-                        "replicas": {
-                            "type": "integer",
-                            "title": "Number of hosts",
-                            "default": 1
-                        },
-                        "subnetTags": {
-                            "type": "array",
-                            "title": "Subnet tags",
-                            "description": "Tags to filter which AWS subnets will be used for the bastion hosts.",
-                            "items": {
-                                "type": "object",
-                                "title": "Subnet tag",
-                                "additionalProperties": {
-                                    "$ref": "#/$defs/awsResourceTagValue"
-                                }
-                            }
-                        }
-                    }
-                },
-                "containerRegistries": {
-                    "type": "object",
-                    "title": "Container registries",
-                    "description": "Endpoints and credentials configuration for container registries.",
-                    "additionalProperties": {
-                        "type": "array",
-                        "title": "Registries",
-                        "description": "Container registries and mirrors",
-                        "items": {
-                            "type": "object",
-                            "title": "Registry",
-                            "required": [
-                                "endpoint"
-                            ],
-                            "properties": {
-                                "credentials": {
-                                    "type": "object",
-                                    "title": "Credentials",
-                                    "properties": {
-                                        "auth": {
-                                            "type": "string",
-                                            "title": "Auth",
-                                            "description": "Base64-encoded string from the concatenation of the username, a colon, and the password."
-                                        },
-                                        "identitytoken": {
-                                            "type": "string",
-                                            "title": "Identity token",
-                                            "description": "Used to authenticate the user and obtain an access token for the registry."
-                                        },
-                                        "password": {
-                                            "type": "string",
-                                            "title": "Password",
-                                            "description": "Used to authenticate for the registry with username/password."
-                                        },
-                                        "username": {
-                                            "type": "string",
-                                            "title": "Username",
-                                            "description": "Used to authenticate for the registry with username/password."
-                                        }
-                                    }
-                                },
-                                "endpoint": {
-                                    "type": "string",
-                                    "title": "Endpoint",
-                                    "description": "Endpoint for the container registry."
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "docker.io": [
-                            {
-                                "endpoint": "registry-1.docker.io"
-                            },
-                            {
-                                "endpoint": "giantswarm.azurecr.io"
-                            }
-                        ]
-                    }
-                },
-                "dns": {
-                    "type": "object",
-                    "title": "DNS",
-                    "properties": {
-                        "resolverRulesOwnerAccount": {
-                            "type": "string",
-                            "title": "Resolver rules owner",
-                            "description": "ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.",
-                            "oneOf": [
-                                {
-                                    "pattern": "^\\d{12}$"
-                                },
-                                {
-                                    "const": ""
-                                }
-                            ]
-                        }
-                    }
-                },
-                "network": {
-                    "type": "object",
-                    "title": "Network",
-                    "properties": {
-                        "internetGatewayId": {
-                            "type": "string",
-                            "title": "Internet Gateway ID",
-                            "description": "ID of the Internet gateway for the VPC."
-                        },
-                        "pods": {
-                            "type": "object",
-                            "title": "Pods",
-                            "properties": {
-                                "cidrBlocks": {
-                                    "type": "array",
-                                    "title": "Pod subnets",
-                                    "items": {
-                                        "type": "string",
-                                        "title": "Pod subnet",
-                                        "description": "IPv4 address range for pods, in CIDR notation.",
-                                        "examples": [
-                                            "10.244.0.0/16"
-                                        ]
-                                    },
-                                    "default": [
-                                        "100.64.0.0/12"
-                                    ],
-                                    "maxItems": 1,
-                                    "minItems": 1
-                                }
-                            }
-                        },
-                        "services": {
-                            "type": "object",
-                            "title": "Services",
-                            "properties": {
-                                "cidrBlocks": {
-                                    "type": "array",
-                                    "title": "K8s Service subnets",
-                                    "items": {
-                                        "type": "string",
-                                        "title": "Service subnet",
-                                        "description": "IPv4 address range for kubernetes services, in CIDR notation.",
-                                        "examples": [
-                                            "172.31.0.0/16"
-                                        ]
-                                    },
-                                    "default": [
-                                        "172.31.0.0/16"
-                                    ],
-                                    "maxItems": 1,
-                                    "minItems": 1
-                                }
-                            }
-                        },
-                        "vpcCidr": {
-                            "type": "string",
-                            "title": "VPC subnet",
-                            "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
-                            "default": "10.0.0.0/16"
-                        },
-                        "vpcId": {
-                            "type": "string",
-                            "title": "VPC id",
-                            "description": "ID of the VPC, where the cluster will be deployed. The VPC must exist and it case this is set, VPC wont be created by controllers."
-                        }
-                    }
-                },
-                "proxy": {
-                    "type": "object",
-                    "title": "Proxy",
-                    "description": "Whether/how outgoing traffic is routed through proxy servers.",
-                    "additionalProperties": false,
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "title": "Enable"
-                        },
-                        "httpProxy": {
-                            "type": "string",
-                            "title": "HTTP proxy",
-                            "description": "To be passed to the HTTP_PROXY environment variable in all hosts."
-                        },
-                        "httpsProxy": {
-                            "type": "string",
-                            "title": "HTTPS proxy",
-                            "description": "To be passed to the HTTPS_PROXY environment variable in all hosts."
-                        },
-                        "noProxy": {
-                            "type": "string",
-                            "title": "No proxy",
-                            "description": "To be passed to the NO_PROXY environment variable in all hosts."
-                        }
-                    }
-                },
-                "sshSsoPublicKey": {
-                    "type": "string",
-                    "title": "SSH public key for single sign-on",
-                    "default": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io"
-                },
-                "subnets": {
-                    "type": "array",
-                    "title": "Subnets",
-                    "description": "Subnets are created and tagged based on this definition.",
-                    "items": {
-                        "type": "object",
-                        "title": "Subnet",
-                        "properties": {
-                            "cidrBlocks": {
-                                "type": "array",
-                                "title": "Network",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "availabilityZone": {
-                                            "type": "string",
-                                            "title": "Availability zone",
-                                            "examples": [
-                                                "a"
-                                            ]
-                                        },
-                                        "cidr": {
-                                            "type": "string",
-                                            "title": "Address range",
-                                            "description": "IPv4 address range, in CIDR notation."
-                                        },
-                                        "tags": {
-                                            "type": "object",
-                                            "title": "Tags",
-                                            "description": "AWS resource tags to assign to this subnet.",
-                                            "additionalProperties": {
-                                                "$ref": "#/$defs/awsResourceTagValue"
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "id": {
-                                "type": "string",
-                                "title": "ID of the subnet",
-                                "description": "ID of an existing subnet. When set, this subnet will be used instead of creating a new one."
-                            },
-                            "isPublic": {
-                                "type": "boolean",
-                                "title": "Public"
-                            },
-                            "natGatewayId": {
-                                "type": "string",
-                                "title": "ID of the NAT Gateway",
-                                "description": "ID of the NAT Gateway used for this existing subnet."
-                            },
-                            "routeTableId": {
-                                "type": "string",
-                                "title": "ID of route table",
-                                "description": "ID of the route table, assigned to the existing subnet. Must be provided when defining subnet via ID."
-                            },
-                            "tags": {
-                                "type": "object",
-                                "title": "Tags",
-                                "description": "AWS resource tags to assign to this CIDR block.",
-                                "additionalProperties": {
-                                    "$ref": "#/$defs/awsResourceTagValue"
-                                }
-                            }
-                        }
-                    },
-                    "default": [
-                        {
-                            "cidrBlocks": [
-                                {
-                                    "availabilityZone": "a",
-                                    "cidr": "10.0.0.0/20"
-                                },
-                                {
-                                    "availabilityZone": "b",
-                                    "cidr": "10.0.16.0/20"
-                                },
-                                {
-                                    "availabilityZone": "c",
-                                    "cidr": "10.0.32.0/20"
-                                }
-                            ],
-                            "isPublic": true
-                        },
-                        {
-                            "cidrBlocks": [
-                                {
-                                    "availabilityZone": "a",
-                                    "cidr": "10.0.64.0/18"
-                                },
-                                {
-                                    "availabilityZone": "b",
-                                    "cidr": "10.0.128.0/18"
-                                },
-                                {
-                                    "availabilityZone": "c",
-                                    "cidr": "10.0.192.0/18"
-                                }
-                            ],
-                            "isPublic": false
-                        }
-                    ]
-                },
-                "topology": {
-                    "type": "object",
-                    "title": "Topology",
-                    "description": "Networking architecture between management cluster and workload cluster.",
-                    "properties": {
-                        "mode": {
-                            "type": "string",
-                            "title": "Mode",
-                            "description": "Valid values: GiantSwarmManaged, UserManaged, None.",
-                            "enum": [
-                                "None",
-                                "GiantSwarmManaged",
-                                "UserManaged"
-                            ],
-                            "default": "None"
-                        },
-                        "prefixListId": {
-                            "type": "string",
-                            "title": "Prefix list ID",
-                            "description": "ID of the managed prefix list to use when the topology mode is set to 'UserManaged'."
-                        },
-                        "transitGatewayId": {
-                            "type": "string",
-                            "title": "Transit gateway ID",
-                            "description": "If the topology mode is set to 'UserManaged', this can be used to specify the transit gateway to use."
-                        }
-                    }
-                },
-                "vpcEndpointMode": {
-                    "type": "string",
-                    "title": "VPC endpoint mode",
-                    "description": "Who is reponsible for creation and management of VPC endpoints.",
-                    "enum": [
-                        "GiantSwarmManaged",
-                        "UserManaged"
-                    ],
-                    "default": "GiantSwarmManaged"
-                },
-                "vpcMode": {
-                    "type": "string",
-                    "title": "VPC mode",
-                    "description": "Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).",
-                    "enum": [
-                        "public",
-                        "private"
-                    ],
-                    "default": "public"
-                }
-            }
-        },
         "controlPlane": {
             "type": "object",
             "title": "Control plane",
@@ -707,6 +332,381 @@
             ],
             "additionalProperties": true,
             "properties": {
+                "connectivity": {
+                    "type": "object",
+                    "title": "Connectivity",
+                    "properties": {
+                        "availabilityZoneUsageLimit": {
+                            "type": "integer",
+                            "title": "Availability zones",
+                            "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
+                            "default": 3
+                        },
+                        "bastion": {
+                            "type": "object",
+                            "title": "Bastion host",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean",
+                                    "title": "Enable",
+                                    "default": true
+                                },
+                                "instanceType": {
+                                    "type": "string",
+                                    "title": "EC2 instance type",
+                                    "default": "t3.small"
+                                },
+                                "replicas": {
+                                    "type": "integer",
+                                    "title": "Number of hosts",
+                                    "default": 1
+                                },
+                                "subnetTags": {
+                                    "type": "array",
+                                    "title": "Subnet tags",
+                                    "description": "Tags to filter which AWS subnets will be used for the bastion hosts.",
+                                    "items": {
+                                        "type": "object",
+                                        "title": "Subnet tag",
+                                        "additionalProperties": {
+                                            "$ref": "#/$defs/awsResourceTagValue"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "containerRegistries": {
+                            "type": "object",
+                            "title": "Container registries",
+                            "description": "Endpoints and credentials configuration for container registries.",
+                            "additionalProperties": {
+                                "type": "array",
+                                "title": "Registries",
+                                "description": "Container registries and mirrors",
+                                "items": {
+                                    "type": "object",
+                                    "title": "Registry",
+                                    "required": [
+                                        "endpoint"
+                                    ],
+                                    "properties": {
+                                        "credentials": {
+                                            "type": "object",
+                                            "title": "Credentials",
+                                            "properties": {
+                                                "auth": {
+                                                    "type": "string",
+                                                    "title": "Auth",
+                                                    "description": "Base64-encoded string from the concatenation of the username, a colon, and the password."
+                                                },
+                                                "identitytoken": {
+                                                    "type": "string",
+                                                    "title": "Identity token",
+                                                    "description": "Used to authenticate the user and obtain an access token for the registry."
+                                                },
+                                                "password": {
+                                                    "type": "string",
+                                                    "title": "Password",
+                                                    "description": "Used to authenticate for the registry with username/password."
+                                                },
+                                                "username": {
+                                                    "type": "string",
+                                                    "title": "Username",
+                                                    "description": "Used to authenticate for the registry with username/password."
+                                                }
+                                            }
+                                        },
+                                        "endpoint": {
+                                            "type": "string",
+                                            "title": "Endpoint",
+                                            "description": "Endpoint for the container registry."
+                                        }
+                                    }
+                                }
+                            },
+                            "default": {
+                                "docker.io": [
+                                    {
+                                        "endpoint": "registry-1.docker.io"
+                                    },
+                                    {
+                                        "endpoint": "giantswarm.azurecr.io"
+                                    }
+                                ]
+                            }
+                        },
+                        "dns": {
+                            "type": "object",
+                            "title": "DNS",
+                            "properties": {
+                                "resolverRulesOwnerAccount": {
+                                    "type": "string",
+                                    "title": "Resolver rules owner",
+                                    "description": "ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.",
+                                    "oneOf": [
+                                        {
+                                            "pattern": "^\\d{12}$"
+                                        },
+                                        {
+                                            "const": ""
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "network": {
+                            "type": "object",
+                            "title": "Network",
+                            "properties": {
+                                "internetGatewayId": {
+                                    "type": "string",
+                                    "title": "Internet Gateway ID",
+                                    "description": "ID of the Internet gateway for the VPC."
+                                },
+                                "pods": {
+                                    "type": "object",
+                                    "title": "Pods",
+                                    "properties": {
+                                        "cidrBlocks": {
+                                            "type": "array",
+                                            "title": "Pod subnets",
+                                            "items": {
+                                                "type": "string",
+                                                "title": "Pod subnet",
+                                                "description": "IPv4 address range for pods, in CIDR notation.",
+                                                "examples": [
+                                                    "10.244.0.0/16"
+                                                ]
+                                            },
+                                            "default": [
+                                                "100.64.0.0/12"
+                                            ],
+                                            "maxItems": 1,
+                                            "minItems": 1
+                                        }
+                                    }
+                                },
+                                "services": {
+                                    "type": "object",
+                                    "title": "Services",
+                                    "properties": {
+                                        "cidrBlocks": {
+                                            "type": "array",
+                                            "title": "K8s Service subnets",
+                                            "items": {
+                                                "type": "string",
+                                                "title": "Service subnet",
+                                                "description": "IPv4 address range for kubernetes services, in CIDR notation.",
+                                                "examples": [
+                                                    "172.31.0.0/16"
+                                                ]
+                                            },
+                                            "default": [
+                                                "172.31.0.0/16"
+                                            ],
+                                            "maxItems": 1,
+                                            "minItems": 1
+                                        }
+                                    }
+                                },
+                                "vpcCidr": {
+                                    "type": "string",
+                                    "title": "VPC subnet",
+                                    "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
+                                    "default": "10.0.0.0/16"
+                                },
+                                "vpcId": {
+                                    "type": "string",
+                                    "title": "VPC id",
+                                    "description": "ID of the VPC, where the cluster will be deployed. The VPC must exist and it case this is set, VPC wont be created by controllers."
+                                }
+                            }
+                        },
+                        "proxy": {
+                            "type": "object",
+                            "title": "Proxy",
+                            "description": "Whether/how outgoing traffic is routed through proxy servers.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean",
+                                    "title": "Enable"
+                                },
+                                "httpProxy": {
+                                    "type": "string",
+                                    "title": "HTTP proxy",
+                                    "description": "To be passed to the HTTP_PROXY environment variable in all hosts."
+                                },
+                                "httpsProxy": {
+                                    "type": "string",
+                                    "title": "HTTPS proxy",
+                                    "description": "To be passed to the HTTPS_PROXY environment variable in all hosts."
+                                },
+                                "noProxy": {
+                                    "type": "string",
+                                    "title": "No proxy",
+                                    "description": "To be passed to the NO_PROXY environment variable in all hosts."
+                                }
+                            }
+                        },
+                        "sshSsoPublicKey": {
+                            "type": "string",
+                            "title": "SSH public key for single sign-on",
+                            "default": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io"
+                        },
+                        "subnets": {
+                            "type": "array",
+                            "title": "Subnets",
+                            "description": "Subnets are created and tagged based on this definition.",
+                            "items": {
+                                "type": "object",
+                                "title": "Subnet",
+                                "properties": {
+                                    "cidrBlocks": {
+                                        "type": "array",
+                                        "title": "Network",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "availabilityZone": {
+                                                    "type": "string",
+                                                    "title": "Availability zone",
+                                                    "examples": [
+                                                        "a"
+                                                    ]
+                                                },
+                                                "cidr": {
+                                                    "type": "string",
+                                                    "title": "Address range",
+                                                    "description": "IPv4 address range, in CIDR notation."
+                                                },
+                                                "tags": {
+                                                    "type": "object",
+                                                    "title": "Tags",
+                                                    "description": "AWS resource tags to assign to this subnet.",
+                                                    "additionalProperties": {
+                                                        "$ref": "#/$defs/awsResourceTagValue"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "title": "ID of the subnet",
+                                        "description": "ID of an existing subnet. When set, this subnet will be used instead of creating a new one."
+                                    },
+                                    "isPublic": {
+                                        "type": "boolean",
+                                        "title": "Public"
+                                    },
+                                    "natGatewayId": {
+                                        "type": "string",
+                                        "title": "ID of the NAT Gateway",
+                                        "description": "ID of the NAT Gateway used for this existing subnet."
+                                    },
+                                    "routeTableId": {
+                                        "type": "string",
+                                        "title": "ID of route table",
+                                        "description": "ID of the route table, assigned to the existing subnet. Must be provided when defining subnet via ID."
+                                    },
+                                    "tags": {
+                                        "type": "object",
+                                        "title": "Tags",
+                                        "description": "AWS resource tags to assign to this CIDR block.",
+                                        "additionalProperties": {
+                                            "$ref": "#/$defs/awsResourceTagValue"
+                                        }
+                                    }
+                                }
+                            },
+                            "default": [
+                                {
+                                    "cidrBlocks": [
+                                        {
+                                            "availabilityZone": "a",
+                                            "cidr": "10.0.0.0/20"
+                                        },
+                                        {
+                                            "availabilityZone": "b",
+                                            "cidr": "10.0.16.0/20"
+                                        },
+                                        {
+                                            "availabilityZone": "c",
+                                            "cidr": "10.0.32.0/20"
+                                        }
+                                    ],
+                                    "isPublic": true
+                                },
+                                {
+                                    "cidrBlocks": [
+                                        {
+                                            "availabilityZone": "a",
+                                            "cidr": "10.0.64.0/18"
+                                        },
+                                        {
+                                            "availabilityZone": "b",
+                                            "cidr": "10.0.128.0/18"
+                                        },
+                                        {
+                                            "availabilityZone": "c",
+                                            "cidr": "10.0.192.0/18"
+                                        }
+                                    ],
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        "topology": {
+                            "type": "object",
+                            "title": "Topology",
+                            "description": "Networking architecture between management cluster and workload cluster.",
+                            "properties": {
+                                "mode": {
+                                    "type": "string",
+                                    "title": "Mode",
+                                    "description": "Valid values: GiantSwarmManaged, UserManaged, None.",
+                                    "enum": [
+                                        "None",
+                                        "GiantSwarmManaged",
+                                        "UserManaged"
+                                    ],
+                                    "default": "None"
+                                },
+                                "prefixListId": {
+                                    "type": "string",
+                                    "title": "Prefix list ID",
+                                    "description": "ID of the managed prefix list to use when the topology mode is set to 'UserManaged'."
+                                },
+                                "transitGatewayId": {
+                                    "type": "string",
+                                    "title": "Transit gateway ID",
+                                    "description": "If the topology mode is set to 'UserManaged', this can be used to specify the transit gateway to use."
+                                }
+                            }
+                        },
+                        "vpcEndpointMode": {
+                            "type": "string",
+                            "title": "VPC endpoint mode",
+                            "description": "Who is reponsible for creation and management of VPC endpoints.",
+                            "enum": [
+                                "GiantSwarmManaged",
+                                "UserManaged"
+                            ],
+                            "default": "GiantSwarmManaged"
+                        },
+                        "vpcMode": {
+                            "type": "string",
+                            "title": "VPC mode",
+                            "description": "Whether the cluser's VPC is created with public, internet facing resources (public subnets, NAT gateway) or not (private).",
+                            "enum": [
+                                "public",
+                                "private"
+                            ],
+                            "default": "public"
+                        }
+                    }
+                },
                 "metadata": {
                     "type": "object",
                     "title": "Metadata",

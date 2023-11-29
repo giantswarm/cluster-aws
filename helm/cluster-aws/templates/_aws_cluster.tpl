@@ -1,22 +1,22 @@
 {{- define "aws-cluster" }}
-{{- if and (regexMatch "\\.internal$" (required "baseDomain is required" .Values.baseDomain)) (eq (required "connectivity.dns.mode required" .Values.connectivity.dns.mode) "public") }}
-{{- fail "connectivity.dns.mode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
+{{- if and (regexMatch "\\.internal$" (required "baseDomain is required" .Values.baseDomain)) (eq (required "global.connectivity.dns.mode required" .Values.global.connectivity.dns.mode) "public") }}
+{{- fail "global.connectivity.dns.mode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
 {{- end }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSCluster
 metadata:
   annotations:
     "helm.sh/resource-policy": keep
-    aws.giantswarm.io/vpc-mode: "{{ .Values.connectivity.vpcMode }}"
+    aws.giantswarm.io/vpc-mode: "{{ .Values.global.connectivity.vpcMode }}"
     aws.giantswarm.io/dns-mode: "public"
-    {{- if .Values.connectivity.dns.resolverRulesOwnerAccount }}
-    aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.connectivity.dns.resolverRulesOwnerAccount }}"
+    {{- if .Values.global.connectivity.dns.resolverRulesOwnerAccount }}
+    aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.global.connectivity.dns.resolverRulesOwnerAccount }}"
     {{- end}}
-    {{- if (eq .Values.connectivity.vpcMode "private") }}
+    {{- if (eq .Values.global.connectivity.vpcMode "private") }}
     cluster.x-k8s.io/paused: "true"
     {{end}}
     aws.cluster.x-k8s.io/external-resource-gc: "true"
-    aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.connectivity.vpcEndpointMode }}"
+    aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.global.connectivity.vpcEndpointMode }}"
   labels:
     {{- include "labels.common" $ | nindent 4 }}
     {{- include "preventDeletionLabel" $ | nindent 4 -}}
@@ -53,17 +53,17 @@ spec:
         protocol: "-1"
         toPort: -1
     vpc:
-      availabilityZoneUsageLimit: {{ .Values.connectivity.availabilityZoneUsageLimit }}
-      {{- if .Values.connectivity.network.vpcId }}
-      id: {{ .Values.connectivity.network.vpcId }}
+      availabilityZoneUsageLimit: {{ .Values.global.connectivity.availabilityZoneUsageLimit }}
+      {{- if .Values.global.connectivity.network.vpcId }}
+      id: {{ .Values.global.connectivity.network.vpcId }}
       {{- else }}
-      cidrBlock: {{ .Values.connectivity.network.vpcCidr }}
+      cidrBlock: {{ .Values.global.connectivity.network.vpcCidr }}
       {{- end }}
-      {{- if .Values.connectivity.network.internetGatewayId }}
-      internetGatewayId: {{ .Values.connectivity.network.internetGatewayId }}
+      {{- if .Values.global.connectivity.network.internetGatewayId }}
+      internetGatewayId: {{ .Values.global.connectivity.network.internetGatewayId }}
       {{- end }}
     subnets:
-    {{- range $j, $subnet := .Values.connectivity.subnets }}
+    {{- range $j, $subnet := .Values.global.connectivity.subnets }}
     {{- if $subnet.id }}
     - id: {{ $subnet.id }}
       isPublic: {{ $subnet.isPublic }}
