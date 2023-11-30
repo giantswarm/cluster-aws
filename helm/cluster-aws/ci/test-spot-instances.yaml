@@ -3,6 +3,8 @@ global:
     name: test-wc-minimal
     organization: test
     servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
   nodePools:
     pool0:
       maxSize: 2
@@ -10,4 +12,3 @@ global:
       spotInstances:
         enabled: true
         maxPrice: 1.2
-baseDomain: example.com

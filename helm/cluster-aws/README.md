@@ -30,6 +30,7 @@ Properties within the `.global.connectivity` object
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
 | `global.connectivity.availabilityZoneUsageLimit` | **Availability zones** - Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.|**Type:** `integer`<br/>**Default:** `3`|
+| `global.connectivity.baseDomain` | **Base DNS domain**|**Type:** `string`<br/>|
 | `global.connectivity.bastion` | **Bastion host**|**Type:** `object`<br/>|
 | `global.connectivity.bastion.enabled` | **Enable**|**Type:** `boolean`<br/>**Default:** `true`|
 | `global.connectivity.bastion.instanceType` | **EC2 instance type**|**Type:** `string`<br/>**Default:** `"t3.small"`|
@@ -232,6 +233,12 @@ Node pools of the cluster. If not specified, this defaults to the value of `inte
 | `global.nodePools.PATTERN.subnetTags` | **Subnet tags** - Tags to filter which AWS subnets will be used for this node pool.|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>|
 | `global.nodePools.PATTERN.subnetTags[*]` | **Subnet tag**|**Type:** `object`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>|
 | `global.nodePools.PATTERN.subnetTags[*].*` | **Tag value**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>**Value pattern:** `^[ a-zA-Z0-9\._:/=+-@]+$`<br/>|
+
+### Other global
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `global.managementCluster` | **Management cluster** - Name of the Cluster API cluster managing this workload cluster.|**Type:** `string`<br/>|
 
 ### Other
 

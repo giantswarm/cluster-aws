@@ -163,6 +163,10 @@
                             "description": "Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.",
                             "default": 3
                         },
+                        "baseDomain": {
+                            "type": "string",
+                            "title": "Base DNS domain"
+                        },
                         "bastion": {
                             "type": "object",
                             "title": "Bastion host",
@@ -706,6 +710,11 @@
                             }
                         }
                     }
+                },
+                "managementCluster": {
+                    "type": "string",
+                    "title": "Management cluster",
+                    "description": "Name of the Cluster API cluster managing this workload cluster."
                 },
                 "metadata": {
                     "type": "object",
