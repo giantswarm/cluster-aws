@@ -1,8 +1,6 @@
 {{/* Default Helm values for the app */}}
 {{/* See schema for the appropriate app version here https://github.com/giantswarm/coredns-app/blob/main/helm/coredns-app/values.schema.json */}}
 {{- define "defaultCoreDnsHelmValues" }}
-# Default values
-# https://github.com/giantswarm/coredns-app/blob/main/helm/coredns-app/values.yaml
 cluster:
   calico:
     CIDR: {{ first .Values.global.connectivity.network.pods.cidrBlocks | quote }}
@@ -50,5 +48,5 @@ spec:
   {{- $coreDnsHelmValues = merge (deepCopy $customCoreDnsHelmValues) $coreDnsHelmValues -}}
   {{- end }}
   {{- if $coreDnsHelmValues }}
-  values: {{ $coreDnsHelmValues | toYaml | nindent 4 }}
+  values: {{- $coreDnsHelmValues | toYaml | nindent 4 }}
   {{- end }}

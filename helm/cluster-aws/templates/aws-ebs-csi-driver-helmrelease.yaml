@@ -48,5 +48,5 @@ spec:
   {{- $awsEbsCsiDriverHelmValues = merge (deepCopy $customAwsEbsCsiDriverHelmValues) $awsEbsCsiDriverHelmValues -}}
   {{- end }}
   {{- if $awsEbsCsiDriverHelmValues }}
-  values: {{ $awsEbsCsiDriverHelmValues | toYaml | nindent 4 }}
+  values: {{- $awsEbsCsiDriverHelmValues | toYaml | nindent 4 }}
   {{- end }}

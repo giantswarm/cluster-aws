@@ -48,5 +48,5 @@ spec:
   {{- $awsCloudControllerManagerHelmValues = merge (deepCopy $customAwsCloudControllerManagerHelmValues) $awsCloudControllerManagerHelmValues -}}
   {{- end }}
   {{- if $awsCloudControllerManagerHelmValues }}
-  values: {{ $awsCloudControllerManagerHelmValues | toYaml | nindent 4 }}
+  values: {{- $awsCloudControllerManagerHelmValues | toYaml | nindent 4 }}
   {{- end }}

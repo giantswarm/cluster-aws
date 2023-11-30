@@ -71,5 +71,5 @@ spec:
   {{- $ciliumHelmValues = merge (deepCopy $customCiliumHelmValues) $ciliumHelmValues -}}
   {{- end }}
   {{- if $ciliumHelmValues }}
-  values: {{ $ciliumHelmValues | toYaml | nindent 4 }}
+  values: {{- $ciliumHelmValues | toYaml | nindent 4 }}
   {{- end }}
