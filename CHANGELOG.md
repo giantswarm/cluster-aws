@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Expose value to configure launch template overrides, used to override the instance type specified by the launch template with multiple instance types that can be used to launch instances.
 
+### Fixed
+
+- Fixed issue when deleting node pools that would prevent the deletion, caused by the fact that `MachinePool` and `AWSMachinePool` CRs were annotated with `"helm.sh/resource-policy": keep`.
+
 ## [0.49.0] - 2023-11-23
 
 ### Changed
