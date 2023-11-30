@@ -20,14 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add Helm values for overriding default cilium HelmRelease values.
-- Add Helm values for overriding default aws-ebs-csi-driver HelmRelease values.
-- Add Helm values for overriding default aws-cloud-controller-manager HelmRelease values.
-- Add Helm values for overriding default coredns HelmRelease values.
-- Add Helm values for overriding default vertical-pod-autoscaler-crd HelmRelease values.
-
-### Added
-
+- Make Helm values configurable for aws-cloud-controller-manager, aws-ebs-csi-driver, cilium, coredns and vertical-pod-autoscaler-crd
 - Expose value to configure launch template overrides, used to override the instance type specified by the launch template with multiple instance types that can be used to launch instances.
 
 ### Fixed
