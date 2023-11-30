@@ -2,7 +2,7 @@
 If no region is provided in the values we'll attempt to look it up based on the region used by the management cluster
 */}}
 {{- define "aws-region" }}
-{{- $region := .Values.providerSpecific.region }}
+{{- $region := .Values.global.providerSpecific.region }}
 {{- if not $region }}
 {{- $nodes :=  (lookup "v1" "Node" "" "" ).items }}
 {{- if $nodes }}

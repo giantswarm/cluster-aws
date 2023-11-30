@@ -279,7 +279,7 @@ and is used to join the node to the teleport cluster.
 {{- end -}}
 
 {{- define "ami" }}
-{{- with .Values.providerSpecific.ami }}
+{{- with .Values.global.providerSpecific.ami }}
 ami:
   id: {{ . | quote }}
 {{- else -}}
