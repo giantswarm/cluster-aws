@@ -20,8 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Bump the Kubernetes version to v1.24.16
-- Enable Teleport by default
+- Bump the Kubernetes version to `v1.24.16`.
+- Bump Teleport version to `v14.1.3`.
+- Enable Teleport by default.
 
 ### Added
 
