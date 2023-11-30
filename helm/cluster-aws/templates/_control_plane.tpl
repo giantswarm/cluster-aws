@@ -6,27 +6,27 @@ Any changes to this will trigger the resource to be recreated rather than attemp
 {{- define "controlplane-awsmachinetemplate-spec" -}}
 {{- include "ami" $ }}
 cloudInit: {}
-instanceType: {{ .Values.controlPlane.instanceType }}
+instanceType: {{ .Values.global.controlPlane.instanceType }}
 nonRootVolumes:
 - deviceName: /dev/xvdc
   encrypted: true
-  size: {{ .Values.controlPlane.etcdVolumeSizeGB }}
+  size: {{ .Values.global.controlPlane.etcdVolumeSizeGB }}
   type: gp3
 - deviceName: /dev/xvdd
   encrypted: true
-  size: {{ .Values.controlPlane.containerdVolumeSizeGB }}
+  size: {{ .Values.global.controlPlane.containerdVolumeSizeGB }}
   type: gp3
 - deviceName: /dev/xvde
   encrypted: true
-  size: {{ .Values.controlPlane.kubeletVolumeSizeGB }}
+  size: {{ .Values.global.controlPlane.kubeletVolumeSizeGB }}
   type: gp3
 rootVolume:
-  size: {{ .Values.controlPlane.rootVolumeSizeGB }}
+  size: {{ .Values.global.controlPlane.rootVolumeSizeGB }}
   type: gp3
 iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
-{{- if .Values.controlPlane.additionalSecurityGroups }}
+{{- if .Values.global.controlPlane.additionalSecurityGroups }}
 additionalSecurityGroups:
-{{- toYaml .Values.controlPlane.additionalSecurityGroups | nindent 2 }}
+{{- toYaml .Values.global.controlPlane.additionalSecurityGroups | nindent 2 }}
 {{- end }}
 sshKeyName: ""
 subnet:
@@ -35,12 +35,12 @@ subnet:
       values:
       - shared
       - owned
-    {{ if eq $.Values.connectivity.vpcMode "public" }}
+    {{ if eq $.Values.global.connectivity.vpcMode "public" }}
     - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
       values:
       - private
     {{end}}
-    {{- range $i, $tags :=  .Values.controlPlane.subnetTags }}
+    {{- range $i, $tags :=  .Values.global.controlPlane.subnetTags }}
     - name: tag:{{ keys $tags | first }}
       values:
       - {{ index $tags (keys $tags | first) | quote }}
@@ -92,16 +92,16 @@ spec:
       apiServer:
         timeoutForControlPlane: 20m
         certSANs:
-          - "api.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
+          - "api.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.global.connectivity.baseDomain }}"
           - 127.0.0.1
-          {{- if .Values.controlPlane.apiExtraCertSANs -}}
-          {{- toYaml .Values.controlPlane.apiExtraCertSANs | nindent 10 }}
+          {{- if .Values.global.controlPlane.apiExtraCertSANs -}}
+          {{- toYaml .Values.global.controlPlane.apiExtraCertSANs | nindent 10 }}
           {{- end }}
         extraArgs:
           cloud-provider: external
-          service-account-issuer: "https://irsa.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.baseDomain }}"
-          {{- if .Values.controlPlane.oidc.issuerUrl }}
-          {{- with .Values.controlPlane.oidc }}
+          service-account-issuer: "https://irsa.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.global.connectivity.baseDomain }}"
+          {{- if .Values.global.controlPlane.oidc.issuerUrl }}
+          {{- with .Values.global.controlPlane.oidc }}
           oidc-issuer-url: {{ .issuerUrl }}
           oidc-client-id: {{ .clientId }}
           oidc-username-claim: {{ .usernameClaim }}
@@ -125,9 +125,9 @@ spec:
           runtime-config: api/all=true,scheduling.k8s.io/v1alpha1=true
           service-account-lookup: "true"
           tls-cipher-suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
-          service-cluster-ip-range: {{ .Values.connectivity.network.services.cidrBlocks | first }}
-          {{- if .Values.controlPlane.apiExtraArgs -}}
-          {{- toYaml .Values.controlPlane.apiExtraArgs | nindent 10 }}
+          service-cluster-ip-range: {{ .Values.global.connectivity.network.services.cidrBlocks | first }}
+          {{- if .Values.global.controlPlane.apiExtraArgs -}}
+          {{- toYaml .Values.global.controlPlane.apiExtraArgs | nindent 10 }}
           {{- end }}
         extraVolumes:
         - name: auditlog
@@ -152,7 +152,7 @@ spec:
           cloud-provider: external
           terminated-pod-gc-threshold: "125"
           allocate-node-cidrs: "true"
-          cluster-cidr: {{ .Values.connectivity.network.pods.cidrBlocks | first }}
+          cluster-cidr: {{ .Values.global.connectivity.network.pods.cidrBlocks | first }}
           feature-gates: CronJobTimeZone=true
       scheduler:
         extraArgs:
@@ -168,13 +168,13 @@ spec:
             {{- toYaml .Values.internal.migration.etcdExtraArgs | nindent 12 }}
             {{- end }}
       networking:
-        serviceSubnet: {{ join "," .Values.connectivity.network.services.cidrBlocks }}
+        serviceSubnet: {{ join "," .Values.global.connectivity.network.services.cidrBlocks }}
     files:
     {{- include "controlPlaneFiles" . | nindent 4 }}
     {{- include "sshFiles" . | nindent 4 }}
     {{- include "kubeletConfigFiles" . | nindent 4 }}
     {{- include "nodeConfigFiles" . | nindent 4 }}
-    {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
+    {{- if .Values.global.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
     {{- include "kubernetesFiles" . | nindent 4 }}
     {{- include "containerdConfigFiles" . | nindent 4 }}
     {{- if .Values.internal.teleport.enabled }}
@@ -204,10 +204,10 @@ spec:
           node-ip: ${COREOS_EC2_IPV4_LOCAL}
           v: "2"
         name: ${COREOS_EC2_HOSTNAME}
-        {{- if .Values.controlPlane.customNodeTaints }}
-        {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
+        {{- if .Values.global.controlPlane.customNodeTaints }}
+        {{- if (gt (len .Values.global.controlPlane.customNodeTaints) 0) }}
         taints:
-        {{- range .Values.controlPlane.customNodeTaints }}
+        {{- range .Values.global.controlPlane.customNodeTaints }}
         - key: {{ .key | quote }}
           value: {{ .value | quote }}
           effect: {{ .effect | quote }}
@@ -227,10 +227,10 @@ spec:
           cloud-provider: external
           feature-gates: CronJobTimeZone=true
         name: ${COREOS_EC2_HOSTNAME}
-        {{- if .Values.controlPlane.customNodeTaints }}
-        {{- if (gt (len .Values.controlPlane.customNodeTaints) 0) }}
+        {{- if .Values.global.controlPlane.customNodeTaints }}
+        {{- if (gt (len .Values.global.controlPlane.customNodeTaints) 0) }}
         taints:
-        {{- range .Values.controlPlane.customNodeTaints }}
+        {{- range .Values.global.controlPlane.customNodeTaints }}
         - key: {{ .key | quote }}
           value: {{ .value | quote }}
           effect: {{ .effect | quote }}
@@ -243,7 +243,7 @@ spec:
     {{- toYaml .Values.internal.migration.controlPlanePreKubeadmCommands | nindent 4 }}
     {{- end }}
     {{- include "flatcarKubeadmPreCommands" . | nindent 4 }}
-    {{- if .Values.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
+    {{- if .Values.global.connectivity.proxy.enabled }}{{- include "proxyCommand" $ | nindent 4 }}{{- end }}
     postKubeadmCommands:
     {{- include "controlPlanePostKubeadmCommands" . | nindent 4 }}
     {{- if .Values.internal.migration.controlPlanePostKubeadmCommands -}}

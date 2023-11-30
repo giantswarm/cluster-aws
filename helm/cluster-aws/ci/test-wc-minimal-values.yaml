@@ -1,5 +1,7 @@
-metadata:
-  name: test-wc-minimal
-  organization: test
-  servicePriority: lowest
-baseDomain: example.com
+global:
+  metadata:
+    name: test-wc-minimal
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com

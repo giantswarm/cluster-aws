@@ -1,22 +1,22 @@
 {{- define "aws-cluster" }}
-{{- if and (regexMatch "\\.internal$" (required "baseDomain is required" .Values.baseDomain)) (eq (required "connectivity.dns.mode required" .Values.connectivity.dns.mode) "public") }}
-{{- fail "connectivity.dns.mode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
+{{- if and (regexMatch "\\.internal$" (required "baseDomain is required" .Values.global.connectivity.baseDomain)) (eq (required "global.connectivity.dns.mode required" .Values.global.connectivity.dns.mode) "public") }}
+{{- fail "global.connectivity.dns.mode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
 {{- end }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSCluster
 metadata:
   annotations:
     "helm.sh/resource-policy": keep
-    aws.giantswarm.io/vpc-mode: "{{ .Values.connectivity.vpcMode }}"
+    aws.giantswarm.io/vpc-mode: "{{ .Values.global.connectivity.vpcMode }}"
     aws.giantswarm.io/dns-mode: "public"
-    {{- if .Values.connectivity.dns.resolverRulesOwnerAccount }}
-    aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.connectivity.dns.resolverRulesOwnerAccount }}"
+    {{- if .Values.global.connectivity.dns.resolverRulesOwnerAccount }}
+    aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.global.connectivity.dns.resolverRulesOwnerAccount }}"
     {{- end}}
-    {{- if (eq .Values.connectivity.vpcMode "private") }}
+    {{- if (eq .Values.global.connectivity.vpcMode "private") }}
     cluster.x-k8s.io/paused: "true"
     {{end}}
     aws.cluster.x-k8s.io/external-resource-gc: "true"
-    aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.connectivity.vpcEndpointMode }}"
+    aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.global.connectivity.vpcEndpointMode }}"
   labels:
     {{- include "labels.common" $ | nindent 4 }}
     {{- include "preventDeletionLabel" $ | nindent 4 -}}
@@ -26,24 +26,24 @@ metadata:
 spec:
   additionalTags:
     giantswarm.io/cluster: {{ include "resource.default.name" $ }}
-    {{- if .Values.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
+    {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
   bastion:
     enabled: false
   identityRef:
     kind: AWSClusterRoleIdentity
-    {{- with .Values.providerSpecific.awsClusterRoleIdentityName }}
+    {{- with .Values.global.providerSpecific.awsClusterRoleIdentityName }}
     name: {{ . | quote }}
     {{- end }}
   controlPlaneLoadBalancer:
-    scheme: {{ if (eq .Values.controlPlane.apiMode "public") }}internet-facing{{ else }}internal{{ end }}
-    {{- if .Values.controlPlane.loadBalancerIngressAllowCidrBlocks }}
+    scheme: {{ if (eq .Values.global.controlPlane.apiMode "public") }}internet-facing{{ else }}internal{{ end }}
+    {{- if .Values.global.controlPlane.loadBalancerIngressAllowCidrBlocks }}
     ingressRules:
     - description: "Kubernetes API"
       protocol: tcp
       fromPort: 6443
       toPort: 6443
       # We append the Giant Swarm VPN IPs (internal link: https://github.com/giantswarm/vpn/tree/master/hosts_inventory, https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/tc_api_whitelisting/)
-      cidrBlocks: {{- toYaml ((concat .Values.controlPlane.loadBalancerIngressAllowCidrBlocks (list "95.179.153.65/32" "185.102.95.187/32")) | uniq) | nindent 6 }}
+      cidrBlocks: {{- toYaml ((concat .Values.global.controlPlane.loadBalancerIngressAllowCidrBlocks (list "95.179.153.65/32" "185.102.95.187/32")) | uniq) | nindent 6 }}
     {{- end }}
   network:
     cni:
@@ -53,17 +53,17 @@ spec:
         protocol: "-1"
         toPort: -1
     vpc:
-      availabilityZoneUsageLimit: {{ .Values.connectivity.availabilityZoneUsageLimit }}
-      {{- if .Values.connectivity.network.vpcId }}
-      id: {{ .Values.connectivity.network.vpcId }}
+      availabilityZoneUsageLimit: {{ .Values.global.connectivity.availabilityZoneUsageLimit }}
+      {{- if .Values.global.connectivity.network.vpcId }}
+      id: {{ .Values.global.connectivity.network.vpcId }}
       {{- else }}
-      cidrBlock: {{ .Values.connectivity.network.vpcCidr }}
+      cidrBlock: {{ .Values.global.connectivity.network.vpcCidr }}
       {{- end }}
-      {{- if .Values.connectivity.network.internetGatewayId }}
-      internetGatewayId: {{ .Values.connectivity.network.internetGatewayId }}
+      {{- if .Values.global.connectivity.network.internetGatewayId }}
+      internetGatewayId: {{ .Values.global.connectivity.network.internetGatewayId }}
       {{- end }}
     subnets:
-    {{- range $j, $subnet := .Values.connectivity.subnets }}
+    {{- range $j, $subnet := .Values.global.connectivity.subnets }}
     {{- if $subnet.id }}
     - id: {{ $subnet.id }}
       isPublic: {{ $subnet.isPublic }}
@@ -93,7 +93,7 @@ spec:
     controlPlaneIAMInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
     name: {{ include "aws-region" . }}-capa-{{ include "resource.default.name" $ }}
     nodesIAMInstanceProfiles:
-    {{- range $name, $value := .Values.nodePools | default .Values.internal.nodePools }}
+    {{- range $name, $value := .Values.global.nodePools | default .Values.internal.nodePools }}
     - nodes-{{ $name }}-{{ include "resource.default.name" $ }}
     {{- end }}
   region: {{ include "aws-region" . }}

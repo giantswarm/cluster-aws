@@ -7,13 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
+### **Breaking change**
 
-- Fixed issue when deleting node pools that would prevent the deletion, caused by the fact that `MachinePool` and `AWSMachinePool` CRs were annotated with `"helm.sh/resource-policy": keep`.
+- Move Helm values property `.Values.metadata` to `.Values.global.metadata`.
+- Move Helm values property `.Values.connectivity` to `.Values.global.connectivity`.
+- Move Helm values property `.Values.controlPlane` to `.Values.global.controlPlane`.
+- Move Helm values property `.Values.nodePools` to `.Values.global.nodePools`.
+- Move Helm values property `.Values.managementCluster` to `.Values.global.managementCluster`.
+- Move Helm values property `.Values.baseDomain` to `.Values.global.connectivity.baseDomain`.
+- Move Helm values property `.Values.providerSpecific` to `.Values.global.providerSpecific`.
+- Move Helm values property `.Values.global.connectivity.containerRegistries` to `.Values.global.components.containerd.containerRegistries`.
 
 ### Added
 
 - Expose value to configure launch template overrides, used to override the instance type specified by the launch template with multiple instance types that can be used to launch instances.
+
+### Fixed
+
+- Fixed issue when deleting node pools that would prevent the deletion, caused by the fact that `MachinePool` and `AWSMachinePool` CRs were annotated with `"helm.sh/resource-policy": keep`.
 
 ## [0.49.0] - 2023-11-23
 
