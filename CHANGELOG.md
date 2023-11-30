@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move Helm values property `.Values.providerSpecific` to `.Values.global.providerSpecific`.
 - Move Helm values property `.Values.global.connectivity.containerRegistries` to `.Values.global.components.containerd.containerRegistries`.
 
+### Changed
+
+- Bump the Kubernetes version to v1.24.16
+- Enable Teleport by default
+
 ### Added
 
 - Expose value to configure launch template overrides, used to override the instance type specified by the launch template with multiple instance types that can be used to launch instances.
