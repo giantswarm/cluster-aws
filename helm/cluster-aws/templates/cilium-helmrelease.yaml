@@ -1,3 +1,41 @@
+{{/* Default values*/}}
+{{/* https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/values.yaml*/}}
+{{- define "defaultCiliumHelmValues" }}
+ipam:
+  mode: kubernetes
+k8sServiceHost: api.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}
+k8sServicePort: '6443'
+kubeProxyReplacement: strict
+hubble:
+  relay:
+    enabled: true
+    tolerations:
+      - key: "node.cluster.x-k8s.io/uninitialized"
+        operator: "Exists"
+        effect: "NoSchedule"
+  ui:
+    tolerations:
+      - key: "node.cluster.x-k8s.io/uninitialized"
+        operator: "Exists"
+        effect: "NoSchedule"
+defaultPolicies:
+  enabled: true
+
+  tolerations:
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+    - key: CriticalAddonsOnly
+      operator: Exists
+extraPolicies:
+  allowEgressToCoreDNS:
+    enabled: true
+  allowEgressToProxy:
+    enabled: {{ $.Values.global.connectivity.proxy.enabled }}
+    httpProxy: {{ $.Values.global.connectivity.proxy.httpProxy | quote }}
+    httpsProxy: {{ $.Values.global.connectivity.proxy.httpsProxy | quote }}
+{{- end }}
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -27,40 +65,11 @@ spec:
   install:
     remediation:
       retries: 30
-  # Default values
-  # https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/values.yaml
-  values:
-    ipam:
-      mode: kubernetes
-    k8sServiceHost: api.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}
-    k8sServicePort: '6443'
-    kubeProxyReplacement: strict
-    hubble:
-      relay:
-        enabled: true
-        tolerations:
-          - key: "node.cluster.x-k8s.io/uninitialized"
-            operator: "Exists"
-            effect: "NoSchedule"
-      ui:
-        tolerations:
-          - key: "node.cluster.x-k8s.io/uninitialized"
-            operator: "Exists"
-            effect: "NoSchedule"
-    defaultPolicies:
-      enabled: true
-
-      tolerations:
-        - effect: NoSchedule
-          operator: Exists
-        - effect: NoExecute
-          operator: Exists
-        - key: CriticalAddonsOnly
-          operator: Exists
-    extraPolicies:
-      allowEgressToCoreDNS:
-        enabled: true
-      allowEgressToProxy:
-        enabled: {{ $.Values.global.connectivity.proxy.enabled }}
-        httpProxy: {{ $.Values.global.connectivity.proxy.httpProxy | quote }}
-        httpsProxy: {{ $.Values.global.connectivity.proxy.httpsProxy | quote }}
+  {{- $ciliumHelmValues := (include "defaultCiliumHelmValues" .) | fromYaml -}}
+  {{- $customCiliumHelmValues := $.Values.global.apps.cilium -}}
+  {{- if $customCiliumHelmValues }}
+  {{- $ciliumHelmValues = merge (deepCopy $customCiliumHelmValues) $ciliumHelmValues -}}
+  {{- end }}
+  {{- if $ciliumHelmValues }}
+  values: {{- $ciliumHelmValues | toYaml | nindent 4 }}
+  {{- end }}

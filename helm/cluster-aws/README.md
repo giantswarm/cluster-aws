@@ -24,6 +24,18 @@ Properties within the `.global.providerSpecific` object
 | `global.providerSpecific.flatcarAwsAccount` | **AWS account owning Flatcar image** - AWS account ID owning the Flatcar Container Linux AMI.|**Type:** `string`<br/>**Default:** `"706635527432"`|
 | `global.providerSpecific.region` | **Region**|**Type:** `string`<br/>|
 
+### Apps
+Properties within the `.global.apps` object
+Configuration of apps that are part of the cluster.
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `global.apps.awsCloudControllerManager` | **AWS cloud controller manager** - Configuration of aws-cloud-controller-manager-app. For all available values see https://github.com/giantswarm/aws-cloud-controller-manager-app.|**Type:** `object`<br/>|
+| `global.apps.awsEbsCsiDriver` | **AWS EBS CSI driver** - Configuration of aws-ebs-csi-driver-app. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-app.|**Type:** `object`<br/>|
+| `global.apps.cilium` | **Cilium** - Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app.|**Type:** `object`<br/>|
+| `global.apps.coreDns` | **CoreDNS** - Configuration of coredns-app. For all available values see https://github.com/giantswarm/coredns-app.|**Type:** `object`<br/>|
+| `global.apps.verticalPodAutoscalerCrd` | **Vertical-pod-autoscaler CRD** - Configuration of vertical-pod-autoscaler-crd-app. For all available values see https://github.com/giantswarm/vertical-pod-autoscaler-crd.|**Type:** `object`<br/>|
+
 ### Components
 Properties within the `.global.components` object
 Advanced configuration of components that are running on all nodes.
