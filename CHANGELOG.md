@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Make Helm values configurable for aws-cloud-controller-manager, aws-ebs-csi-driver, cilium, coredns and vertical-pod-autoscaler-crd
 - Expose value to configure launch template overrides, used to override the instance type specified by the launch template with multiple instance types that can be used to launch instances.
 
 ### Fixed

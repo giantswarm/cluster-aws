@@ -153,6 +153,39 @@
             ],
             "additionalProperties": true,
             "properties": {
+                "apps": {
+                    "type": "object",
+                    "title": "Apps",
+                    "description": "Configuration of apps that are part of the cluster.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "awsCloudControllerManager": {
+                            "type": "object",
+                            "title": "AWS cloud controller manager",
+                            "description": "Configuration of aws-cloud-controller-manager-app. For all available values see https://github.com/giantswarm/aws-cloud-controller-manager-app."
+                        },
+                        "awsEbsCsiDriver": {
+                            "type": "object",
+                            "title": "AWS EBS CSI driver",
+                            "description": "Configuration of aws-ebs-csi-driver-app. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-app."
+                        },
+                        "cilium": {
+                            "type": "object",
+                            "title": "Cilium",
+                            "description": "Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app."
+                        },
+                        "coreDns": {
+                            "type": "object",
+                            "title": "CoreDNS",
+                            "description": "Configuration of coredns-app. For all available values see https://github.com/giantswarm/coredns-app."
+                        },
+                        "verticalPodAutoscalerCrd": {
+                            "type": "object",
+                            "title": "Vertical-pod-autoscaler CRD",
+                            "description": "Configuration of vertical-pod-autoscaler-crd-app. For all available values see https://github.com/giantswarm/vertical-pod-autoscaler-crd."
+                        }
+                    }
+                },
                 "components": {
                     "type": "object",
                     "title": "Components",

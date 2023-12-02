@@ -27,3 +27,7 @@ spec:
   install:
     remediation:
       retries: 30
+  {{- $customVerticalPodAutoscalerCrdHelmValues := $.Values.global.apps.verticalPodAutoscalerCrd -}}
+  {{- if $customVerticalPodAutoscalerCrdHelmValues }}
+  values: {{- $customVerticalPodAutoscalerCrdHelmValues | toYaml | nindent 4 }}
+  {{- end }}

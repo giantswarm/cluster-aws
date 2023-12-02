@@ -1,3 +1,15 @@
+{{/* Default Helm values for the app */}}
+{{/* See schema for the appropriate app version here https://github.com/giantswarm/coredns-app/blob/main/helm/coredns-app/values.schema.json */}}
+{{- define "defaultCoreDnsHelmValues" }}
+cluster:
+  calico:
+    CIDR: {{ first .Values.global.connectivity.network.pods.cidrBlocks | quote }}
+  kubernetes:
+    API:
+      clusterIPRange: {{ first .Values.global.connectivity.network.services.cidrBlocks | quote }}
+    DNS:
+      IP: {{ include "clusterDNS" $ | quote }}
+{{- end }}
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -30,14 +42,11 @@ spec:
   install:
     remediation:
       retries: 30
-  # Default values
-  # https://github.com/giantswarm/coredns-app/blob/main/helm/coredns-app/values.yaml
-  values:
-    cluster:
-      calico:
-        CIDR: {{ first .Values.global.connectivity.network.pods.cidrBlocks | quote }}
-      kubernetes:
-        API:
-          clusterIPRange: {{ first .Values.global.connectivity.network.services.cidrBlocks | quote }}
-        DNS:
-          IP: {{ include "clusterDNS" $ | quote }}
+  {{- $coreDnsHelmValues := (include "defaultCoreDnsHelmValues" .) | fromYaml -}}
+  {{- $customCoreDnsHelmValues := $.Values.global.apps.coreDns -}}
+  {{- if $customCoreDnsHelmValues }}
+  {{- $coreDnsHelmValues = merge (deepCopy $customCoreDnsHelmValues) $coreDnsHelmValues -}}
+  {{- end }}
+  {{- if $coreDnsHelmValues }}
+  values: {{- $coreDnsHelmValues | toYaml | nindent 4 }}
+  {{- end }}
