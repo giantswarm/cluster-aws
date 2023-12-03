@@ -22,7 +22,7 @@ ssh_service:
     command: [/opt/teleport-node-role.sh]
     period: 1m0s
   labels:
-    mc: {{ .Values.global.managementCluster }}
+    mc: {{ .Values.global.connectivity.managementCluster }}
     {{- $clusterName := include "resource.default.name" $ }}    
     {{- if ne .Values.global.managementCluster $clusterName }}
     cluster: {{ include "resource.default.name" $ }}
