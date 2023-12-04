@@ -150,7 +150,7 @@ spec:
   {{- if $.Values.global.connectivity.proxy.enabled }}{{- include "proxyFiles" $ | nindent 2 }}{{- end }}
   {{- include "containerdConfigFiles" $ | nindent 2 }}
   {{- if $.Values.internal.teleport.enabled }}
-  {{- include "teleportFiles" $ | nindent 2 }}
+  {{- include "teleportFiles" . | nindent 2 }}
   {{- end }}
   {{- if $.Values.internal.cgroupsv1 }}
   {{- include "cgroupv1Files" $ | nindent 2 }}
