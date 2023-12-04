@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move Helm values property `.Values.providerSpecific` to `.Values.global.providerSpecific`.
 - Move Helm values property `.Values.global.connectivity.containerRegistries` to `.Values.global.components.containerd.containerRegistries`.
 
+### Changed
+
+- Bump the Kubernetes version to `v1.24.16`.
+- Bump Teleport version to `v14.1.3`.
+- Enable Teleport by default.
+
 ### Added
 
 - Make Helm values configurable for aws-cloud-controller-manager, aws-ebs-csi-driver, cilium, coredns and vertical-pod-autoscaler-crd

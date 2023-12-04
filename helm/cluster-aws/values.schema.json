@@ -880,7 +880,7 @@
                     "examples": [
                         "1.24.7"
                     ],
-                    "default": "1.24.14"
+                    "default": "1.24.16"
                 },
                 "migration": {
                     "type": "object",
@@ -1010,17 +1010,17 @@
                         "enabled": {
                             "type": "boolean",
                             "title": "Enable teleport",
-                            "default": false
+                            "default": true
                         },
                         "proxyAddr": {
                             "type": "string",
                             "title": "Teleport proxy address",
-                            "default": "test.teleport.giantswarm.io:443"
+                            "default": "teleport.giantswarm.io:443"
                         },
                         "version": {
                             "type": "string",
                             "title": "Teleport version",
-                            "default": "13.3.8"
+                            "default": "14.1.3"
                         }
                     }
                 }

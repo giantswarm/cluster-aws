@@ -150,7 +150,7 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | :----------- | :-------------- | :--------------- |
 | `internal.cgroupsv1` | **CGroups v1** - Force use of CGroups v1 for whole cluster.|**Type:** `boolean`<br/>**Default:** `false`|
 | `internal.hashSalt` | **Hash salt** - If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.|**Type:** `string`<br/>|
-| `internal.kubernetesVersion` | **Kubernetes version**|**Type:** `string`<br/>**Example:** `"1.24.7"`<br/>**Default:** `"1.24.14"`|
+| `internal.kubernetesVersion` | **Kubernetes version**|**Type:** `string`<br/>**Example:** `"1.24.7"`<br/>**Default:** `"1.24.16"`|
 | `internal.migration` | **Migration values** - Section used for migration of cluster from vintage to CAPI|**Type:** `object`<br/>|
 | `internal.migration.apiBindPort` | **Kubernetes API bind port** - Kubernetes API bind port used for kube api pod|**Type:** `integer`<br/>**Default:** `6443`|
 | `internal.migration.controlPlaneExtraFiles` | **Control Plane extra files** - Additional fiels that will be provisioned to control-plane nodes, reference is from secret in the same namespace.|**Type:** `array`<br/>|
@@ -198,9 +198,9 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | `internal.sandboxContainerImage.registry` | **Registry**|**Type:** `string`<br/>**Default:** `"quay.io"`|
 | `internal.sandboxContainerImage.tag` | **Tag**|**Type:** `string`<br/>**Default:** `"3.9"`|
 | `internal.teleport` | **Teleport**|**Type:** `object`<br/>|
-| `internal.teleport.enabled` | **Enable teleport**|**Type:** `boolean`<br/>**Default:** `false`|
-| `internal.teleport.proxyAddr` | **Teleport proxy address**|**Type:** `string`<br/>**Default:** `"test.teleport.giantswarm.io:443"`|
-| `internal.teleport.version` | **Teleport version**|**Type:** `string`<br/>**Default:** `"13.3.8"`|
+| `internal.teleport.enabled` | **Enable teleport**|**Type:** `boolean`<br/>**Default:** `true`|
+| `internal.teleport.proxyAddr` | **Teleport proxy address**|**Type:** `string`<br/>**Default:** `"teleport.giantswarm.io:443"`|
+| `internal.teleport.version` | **Teleport version**|**Type:** `string`<br/>**Default:** `"14.1.3"`|
 
 ### Kubectl image
 Properties within the `.kubectlImage` top-level object
