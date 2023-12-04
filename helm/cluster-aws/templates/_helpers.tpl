@@ -180,7 +180,7 @@ and is used to join the node to the teleport cluster.
 - path: /etc/teleport.yaml
   permissions: "0644"
   encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/teleport.yaml") . | b64enc }}
+  content: {{ tpl ($.Files.Get "files/etc/teleport.yaml") $ | b64enc }}
 {{- end -}}
 
 {{- define "diskStorageConfig" -}}
