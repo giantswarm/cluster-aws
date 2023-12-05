@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please ensure you did install [yq](https://mikefarah.gitbook.io/yq/) first.
 
 To migrate values from cluster-aws `v0.50.0`, we provide below a bash script which writes an `app.yaml` file which you need to apply.
-This will move the existing user config values into `global` and it also increases the `appVersion` of `cluster-aws` to `v0.50.0`.
+This will move the existing user config values into `global` and it also increases the `version` field of `cluster-aws` app to `v0.50.0`.
 
 * Login to the management cluster and run the script (e.g: `./migrate.sh organization my-cluster`)
 * Verify the `app.yaml` file and apply it to the management cluster (e.g: `kubectl apply -f app.yaml`)
