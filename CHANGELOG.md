@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.50.0] - 2023-12-04
 
 <details>
-<summary>How to migrate from v0.50.0</summary>
+<summary>How to migrate to v0.50.0</summary>
 
 Please ensure you did install [yq](https://mikefarah.gitbook.io/yq/) first.
 
