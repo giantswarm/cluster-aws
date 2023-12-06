@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Fill `AWSCluster.spec.network.subnets[*].id` field for managed subnets for compatibility with CAPA v2.3.0
+
 ## [0.50.0] - 2023-12-04
 
 <details>
@@ -56,7 +60,7 @@ yq eval --inplace 'with(select(.metadata != null);    .global.metadata = .metada
   with(select(.controlPlane != null);                 .global.controlPlane = .controlPlane) |
   with(select(.nodePools != null);                    .global.nodePools = .nodePools) |
   with(select(.managementCluster != null);            .global.managementCluster = .managementCluster ) |
- 
+
   with(select(.providerSpecific != null);                   .global.providerSpecific = .providerSpecific) |
 
   with(select(.baseDomain != null);                   .global.connectivity.baseDomain = .baseDomain) |
