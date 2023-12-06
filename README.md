@@ -77,19 +77,20 @@ connectivity:
 The desired subnet can then be targetted by using the `subnetTags` value to set the AWS tags to match on. For example:
 
 ```yaml
-connectivity:
-  bastion:
-    subnetTags:
-      - subnet.giantswarm.io/role: bastion
+global:
+  connectivity:
+    bastion:
+      subnetTags:
+        - subnet.giantswarm.io/role: bastion
 
-controlPlane:
-  subnetTags:
-    - subnet.giantswarm.io/role: control-plane
-
-nodePools:
-  def00:
+  controlPlane:
     subnetTags:
-      - subnet.giantswarm.io/role: workers
+      - subnet.giantswarm.io/role: control-plane
+
+  nodePools:
+    def00:
+      subnetTags:
+        - subnet.giantswarm.io/role: workers
 ```
 
 ### API-server ELB subnets
