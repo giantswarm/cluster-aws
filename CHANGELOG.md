@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Set node pool subnet filters to include avaiability zone.
+
 ## [0.51.0] - 2023-12-07
 
 ### Changed

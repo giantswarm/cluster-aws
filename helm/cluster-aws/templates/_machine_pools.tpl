@@ -48,6 +48,9 @@ spec:
       values:
       - shared
       - owned
+    - name: availability-zone
+      values:
+      {{- include "aws-availability-zones" $value | nindent 6 }}
     {{ if eq $.Values.global.connectivity.vpcMode "public" }}
     - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
       values:
