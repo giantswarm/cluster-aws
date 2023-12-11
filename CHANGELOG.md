@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Set node pool subnet filters to include avaiability zone.
 - Fix error messages if `global.connectivity.baseDomain` is missing
 
 ## [0.51.0] - 2023-12-07
