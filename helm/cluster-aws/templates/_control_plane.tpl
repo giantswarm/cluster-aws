@@ -92,14 +92,14 @@ spec:
       apiServer:
         timeoutForControlPlane: 20m
         certSANs:
-          - "api.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.global.connectivity.baseDomain }}"
+          - "api.{{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}"
           - 127.0.0.1
           {{- if .Values.global.controlPlane.apiExtraCertSANs -}}
           {{- toYaml .Values.global.controlPlane.apiExtraCertSANs | nindent 10 }}
           {{- end }}
         extraArgs:
           cloud-provider: external
-          service-account-issuer: "https://irsa.{{ include "resource.default.name" $ }}.{{ required "The baseDomain value is required" .Values.global.connectivity.baseDomain }}"
+          service-account-issuer: "https://irsa.{{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}"
           {{- if .Values.global.controlPlane.oidc.issuerUrl }}
           {{- with .Values.global.controlPlane.oidc }}
           oidc-issuer-url: {{ .issuerUrl }}
