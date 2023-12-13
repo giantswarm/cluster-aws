@@ -1,34 +1,5 @@
 {{- define "machine-pools" }}
 {{- range $name, $value := .Values.global.nodePools | default .Values.internal.nodePools }}
-apiVersion: cluster.x-k8s.io/v1beta1
-kind: MachinePool
-metadata:
-  annotations:
-    machine-pool.giantswarm.io/name: {{ include "resource.default.name" $ }}-{{ $name }}
-    cluster.x-k8s.io/replicas-managed-by: "external-autoscaler"
-  labels:
-    giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
-    {{- include "labels.common" $ | nindent 4 }}
-    app.kubernetes.io/version: {{ $.Chart.Version | quote }}
-  name: {{ include "resource.default.name" $ }}-{{ $name }}
-  namespace: {{ $.Release.Namespace }}
-spec:
-  clusterName: {{ include "resource.default.name" $ }}
-  replicas: {{ .minSize }}
-  template:
-    spec:
-      bootstrap:
-        configRef:
-          apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
-          kind: KubeadmConfig
-          name: {{ include "resource.default.name" $ }}-{{ $name }}
-      clusterName: {{ include "resource.default.name" $ }}
-      infrastructureRef:
-        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-        kind: AWSMachinePool
-        name: {{ include "resource.default.name" $ }}-{{ $name }}
-      version: {{ $.Values.internal.kubernetesVersion }}
----
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachinePool
 metadata:
