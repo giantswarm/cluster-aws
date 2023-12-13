@@ -171,7 +171,6 @@ spec:
         serviceSubnet: {{ join "," .Values.global.connectivity.network.services.cidrBlocks }}
     files:
     {{- include "controlPlaneFiles" . | nindent 4 }}
-    {{- include "sshFiles" . | nindent 4 }}
     {{- include "kubeletConfigFiles" . | nindent 4 }}
     {{- include "nodeConfigFiles" . | nindent 4 }}
     {{- if .Values.global.connectivity.proxy.enabled }}{{- include "proxyFiles" . | nindent 4 }}{{- end }}
@@ -238,7 +237,6 @@ spec:
         {{- end }}
         {{- end }}
     preKubeadmCommands:
-    {{- include "sshPreKubeadmCommands" . | nindent 4 }}
     {{- if .Values.internal.migration.controlPlanePreKubeadmCommands -}}
     {{- toYaml .Values.internal.migration.controlPlanePreKubeadmCommands | nindent 4 }}
     {{- end }}
@@ -249,8 +247,6 @@ spec:
     {{- if .Values.internal.migration.controlPlanePostKubeadmCommands -}}
     {{- toYaml .Values.internal.migration.controlPlanePostKubeadmCommands | nindent 4 }}
     {{- end }}
-    users:
-    {{- include "sshUsers" . | nindent 4 }}
   replicas: 3
   version: v{{ trimPrefix "v" .Values.internal.kubernetesVersion }}
 ---
