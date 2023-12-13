@@ -140,6 +140,10 @@
             "type": "string",
             "title": "Base DNS domain"
         },
+        "cluster": {
+            "type": "object",
+            "title": "Common CRs chart"
+        },
         "cluster-shared": {
             "type": "object",
             "title": "Library chart"
