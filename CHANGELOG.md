@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Remove bastion and ssh configuration on nodes.
+
 ## [0.52.0] - 2023-12-11
 
 ### Fixed

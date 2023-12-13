@@ -64,28 +64,6 @@ giantswarm.io/prevent-deletion: "true"
 {{ end -}}
 {{- end -}}
 
-{{- define "sshFiles" -}}
-- path: /etc/ssh/trusted-user-ca-keys.pem
-  permissions: "0600"
-  encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . | b64enc }}
-- path: /etc/ssh/sshd_config
-  permissions: "0600"
-  encoding: base64
-  content: {{ $.Files.Get "files/etc/ssh/sshd_config" | b64enc }}
-{{- end -}}
-
-{{- define "sshFilesBastion" -}}
-- path: /etc/ssh/trusted-user-ca-keys.pem
-  permissions: "0600"
-  encoding: base64
-  content: {{ tpl ($.Files.Get "files/etc/ssh/trusted-user-ca-keys.pem") . | b64enc }}
-- path: /etc/ssh/sshd_config
-  permissions: "0600"
-  encoding: base64
-  content: {{ $.Files.Get "files/etc/ssh/sshd_config_bastion" | b64enc }}
-{{- end -}}
-
 {{- define "noProxyList" -}}
 127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.global.connectivity.network.vpcCidr }},{{ join "," $.Values.global.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.global.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.global.connectivity.baseDomain }},elb.amazonaws.com,{{ $.Values.global.connectivity.proxy.noProxy }}
 {{- end -}}
@@ -264,18 +242,8 @@ and is used to join the node to the teleport cluster.
     WantedBy=multi-user.target
 {{- end -}}
 
-{{- define "sshPreKubeadmCommands" -}}
-- systemctl restart sshd
-{{- end -}}
-
 {{- define "controlPlanePostKubeadmCommands" -}}
 - /opt/control-plane-config.sh
-{{- end -}}
-
-{{- define "sshUsers" -}}
-- name: giantswarm
-  groups: sudo
-  sudo: ALL=(ALL) NOPASSWD:ALL
 {{- end -}}
 
 {{- define "ami" }}

@@ -279,39 +279,6 @@
                             "type": "string",
                             "title": "Base DNS domain"
                         },
-                        "bastion": {
-                            "type": "object",
-                            "title": "Bastion host",
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean",
-                                    "title": "Enable",
-                                    "default": true
-                                },
-                                "instanceType": {
-                                    "type": "string",
-                                    "title": "EC2 instance type",
-                                    "default": "t3.small"
-                                },
-                                "replicas": {
-                                    "type": "integer",
-                                    "title": "Number of hosts",
-                                    "default": 1
-                                },
-                                "subnetTags": {
-                                    "type": "array",
-                                    "title": "Subnet tags",
-                                    "description": "Tags to filter which AWS subnets will be used for the bastion hosts.",
-                                    "items": {
-                                        "type": "object",
-                                        "title": "Subnet tag",
-                                        "additionalProperties": {
-                                            "$ref": "#/$defs/awsResourceTagValue"
-                                        }
-                                    }
-                                }
-                            }
-                        },
                         "dns": {
                             "type": "object",
                             "title": "DNS",
@@ -425,11 +392,6 @@
                                     "description": "To be passed to the NO_PROXY environment variable in all hosts."
                                 }
                             }
-                        },
-                        "sshSsoPublicKey": {
-                            "type": "string",
-                            "title": "SSH public key for single sign-on",
-                            "default": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4cvZ01fLmO9cJbWUj7sfF+NhECgy+Cl0bazSrZX7sU vault-ca@vault.operations.giantswarm.io"
                         },
                         "subnets": {
                             "type": "array",

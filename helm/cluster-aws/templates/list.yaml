@@ -10,10 +10,6 @@
 ---
 {{- include "control-plane" . }}
 ---
-{{ if .Values.global.connectivity.bastion.enabled }}
-{{- include "bastion" . }}
----
-{{ end }}
 {{- include "machine-pools" . }}
 ---
 {{- include "machine-health-check" . }}
