@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add new annotation for vintage irsa domain.
+
 ## [0.53.0] - 2023-12-13
 
 ### Changed
