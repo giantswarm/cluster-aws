@@ -140,6 +140,11 @@
             "type": "string",
             "title": "Base DNS domain"
         },
+        "cluster": {
+            "type": "object",
+            "title": "Cluster",
+            "description": "Helm values for the provider-independent cluster chart"
+        },
         "cluster-shared": {
             "type": "object",
             "title": "Library chart"
@@ -268,6 +273,7 @@
                 "connectivity": {
                     "type": "object",
                     "title": "Connectivity",
+                    "additionalProperties": false,
                     "properties": {
                         "availabilityZoneUsageLimit": {
                             "type": "integer",

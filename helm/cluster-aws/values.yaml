@@ -85,3 +85,27 @@ kubectlImage:
   name: giantswarm/kubectl
   registry: quay.io
   tag: 1.23.5
+
+cluster:
+  providerIntegration:
+    clusterAnnotationsTemplateName: "awsConnectivityLabels"
+    pauseProperties:
+      global.connectivity.vpcMode: "private"
+    resourcesApi:
+      clusterResourceEnabled: true
+      controlPlaneResourceEnabled: false
+      machinePoolResourcesEnabled: false
+      machineHealthCheckResourceEnabled: false
+      bastionResourceEnabled: false
+      nodePoolKind: MachinePool
+      infrastructureCluster:
+        group: infrastructure.cluster.x-k8s.io
+        version: v1beta1
+        kind: AWSCluster
+    controlPlane:
+      resources:
+        infrastructureMachineTemplate:
+          group: infrastructure.cluster.x-k8s.io
+          version: v1beta1
+          kind: AWSMachine
+        infrastructureMachineTemplateSpecTemplateName: "qweqwe"
