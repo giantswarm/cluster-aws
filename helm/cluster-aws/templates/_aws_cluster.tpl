@@ -17,6 +17,13 @@ metadata:
     {{end}}
     aws.cluster.x-k8s.io/external-resource-gc: "true"
     aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.global.connectivity.vpcEndpointMode }}"
+    network-topology.giantswarm.io/mode: "{{ .Values.global.connectivity.topology.mode }}"
+    {{- if .Values.global.connectivity.topology.transitGatewayId }}
+    network-topology.giantswarm.io/transit-gateway: "{{ .Values.global.connectivity.topology.transitGatewayId }}"
+    {{- end }}
+    {{- if .Values.global.connectivity.topology.prefixListId }}
+    network-topology.giantswarm.io/prefix-list: "{{ .Values.global.connectivity.topology.prefixListId }}"
+    {{- end }}
   labels:
     {{- include "labels.common" $ | nindent 4 }}
     {{- include "preventDeletionLabel" $ | nindent 4 -}}
