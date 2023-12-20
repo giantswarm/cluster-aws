@@ -1,5 +1,6 @@
 global:
   metadata:
+    name: test-wc
     organization: "test"
   connectivity:
     baseDomain: example.com
