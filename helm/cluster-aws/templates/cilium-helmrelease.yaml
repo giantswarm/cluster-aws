@@ -78,5 +78,6 @@ spec:
     {{- range $config := $.Values.global.apps.cilium.extraConfigs }}
     - kind: {{ $config.kind }}
       name: {{ $config.name }}
+      valuesKey: values
     {{- end }}
   {{- end }}

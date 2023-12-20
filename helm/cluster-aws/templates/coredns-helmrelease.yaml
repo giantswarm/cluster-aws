@@ -55,5 +55,6 @@ spec:
     {{- range $config := $.Values.global.apps.coreDns.extraConfigs }}
     - kind: {{ $config.kind }}
       name: {{ $config.name }}
+      valuesKey: values
     {{- end }}
   {{- end }}

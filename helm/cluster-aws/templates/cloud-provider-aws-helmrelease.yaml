@@ -55,5 +55,6 @@ spec:
     {{- range $config := $.Values.global.apps.awsCloudControllerManager.extraConfigs }}
     - kind: {{ $config.kind }}
       name: {{ $config.name }}
+      valuesKey: values
     {{- end }}
   {{- end }}
