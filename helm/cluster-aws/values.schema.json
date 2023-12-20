@@ -3,6 +3,8 @@
     "$defs": {
         "app": {
             "type": "object",
+            "title": "App",
+            "description": "Configuration of an default app that is part of the cluster.",
             "additionalProperties": false,
             "properties": {
                 "extraConfigs": {
