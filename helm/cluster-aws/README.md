@@ -30,31 +30,31 @@ Configuration of apps that are part of the cluster.
 
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
-| `global.apps.awsCloudControllerManager` | **App** - Configuration of an default app that is part of the cluster.|**Type:** `object`<br/>|
+| `global.apps.awsCloudControllerManager` |**None**|**Type:** `object`<br/>|
 | `global.apps.awsCloudControllerManager.extraConfigs` | **Extra config maps or secrets** - Extra config maps or secrets that will be used to customize to the app. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.|**Type:** `array`<br/>|
 | `global.apps.awsCloudControllerManager.extraConfigs[*]` | **Config map**|**Type:** `object`<br/>|
 | `global.apps.awsCloudControllerManager.extraConfigs[*].kind` | **Kind** - Specifies whether the resource is a config map or a secret.|**Type:** `string`<br/>|
 | `global.apps.awsCloudControllerManager.extraConfigs[*].name` | **Name** - Name of the config map. The config map must exist.|**Type:** `string`<br/>|
 | `global.apps.awsCloudControllerManager.values` | **Values** - Values to be passed to the app. Values will have higher priority than values from configmaps.|**Type:** `object`<br/>|
-| `global.apps.awsEbsCsiDriver` | **App** - Configuration of an default app that is part of the cluster.|**Type:** `object`<br/>|
+| `global.apps.awsEbsCsiDriver` |**None**|**Type:** `object`<br/>|
 | `global.apps.awsEbsCsiDriver.extraConfigs` | **Extra config maps or secrets** - Extra config maps or secrets that will be used to customize to the app. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.|**Type:** `array`<br/>|
 | `global.apps.awsEbsCsiDriver.extraConfigs[*]` | **Config map**|**Type:** `object`<br/>|
 | `global.apps.awsEbsCsiDriver.extraConfigs[*].kind` | **Kind** - Specifies whether the resource is a config map or a secret.|**Type:** `string`<br/>|
 | `global.apps.awsEbsCsiDriver.extraConfigs[*].name` | **Name** - Name of the config map. The config map must exist.|**Type:** `string`<br/>|
 | `global.apps.awsEbsCsiDriver.values` | **Values** - Values to be passed to the app. Values will have higher priority than values from configmaps.|**Type:** `object`<br/>|
-| `global.apps.cilium` | **App** - Configuration of an default app that is part of the cluster.|**Type:** `object`<br/>|
+| `global.apps.cilium` |**None**|**Type:** `object`<br/>|
 | `global.apps.cilium.extraConfigs` | **Extra config maps or secrets** - Extra config maps or secrets that will be used to customize to the app. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.|**Type:** `array`<br/>|
 | `global.apps.cilium.extraConfigs[*]` | **Config map**|**Type:** `object`<br/>|
 | `global.apps.cilium.extraConfigs[*].kind` | **Kind** - Specifies whether the resource is a config map or a secret.|**Type:** `string`<br/>|
 | `global.apps.cilium.extraConfigs[*].name` | **Name** - Name of the config map. The config map must exist.|**Type:** `string`<br/>|
 | `global.apps.cilium.values` | **Values** - Values to be passed to the app. Values will have higher priority than values from configmaps.|**Type:** `object`<br/>|
-| `global.apps.coreDns` | **App** - Configuration of an default app that is part of the cluster.|**Type:** `object`<br/>|
+| `global.apps.coreDns` |**None**|**Type:** `object`<br/>|
 | `global.apps.coreDns.extraConfigs` | **Extra config maps or secrets** - Extra config maps or secrets that will be used to customize to the app. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.|**Type:** `array`<br/>|
 | `global.apps.coreDns.extraConfigs[*]` | **Config map**|**Type:** `object`<br/>|
 | `global.apps.coreDns.extraConfigs[*].kind` | **Kind** - Specifies whether the resource is a config map or a secret.|**Type:** `string`<br/>|
 | `global.apps.coreDns.extraConfigs[*].name` | **Name** - Name of the config map. The config map must exist.|**Type:** `string`<br/>|
 | `global.apps.coreDns.values` | **Values** - Values to be passed to the app. Values will have higher priority than values from configmaps.|**Type:** `object`<br/>|
-| `global.apps.verticalPodAutoscalerCrd` | **App** - Configuration of an default app that is part of the cluster.|**Type:** `object`<br/>|
+| `global.apps.verticalPodAutoscalerCrd` |**None**|**Type:** `object`<br/>|
 | `global.apps.verticalPodAutoscalerCrd.extraConfigs` | **Extra config maps or secrets** - Extra config maps or secrets that will be used to customize to the app. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.|**Type:** `array`<br/>|
 | `global.apps.verticalPodAutoscalerCrd.extraConfigs[*]` | **Config map**|**Type:** `object`<br/>|
 | `global.apps.verticalPodAutoscalerCrd.extraConfigs[*].kind` | **Kind** - Specifies whether the resource is a config map or a secret.|**Type:** `string`<br/>|
