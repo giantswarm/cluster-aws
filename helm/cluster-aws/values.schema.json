@@ -143,7 +143,38 @@
         "cluster": {
             "type": "object",
             "title": "Cluster",
-            "description": "Helm values for the provider-independent cluster chart"
+            "description": "Helm values for the provider-independent cluster chart",
+            "default": {
+                "providerIntegration": {
+                    "clusterAnnotationsTemplateName": "awsConnectivityLabels",
+                    "controlPlane": {
+                        "resources": {
+                            "infrastructureMachineTemplate": {
+                                "group": "infrastructure.cluster.x-k8s.io",
+                                "kind": "AWSMachine",
+                                "version": "v1beta1"
+                            },
+                            "infrastructureMachineTemplateSpecTemplateName": "controlplane-awsmachinetemplate-spec"
+                        }
+                    },
+                    "pauseProperties": {
+                        "global.connectivity.vpcMode": "private"
+                    },
+                    "resourcesApi": {
+                        "bastionResourceEnabled": false,
+                        "clusterResourceEnabled": true,
+                        "controlPlaneResourceEnabled": false,
+                        "infrastructureCluster": {
+                            "group": "infrastructure.cluster.x-k8s.io",
+                            "kind": "AWSCluster",
+                            "version": "v1beta1"
+                        },
+                        "machineHealthCheckResourceEnabled": false,
+                        "machinePoolResourcesEnabled": false,
+                        "nodePoolKind": "MachinePool"
+                    }
+                }
+            }
         },
         "cluster-shared": {
             "type": "object",

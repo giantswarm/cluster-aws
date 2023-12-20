@@ -257,7 +257,7 @@ Node pools of the cluster. If not specified, this defaults to the value of `inte
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
 | `baseDomain` | **Base DNS domain**|**Type:** `string`<br/>|
-| `cluster` | **Cluster** - Helm values for the provider-independent cluster chart|**Type:** `object`<br/>|
+| `cluster` | **Cluster** - Helm values for the provider-independent cluster chart|**Type:** `object`<br/>**Default:** `{"providerIntegration":{"clusterAnnotationsTemplateName":"awsConnectivityLabels","controlPlane":{"resources":{"infrastructureMachineTemplate":{"group":"infrastructure.cluster.x-k8s.io","kind":"AWSMachine","version":"v1beta1"},"infrastructureMachineTemplateSpecTemplateName":"controlplane-awsmachinetemplate-spec"}},"pauseProperties":{"global.connectivity.vpcMode":"private"},"resourcesApi":{"bastionResourceEnabled":false,"clusterResourceEnabled":true,"controlPlaneResourceEnabled":false,"infrastructureCluster":{"group":"infrastructure.cluster.x-k8s.io","kind":"AWSCluster","version":"v1beta1"},"machineHealthCheckResourceEnabled":false,"machinePoolResourcesEnabled":false,"nodePoolKind":"MachinePool"}}}`|
 | `cluster-shared` | **Library chart**|**Type:** `object`<br/>|
 | `managementCluster` | **Management cluster** - Name of the Cluster API cluster managing this workload cluster.|**Type:** `string`<br/>|
 | `provider` | **Cluster API provider name**|**Type:** `string`<br/>|
