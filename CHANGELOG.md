@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Change `KubeadmConfig` bootstrap config reference to ensure nodes get rolled when making changes to node specification (requires newer versions of CAPI/CAPA as shown in the original [issue](https://github.com/kubernetes-sigs/cluster-api/issues/8858)). Add machine pool instance warmup setting (5 minutes) to ensure nodes do not get replaced too quickly.
+- Run kubeadm after containerd to avoid node startup problems
+
 ## [0.54.0] - 2023-12-21
 
 ### **Breaking change**
 
-- Added option to customize app via configmap or secret with `global.apps.{app_name}.extraConfigs`. 
+- Added option to customize app via configmap or secret with `global.apps.{app_name}.extraConfigs`.
 - In-line custom values for app moved from `global.apps.{app_name}` to `global.apps.{app_name}.values`.
 
 ## [0.53.0] - 2023-12-13
