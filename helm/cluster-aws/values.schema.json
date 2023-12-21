@@ -160,6 +160,7 @@
                     "pauseProperties": {
                         "global.connectivity.vpcMode": "private"
                     },
+                    "provider": "aws",
                     "resourcesApi": {
                         "bastionResourceEnabled": false,
                         "clusterResourceEnabled": true,

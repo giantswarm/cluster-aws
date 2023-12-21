@@ -12,6 +12,7 @@ cluster:
         infrastructureMachineTemplateSpecTemplateName: controlplane-awsmachinetemplate-spec
     pauseProperties:
       global.connectivity.vpcMode: private
+    provider: aws
     resourcesApi:
       bastionResourceEnabled: false
       clusterResourceEnabled: true
