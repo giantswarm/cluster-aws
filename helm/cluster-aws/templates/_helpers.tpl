@@ -19,7 +19,6 @@ Common labels
 */}}
 {{- define "labels.common" -}}
 {{- include "labels.selector" $ }}
-app: {{ include "name" . | quote }}
 helm.sh/chart: {{ include "chart" . | quote }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- end -}}
@@ -28,6 +27,7 @@ application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantsw
 Selector labels
 */}}
 {{- define "labels.selector" -}}
+app: {{ include "name" . | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
 cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" . | quote }}
 giantswarm.io/cluster: {{ include "resource.default.name" . | quote }}
