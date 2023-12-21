@@ -13,7 +13,7 @@
                     "description": "Extra config maps or secrets that will be used to customize to the app. The desired values must be under configmap or secret key 'values'. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.",
                     "items": {
                         "type": "object",
-                        "title": "Config map",
+                        "title": "Config map or secret",
                         "properties": {
                             "kind": {
                                 "type": "string",
