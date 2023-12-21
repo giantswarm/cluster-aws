@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.55.0] - 2023-12-21
+
 ### Fixed
 
 - Change `KubeadmConfig` bootstrap config reference to ensure nodes get rolled when making changes to node specification (requires newer versions of CAPI/CAPA as shown in the original [issue](https://github.com/kubernetes-sigs/cluster-api/issues/8858)). Add machine pool instance warmup setting (5 minutes) to ensure nodes do not get replaced too quickly.
@@ -1074,7 +1076,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.54.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.55.0...HEAD
+[0.55.0]: https://github.com/giantswarm/cluster-aws/compare/v0.54.0...v0.55.0
 [0.54.0]: https://github.com/giantswarm/cluster-aws/compare/v0.53.0...v0.54.0
 [0.53.0]: https://github.com/giantswarm/cluster-aws/compare/v0.52.0...v0.53.0
 [0.52.0]: https://github.com/giantswarm/cluster-aws/compare/v0.51.0...v0.52.0
