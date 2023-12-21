@@ -43,10 +43,18 @@ spec:
     remediation:
       retries: 30
   {{- $awsCloudControllerManagerHelmValues := (include "defaultAwsCloudControllerManagerHelmValues" .) | fromYaml -}}
-  {{- $customAwsCloudControllerManagerHelmValues := $.Values.global.apps.awsCloudControllerManager -}}
+  {{- $customAwsCloudControllerManagerHelmValues := $.Values.global.apps.awsCloudControllerManager.values -}}
   {{- if $customAwsCloudControllerManagerHelmValues }}
   {{- $awsCloudControllerManagerHelmValues = merge (deepCopy $customAwsCloudControllerManagerHelmValues) $awsCloudControllerManagerHelmValues -}}
   {{- end }}
   {{- if $awsCloudControllerManagerHelmValues }}
   values: {{- $awsCloudControllerManagerHelmValues | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if $.Values.global.apps.awsCloudControllerManager.extraConfigs }}
+  valuesFrom:
+    {{- range $config := $.Values.global.apps.awsCloudControllerManager.extraConfigs }}
+    - kind: {{ $config.kind }}
+      name: {{ $config.name }}
+      valuesKey: values
+    {{- end }}
   {{- end }}

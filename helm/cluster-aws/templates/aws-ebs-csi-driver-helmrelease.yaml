@@ -43,10 +43,18 @@ spec:
     remediation:
       retries: 30
   {{- $awsEbsCsiDriverHelmValues := (include "defaultAwsEbsCsiDriverHelmValues" .) | fromYaml -}}
-  {{- $customAwsEbsCsiDriverHelmValues := $.Values.global.apps.awsEbsCsiDriver -}}
+  {{- $customAwsEbsCsiDriverHelmValues := $.Values.global.apps.awsEbsCsiDriver.values -}}
   {{- if $customAwsEbsCsiDriverHelmValues }}
   {{- $awsEbsCsiDriverHelmValues = merge (deepCopy $customAwsEbsCsiDriverHelmValues) $awsEbsCsiDriverHelmValues -}}
   {{- end }}
   {{- if $awsEbsCsiDriverHelmValues }}
   values: {{- $awsEbsCsiDriverHelmValues | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if $.Values.global.apps.awsEbsCsiDriver.extraConfigs }}
+  valuesFrom:
+    {{- range $config := $.Values.global.apps.awsEbsCsiDriver.extraConfigs }}
+    - kind: {{ $config.kind }}
+      name: {{ $config.name }}
+      valuesKey: values
+    {{- end }}
   {{- end }}

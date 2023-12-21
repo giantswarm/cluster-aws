@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### **Breaking change**
+
+- Added option to customize app via configmap or secret with `global.apps.{app_name}.extraConfigs`. 
+- In-line custom values for app moved from `global.apps.{app_name}` to `global.apps.{app_name}.values`.
+
 ## [0.53.0] - 2023-12-13
 
 ### Changed
