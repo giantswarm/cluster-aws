@@ -61,6 +61,7 @@ spec:
         toPort: -1
     vpc:
       availabilityZoneUsageLimit: {{ .Values.global.connectivity.availabilityZoneUsageLimit }}
+      secureDefaultVPCSecurityGroup: true
       {{- if .Values.global.connectivity.network.vpcId }}
       id: {{ .Values.global.connectivity.network.vpcId }}
       {{- else }}

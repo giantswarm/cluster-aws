@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add option to remove ingress and egress rules from the security group that AWS creates by default when creating a new VPC.
+
 ## [0.59.0] - 2024-01-23
 
 ### Changed
