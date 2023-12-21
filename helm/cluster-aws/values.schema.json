@@ -27,7 +27,7 @@
                             "name": {
                                 "type": "string",
                                 "title": "Name",
-                                "description": "Name of the config map. The config map must exist."
+                                "description": "Name of the config map or secret. The object must exist in the same namespace as the cluster App."
                             }
                         }
                     }
