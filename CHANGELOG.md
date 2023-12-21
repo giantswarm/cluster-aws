@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.54.0] - 2023-12-21
+
 ### **Breaking change**
 
 - Added option to customize app via configmap or secret with `global.apps.{app_name}.extraConfigs`. 
@@ -1067,7 +1069,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.53.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.54.0...HEAD
+[0.54.0]: https://github.com/giantswarm/cluster-aws/compare/v0.53.0...v0.54.0
 [0.53.0]: https://github.com/giantswarm/cluster-aws/compare/v0.52.0...v0.53.0
 [0.52.0]: https://github.com/giantswarm/cluster-aws/compare/v0.51.0...v0.52.0
 [0.51.0]: https://github.com/giantswarm/cluster-aws/compare/v0.50.0...v0.51.0
