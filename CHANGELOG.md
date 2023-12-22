@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add `cluster` chart as subchart.
+- Render Cluster resource from the `cluster` chart.
+
 ## [0.55.0] - 2023-12-21
 
 ### Fixed
