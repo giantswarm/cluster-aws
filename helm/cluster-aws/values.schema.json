@@ -1,6 +1,45 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$defs": {
+        "app": {
+            "type": "object",
+            "title": "App",
+            "description": "Configuration of an default app that is part of the cluster.",
+            "additionalProperties": false,
+            "properties": {
+                "extraConfigs": {
+                    "type": "array",
+                    "title": "Extra config maps or secrets",
+                    "description": "Extra config maps or secrets that will be used to customize to the app. The desired values must be under configmap or secret key 'values'. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.",
+                    "items": {
+                        "type": "object",
+                        "title": "Config map or secret",
+                        "properties": {
+                            "kind": {
+                                "type": "string",
+                                "title": "Kind",
+                                "description": "Specifies whether the resource is a config map or a secret.",
+                                "enum": [
+                                    "ConfigMap",
+                                    "Secret"
+                                ]
+                            },
+                            "name": {
+                                "type": "string",
+                                "title": "Name",
+                                "description": "Name of the config map or secret. The object must exist in the same namespace as the cluster App."
+                            }
+                        }
+                    }
+                },
+                "values": {
+                    "type": "object",
+                    "title": "Values",
+                    "description": "Values to be passed to the app. Values will have higher priority than values from configmaps.",
+                    "additionalProperties": true
+                }
+            }
+        },
         "awsResourceTagValue": {
             "type": "string",
             "title": "Tag value",
@@ -197,26 +236,31 @@
                     "additionalProperties": false,
                     "properties": {
                         "awsCloudControllerManager": {
+                            "$ref": "#/$defs/app",
                             "type": "object",
                             "title": "AWS cloud controller manager",
                             "description": "Configuration of aws-cloud-controller-manager-app. For all available values see https://github.com/giantswarm/aws-cloud-controller-manager-app."
                         },
                         "awsEbsCsiDriver": {
+                            "$ref": "#/$defs/app",
                             "type": "object",
                             "title": "AWS EBS CSI driver",
                             "description": "Configuration of aws-ebs-csi-driver-app. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-app."
                         },
                         "cilium": {
+                            "$ref": "#/$defs/app",
                             "type": "object",
                             "title": "Cilium",
                             "description": "Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app."
                         },
                         "coreDns": {
+                            "$ref": "#/$defs/app",
                             "type": "object",
                             "title": "CoreDNS",
                             "description": "Configuration of coredns-app. For all available values see https://github.com/giantswarm/coredns-app."
                         },
                         "verticalPodAutoscalerCrd": {
+                            "$ref": "#/$defs/app",
                             "type": "object",
                             "title": "Vertical-pod-autoscaler CRD",
                             "description": "Configuration of vertical-pod-autoscaler-crd-app. For all available values see https://github.com/giantswarm/vertical-pod-autoscaler-crd."

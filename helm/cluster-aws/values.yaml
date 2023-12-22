@@ -25,7 +25,12 @@ cluster:
       machinePoolResourcesEnabled: false
       nodePoolKind: MachinePool
 global:
-  apps: {}
+  apps:
+    awsCloudControllerManager: {}
+    awsEbsCsiDriver: {}
+    cilium: {}
+    coreDns: {}
+    verticalPodAutoscalerCrd: {}
   components:
     containerd:
       containerRegistries:

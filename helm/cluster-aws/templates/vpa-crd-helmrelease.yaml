@@ -27,7 +27,15 @@ spec:
   install:
     remediation:
       retries: 30
-  {{- $customVerticalPodAutoscalerCrdHelmValues := $.Values.global.apps.verticalPodAutoscalerCrd -}}
+  {{- $customVerticalPodAutoscalerCrdHelmValues := $.Values.global.apps.verticalPodAutoscalerCrd.values -}}
   {{- if $customVerticalPodAutoscalerCrdHelmValues }}
   values: {{- $customVerticalPodAutoscalerCrdHelmValues | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if $.Values.global.apps.verticalPodAutoscalerCrd.extraConfigs }}
+  valuesFrom:
+    {{- range $config := $.Values.global.apps.verticalPodAutoscalerCrd.extraConfigs }}
+    - kind: {{ $config.kind }}
+      name: {{ $config.name }}
+      valuesKey: values
+    {{- end }}
   {{- end }}
