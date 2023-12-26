@@ -1,10 +1,6 @@
 {{- include "validation" . }}
 ---
 {{- include "psps" . }}
-{{- if not .Values.cluster.providerIntegration.resourcesApi.clusterResourceEnabled }}
----
-{{- include "cluster" . }}
-{{- end }}
 ---
 {{- include "aws-cluster" . }}
 ---
