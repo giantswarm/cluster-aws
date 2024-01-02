@@ -282,6 +282,8 @@ imageLookupOrg: "706635527432"
       # kubeadm must run after coreos-metadata populated /run/metadata directory.
       Requires=coreos-metadata.service
       After=coreos-metadata.service
+      # kubeadm must run after containerd - see https://github.com/kubernetes-sigs/image-builder/issues/939.
+      After=containerd.service
       [Service]
       # Ensure kubeadm service has access to kubeadm binary in /opt/bin on Flatcar.
       Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin
@@ -351,3 +353,13 @@ Where `data` is the data to has on and `global` is the top level scope.
 {{- define "securityContext.runAsGroup" -}}
 1000
 {{- end -}}
+
+{{- define "awsConnectivityLabels" }}
+network-topology.giantswarm.io/mode: "{{ .Values.global.connectivity.topology.mode }}"
+{{- if .Values.global.connectivity.topology.transitGatewayId }}
+network-topology.giantswarm.io/transit-gateway: "{{ .Values.global.connectivity.topology.transitGatewayId }}"
+{{- end }}
+{{- if .Values.global.connectivity.topology.prefixListId }}
+network-topology.giantswarm.io/prefix-list: "{{ .Values.global.connectivity.topology.prefixListId }}"
+{{- end }}
+{{- end }}

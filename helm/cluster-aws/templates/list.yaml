@@ -2,8 +2,6 @@
 ---
 {{- include "psps" . }}
 ---
-{{- include "cluster" . }}
----
 {{- include "aws-cluster" . }}
 ---
 {{- include "registry-secret" . }}

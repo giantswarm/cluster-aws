@@ -66,10 +66,18 @@ spec:
     remediation:
       retries: 30
   {{- $ciliumHelmValues := (include "defaultCiliumHelmValues" .) | fromYaml -}}
-  {{- $customCiliumHelmValues := $.Values.global.apps.cilium -}}
+  {{- $customCiliumHelmValues := $.Values.global.apps.cilium.values -}}
   {{- if $customCiliumHelmValues }}
   {{- $ciliumHelmValues = merge (deepCopy $customCiliumHelmValues) $ciliumHelmValues -}}
   {{- end }}
   {{- if $ciliumHelmValues }}
   values: {{- $ciliumHelmValues | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if $.Values.global.apps.cilium.extraConfigs }}
+  valuesFrom:
+    {{- range $config := $.Values.global.apps.cilium.extraConfigs }}
+    - kind: {{ $config.kind }}
+      name: {{ $config.name }}
+      valuesKey: values
+    {{- end }}
   {{- end }}

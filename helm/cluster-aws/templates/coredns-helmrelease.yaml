@@ -43,10 +43,18 @@ spec:
     remediation:
       retries: 30
   {{- $coreDnsHelmValues := (include "defaultCoreDnsHelmValues" .) | fromYaml -}}
-  {{- $customCoreDnsHelmValues := $.Values.global.apps.coreDns -}}
+  {{- $customCoreDnsHelmValues := $.Values.global.apps.coreDns.values -}}
   {{- if $customCoreDnsHelmValues }}
   {{- $coreDnsHelmValues = merge (deepCopy $customCoreDnsHelmValues) $coreDnsHelmValues -}}
   {{- end }}
   {{- if $coreDnsHelmValues }}
   values: {{- $coreDnsHelmValues | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if $.Values.global.apps.coreDns.extraConfigs }}
+  valuesFrom:
+    {{- range $config := $.Values.global.apps.coreDns.extraConfigs }}
+    - kind: {{ $config.kind }}
+      name: {{ $config.name }}
+      valuesKey: values
+    {{- end }}
   {{- end }}

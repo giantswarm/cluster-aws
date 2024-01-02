@@ -1,0 +1,14 @@
+global:
+  metadata:
+    name: test-wc-minimal
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+    topology:
+      mode: GiantSwarmManaged
+      prefixListId: "qwe,asd"
+      transitGatewayId: "123"
+    vpcMode: private
+  controlPlane:
+    apiMode: private
