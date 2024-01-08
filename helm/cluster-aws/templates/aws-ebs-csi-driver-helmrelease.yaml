@@ -28,7 +28,7 @@ spec:
       chart: aws-ebs-csi-driver-app
       # used by renovate
       # repo: giantswarm/aws-ebs-csi-driver-app
-      version: 2.28.0
+      version: 2.28.1
       sourceRef:
         kind: HelmRepository
         name: {{ include "resource.default.name" $ }}-default
