@@ -2,3 +2,35 @@ apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
 shutdownGracePeriod: 300s
 shutdownGracePeriodCriticalPods: 60s
+kernelMemcgNotification: true
+evictionSoft:
+  memory.available: "500Mi"
+evictionHard:
+  memory.available: "200Mi"
+  imagefs.available: "15%"
+evictionSoftGracePeriod:
+  memory.available: "5s"
+evictionMaxPodGracePeriod: 60
+kubeReserved:
+  cpu: 350m
+  memory: 1280Mi
+  ephemeral-storage: 1024Mi
+kubeReservedCgroup: /kubereserved.slice
+protectKernelDefaults: true
+systemReserved:
+  cpu: 250m
+  memory: 384Mi
+systemReservedCgroup: /system.slice
+tlsCipherSuites:
+  - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+  - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+  - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+  - TLS_RSA_WITH_AES_256_GCM_SHA384
+  - TLS_RSA_WITH_AES_128_GCM_SHA256
+serializeImagePulls: false
+streamingConnectionIdleTimeout: 1h
+allowedUnsafeSysctls:
+- "net.*"
