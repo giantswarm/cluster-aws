@@ -184,6 +184,7 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | `internal.migration.controlPlanePreKubeadmCommands[*]` | **command**|**Type:** `string`<br/>|
 | `internal.migration.etcdExtraArgs` | **Etcd extra arguments**|**Type:** `object`<br/>|
 | `internal.migration.etcdExtraArgs.PATTERN` | **argument**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^.+:.+$`<br/>|
+| `internal.migration.irsaAdditionalDomain` | **IRSA additional domain** - Additional domain to be added to IRSA trust relationship.|**Type:** `string`<br/>|
 | `internal.nodePools` | **Default node pool**|**Type:** `object`<br/>**Default:** `{"def00":{"customNodeLabels":["label=default"],"instanceType":"r6i.xlarge","maxSize":3,"minSize":3}}`|
 | `internal.nodePools.PATTERN` | **Node pool**|**Type:** `object`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>|
 | `internal.nodePools.PATTERN.additionalSecurityGroups` | **Machine pool additional security groups** - Additional security groups that will be added to the machine pool nodes.|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>|

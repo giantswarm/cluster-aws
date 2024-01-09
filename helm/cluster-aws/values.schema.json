@@ -1008,6 +1008,11 @@
                                     "title": "argument"
                                 }
                             }
+                        },
+                        "irsaAdditionalDomain": {
+                            "type": "string",
+                            "title": "IRSA additional domain",
+                            "description": "Additional domain to be added to IRSA trust relationship."
                         }
                     }
                 },
