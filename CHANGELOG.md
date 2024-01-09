@@ -11,8 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add new annotation for vintage irsa domain which is only used for migrating vintage clusters.
 
+## [0.56.0] - 2024-01-08
+
 ### Changed
 
+- Add topology annotations to AWSCluster
 - Add `cluster` chart as subchart.
 - Render Cluster resource from the `cluster` chart.
 - Delete Cluster resource template.
@@ -1086,7 +1089,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.55.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.56.0...HEAD
+[0.56.0]: https://github.com/giantswarm/cluster-aws/compare/v0.55.0...v0.56.0
 [0.55.0]: https://github.com/giantswarm/cluster-aws/compare/v0.54.0...v0.55.0
 [0.54.0]: https://github.com/giantswarm/cluster-aws/compare/v0.53.0...v0.54.0
 [0.53.0]: https://github.com/giantswarm/cluster-aws/compare/v0.52.0...v0.53.0
