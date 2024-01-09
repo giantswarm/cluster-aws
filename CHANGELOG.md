@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add new annotation for vintage irsa domain.
+- Add new annotation for vintage irsa domain which is only used for migrating vintage clusters.
 
 ### Changed
 
