@@ -192,6 +192,78 @@
                 "providerIntegration": {
                     "clusterAnnotationsTemplateName": "awsConnectivityLabels",
                     "controlPlane": {
+                        "kubeadmConfig": {
+                            "ignition": {
+                                "containerLinuxConfig": {
+                                    "additionalConfig": {
+                                        "systemd": {
+                                            "units": [
+                                                {
+                                                    "contents": {
+                                                        "install": {
+                                                            "wantedBy": [
+                                                                "local-fs-pre.target"
+                                                            ]
+                                                        },
+                                                        "mount": {
+                                                            "type": "xfs",
+                                                            "what": "/dev/disk/by-label/etcd",
+                                                            "where": "/var/lib/etcd"
+                                                        },
+                                                        "unit": {
+                                                            "description": "etcd volume",
+                                                            "defaultDependencies": false
+                                                        }
+                                                    },
+                                                    "enabled": true,
+                                                    "name": "var-lib-etcd.mount"
+                                                },
+                                                {
+                                                    "contents": {
+                                                        "install": {
+                                                            "wantedBy": [
+                                                                "local-fs-pre.target"
+                                                            ]
+                                                        },
+                                                        "mount": {
+                                                            "type": "xfs",
+                                                            "what": "/dev/disk/by-label/kubelet",
+                                                            "where": "/var/lib/kubelet"
+                                                        },
+                                                        "unit": {
+                                                            "description": "kubelet volume",
+                                                            "defaultDependencies": false
+                                                        }
+                                                    },
+                                                    "enabled": true,
+                                                    "name": "var-lib-kubelet.mount"
+                                                },
+                                                {
+                                                    "contents": {
+                                                        "install": {
+                                                            "wantedBy": [
+                                                                "local-fs-pre.target"
+                                                            ]
+                                                        },
+                                                        "mount": {
+                                                            "type": "xfs",
+                                                            "what": "/dev/disk/by-label/containerd",
+                                                            "where": "/var/lib/containerd"
+                                                        },
+                                                        "unit": {
+                                                            "description": "containerd volume",
+                                                            "defaultDependencies": false
+                                                        }
+                                                    },
+                                                    "enabled": true,
+                                                    "name": "var-lib-containerd.mount"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         "resources": {
                             "infrastructureMachineTemplate": {
                                 "group": "infrastructure.cluster.x-k8s.io",
@@ -208,7 +280,7 @@
                     "resourcesApi": {
                         "bastionResourceEnabled": false,
                         "clusterResourceEnabled": true,
-                        "controlPlaneResourceEnabled": false,
+                        "controlPlaneResourceEnabled": true,
                         "infrastructureCluster": {
                             "group": "infrastructure.cluster.x-k8s.io",
                             "kind": "AWSCluster",

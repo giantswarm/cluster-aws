@@ -82,6 +82,7 @@ jobs:
           mkdir -p /tmp/${{ matrix.values }}
           # TODO split files by "API"_"KIND"_"NAMESPACE|clusterwide"_"NAME"
           helm repo add cluster-catalog https://giantswarm.github.io/cluster-catalog/
+          helm repo add cluster-test-catalog https://giantswarm.github.io/cluster-test-catalog/
           helm dependency build helm/${{ github.event.repository.name }}
           helm template -n org-giantswarm -f "helm/${{ github.event.repository.name }}/ci/ci-values.yaml" -f "${{ matrix.values }}" "helm/${{ github.event.repository.name }}" > /tmp/${{ matrix.values }}/render-new.yaml
       - uses: actions/checkout@v4

@@ -4,6 +4,51 @@ cluster:
   providerIntegration:
     clusterAnnotationsTemplateName: awsConnectivityLabels
     controlPlane:
+      kubeadmConfig:
+        ignition:
+          containerLinuxConfig:
+            additionalConfig:
+              systemd:
+                units:
+                  - contents:
+                      install:
+                        wantedBy:
+                          - local-fs-pre.target
+                      mount:
+                        type: xfs
+                        what: /dev/disk/by-label/etcd
+                        where: /var/lib/etcd
+                      unit:
+                        defaultDependencies: false
+                        description: etcd volume
+                    enabled: true
+                    name: var-lib-etcd.mount
+                  - contents:
+                      install:
+                        wantedBy:
+                          - local-fs-pre.target
+                      mount:
+                        type: xfs
+                        what: /dev/disk/by-label/kubelet
+                        where: /var/lib/kubelet
+                      unit:
+                        defaultDependencies: false
+                        description: kubelet volume
+                    enabled: true
+                    name: var-lib-kubelet.mount
+                  - contents:
+                      install:
+                        wantedBy:
+                          - local-fs-pre.target
+                      mount:
+                        type: xfs
+                        what: /dev/disk/by-label/containerd
+                        where: /var/lib/containerd
+                      unit:
+                        defaultDependencies: false
+                        description: containerd volume
+                    enabled: true
+                    name: var-lib-containerd.mount
       resources:
         infrastructureMachineTemplate:
           group: infrastructure.cluster.x-k8s.io
@@ -16,7 +61,7 @@ cluster:
     resourcesApi:
       bastionResourceEnabled: false
       clusterResourceEnabled: true
-      controlPlaneResourceEnabled: false
+      controlPlaneResourceEnabled: true
       infrastructureCluster:
         group: infrastructure.cluster.x-k8s.io
         kind: AWSCluster
