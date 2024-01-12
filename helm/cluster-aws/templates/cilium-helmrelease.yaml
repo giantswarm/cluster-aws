@@ -19,7 +19,7 @@ hubble:
         operator: "Exists"
         effect: "NoSchedule"
 defaultPolicies:
-  enabled: true
+  enabled: false
 
   tolerations:
     - effect: NoSchedule
@@ -54,10 +54,10 @@ spec:
       chart: cilium
       # used by renovate
       # repo: giantswarm/cilium-app
-      version: 0.18.0
+      version: 0.18.0-41b7fd6c24e1960206d111d27873333ca08007c9
       sourceRef:
         kind: HelmRepository
-        name: {{ include "resource.default.name" $ }}-default
+        name: {{ include "resource.default.name" $ }}-default-test
   kubeConfig:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
