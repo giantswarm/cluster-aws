@@ -8,6 +8,26 @@ cluster:
         ignition:
           containerLinuxConfig:
             additionalConfig:
+              storage:
+                filesystems:
+                  - mount:
+                      device: /dev/xvdc
+                      format: xfs
+                      label: etcd
+                      wipeFilesystem: true
+                    name: etcd
+                  - mount:
+                      device: /dev/xvdd
+                      format: xfs
+                      label: containerd
+                      wipeFilesystem: true
+                    name: containerd
+                  - mount:
+                      device: /dev/xvde
+                      format: xfs
+                      label: kubelet
+                      wipeFilesystem: true
+                    name: kubelet
               systemd:
                 units:
                   - contents:

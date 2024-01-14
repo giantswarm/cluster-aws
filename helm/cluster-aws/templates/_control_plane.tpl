@@ -48,6 +48,7 @@ subnet:
 {{- end }}
 
 {{- define "control-plane" }}
+{{- if not $.Values.cluster.providerIntegration.resourcesApi.controlPlaneResourceEnabled }}
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: KubeadmControlPlane
 metadata:
@@ -250,6 +251,7 @@ spec:
   replicas: 3
   version: v{{ trimPrefix "v" .Values.internal.kubernetesVersion }}
 ---
+{{- end }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachineTemplate
 metadata:
