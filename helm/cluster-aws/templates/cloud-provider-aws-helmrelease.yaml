@@ -6,6 +6,9 @@ proxy:
   noProxy: "{{ include "noProxyList" $ }}"
   http: {{ .Values.global.connectivity.proxy.httpProxy | quote }}
   https: {{ .Values.global.connectivity.proxy.httpsProxy | quote }}
+global:
+  podSecurityStandards:
+    enforced: {{ .Values.global.podSecurityStandards.enforced }}
 {{- end }}
 {{- end }}
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
