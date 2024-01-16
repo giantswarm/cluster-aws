@@ -3,8 +3,24 @@
 cluster:
   providerIntegration:
     clusterAnnotationsTemplateName: awsConnectivityLabels
+    components:
+      systemd:
+        timesyncd:
+          ntp:
+            - 169.254.169.123
     controlPlane:
       kubeadmConfig:
+        clusterConfiguration:
+          apiServer:
+            additionalAdmissionPlugins:
+              - PodSecurityPolicy
+            apiAudiences:
+              templateName: awsApiServerApiAudiences
+            featureGates:
+              - enabled: true
+                name: CronJobTimeZone
+            serviceAccountIssuer:
+              clusterDomainPrefix: irsa
         ignition:
           containerLinuxConfig:
             additionalConfig:
@@ -72,7 +88,7 @@ cluster:
       resources:
         infrastructureMachineTemplate:
           group: infrastructure.cluster.x-k8s.io
-          kind: AWSMachine
+          kind: AWSMachineTemplate
           version: v1beta1
         infrastructureMachineTemplateSpecTemplateName: controlplane-awsmachinetemplate-spec
     pauseProperties:
