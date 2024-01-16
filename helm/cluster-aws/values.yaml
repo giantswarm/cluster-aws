@@ -88,12 +88,14 @@ global:
   metadata:
     preventDeletion: false
     servicePriority: highest
+  podSecurityStandards:
+    enforced: true
   providerSpecific:
     awsClusterRoleIdentityName: default
     flatcarAwsAccount: "706635527432"
 internal:
   cgroupsv1: false
-  kubernetesVersion: 1.25.15
+  kubernetesVersion: 1.25.16
   migration:
     apiBindPort: 6443
   nodePools:
