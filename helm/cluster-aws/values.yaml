@@ -93,7 +93,7 @@ global:
     flatcarAwsAccount: "706635527432"
 internal:
   cgroupsv1: false
-  kubernetesVersion: 1.24.16
+  kubernetesVersion: 1.25.15
   migration:
     apiBindPort: 6443
   nodePools:
