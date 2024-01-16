@@ -367,3 +367,7 @@ network-topology.giantswarm.io/prefix-list: "{{ .Values.global.connectivity.topo
 {{- define "awsApiServerApiAudiences" }}
 sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}
 {{- end }}
+
+{{- define "awsNoProxyList" }}
+- {{ $.Values.global.connectivity.network.vpcCidr }}
+{{- end }}

@@ -200,6 +200,17 @@
                             }
                         }
                     },
+                    "connectivity": {
+                        "proxy": {
+                            "noProxy": {
+                                "addresses": [
+                                    "elb.amazonaws.com",
+                                    "169.254.169.254"
+                                ],
+                                "addressesTemplate": "awsNoProxyList"
+                            }
+                        }
+                    },
                     "controlPlane": {
                         "kubeadmConfig": {
                             "clusterConfiguration": {
