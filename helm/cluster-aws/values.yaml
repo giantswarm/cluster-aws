@@ -71,8 +71,8 @@ global:
     vpcEndpointMode: GiantSwarmManaged
     vpcMode: public
   controlPlane:
-    apiServerPort: 443
     apiMode: public
+    apiServerPort: 443
     containerdVolumeSizeGB: 100
     etcdVolumeSizeGB: 100
     instanceType: r6i.xlarge

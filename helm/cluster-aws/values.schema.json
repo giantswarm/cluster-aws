@@ -692,7 +692,7 @@
                             "type": "integer",
                             "title": "API server port",
                             "description": "The public facing API server Load Balancer port.",
-                            "default": 6443,
+                            "default": 443,
                             "maximum": 65535,
                             "minimum": 0
                         },
