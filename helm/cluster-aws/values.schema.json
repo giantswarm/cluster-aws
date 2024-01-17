@@ -688,6 +688,14 @@
                             ],
                             "default": "public"
                         },
+                        "apiServerPort": {
+                            "type": "integer",
+                            "title": "API server port",
+                            "description": "The public facing API server Load Balancer port.",
+                            "default": 6443,
+                            "maximum": 65535,
+                            "minimum": 0
+                        },
                         "containerdVolumeSizeGB": {
                             "type": "integer",
                             "title": "Containerd volume size (GB)",
