@@ -20,4 +20,4 @@ dependencies:
     repository: "https://giantswarm.github.io/cluster-catalog"
   - name: cluster
     version: "0.2.1"
-    repository: "https://giantswarm.github.io/cluster-test-catalog"
+    repository: "https://giantswarm.github.io/cluster-catalog"
