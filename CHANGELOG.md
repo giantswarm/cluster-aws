@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - CI: trigger automated e2e tests on Renovate PRs.
 - Add new annotation for vintage irsa domain which is only used for migrating vintage clusters.
+- Use 443 as the default api-server Load Balancer port.
 
 ## [0.56.0] - 2024-01-08
 
