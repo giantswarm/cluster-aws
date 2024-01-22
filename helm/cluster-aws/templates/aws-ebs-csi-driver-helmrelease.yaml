@@ -3,7 +3,7 @@
 {{- define "defaultAwsEbsCsiDriverHelmValues" }}
 {{- if (.Values.global.connectivity.proxy).enabled }}
 proxy:
-  noProxy: "{{ include "noProxyList" $ }}"
+  noProxy: "{{ include "cluster.connectivity.proxy.noProxy" (dict "global" $.Values.global "providerIntegration" $.Values.cluster.providerIntegration) }}"
   http: {{ .Values.global.connectivity.proxy.httpProxy | quote }}
   https: {{ .Values.global.connectivity.proxy.httpsProxy | quote }}
 {{- end }}
