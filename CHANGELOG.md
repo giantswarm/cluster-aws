@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump cilium-app to v0.19.2 (upgrades Cilium to v1.14.5 and fixes a `CiliumNetworkPolicy` definition for reaching coredns)
+
 ## [0.57.0] - 2024-01-10
 
 ### Added
@@ -185,6 +189,7 @@ rm catalog.yaml
 
 - Change schema validation allowing to add additional properties in `global`.
 - Support longer node pool names and allow dashes.
+- Bump cilium-app to v0.18.0 (upgrades Cilium to v1.14.3)
 
 ### Fixed
 
