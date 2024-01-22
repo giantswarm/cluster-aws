@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bump cilium-app to v0.19.2 (upgrades Cilium to v1.14.5 and fixes a `CiliumNetworkPolicy` definition for reaching coredns)
 
+### Fixed
+
+- Fix removing allow-all Cilium network policies
+
 ## [0.57.0] - 2024-01-10
 
 ### Added
@@ -21,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Remove allow-all cilium network policies.
+- Remove allow-all Cilium network policies.
 
 ## [0.56.0] - 2024-01-08
 
