@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.57.0] - 2024-01-10
+
 ### Added
 
 - CI: trigger automated e2e tests on Renovate PRs.
@@ -1096,7 +1098,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.56.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.57.0...HEAD
+[0.57.0]: https://github.com/giantswarm/cluster-aws/compare/v0.56.0...v0.57.0
 [0.56.0]: https://github.com/giantswarm/cluster-aws/compare/v0.55.0...v0.56.0
 [0.55.0]: https://github.com/giantswarm/cluster-aws/compare/v0.54.0...v0.55.0
 [0.54.0]: https://github.com/giantswarm/cluster-aws/compare/v0.53.0...v0.54.0
