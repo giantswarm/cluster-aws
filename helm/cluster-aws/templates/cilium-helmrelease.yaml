@@ -20,7 +20,7 @@ hubble:
         effect: "NoSchedule"
 defaultPolicies:
   enabled: false
-  removed: true
+  remove: true
 
   tolerations:
     - effect: NoSchedule
