@@ -1,8 +1,35 @@
 {{/* Default values*/}}
 {{/* https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/values.yaml*/}}
 {{- define "defaultCiliumHelmValues" }}
+{{ if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+# https://docs.cilium.io/en/v1.14/network/concepts/routing/#id5
+ipam:
+  mode: eni
+eni:
+  enabled: true
+enableIPv4Masquerade: false
+
+# (https://github.com/giantswarm/cluster-operator/blob/master/service/controller/resource/clusterconfigmap/desired.go#L235)
+operator:
+  extraArgs:
+    - "--aws-release-excess-ips=true"
+tunnel: disabled
+cluster:
+    # Used by cilium to tag ENIs it creates and be able to filter and clean them up.
+    name: {{ include "resource.default.name" $ | quote }}
+cni:
+  # Use https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/templates/cilium-cni-configmap.yaml
+  customConf: true
+  exclusive: true
+  configMap: cilium-cni-configuration
+extraEnv:
+  - name: CNI_CONF_NAME
+    value: "21-cilium.conflist"
+{{ else if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "kubernetes" }}
 ipam:
   mode: kubernetes
+{{ end }}
+
 k8sServiceHost: api.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}
 k8sServicePort: '{{ .Values.global.controlPlane.apiServerPort }}'
 kubeProxyReplacement: strict
@@ -19,6 +46,7 @@ hubble:
         operator: "Exists"
         effect: "NoSchedule"
 defaultPolicies:
+  # Operators need to define their own network policies. Disable/undeploy the overarching allow rules.
   enabled: false
   remove: true
 

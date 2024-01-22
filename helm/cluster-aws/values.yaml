@@ -39,6 +39,8 @@ global:
           - endpoint: giantswarm.azurecr.io
   connectivity:
     availabilityZoneUsageLimit: 3
+    cilium:
+      ipamMode: kubernetes
     dns: {}
     network:
       pods:
