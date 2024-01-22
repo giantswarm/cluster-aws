@@ -361,6 +361,24 @@
                             "type": "string",
                             "title": "Base DNS domain"
                         },
+                        "cilium": {
+                            "type": "object",
+                            "title": "Cilium",
+                            "description": "Configuration of the Cilium CNI.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "ipamMode": {
+                                    "type": "string",
+                                    "title": "IPAM mode (IP allocation strategy)",
+                                    "description": "Use `eni` for ENI (AWS Elastic Network Interfaces) allocation of IPs in Cilium (https://docs.cilium.io/en/latest/network/concepts/ipam/eni/). The default is `kubernetes` (https://docs.cilium.io/en/latest/network/concepts/ipam/kubernetes/). WARNING: The `eni` feature is currently in an early stage and there might be breaking changes in the future. The networking infrastructure will be made consistent with our vintage cluster implementations so that pod IPs are placed in a secondary VPC CIDR.",
+                                    "enum": [
+                                        "eni",
+                                        "kubernetes"
+                                    ],
+                                    "default": "kubernetes"
+                                }
+                            }
+                        },
                         "dns": {
                             "type": "object",
                             "title": "DNS",
