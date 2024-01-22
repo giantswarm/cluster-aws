@@ -19,7 +19,8 @@ hubble:
         operator: "Exists"
         effect: "NoSchedule"
 defaultPolicies:
-  enabled: true
+  enabled: false
+  removed: true
 
   tolerations:
     - effect: NoSchedule
