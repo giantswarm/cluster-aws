@@ -203,11 +203,11 @@
                     "connectivity": {
                         "proxy": {
                             "noProxy": {
-                                "addresses": [
+                                "templateName": "awsNoProxyList",
+                                "value": [
                                     "elb.amazonaws.com",
                                     "169.254.169.254"
-                                ],
-                                "addressesTemplate": "awsNoProxyList"
+                                ]
                             }
                         }
                     },
