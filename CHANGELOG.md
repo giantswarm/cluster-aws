@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Use `gsoci.azurecr.io` for `kubeadm` container images.
+- Use `gsoci.azurecr.io` for sandbox container image (pause container).
+- Update `coredns` to `1.21.0` to use `gsoci.azurecr.io`.
+- Update `aws-cloud-controller-manager` to `1.25.14-gs2` to use `gsoci.azurecr.io`.
+
 ## [0.58.0] - 2024-01-22
 
 ### Changed

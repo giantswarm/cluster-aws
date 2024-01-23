@@ -1056,7 +1056,7 @@
                         "registry": {
                             "type": "string",
                             "title": "Registry",
-                            "default": "quay.io"
+                            "default": "gsoci.azurecr.io"
                         },
                         "tag": {
                             "type": "string",
@@ -1100,7 +1100,7 @@
                 "registry": {
                     "type": "string",
                     "title": "Registry",
-                    "default": "quay.io"
+                    "default": "gsoci.azurecr.io"
                 },
                 "tag": {
                     "type": "string",

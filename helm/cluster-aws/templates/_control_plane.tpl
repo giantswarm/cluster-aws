@@ -87,7 +87,7 @@ spec:
             {{- include "nodeDirectories" $ | nindent 14 }}
     clusterConfiguration:
       # Avoid accessibility issues (e.g. on private clusters) and potential future rate limits for the default `registry.k8s.io`
-      imageRepository: docker.io/giantswarm
+      imageRepository: gsoci.azurecr.io/giantswarm
 
       apiServer:
         timeoutForControlPlane: 20m
