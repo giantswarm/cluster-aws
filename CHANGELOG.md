@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.59.0] - 2024-01-23
+
 ### Changed
 
 - Use `gsoci.azurecr.io` for `kubeadm` container images.
@@ -1116,7 +1118,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.58.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.59.0...HEAD
+[0.59.0]: https://github.com/giantswarm/cluster-aws/compare/v0.58.0...v0.59.0
 [0.58.0]: https://github.com/giantswarm/cluster-aws/compare/v0.57.0...v0.58.0
 [0.57.0]: https://github.com/giantswarm/cluster-aws/compare/v0.56.0...v0.57.0
 [0.56.0]: https://github.com/giantswarm/cluster-aws/compare/v0.55.0...v0.56.0
