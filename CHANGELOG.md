@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Do not hardcode cilium k8s service port. Use `global.controlPlane.apiServerPort`.
+
 ## [0.59.0] - 2024-01-23
 
 ### Changed
