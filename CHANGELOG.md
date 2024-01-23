@@ -7,11 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.58.0] - 2024-01-22
+
+### Changed
+
+- Bump cilium-app to v0.19.2 (upgrades Cilium to v1.14.5 and fixes a `CiliumNetworkPolicy` definition for reaching coredns)
+
+### Fixed
+
+- Fix removing allow-all Cilium network policies
+
+## [0.57.0] - 2024-01-10
+
 ### Added
 
 - CI: trigger automated e2e tests on Renovate PRs.
 - Add new annotation for vintage irsa domain which is only used for migrating vintage clusters.
 - Use 443 as the default api-server Load Balancer port.
+
+### Changed
+
+- Remove allow-all Cilium network policies.
 
 ## [0.56.0] - 2024-01-08
 
@@ -179,6 +195,7 @@ rm catalog.yaml
 
 - Change schema validation allowing to add additional properties in `global`.
 - Support longer node pool names and allow dashes.
+- Bump cilium-app to v0.18.0 (upgrades Cilium to v1.14.3)
 
 ### Fixed
 
@@ -1092,7 +1109,9 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.56.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.58.0...HEAD
+[0.58.0]: https://github.com/giantswarm/cluster-aws/compare/v0.57.0...v0.58.0
+[0.57.0]: https://github.com/giantswarm/cluster-aws/compare/v0.56.0...v0.57.0
 [0.56.0]: https://github.com/giantswarm/cluster-aws/compare/v0.55.0...v0.56.0
 [0.55.0]: https://github.com/giantswarm/cluster-aws/compare/v0.54.0...v0.55.0
 [0.54.0]: https://github.com/giantswarm/cluster-aws/compare/v0.53.0...v0.54.0
