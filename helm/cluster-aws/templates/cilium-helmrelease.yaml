@@ -4,7 +4,7 @@
 ipam:
   mode: kubernetes
 k8sServiceHost: api.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}
-k8sServicePort: '443'
+k8sServicePort: '{{ .Values.global.controlPlane.apiServerPort }}'
 kubeProxyReplacement: strict
 hubble:
   relay:
