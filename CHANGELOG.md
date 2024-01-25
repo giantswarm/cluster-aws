@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.59.1] - 2024-01-24
+
+### Fixed
+
+- Do not hardcode cilium k8s service port. Use `global.controlPlane.apiServerPort`.
+
+## [0.59.0] - 2024-01-23
+
+### Changed
+
+- Use `gsoci.azurecr.io` for `kubeadm` container images.
+- Use `gsoci.azurecr.io` for sandbox container image (pause container).
+- Update `coredns` to `1.21.0` to use `gsoci.azurecr.io`.
+- Update `aws-cloud-controller-manager` to `1.25.14-gs2` to use `gsoci.azurecr.io`.
+
 ## [0.58.0] - 2024-01-22
 
 ### Changed
@@ -1109,7 +1124,9 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.58.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.59.1...HEAD
+[0.59.1]: https://github.com/giantswarm/cluster-aws/compare/v0.59.0...v0.59.1
+[0.59.0]: https://github.com/giantswarm/cluster-aws/compare/v0.58.0...v0.59.0
 [0.58.0]: https://github.com/giantswarm/cluster-aws/compare/v0.57.0...v0.58.0
 [0.57.0]: https://github.com/giantswarm/cluster-aws/compare/v0.56.0...v0.57.0
 [0.56.0]: https://github.com/giantswarm/cluster-aws/compare/v0.55.0...v0.56.0

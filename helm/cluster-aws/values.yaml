@@ -107,7 +107,7 @@ internal:
       minSize: 3
   sandboxContainerImage:
     name: giantswarm/pause
-    registry: quay.io
+    registry: gsoci.azurecr.io
     tag: "3.9"
   teleport:
     enabled: true
@@ -115,5 +115,5 @@ internal:
     version: 14.1.3
 kubectlImage:
   name: giantswarm/kubectl
-  registry: quay.io
+  registry: gsoci.azurecr.io
   tag: 1.23.5

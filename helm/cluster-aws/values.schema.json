@@ -1045,7 +1045,8 @@
                 },
                 "sandboxContainerImage": {
                     "type": "object",
-                    "title": "Kubectl image",
+                    "title": "Sandbox image",
+                    "description": "The image used by sandbox / pause container",
                     "properties": {
                         "name": {
                             "type": "string",
@@ -1055,7 +1056,7 @@
                         "registry": {
                             "type": "string",
                             "title": "Registry",
-                            "default": "quay.io"
+                            "default": "gsoci.azurecr.io"
                         },
                         "tag": {
                             "type": "string",
@@ -1099,7 +1100,7 @@
                 "registry": {
                     "type": "string",
                     "title": "Registry",
-                    "default": "quay.io"
+                    "default": "gsoci.azurecr.io"
                 },
                 "tag": {
                     "type": "string",
