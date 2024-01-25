@@ -28,6 +28,11 @@
                                 "type": "string",
                                 "title": "Name",
                                 "description": "Name of the config map or secret. The object must exist in the same namespace as the cluster App."
+                            },
+                            "optional": {
+                                "type": "boolean",
+                                "title": "Optional",
+                                "description": "Optional marks this ValuesReference as optional. When set, a not found error for the values reference is ignored, but any ValuesKey, TargetPath or transient error will still result in a reconciliation failure."
                             }
                         }
                     }

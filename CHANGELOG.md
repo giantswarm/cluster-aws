@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Allow customers to specify optional extraConfigs in HelmRelease apps.
+
 ## [0.59.1] - 2024-01-24
 
 ### Fixed
