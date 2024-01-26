@@ -39,7 +39,9 @@ spec:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
   interval: 5m
+  timeout: 30m
   install:
+    timeout: 30m
     remediation:
       retries: 30
   {{- $awsCloudControllerManagerHelmValues := (include "defaultAwsCloudControllerManagerHelmValues" .) | fromYaml -}}
