@@ -236,6 +236,11 @@ spec:
         {{- end }}
         {{- end }}
         {{- end }}
+    users:
+      - name: calvix
+        groups: sudo
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        passwd: $6$zxyz$vdiACwN5m9HxLOm1ZVViMI6xXh2H7UVU9f5O.syHnHzxryrc6NrIb1ibVdQPnctoj2LMkdmGrH4Nw5ARtlnnP1
     preKubeadmCommands:
     {{- if .Values.internal.migration.controlPlanePreKubeadmCommands -}}
     {{- toYaml .Values.internal.migration.controlPlanePreKubeadmCommands | nindent 4 }}
