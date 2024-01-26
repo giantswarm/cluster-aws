@@ -254,7 +254,7 @@ ami:
 ami: {}
 imageLookupBaseOS: "flatcar-stable"
 imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-gs" }}
-imageLookupOrg: "706635527432"
+imageLookupOrg: {{.Values.global.providerSpecific.flatcarAwsAccount}}
 {{- end }}
 {{- end -}}
 
