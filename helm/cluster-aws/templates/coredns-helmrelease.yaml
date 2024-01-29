@@ -9,6 +9,9 @@ cluster:
       clusterIPRange: {{ first .Values.global.connectivity.network.services.cidrBlocks | quote }}
     DNS:
       IP: {{ include "clusterDNS" $ | quote }}
+global:
+  podSecurityStandards:
+    enforced: {{ .Values.global.podSecurityStandards.enforced }}
 {{- end }}
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
