@@ -9,15 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.60.0] - 2024-01-29
 
+### Changed 
+
+- Bumped kubernetes version to 1.25.16. This change also enforces PSS.
+
+
 ## [0.59.1] - 2024-01-24
 
 ### Fixed
 
 - Do not hardcode cilium k8s service port. Use `global.controlPlane.apiServerPort`.
-
-### Changed 
-
-- Bumped kubernetes version to 1.25.16. This change also enforces PSS.
 
 ## [0.59.0] - 2024-01-23
 
