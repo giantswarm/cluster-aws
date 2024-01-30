@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update cluster chart version to the latest v0.3.1 release.
+- Update cluster chart version to the latest v0.7.0 release.
 - Render control plane resources from the cluster chart.
 - Use `cluster.connectivity.proxy.noProxy` Helm template from cluster chart to render NO_PROXY in cluster-aws.
 - Rename CI files, so they are used in GitHub action that checks Helm rendering.
