@@ -19,8 +19,6 @@ cluster:
       kubeadmConfig:
         clusterConfiguration:
           apiServer:
-            additionalAdmissionPlugins:
-              - PodSecurityPolicy
             apiAudiences:
               templateName: awsApiServerApiAudiences
             featureGates:
