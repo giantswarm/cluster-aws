@@ -4,7 +4,7 @@
 ipam:
   mode: kubernetes
 k8sServiceHost: api.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}
-k8sServicePort: '443'
+k8sServicePort: '{{ .Values.global.controlPlane.apiServerPort }}'
 kubeProxyReplacement: strict
 hubble:
   relay:
@@ -36,6 +36,9 @@ extraPolicies:
     enabled: {{ $.Values.global.connectivity.proxy.enabled }}
     httpProxy: {{ $.Values.global.connectivity.proxy.httpProxy | quote }}
     httpsProxy: {{ $.Values.global.connectivity.proxy.httpsProxy | quote }}
+global:
+  podSecurityStandards:
+    enforced: {{ .Values.global.podSecurityStandards.enforced }}
 {{- end }}
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -80,5 +83,6 @@ spec:
     - kind: {{ $config.kind }}
       name: {{ $config.name }}
       valuesKey: values
+      optional: {{ $config.optional | default false  }}
     {{- end }}
   {{- end }}

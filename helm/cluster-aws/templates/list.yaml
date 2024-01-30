@@ -1,6 +1,8 @@
 {{- include "validation" . }}
+{{- if semverCompare "<1.25.0" .Values.internal.kubernetesVersion -}}
 ---
 {{- include "psps" . }}
+{{- end }}
 ---
 {{- include "aws-cluster" . }}
 ---
