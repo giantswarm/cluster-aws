@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Allow customers to specify optional extraConfigs in HelmRelease apps.
+
 ## [0.60.0] - 2024-01-29
 
 ### Changed 
 
 - Bumped kubernetes version to 1.25.16. This change also enforces PSS.
-
 
 ## [0.59.1] - 2024-01-24
 

@@ -83,5 +83,6 @@ spec:
     - kind: {{ $config.kind }}
       name: {{ $config.name }}
       valuesKey: values
+      optional: {{ $config.optional | default false  }}
     {{- end }}
   {{- end }}
