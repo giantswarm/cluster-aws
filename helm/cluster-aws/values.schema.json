@@ -878,6 +878,17 @@
                         }
                     }
                 },
+                "podSecurityStandards": {
+                    "type": "object",
+                    "title": "Pod Security Standards",
+                    "properties": {
+                        "enforced": {
+                            "type": "boolean",
+                            "title": "Enforced",
+                            "default": true
+                        }
+                    }
+                },
                 "providerSpecific": {
                     "type": "object",
                     "title": "AWS settings",
@@ -941,7 +952,7 @@
                     "examples": [
                         "1.24.7"
                     ],
-                    "default": "1.24.16"
+                    "default": "1.25.16"
                 },
                 "migration": {
                     "type": "object",

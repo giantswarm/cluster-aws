@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Allow customers to specify optional extraConfigs in HelmRelease apps.
 
+## [0.60.0] - 2024-01-29
+
+### Changed 
+
+- Bumped kubernetes version to 1.25.16. This change also enforces PSS.
+
 ## [0.59.1] - 2024-01-24
 
 ### Fixed
@@ -1128,7 +1134,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.59.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.60.0...HEAD
+[0.60.0]: https://github.com/giantswarm/cluster-aws/compare/v0.59.1...v0.60.0
 [0.59.1]: https://github.com/giantswarm/cluster-aws/compare/v0.59.0...v0.59.1
 [0.59.0]: https://github.com/giantswarm/cluster-aws/compare/v0.58.0...v0.59.0
 [0.58.0]: https://github.com/giantswarm/cluster-aws/compare/v0.57.0...v0.58.0
