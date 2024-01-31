@@ -107,7 +107,7 @@ cluster:
         group: infrastructure.cluster.x-k8s.io
         kind: AWSCluster
         version: v1beta1
-      machineHealthCheckResourceEnabled: false
+      machineHealthCheckResourceEnabled: true
       machinePoolResourcesEnabled: false
       nodePoolKind: MachinePool
 global:

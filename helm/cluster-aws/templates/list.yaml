@@ -9,5 +9,3 @@
 {{- include "control-plane" . }}
 ---
 {{- include "machine-pools" . }}
----
-{{- include "machine-health-check" . }}
