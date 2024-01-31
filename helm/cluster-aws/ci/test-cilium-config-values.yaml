@@ -10,4 +10,6 @@ global:
       values:
         ipam:
           mode: eni
+        cni:
+          configMap: some-other-cilium-cni-configuration
         foo: "bar"
