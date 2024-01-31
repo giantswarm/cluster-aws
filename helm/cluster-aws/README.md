@@ -42,12 +42,14 @@ Configuration of apps that are part of the cluster.
 | `global.apps.awsEbsCsiDriver.extraConfigs[*].kind` | **Kind** - Specifies whether the resource is a config map or a secret.|**Type:** `string`<br/>|
 | `global.apps.awsEbsCsiDriver.extraConfigs[*].name` | **Name** - Name of the config map or secret. The object must exist in the same namespace as the cluster App.|**Type:** `string`<br/>|
 | `global.apps.awsEbsCsiDriver.values` | **Values** - Values to be passed to the app. Values will have higher priority than values from configmaps.|**Type:** `object`<br/>|
-| `global.apps.cilium` | **App** - Configuration of an default app that is part of the cluster.|**Type:** `object`<br/>|
+| `global.apps.cilium` | **Cilium** - Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app.|**Type:** `object`<br/>|
 | `global.apps.cilium.extraConfigs` | **Extra config maps or secrets** - Extra config maps or secrets that will be used to customize to the app. The desired values must be under configmap or secret key 'values'. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.|**Type:** `array`<br/>|
 | `global.apps.cilium.extraConfigs[*]` | **Config map or secret**|**Type:** `object`<br/>|
 | `global.apps.cilium.extraConfigs[*].kind` | **Kind** - Specifies whether the resource is a config map or a secret.|**Type:** `string`<br/>|
 | `global.apps.cilium.extraConfigs[*].name` | **Name** - Name of the config map or secret. The object must exist in the same namespace as the cluster App.|**Type:** `string`<br/>|
 | `global.apps.cilium.values` | **Values** - Values to be passed to the app. Values will have higher priority than values from configmaps.|**Type:** `object`<br/>|
+| `global.apps.cilium.values.ipam` | **IPAM**|**Type:** `object`<br/>|
+| `global.apps.cilium.values.ipam.mode` | **IPAM mode (IP allocation strategy)** - Use `eni` for ENI (AWS Elastic Network Interfaces) allocation of IPs in Cilium (https://docs.cilium.io/en/latest/network/concepts/ipam/eni/). The default is `kubernetes` (https://docs.cilium.io/en/latest/network/concepts/ipam/kubernetes/). WARNING: The `eni` feature is currently in an early stage and there might be breaking changes in the future. The networking infrastructure will be made consistent with our vintage cluster implementations so that pod IPs are placed in a secondary VPC CIDR.|**Type:** `string`<br/>**Default:** `"kubernetes"`|
 | `global.apps.coreDns` | **App** - Configuration of an default app that is part of the cluster.|**Type:** `object`<br/>|
 | `global.apps.coreDns.extraConfigs` | **Extra config maps or secrets** - Extra config maps or secrets that will be used to customize to the app. The desired values must be under configmap or secret key 'values'. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.|**Type:** `array`<br/>|
 | `global.apps.coreDns.extraConfigs[*]` | **Config map or secret**|**Type:** `object`<br/>|
@@ -85,8 +87,6 @@ Properties within the `.global.connectivity` object
 | :----------- | :-------------- | :--------------- |
 | `global.connectivity.availabilityZoneUsageLimit` | **Availability zones** - Maximum number of availability zones (AZ) that should be used in a region. If a region has more than this number of AZs then this number of AZs will be picked randomly when creating subnets.|**Type:** `integer`<br/>**Default:** `3`|
 | `global.connectivity.baseDomain` | **Base DNS domain**|**Type:** `string`<br/>|
-| `global.connectivity.cilium` | **Cilium** - Configuration of the Cilium CNI.|**Type:** `object`<br/>|
-| `global.connectivity.cilium.ipamMode` | **IPAM mode (IP allocation strategy)** - Use `eni` for ENI (AWS Elastic Network Interfaces) allocation of IPs in Cilium (https://docs.cilium.io/en/latest/network/concepts/ipam/eni/). The default is `kubernetes` (https://docs.cilium.io/en/latest/network/concepts/ipam/kubernetes/). WARNING: The `eni` feature is currently in an early stage and there might be breaking changes in the future. The networking infrastructure will be made consistent with our vintage cluster implementations so that pod IPs are placed in a secondary VPC CIDR.|**Type:** `string`<br/>**Default:** `"kubernetes"`|
 | `global.connectivity.dns` | **DNS**|**Type:** `object`<br/>|
 | `global.connectivity.dns.resolverRulesOwnerAccount` | **Resolver rules owner** - ID of the AWS account that created the resolver rules to be associated with the workload cluster VPC.|**Type:** `string`<br/>|
 | `global.connectivity.network` | **Network**|**Type:** `object`<br/>|
