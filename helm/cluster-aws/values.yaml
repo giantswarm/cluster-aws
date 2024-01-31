@@ -28,7 +28,10 @@ global:
   apps:
     awsCloudControllerManager: {}
     awsEbsCsiDriver: {}
-    cilium: {}
+    cilium:
+      values:
+        ipam:
+          mode: kubernetes
     coreDns: {}
     verticalPodAutoscalerCrd: {}
   components:
@@ -39,8 +42,6 @@ global:
           - endpoint: giantswarm.azurecr.io
   connectivity:
     availabilityZoneUsageLimit: 3
-    cilium:
-      ipamMode: kubernetes
     dns: {}
     network:
       pods:

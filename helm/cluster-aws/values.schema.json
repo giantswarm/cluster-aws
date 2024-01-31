@@ -248,10 +248,59 @@
                             "description": "Configuration of aws-ebs-csi-driver-app. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-app."
                         },
                         "cilium": {
-                            "$ref": "#/$defs/app",
                             "type": "object",
                             "title": "Cilium",
-                            "description": "Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app."
+                            "description": "Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app.",
+                            "properties": {
+                                "extraConfigs": {
+                                    "type": "array",
+                                    "title": "Extra config maps or secrets",
+                                    "description": "Extra config maps or secrets that will be used to customize to the app. The desired values must be under configmap or secret key 'values'. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.",
+                                    "items": {
+                                        "type": "object",
+                                        "title": "Config map or secret",
+                                        "properties": {
+                                            "kind": {
+                                                "type": "string",
+                                                "title": "Kind",
+                                                "description": "Specifies whether the resource is a config map or a secret.",
+                                                "enum": [
+                                                    "ConfigMap",
+                                                    "Secret"
+                                                ]
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "title": "Name",
+                                                "description": "Name of the config map or secret. The object must exist in the same namespace as the cluster App."
+                                            }
+                                        }
+                                    }
+                                },
+                                "values": {
+                                    "type": "object",
+                                    "title": "Values",
+                                    "description": "Values to be passed to the app. Values will have higher priority than values from configmaps.",
+                                    "properties": {
+                                        "ipam": {
+                                            "type": "object",
+                                            "title": "IPAM",
+                                            "properties": {
+                                                "mode": {
+                                                    "type": "string",
+                                                    "title": "IPAM mode (IP allocation strategy)",
+                                                    "description": "Use `eni` for ENI (AWS Elastic Network Interfaces) allocation of IPs in Cilium (https://docs.cilium.io/en/latest/network/concepts/ipam/eni/). The default is `kubernetes` (https://docs.cilium.io/en/latest/network/concepts/ipam/kubernetes/). WARNING: The `eni` feature is currently in an early stage and there might be breaking changes in the future. The networking infrastructure will be made consistent with our vintage cluster implementations so that pod IPs are placed in a secondary VPC CIDR.",
+                                                    "enum": [
+                                                        "eni",
+                                                        "kubernetes"
+                                                    ],
+                                                    "default": "kubernetes"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         },
                         "coreDns": {
                             "$ref": "#/$defs/app",
@@ -360,24 +409,6 @@
                         "baseDomain": {
                             "type": "string",
                             "title": "Base DNS domain"
-                        },
-                        "cilium": {
-                            "type": "object",
-                            "title": "Cilium",
-                            "description": "Configuration of the Cilium CNI.",
-                            "additionalProperties": false,
-                            "properties": {
-                                "ipamMode": {
-                                    "type": "string",
-                                    "title": "IPAM mode (IP allocation strategy)",
-                                    "description": "Use `eni` for ENI (AWS Elastic Network Interfaces) allocation of IPs in Cilium (https://docs.cilium.io/en/latest/network/concepts/ipam/eni/). The default is `kubernetes` (https://docs.cilium.io/en/latest/network/concepts/ipam/kubernetes/). WARNING: The `eni` feature is currently in an early stage and there might be breaking changes in the future. The networking infrastructure will be made consistent with our vintage cluster implementations so that pod IPs are placed in a secondary VPC CIDR.",
-                                    "enum": [
-                                        "eni",
-                                        "kubernetes"
-                                    ],
-                                    "default": "kubernetes"
-                                }
-                            }
                         },
                         "dns": {
                             "type": "object",

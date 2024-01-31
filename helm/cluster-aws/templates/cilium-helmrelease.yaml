@@ -1,10 +1,8 @@
 {{/* Default values*/}}
 {{/* https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/values.yaml*/}}
 {{- define "defaultCiliumHelmValues" }}
-{{ if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+{{ if eq .Values.global.apps.cilium.values.ipam.mode "eni" }}
 # https://docs.cilium.io/en/v1.14/network/concepts/routing/#id5
-ipam:
-  mode: eni
 eni:
   enabled: true
 enableIPv4Masquerade: false
@@ -24,9 +22,6 @@ cni:
 extraEnv:
   - name: CNI_CONF_NAME
     value: "21-cilium.conflist"
-{{ else if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "kubernetes" }}
-ipam:
-  mode: kubernetes
 {{ end }}
 
 k8sServiceHost: api.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}

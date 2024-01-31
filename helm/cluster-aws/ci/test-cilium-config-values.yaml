@@ -1,0 +1,13 @@
+global:
+  metadata:
+    name: test-wc-minimal
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+  apps:
+    cilium:
+      values:
+        ipam:
+          mode: eni
+        foo: "bar"
