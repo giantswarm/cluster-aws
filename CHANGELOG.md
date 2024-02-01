@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Allow customers to specify optional extraConfigs in HelmRelease apps.
 - Include cluster-test-catalog in the CI, so we can more easily test dev builds of subcharts.
+- Make Cilium ENI-based IP allocation configurable with new high-level `global.connectivity.cilium.ipamMode` value
 
 ### Changed
 
@@ -23,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.60.0] - 2024-01-29
 
-### Changed 
+### Changed
 
 - Bumped kubernetes version to 1.25.16. This change also enforces PSS.
 
