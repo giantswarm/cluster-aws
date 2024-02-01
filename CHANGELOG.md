@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove KubeadmControlPlane resource.
 - Use `cluster.connectivity.proxy.noProxy` Helm template from cluster chart to render NO_PROXY in cluster-aws.
 - Rename CI files, so they are used in GitHub action that checks Helm rendering.
+- Remove ingress and egress rules from the security group that AWS creates by default when creating a new VPC.
 
 ## [0.60.0] - 2024-01-29
 
