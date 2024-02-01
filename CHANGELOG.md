@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Allow customers to specify optional extraConfigs in HelmRelease apps.
+- Include cluster-test-catalog in the CI, so we can more easily test dev builds of subcharts.
 
 ### Changed
 
