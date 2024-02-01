@@ -20,7 +20,6 @@ cluster:
 cni:
   # Use https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/templates/cilium-cni-configmap.yaml
   customConf: true
-  exclusive: true
   configMap: cilium-cni-configuration
 extraEnv:
   - name: CNI_CONF_NAME
