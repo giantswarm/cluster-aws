@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Allow customers to specify optional extraConfigs in HelmRelease apps.
+- Include cluster-test-catalog in the CI, so we can more easily test dev builds of subcharts.
+
+### Changed
+
+- Update cluster chart version to the latest v0.7.0 release.
+- Render control plane resources from the cluster chart.
+- Remove KubeadmControlPlane resource.
+- Use `cluster.connectivity.proxy.noProxy` Helm template from cluster chart to render NO_PROXY in cluster-aws.
+- Rename CI files, so they are used in GitHub action that checks Helm rendering.
+- Remove ingress and egress rules from the security group that AWS creates by default when creating a new VPC.
+
+## [0.60.0] - 2024-01-29
+
+### Changed 
+
+- Bumped kubernetes version to 1.25.16. This change also enforces PSS.
+
 ## [0.59.1] - 2024-01-24
 
 ### Fixed
@@ -1124,7 +1144,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.59.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.60.0...HEAD
+[0.60.0]: https://github.com/giantswarm/cluster-aws/compare/v0.59.1...v0.60.0
 [0.59.1]: https://github.com/giantswarm/cluster-aws/compare/v0.59.0...v0.59.1
 [0.59.0]: https://github.com/giantswarm/cluster-aws/compare/v0.58.0...v0.59.0
 [0.58.0]: https://github.com/giantswarm/cluster-aws/compare/v0.57.0...v0.58.0

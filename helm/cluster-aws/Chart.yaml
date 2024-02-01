@@ -6,7 +6,7 @@ sources:
 description: A helm chart for creating Cluster API clusters with the AWS infrastructure provider (CAPA).
 icon: https://s.giantswarm.io/app-icons/aws/2/dark.svg
 type: application
-version: 0.59.1
+version: 0.60.0
 annotations:
   application.giantswarm.io/team: "phoenix"
   application.giantswarm.io/app-type: "cluster"
@@ -16,8 +16,8 @@ restrictions:
     - capa
 dependencies:
   - name: cluster-shared
-    version: "0.6.5"
+    version: "0.7.0"
     repository: "https://giantswarm.github.io/cluster-catalog"
   - name: cluster
-    version: "0.2.1"
+    version: "0.7.0"
     repository: "https://giantswarm.github.io/cluster-catalog"
