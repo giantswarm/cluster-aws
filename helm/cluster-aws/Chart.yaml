@@ -19,5 +19,5 @@ dependencies:
     version: "0.7.0"
     repository: "https://giantswarm.github.io/cluster-catalog"
   - name: cluster
-    version: "0.7.1-6a4e0977f04d345b661a20deb8c027e9fe4c173c"
+    version: "0.7.1-f07e5b124a235d695aecb0e9089ae08c96e44b6b"
     repository: "https://giantswarm.github.io/cluster-test-catalog"
