@@ -173,7 +173,7 @@
         }
     },
     "type": "object",
-    "additionalProperties": false,
+    "additionalProperties": true,
     "properties": {
         "baseDomain": {
             "type": "string",
