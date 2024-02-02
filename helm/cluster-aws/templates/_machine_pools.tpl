@@ -76,6 +76,7 @@ files:
 {{- range $name, $value := .Values.global.nodePools | default .Values.internal.nodePools }}
 {{- $ := set $ "nodePoolName" $name }}
 {{- $ := set $ "nodePoolObject" $value }}
+{{- if not $.Values.cluster.providerIntegration.resourcesApi.machinePoolResourcesEnabled }}
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
@@ -105,6 +106,7 @@ spec:
         name: {{ include "resource.default.name" $ }}-{{ $name }}
       version: {{ $.Values.internal.kubernetesVersion }}
 ---
+{{- end }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachinePool
 metadata:
@@ -171,6 +173,7 @@ spec:
   {{- end }}
   refreshPreferences:
     instanceWarmup: 300
+{{- if not $.Values.cluster.providerIntegration.resourcesApi.machinePoolResourcesEnabled }}
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfig
@@ -182,6 +185,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-{{ $name }}-{{ include "machinepool-kubeadmconfig-spec-hash" $ }}
   namespace: {{ $.Release.Namespace }}
 spec: {{- include "machinepool-kubeadmconfig-spec" $ | nindent 2 }}
+{{- end }}
 ---
 {{ end }}
 {{- end -}}

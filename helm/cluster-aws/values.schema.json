@@ -353,8 +353,13 @@
                             "kind": "AWSCluster",
                             "version": "v1beta1"
                         },
+                        "infrastructureMachinePool": {
+                            "group": "infrastructure.cluster.x-k8s.io",
+                            "kind": "AWSMachinePool",
+                            "version": "v1beta1"
+                        },
                         "machineHealthCheckResourceEnabled": true,
-                        "machinePoolResourcesEnabled": false,
+                        "machinePoolResourcesEnabled": true,
                         "nodePoolKind": "MachinePool"
                     }
                 }
