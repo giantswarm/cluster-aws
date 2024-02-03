@@ -4,6 +4,6 @@ dependencies:
   version: 0.7.0
 - name: cluster
   repository: https://giantswarm.github.io/cluster-test-catalog
-  version: 0.7.1-b2420d454903dfcf678f5d9c9f8ea7f13fb73925
-digest: sha256:447c71e41c3740fe892ac75372aae978591e49fb5e588443e57befe32b4c5f01
-generated: "2024-02-03T02:08:48.213398897+01:00"
+  version: 0.7.1-de4871de78a077852d0c97ef3f1a7d3bd33d1cf5
+digest: sha256:bfd9890fe8fbc7f329258b7fef5df05a9bd9c0d618cbd4091f69e1c4bd517bd5
+generated: "2024-02-03T11:11:22.142894089+01:00"
