@@ -73,7 +73,7 @@ files:
 {{- end }}
 
 {{- define "machine-pools" }}
-{{- range $name, $value := .Values.global.nodePools | default .Values.internal.nodePools }}
+{{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
 {{- $ := set $ "nodePoolName" $name }}
 {{- $ := set $ "nodePoolObject" $value }}
 {{- if not $.Values.cluster.providerIntegration.resourcesApi.machinePoolResourcesEnabled }}
@@ -173,8 +173,8 @@ spec:
   {{- end }}
   refreshPreferences:
     instanceWarmup: 300
-{{- if not $.Values.cluster.providerIntegration.resourcesApi.machinePoolResourcesEnabled }}
 ---
+{{- if not $.Values.cluster.providerIntegration.resourcesApi.machinePoolResourcesEnabled }}
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfig
 metadata:
@@ -185,7 +185,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-{{ $name }}-{{ include "machinepool-kubeadmconfig-spec-hash" $ }}
   namespace: {{ $.Release.Namespace }}
 spec: {{- include "machinepool-kubeadmconfig-spec" $ | nindent 2 }}
-{{- end }}
 ---
+{{- end }}
 {{ end }}
 {{- end -}}

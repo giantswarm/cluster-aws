@@ -114,6 +114,14 @@ cluster:
       machineHealthCheckResourceEnabled: true
       machinePoolResourcesEnabled: true
       nodePoolKind: MachinePool
+    workers:
+      defaultNodePools:
+        def00:
+          customNodeLabels:
+            - label=default
+          instanceType: r6i.xlarge
+          maxSize: 3
+          minSize: 3
 global:
   apps:
     awsCloudControllerManager: {}
@@ -188,13 +196,6 @@ internal:
   kubernetesVersion: 1.25.16
   migration:
     apiBindPort: 6443
-  nodePools:
-    def00:
-      customNodeLabels:
-        - label=default
-      instanceType: r6i.xlarge
-      maxSize: 3
-      minSize: 3
   sandboxContainerImage:
     name: giantswarm/pause
     registry: gsoci.azurecr.io
