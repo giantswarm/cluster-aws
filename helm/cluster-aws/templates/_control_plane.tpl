@@ -98,7 +98,7 @@ spec:
           {{- end }}
         extraArgs:
           cloud-provider: external
-          service-account-issuer: "https://s3.{{include "aws-region" .}}.amazonaws.com.cn/{{include "aws-account-id" .}}-g8s-{{include "resource.default.name" $}}-oidc-pod-identity-v2"
+          service-account-issuer: "{{ if hasPrefix "cn-" (include "aws-region" .) }}https://s3.{{include "aws-region" .}}.amazonaws.com.cn/{{include "aws-account-id" .}}-g8s-{{include "resource.default.name" $}}-oidc-pod-identity-v2{{else}}https://irsa.{{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}{{end}}"
           {{- if .Values.global.controlPlane.oidc.issuerUrl }}
           {{- with .Values.global.controlPlane.oidc }}
           oidc-issuer-url: {{ .issuerUrl }}
@@ -235,11 +235,6 @@ spec:
         {{- end }}
         {{- end }}
         {{- end }}
-    users:
-      - name: calvix
-        groups: sudo
-        sudo: ALL=(ALL) NOPASSWD:ALL
-        passwd: $6$zxyz$vdiACwN5m9HxLOm1ZVViMI6xXh2H7UVU9f5O.syHnHzxryrc6NrIb1ibVdQPnctoj2LMkdmGrH4Nw5ARtlnnP1
     preKubeadmCommands:
     {{- if .Values.internal.migration.controlPlanePreKubeadmCommands -}}
     {{- toYaml .Values.internal.migration.controlPlanePreKubeadmCommands | nindent 4 }}
