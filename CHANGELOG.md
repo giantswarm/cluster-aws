@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Render MachineHealthCheck resource from the cluster chart.
+- Remove MachineHealthCheck resource.
+
 ### Fixed
 
 - Remove duplicate containerd config as it's already deployed by the cluster chart.
@@ -28,8 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove ingress and egress rules from the security group that AWS creates by default when creating a new VPC.
 - Remove unnecessary architect brackets cleanup.
 - Use CI values to render templates locally.
-- Render MachineHealthCheck resource from the cluster chart.
-- Remove MachineHealthCheck resource.
 
 ## [0.60.0] - 2024-01-29
 
