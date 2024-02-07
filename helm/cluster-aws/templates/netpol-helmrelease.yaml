@@ -5,7 +5,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-network-policies
   namespace: {{ $.Release.Namespace }}
   annotations:
-    cluster.giantswarm.io/description: "{{ .Values.clusterDescription }}"
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
   labels:
     {{- include "labels.common" . | nindent 4 }}
 spec:
@@ -25,7 +25,7 @@ spec:
   kubeConfig:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
-  interval: {{ ((.Values.helmReleases).coredns).interval | default "10m" }}
+  interval: 1m
   install:
     remediation:
       retries: 30
