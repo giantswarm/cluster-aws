@@ -6,8 +6,6 @@
 ---
 {{- include "aws-cluster" . }}
 ---
-{{- include "registry-secret" . }}
----
 {{- include "control-plane" . }}
 ---
 {{- include "machine-pools" . }}
