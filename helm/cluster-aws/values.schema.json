@@ -528,6 +528,11 @@
                             "type": "object",
                             "title": "Network",
                             "properties": {
+                                "allowAllEgress": {
+                                  "default": false,
+                                  "title": "Allow all egress",
+                                  "type": "boolean"
+                                },
                                 "internetGatewayId": {
                                     "type": "string",
                                     "title": "Internet Gateway ID",
