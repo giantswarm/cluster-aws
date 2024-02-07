@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Remove duplicate registry config as it's already deployed by the cluster chart.
+- Remove duplicate containerd config as it's already deployed by the cluster chart.
 
 ## [0.60.1] - 2024-02-05
 
