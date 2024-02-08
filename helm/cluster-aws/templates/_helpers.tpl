@@ -363,3 +363,10 @@ network-topology.giantswarm.io/transit-gateway: "{{ .Values.global.connectivity.
 network-topology.giantswarm.io/prefix-list: "{{ .Values.global.connectivity.topology.prefixListId }}"
 {{- end }}
 {{- end }}
+
+{{- define "resource.default.additionalTags" -}}
+{{- if .Values.global.providerSpecific.additionalResourceTags }}
+{{ toYaml .Values.global.providerSpecific.additionalResourceTags }}
+{{- end }}
+giantswarm.io/cluster: {{ include "resource.default.name" $ }}
+{{- end -}}
