@@ -1,13 +1,11 @@
 {{- include "validation" . }}
+{{- if semverCompare "<1.25.0" .Values.internal.kubernetesVersion -}}
 ---
 {{- include "psps" . }}
+{{- end }}
 ---
 {{- include "aws-cluster" . }}
----
-{{- include "registry-secret" . }}
 ---
 {{- include "control-plane" . }}
 ---
 {{- include "machine-pools" . }}
----
-{{- include "machine-health-check" . }}

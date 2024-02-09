@@ -364,6 +364,14 @@ network-topology.giantswarm.io/prefix-list: "{{ .Values.global.connectivity.topo
 {{- end }}
 {{- end }}
 
+{{- define "awsApiServerApiAudiences" }}
+sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}
+{{- end }}
+
+{{- define "awsNoProxyList" }}
+- {{ $.Values.global.connectivity.network.vpcCidr }}
+{{- end }}
+
 {{- define "resource.default.additionalTags" -}}
 {{- if .Values.global.providerSpecific.additionalResourceTags }}
 {{ toYaml .Values.global.providerSpecific.additionalResourceTags }}
