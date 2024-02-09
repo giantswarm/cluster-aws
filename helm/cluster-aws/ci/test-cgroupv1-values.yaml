@@ -1,0 +1,11 @@
+global:
+  metadata:
+    name: test-wc-minimal
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+cluster:
+  internal:
+    advancedConfiguration:
+      cgroupsv1: true
