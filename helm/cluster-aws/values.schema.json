@@ -529,9 +529,9 @@
                             "title": "Network",
                             "properties": {
                                 "allowAllEgress": {
-                                  "default": false,
-                                  "title": "Allow all egress",
-                                  "type": "boolean"
+                                    "type": "boolean",
+                                    "title": "Allow all egress",
+                                    "default": false
                                 },
                                 "internetGatewayId": {
                                     "type": "string",
