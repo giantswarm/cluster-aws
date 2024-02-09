@@ -5,6 +5,8 @@ global:
     servicePriority: lowest
   connectivity:
     baseDomain: example.com
+internal:
+  cgroupsv1: true
 cluster:
   internal:
     advancedConfiguration:
