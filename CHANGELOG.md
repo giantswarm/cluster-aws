@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Render MachineHealthCheck resource from the cluster chart.
+- Remove MachineHealthCheck resource.
+
+### Fixed
+
+- Remove duplicate containerd config as it's already deployed by the cluster chart.
+
 ## [0.60.1] - 2024-02-05
 
 ### Added
@@ -16,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update cluster chart version to the latest v0.7.0 release.
+- Update cluster chart version to the latest v0.7.1 release.
 - Render control plane resources from the cluster chart.
 - Remove KubeadmControlPlane resource.
 - Use `cluster.connectivity.proxy.noProxy` Helm template from cluster chart to render NO_PROXY in cluster-aws.
