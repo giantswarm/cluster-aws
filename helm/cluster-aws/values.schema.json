@@ -353,7 +353,7 @@
                             "kind": "AWSCluster",
                             "version": "v1beta1"
                         },
-                        "machineHealthCheckResourceEnabled": false,
+                        "machineHealthCheckResourceEnabled": true,
                         "machinePoolResourcesEnabled": false,
                         "nodePoolKind": "MachinePool"
                     }

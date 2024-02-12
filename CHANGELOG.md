@@ -9,18 +9,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Allow customers to specify optional extraConfigs in HelmRelease apps.
-- Include cluster-test-catalog in the CI, so we can more easily test dev builds of subcharts.
 - Make Cilium ENI-based IP allocation configurable with new high-level `global.connectivity.cilium.ipamMode` value
 
 ### Changed
 
-- Update cluster chart version to the latest v0.7.0 release.
+- Render MachineHealthCheck resource from the cluster chart.
+- Remove MachineHealthCheck resource.
+
+### Fixed
+
+- Remove duplicate containerd config as it's already deployed by the cluster chart.
+
+## [0.60.1] - 2024-02-05
+
+### Added
+
+- Allow customers to specify optional extraConfigs in HelmRelease apps.
+- Include cluster-test-catalog in the CI, so we can more easily test dev builds of subcharts.
+
+### Changed
+
+- Update cluster chart version to the latest v0.7.1 release.
 - Render control plane resources from the cluster chart.
 - Remove KubeadmControlPlane resource.
 - Use `cluster.connectivity.proxy.noProxy` Helm template from cluster chart to render NO_PROXY in cluster-aws.
 - Rename CI files, so they are used in GitHub action that checks Helm rendering.
 - Remove ingress and egress rules from the security group that AWS creates by default when creating a new VPC.
+- Remove unnecessary architect brackets cleanup.
+- Use CI values to render templates locally.
 
 ## [0.60.0] - 2024-01-29
 
@@ -57,6 +73,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add propagating tags from `cluster-aws` to resources managed my `ebs-csi-driver`.
 - CI: trigger automated e2e tests on Renovate PRs.
 - Add new annotation for vintage irsa domain which is only used for migrating vintage clusters.
 - Use 443 as the default api-server Load Balancer port.
@@ -1145,7 +1162,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.60.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.60.1...HEAD
+[0.60.1]: https://github.com/giantswarm/cluster-aws/compare/v0.60.0...v0.60.1
 [0.60.0]: https://github.com/giantswarm/cluster-aws/compare/v0.59.1...v0.60.0
 [0.59.1]: https://github.com/giantswarm/cluster-aws/compare/v0.59.0...v0.59.1
 [0.59.0]: https://github.com/giantswarm/cluster-aws/compare/v0.58.0...v0.59.0
