@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.61.0] - 2024-02-12
+
 ### Changed
 
 - Render MachineHealthCheck resource from the cluster chart.
@@ -1158,7 +1160,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.60.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.61.0...HEAD
+[0.61.0]: https://github.com/giantswarm/cluster-aws/compare/v0.60.1...v0.61.0
 [0.60.1]: https://github.com/giantswarm/cluster-aws/compare/v0.60.0...v0.60.1
 [0.60.0]: https://github.com/giantswarm/cluster-aws/compare/v0.59.1...v0.60.0
 [0.59.1]: https://github.com/giantswarm/cluster-aws/compare/v0.59.0...v0.59.1
