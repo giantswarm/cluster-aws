@@ -127,6 +127,7 @@ global:
     availabilityZoneUsageLimit: 3
     dns: {}
     network:
+      allowAllEgress: false
       pods:
         cidrBlocks:
           - 100.64.0.0/12
