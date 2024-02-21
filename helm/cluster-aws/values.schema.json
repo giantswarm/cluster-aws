@@ -353,9 +353,26 @@
                             "kind": "AWSCluster",
                             "version": "v1beta1"
                         },
+                        "infrastructureMachinePool": {
+                            "group": "infrastructure.cluster.x-k8s.io",
+                            "kind": "AWSMachinePool",
+                            "version": "v1beta1"
+                        },
                         "machineHealthCheckResourceEnabled": true,
                         "machinePoolResourcesEnabled": false,
                         "nodePoolKind": "MachinePool"
+                    },
+                    "workers": {
+                        "defaultNodePools": {
+                            "def00": {
+                                "customNodeLabels": [
+                                    "label=default"
+                                ],
+                                "instanceType": "r6i.xlarge",
+                                "maxSize": 3,
+                                "minSize": 3
+                            }
+                        }
                     }
                 }
             }
