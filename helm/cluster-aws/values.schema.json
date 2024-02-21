@@ -353,9 +353,26 @@
                             "kind": "AWSCluster",
                             "version": "v1beta1"
                         },
+                        "infrastructureMachinePool": {
+                            "group": "infrastructure.cluster.x-k8s.io",
+                            "kind": "AWSMachinePool",
+                            "version": "v1beta1"
+                        },
                         "machineHealthCheckResourceEnabled": true,
-                        "machinePoolResourcesEnabled": false,
+                        "machinePoolResourcesEnabled": true,
                         "nodePoolKind": "MachinePool"
+                    },
+                    "workers": {
+                        "defaultNodePools": {
+                            "def00": {
+                                "customNodeLabels": [
+                                    "label=default"
+                                ],
+                                "instanceType": "r6i.xlarge",
+                                "maxSize": 3,
+                                "minSize": 3
+                            }
+                        }
                     }
                 }
             }
@@ -1014,7 +1031,7 @@
                 "nodePools": {
                     "type": "object",
                     "title": "Node pools",
-                    "description": "Node pools of the cluster. If not specified, this defaults to the value of `internal.nodePools`.",
+                    "description": "Node pools of the cluster. If not specified, this defaults to the value of `cluster.providerIntegration.workers.defaultNodePools`.",
                     "additionalProperties": false,
                     "patternProperties": {
                         "^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$": {
@@ -1181,25 +1198,6 @@
                             "type": "string",
                             "title": "IRSA additional domain",
                             "description": "Additional domain to be added to IRSA trust relationship."
-                        }
-                    }
-                },
-                "nodePools": {
-                    "type": "object",
-                    "title": "Default node pool",
-                    "patternProperties": {
-                        "^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$": {
-                            "$ref": "#/$defs/machinePool"
-                        }
-                    },
-                    "default": {
-                        "def00": {
-                            "customNodeLabels": [
-                                "label=default"
-                            ],
-                            "instanceType": "r6i.xlarge",
-                            "maxSize": 3,
-                            "minSize": 3
                         }
                     }
                 },

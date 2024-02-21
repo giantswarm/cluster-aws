@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Render MachineHealthCheck resource from the cluster chart.
 - Remove MachineHealthCheck resource.
+- Render MachinePool and KubeadmConfig resources from the cluster chart.
+- Remove MachinePool and KubeadmConfig resources.
 
 ### Fixed
 
