@@ -348,6 +348,8 @@
                         "bastionResourceEnabled": false,
                         "clusterResourceEnabled": true,
                         "controlPlaneResourceEnabled": true,
+                        "coreDnsHelmReleaseResourceEnabled": true,
+                        "helmRepositoryResourcesEnabled": true,
                         "infrastructureCluster": {
                             "group": "infrastructure.cluster.x-k8s.io",
                             "kind": "AWSCluster",
@@ -360,7 +362,8 @@
                         },
                         "machineHealthCheckResourceEnabled": true,
                         "machinePoolResourcesEnabled": true,
-                        "nodePoolKind": "MachinePool"
+                        "nodePoolKind": "MachinePool",
+                        "verticalPodAutoscalerCrdHelmReleaseResourceEnabled": true
                     },
                     "workers": {
                         "defaultNodePools": {
