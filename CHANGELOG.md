@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.62.1] - 2024-02-19
+
+### Fixed
+
+- Update network-policies to avoid installing deny-all policy.
+
 ## [0.62.0] - 2024-02-14
 
 ### Added
@@ -1168,7 +1174,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.62.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.62.1...HEAD
+[0.62.1]: https://github.com/giantswarm/cluster-aws/compare/v0.62.0...v0.62.1
 [0.62.0]: https://github.com/giantswarm/cluster-aws/compare/v0.61.0...v0.62.0
 [0.61.0]: https://github.com/giantswarm/cluster-aws/compare/v0.60.1...v0.61.0
 [0.60.1]: https://github.com/giantswarm/cluster-aws/compare/v0.60.0...v0.60.1
