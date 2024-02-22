@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Chart: Bump `cluster` to v0.9.1. ([#521](https://github.com/giantswarm/cluster-aws/pull/521))
+
 ## [0.63.0] - 2024-02-22
 
 ### Changed
