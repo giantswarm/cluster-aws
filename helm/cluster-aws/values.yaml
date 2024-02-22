@@ -103,6 +103,8 @@ cluster:
       bastionResourceEnabled: false
       clusterResourceEnabled: true
       controlPlaneResourceEnabled: true
+      coreDnsHelmReleaseResourceEnabled: true
+      helmRepositoryResourcesEnabled: true
       infrastructureCluster:
         group: infrastructure.cluster.x-k8s.io
         kind: AWSCluster
@@ -114,6 +116,7 @@ cluster:
       machineHealthCheckResourceEnabled: true
       machinePoolResourcesEnabled: true
       nodePoolKind: MachinePool
+      verticalPodAutoscalerCrdHelmReleaseResourceEnabled: true
     workers:
       defaultNodePools:
         def00:

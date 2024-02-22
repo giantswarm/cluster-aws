@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Use default HelmRepositories from cluster chart.
+- Use vertical-pod-autoscaler-crd HelmRelease from cluster chart.
+- Use coredns HelmRelease from cluster chart.
+- Remove default HelmRepositories from cluster-aws.
+- Remove vertical-pod-autoscaler-crd HelmRelease from cluster-aws.
+- Remove coredns HelmRelease from cluster-aws.
+
 ## [0.62.1] - 2024-02-19
 
 ### Fixed
