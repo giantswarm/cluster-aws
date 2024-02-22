@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.63.0] - 2024-02-22
+
 ### Changed
 
 - Use default HelmRepositories from cluster chart.
@@ -1183,7 +1185,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.62.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.63.0...HEAD
+[0.63.0]: https://github.com/giantswarm/cluster-aws/compare/v0.62.1...v0.63.0
 [0.62.1]: https://github.com/giantswarm/cluster-aws/compare/v0.62.0...v0.62.1
 [0.62.0]: https://github.com/giantswarm/cluster-aws/compare/v0.61.0...v0.62.0
 [0.61.0]: https://github.com/giantswarm/cluster-aws/compare/v0.60.1...v0.61.0
