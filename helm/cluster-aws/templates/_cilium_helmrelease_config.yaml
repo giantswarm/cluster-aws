@@ -1,0 +1,33 @@
+{{/* AWS-specific cilium Helm values*/}}
+{{/* https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/values.yaml*/}}
+{{- define "awsCiliumHelmValues" }}
+hubble:
+  relay:
+    tolerations:
+      - key: "node.cluster.x-k8s.io/uninitialized"
+        operator: "Exists"
+        effect: "NoSchedule"
+  ui:
+    tolerations:
+      - key: "node.cluster.x-k8s.io/uninitialized"
+        operator: "Exists"
+        effect: "NoSchedule"
+defaultPolicies:
+  enabled: false
+  remove: true
+
+  tolerations:
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+    - key: CriticalAddonsOnly
+      operator: Exists
+extraPolicies:
+  allowEgressToCoreDNS:
+    enabled: true
+  allowEgressToProxy:
+    enabled: {{ $.Values.global.connectivity.proxy.enabled }}
+    httpProxy: {{ $.Values.global.connectivity.proxy.httpProxy | quote }}
+    httpsProxy: {{ $.Values.global.connectivity.proxy.httpsProxy | quote }}
+{{- end }}
