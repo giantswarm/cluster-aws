@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Chart: Bump `cluster` to v0.9.1. ([#521](https://github.com/giantswarm/cluster-aws/pull/521))
+- Use cilium and network-policies from cluster chart, and remove them from cluster-aws.
 
 ## [0.63.0] - 2024-02-22
 

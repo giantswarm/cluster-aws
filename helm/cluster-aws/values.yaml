@@ -2,6 +2,9 @@
 
 cluster:
   providerIntegration:
+    apps:
+      cilium:
+        configTemplateName: awsCiliumHelmValues
     clusterAnnotationsTemplateName: awsConnectivityLabels
     components:
       systemd:
@@ -101,6 +104,7 @@ cluster:
     provider: aws
     resourcesApi:
       bastionResourceEnabled: false
+      ciliumHelmReleaseResourceEnabled: true
       clusterResourceEnabled: true
       controlPlaneResourceEnabled: true
       coreDnsHelmReleaseResourceEnabled: true
@@ -115,6 +119,7 @@ cluster:
         version: v1beta1
       machineHealthCheckResourceEnabled: true
       machinePoolResourcesEnabled: true
+      networkPoliciesHelmReleaseResourceEnabled: true
       nodePoolKind: MachinePool
       verticalPodAutoscalerCrdHelmReleaseResourceEnabled: true
     workers:

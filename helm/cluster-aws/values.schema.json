@@ -190,6 +190,11 @@
             "description": "Helm values for the provider-independent cluster chart",
             "default": {
                 "providerIntegration": {
+                    "apps": {
+                        "cilium": {
+                            "configTemplateName": "awsCiliumHelmValues"
+                        }
+                    },
                     "clusterAnnotationsTemplateName": "awsConnectivityLabels",
                     "components": {
                         "systemd": {
@@ -346,6 +351,7 @@
                     "provider": "aws",
                     "resourcesApi": {
                         "bastionResourceEnabled": false,
+                        "ciliumHelmReleaseResourceEnabled": true,
                         "clusterResourceEnabled": true,
                         "controlPlaneResourceEnabled": true,
                         "coreDnsHelmReleaseResourceEnabled": true,
@@ -362,6 +368,7 @@
                         },
                         "machineHealthCheckResourceEnabled": true,
                         "machinePoolResourcesEnabled": true,
+                        "networkPoliciesHelmReleaseResourceEnabled": true,
                         "nodePoolKind": "MachinePool",
                         "verticalPodAutoscalerCrdHelmReleaseResourceEnabled": true
                     },
