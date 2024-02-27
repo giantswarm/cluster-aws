@@ -172,34 +172,9 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
-| `internal.cgroupsv1` | **CGroups v1** - Force use of CGroups v1 for whole cluster.|**Type:** `boolean`<br/>**Default:** `false`|
 | `internal.hashSalt` | **Hash salt** - If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.|**Type:** `string`<br/>|
-| `internal.kubernetesVersion` | **Kubernetes version**|**Type:** `string`<br/>**Example:** `"1.24.7"`<br/>**Default:** `"1.25.16"`|
 | `internal.migration` | **Migration values** - Section used for migration of cluster from vintage to CAPI|**Type:** `object`<br/>|
-| `internal.migration.apiBindPort` | **Kubernetes API bind port** - Kubernetes API bind port used for kube api pod|**Type:** `integer`<br/>**Default:** `6443`|
-| `internal.migration.controlPlaneExtraFiles` | **Control Plane extra files** - Additional fiels that will be provisioned to control-plane nodes, reference is from secret in the same namespace.|**Type:** `array`<br/>|
-| `internal.migration.controlPlaneExtraFiles[*]` | **file**|**Type:** `object`<br/>|
-| `internal.migration.controlPlaneExtraFiles[*].contentFrom` | **content from**|**Type:** `object`<br/>|
-| `internal.migration.controlPlaneExtraFiles[*].contentFrom.secret` | **secret**|**Type:** `object`<br/>|
-| `internal.migration.controlPlaneExtraFiles[*].contentFrom.secret.key` | **secret key for file content**|**Type:** `string`<br/>|
-| `internal.migration.controlPlaneExtraFiles[*].contentFrom.secret.name` | **secret name for file content**|**Type:** `string`<br/>|
-| `internal.migration.controlPlaneExtraFiles[*].path` | **file path**|**Type:** `string`<br/>|
-| `internal.migration.controlPlaneExtraFiles[*].permissions` | **file permissions in form 0644**|**Type:** `string`<br/>**Default:** `"0644"`|
-| `internal.migration.controlPlanePostKubeadmCommands` | **Control Plane Post Kubeadm Commands** - Additional Post-Kubeadm Commands executed on the control plane node.|**Type:** `array`<br/>|
-| `internal.migration.controlPlanePostKubeadmCommands[*]` | **command**|**Type:** `string`<br/>|
-| `internal.migration.controlPlanePreKubeadmCommands` | **Control Plane Pre Kubeadm Commands** - Additional Pre-Kubeadm Commands executed on the control plane node.|**Type:** `array`<br/>|
-| `internal.migration.controlPlanePreKubeadmCommands[*]` | **command**|**Type:** `string`<br/>|
-| `internal.migration.etcdExtraArgs` | **Etcd extra arguments**|**Type:** `object`<br/>|
-| `internal.migration.etcdExtraArgs.PATTERN` | **argument**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^.+:.+$`<br/>|
 | `internal.migration.irsaAdditionalDomain` | **IRSA additional domain** - Additional domain to be added to IRSA trust relationship.|**Type:** `string`<br/>|
-| `internal.sandboxContainerImage` | **Sandbox image** - The image used by sandbox / pause container|**Type:** `object`<br/>|
-| `internal.sandboxContainerImage.name` | **Repository**|**Type:** `string`<br/>**Default:** `"giantswarm/pause"`|
-| `internal.sandboxContainerImage.registry` | **Registry**|**Type:** `string`<br/>**Default:** `"gsoci.azurecr.io"`|
-| `internal.sandboxContainerImage.tag` | **Tag**|**Type:** `string`<br/>**Default:** `"3.9"`|
-| `internal.teleport` | **Teleport**|**Type:** `object`<br/>|
-| `internal.teleport.enabled` | **Enable teleport**|**Type:** `boolean`<br/>**Default:** `true`|
-| `internal.teleport.proxyAddr` | **Teleport proxy address**|**Type:** `string`<br/>**Default:** `"teleport.giantswarm.io:443"`|
-| `internal.teleport.version` | **Teleport version**|**Type:** `string`<br/>**Default:** `"14.1.3"`|
 
 ### Kubectl image
 Properties within the `.kubectlImage` top-level object
