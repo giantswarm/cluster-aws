@@ -10,7 +10,7 @@ on:
     branches: [HEAD_BRANCH, main]
 
 env:
-  dyff_ver: "1.5.4"
+  dyff_ver: "1.7.1"
   helm_ver: "3.11.1"
 
 jobs:
@@ -30,10 +30,11 @@ jobs:
       - name: Find suspend comment in PR body # PR body isn't a comment, so the above step won't find it
         id: pr-body
         run: |
-          cat "${GITHUB_EVENT_PATH}"
-          echo ===
-          if jq -er .pull_request.body "${GITHUB_EVENT_PATH}" | grep -qE '^\s*/no_diffs_printing'; then
-              echo "suspend_diffs_printing_from_pr_body=true" >> $GITHUB_OUTPUT
+          if jq -r .pull_request.body "${GITHUB_EVENT_PATH}" | grep -qE '^\s*/no_diffs_printing'; then
+            echo "Found /no_diffs_printing command in PR body"
+            echo "suspend_diffs_printing_from_pr_body=true" >> $GITHUB_OUTPUT
+          else
+            echo "Did not find /no_diffs_printing command in PR body"
           fi
     outputs:
       suspend_comment_id: ${{ steps.fc.outputs.comment-id }}
