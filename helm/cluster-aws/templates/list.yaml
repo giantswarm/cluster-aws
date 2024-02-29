@@ -2,6 +2,8 @@
 ---
 {{- include "aws-cluster" . }}
 ---
+{{- include "provider-specific-files" . }}
+---
 {{- include "control-plane" . }}
 ---
 {{- include "machine-pools" . }}

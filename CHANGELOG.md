@@ -7,17 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Make Cilium ENI-based IP allocation configurable with new high-level `global.connectivity.cilium.ipamMode` value
+
 ## [0.64.1] - 2024-02-29
 
 ### Changed
 
-- Chart: Bump `cluster` to v0.11.1. 
+- Chart: Bump `cluster` to v0.11.1.
 
 ## [0.64.0] - 2024-02-28
 
 ### Changed
 
-- Chart: Bump `cluster` to v0.11.0. 
+- Chart: Bump `cluster` to v0.11.0.
 - Use cilium and network-policies from cluster chart, and remove them from cluster-aws.
 
 ## [0.63.0] - 2024-02-22
@@ -76,7 +80,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.60.0] - 2024-01-29
 
-### Changed 
+### Changed
 
 - Bumped kubernetes version to 1.25.16. This change also enforces PSS.
 

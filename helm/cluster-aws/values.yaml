@@ -29,6 +29,14 @@ cluster:
                 name: CronJobTimeZone
             serviceAccountIssuer:
               clusterDomainPrefix: irsa
+        files:
+          - contentFrom:
+              secret:
+                key: 99-unmanaged-devices.network
+                name: provider-specific-files
+                prependClusterNameAsPrefix: true
+            path: /etc/systemd/network/99-unmanaged-devices.network
+            permissions: "0644"
         ignition:
           containerLinuxConfig:
             additionalConfig:
@@ -130,6 +138,15 @@ cluster:
           instanceType: r6i.xlarge
           maxSize: 3
           minSize: 3
+      kubeadmConfig:
+        files:
+          - contentFrom:
+              secret:
+                key: 99-unmanaged-devices.network
+                name: provider-specific-files
+                prependClusterNameAsPrefix: true
+            path: /etc/systemd/network/99-unmanaged-devices.network
+            permissions: "0644"
 global:
   apps:
     awsCloudControllerManager: {}
@@ -145,6 +162,8 @@ global:
           - endpoint: giantswarm.azurecr.io
   connectivity:
     availabilityZoneUsageLimit: 3
+    cilium:
+      ipamMode: kubernetes
     dns: {}
     network:
       allowAllEgress: false
