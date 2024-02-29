@@ -39,11 +39,11 @@ jobs:
           fi
     outputs:
       suspend_comment_id: ${{ steps.fc.outputs.comment-id }}
-      suspend_diffs_printing_from_pr_body: ${{ fromJSON(steps.pr_body.outputs.suspend_diffs_printing_from_pr_body) }}
+      suspend_diffs_printing_from_pr_body: ${{ steps.pr_body.outputs.suspend_diffs_printing_from_pr_body }}
   cmp-helm-rendering:
     needs: check-cmp-state
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && needs.check-cmp-state.outputs.suspend_comment_id == 0 && !needs.check-cmp-state.outputs.suspend_diffs_printing_from_pr_body
+    if: github.event_name == 'pull_request' && needs.check-cmp-state.outputs.suspend_comment_id == 0 && needs.check-cmp-state.outputs.suspend_diffs_printing_from_pr_body == 'false'
     steps:
       - uses: actions/checkout@v4
       - name: install helm
