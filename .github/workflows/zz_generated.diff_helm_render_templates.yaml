@@ -30,6 +30,8 @@ jobs:
       - name: Find suspend comment in PR body # PR body isn't a comment, so the above step won't find it
         id: pr-body
         run: |
+          cat "${GITHUB_EVENT_PATH}"
+          echo ===
           if jq -er .pull_request.body "${GITHUB_EVENT_PATH}" | grep -qE '^\s*/no_diffs_printing'; then
               echo "suspend_diffs_printing_from_pr_body=true" >> $GITHUB_OUTPUT
           fi
