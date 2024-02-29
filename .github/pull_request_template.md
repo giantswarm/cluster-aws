@@ -8,10 +8,11 @@
 ### Trigger e2e tests
 
 <!--
-We currently have one pipeline that tests both cluster creation and cluster upgrades. You can trigger this pipeline by writing this commands in a pull request comment or description
-- `/run cluster-test-suites`
-
-If for some reason you want to skip the e2e tests, remove the following line.
+If you want to skip the e2e tests, remove the following line and add the `skip/ci` label to skip the check
 -->
 
 /run cluster-test-suites
+
+<!-- If you want to disable Helm template rendering diffs as GitHub comment, uncomment this (command must be on its own line): -->
+
+<!-- /no_diffs_printing -->
