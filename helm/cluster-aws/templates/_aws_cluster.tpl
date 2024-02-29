@@ -85,7 +85,7 @@ spec:
     - id: "{{ include "resource.default.name" $ }}-subnet-{{ $subnet.isPublic | default false | ternary "public" "private" }}-{{ if eq (len $cidr.availabilityZone) 1 }}{{ include "aws-region" $ }}{{ end }}{{ $cidr.availabilityZone }}"
       cidrBlock: "{{ $cidr.cidr }}"
       {{- if eq (len $cidr.availabilityZone) 1 }}
-      availabilityZone: "{{ include "aws-region" $ }}{{ $cidr.availabilityZone }}"
+      availabilityZone: eu-west-munich-area-yoyoyo
       {{- else }}
       availabilityZone: "{{ $cidr.availabilityZone }}"
       {{- end }}
