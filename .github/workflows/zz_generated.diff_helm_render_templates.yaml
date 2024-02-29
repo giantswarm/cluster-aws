@@ -27,13 +27,18 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body-regex: '^\s*/no_diffs_printing' # on a separate line, not as Markdown `<!-- /no_diffs_printing -->` comment
-      - run: echo found comment '${{ steps.fc.outputs.comment-id }}'
+      - name: Find suspend comment in PR body # PR body isn't a comment, so the above step won't find it
+        id: pr-body
+        run: |
+          if jq -er .pull_request.body "${GITHUB_EVENT_PATH}" | grep -qE '^\s*/no_diffs_printing'; then
+              echo "suspend_diffs_printing_from_pr_body=true" >> $GITHUB_OUTPUT
+          fi
     outputs:
-      suspendcmp: ${{ steps.fc.outputs.comment-id }}
+      suspend_comment_id: ${{ steps.fc.outputs.comment-id }}
   cmp-helm-rendering:
     needs: check-cmp-state
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && needs.check-cmp-state.outputs.suspendcmp == 0
+    if: github.event_name == 'pull_request' && needs.check-cmp-state.outputs.suspend_comment_id == 0 && !needs.check-cmp-state.outputs.suspend_diffs_printing_from_pr_body
     steps:
       - uses: actions/checkout@v4
       - name: install helm
