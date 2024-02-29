@@ -27,6 +27,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body-regex: '^\s*/no_diffs_printing' # on a separate line, not as Markdown `<!-- /no_diffs_printing -->` comment
+      - run: echo found comment '${{ steps.fc.outputs.comment-id }}'
     outputs:
       suspendcmp: ${{ steps.fc.outputs.comment-id }}
   cmp-helm-rendering:
