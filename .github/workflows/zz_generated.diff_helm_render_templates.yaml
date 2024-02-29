@@ -28,16 +28,18 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body-regex: '^\s*/no_diffs_printing' # on a separate line, not as Markdown `<!-- /no_diffs_printing -->` comment
       - name: Find suspend comment in PR body # PR body isn't a comment, so the above step won't find it
-        id: pr-body
+        id: pr_body
         run: |
           if jq -r .pull_request.body "${GITHUB_EVENT_PATH}" | grep -qE '^\s*/no_diffs_printing'; then
             echo "Found /no_diffs_printing command in PR body"
             echo "suspend_diffs_printing_from_pr_body=true" >> $GITHUB_OUTPUT
           else
             echo "Did not find /no_diffs_printing command in PR body"
+            echo "suspend_diffs_printing_from_pr_body=false" >> $GITHUB_OUTPUT
           fi
     outputs:
       suspend_comment_id: ${{ steps.fc.outputs.comment-id }}
+      suspend_diffs_printing_from_pr_body: ${{ steps.pr_body.outputs.suspend_diffs_printing_from_pr_body }}
   cmp-helm-rendering:
     needs: check-cmp-state
     runs-on: ubuntu-latest
