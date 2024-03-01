@@ -1106,104 +1106,16 @@
             "title": "Internal",
             "description": "For Giant Swarm internal use only, not stable, or not supported by UIs.",
             "properties": {
-                "cgroupsv1": {
-                    "type": "boolean",
-                    "title": "CGroups v1",
-                    "description": "Force use of CGroups v1 for whole cluster.",
-                    "default": false
-                },
                 "hashSalt": {
                     "type": "string",
                     "title": "Hash salt",
                     "description": "If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources."
-                },
-                "kubernetesVersion": {
-                    "type": "string",
-                    "title": "Kubernetes version",
-                    "examples": [
-                        "1.24.7"
-                    ],
-                    "default": "1.25.16"
                 },
                 "migration": {
                     "type": "object",
                     "title": "Migration values",
                     "description": "Section used for migration of cluster from vintage to CAPI",
                     "properties": {
-                        "apiBindPort": {
-                            "type": "integer",
-                            "title": "Kubernetes API bind port",
-                            "description": "Kubernetes API bind port used for kube api pod",
-                            "default": 6443
-                        },
-                        "controlPlaneExtraFiles": {
-                            "type": "array",
-                            "title": "Control Plane extra files",
-                            "description": "Additional fiels that will be provisioned to control-plane nodes, reference is from secret in the same namespace.",
-                            "items": {
-                                "type": "object",
-                                "title": "file",
-                                "properties": {
-                                    "contentFrom": {
-                                        "type": "object",
-                                        "title": "content from",
-                                        "properties": {
-                                            "secret": {
-                                                "type": "object",
-                                                "title": "secret",
-                                                "properties": {
-                                                    "key": {
-                                                        "type": "string",
-                                                        "title": "secret key for file content"
-                                                    },
-                                                    "name": {
-                                                        "type": "string",
-                                                        "title": "secret name for file content"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "path": {
-                                        "type": "string",
-                                        "title": "file path"
-                                    },
-                                    "permissions": {
-                                        "type": "string",
-                                        "title": "file permissions in form 0644",
-                                        "default": "0644"
-                                    }
-                                }
-                            }
-                        },
-                        "controlPlanePostKubeadmCommands": {
-                            "type": "array",
-                            "title": "Control Plane Post Kubeadm Commands",
-                            "description": "Additional Post-Kubeadm Commands executed on the control plane node.",
-                            "items": {
-                                "type": "string",
-                                "title": "command"
-                            }
-                        },
-                        "controlPlanePreKubeadmCommands": {
-                            "type": "array",
-                            "title": "Control Plane Pre Kubeadm Commands",
-                            "description": "Additional Pre-Kubeadm Commands executed on the control plane node.",
-                            "items": {
-                                "type": "string",
-                                "title": "command"
-                            }
-                        },
-                        "etcdExtraArgs": {
-                            "type": "object",
-                            "title": "Etcd extra arguments",
-                            "patternProperties": {
-                                "^.+:.+$": {
-                                    "type": "string",
-                                    "title": "argument"
-                                }
-                            }
-                        },
                         "irsaAdditionalDomain": {
                             "type": "string",
                             "title": "IRSA additional domain",

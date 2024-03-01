@@ -214,6 +214,7 @@ internal:
     enabled: true
     proxyAddr: teleport.giantswarm.io:443
     version: 14.1.3
+  migration: {}
 kubectlImage:
   name: giantswarm/kubectl
   registry: gsoci.azurecr.io
