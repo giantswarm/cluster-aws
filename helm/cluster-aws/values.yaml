@@ -201,20 +201,8 @@ global:
     awsClusterRoleIdentityName: default
     flatcarAwsAccount: "706635527432"
 internal:
-  cgroupsv1: false
-  kubernetesVersion: 1.25.16
-  migration:
-    apiBindPort: 6443
-  osImageVariant: "2"
-  sandboxContainerImage:
-    name: giantswarm/pause
-    registry: gsoci.azurecr.io
-    tag: "3.9"
-  teleport:
-    enabled: true
-    proxyAddr: teleport.giantswarm.io:443
-    version: 14.1.3
   migration: {}
+  osImageVariant: "2"
 kubectlImage:
   name: giantswarm/kubectl
   registry: gsoci.azurecr.io

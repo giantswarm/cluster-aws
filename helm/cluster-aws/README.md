@@ -176,14 +176,6 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | `internal.migration` | **Migration values** - Section used for migration of cluster from vintage to CAPI|**Type:** `object`<br/>|
 | `internal.migration.irsaAdditionalDomain` | **IRSA additional domain** - Additional domain to be added to IRSA trust relationship.|**Type:** `string`<br/>|
 | `internal.osImageVariant` | **OS image variant**|**Type:** `string`<br/>**Default:** `"2"`|
-| `internal.sandboxContainerImage` | **Sandbox image** - The image used by sandbox / pause container|**Type:** `object`<br/>|
-| `internal.sandboxContainerImage.name` | **Repository**|**Type:** `string`<br/>**Default:** `"giantswarm/pause"`|
-| `internal.sandboxContainerImage.registry` | **Registry**|**Type:** `string`<br/>**Default:** `"gsoci.azurecr.io"`|
-| `internal.sandboxContainerImage.tag` | **Tag**|**Type:** `string`<br/>**Default:** `"3.9"`|
-| `internal.teleport` | **Teleport**|**Type:** `object`<br/>|
-| `internal.teleport.enabled` | **Enable teleport**|**Type:** `boolean`<br/>**Default:** `true`|
-| `internal.teleport.proxyAddr` | **Teleport proxy address**|**Type:** `string`<br/>**Default:** `"teleport.giantswarm.io:443"`|
-| `internal.teleport.version` | **Teleport version**|**Type:** `string`<br/>**Default:** `"14.1.3"`|
 
 ### Kubectl image
 Properties within the `.kubectlImage` top-level object

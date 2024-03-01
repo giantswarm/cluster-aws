@@ -1127,49 +1127,6 @@
                     "type": "string",
                     "title": "OS image variant",
                     "default": "2"
-                },
-                "sandboxContainerImage": {
-                    "type": "object",
-                    "title": "Sandbox image",
-                    "description": "The image used by sandbox / pause container",
-                    "properties": {
-                        "name": {
-                            "type": "string",
-                            "title": "Repository",
-                            "default": "giantswarm/pause"
-                        },
-                        "registry": {
-                            "type": "string",
-                            "title": "Registry",
-                            "default": "gsoci.azurecr.io"
-                        },
-                        "tag": {
-                            "type": "string",
-                            "title": "Tag",
-                            "default": "3.9"
-                        }
-                    }
-                },
-                "teleport": {
-                    "type": "object",
-                    "title": "Teleport",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "title": "Enable teleport",
-                            "default": true
-                        },
-                        "proxyAddr": {
-                            "type": "string",
-                            "title": "Teleport proxy address",
-                            "default": "teleport.giantswarm.io:443"
-                        },
-                        "version": {
-                            "type": "string",
-                            "title": "Teleport version",
-                            "default": "14.1.3"
-                        }
-                    }
                 }
             }
         },
