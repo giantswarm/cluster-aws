@@ -1211,6 +1211,11 @@
                         }
                     }
                 },
+                "osImageVariant": {
+                    "type": "string",
+                    "title": "OS image variant",
+                    "default": "2"
+                },
                 "sandboxContainerImage": {
                     "type": "object",
                     "title": "Sandbox image",

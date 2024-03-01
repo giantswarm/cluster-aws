@@ -253,7 +253,7 @@ ami:
 {{- else -}}
 ami: {}
 imageLookupBaseOS: "flatcar-stable"
-imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-2-gs" }}
+imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-{{if .Values.internal.osImageVariant}{{.Values.internal.osImageVariant}}-{{end}}gs" }}
 imageLookupOrg: "706635527432"
 {{- end }}
 {{- end -}}

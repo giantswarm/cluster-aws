@@ -205,6 +205,7 @@ internal:
   kubernetesVersion: 1.25.16
   migration:
     apiBindPort: 6443
+  osImageVariant: "2"
   sandboxContainerImage:
     name: giantswarm/pause
     registry: gsoci.azurecr.io

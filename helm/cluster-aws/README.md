@@ -192,6 +192,7 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | `internal.migration.etcdExtraArgs` | **Etcd extra arguments**|**Type:** `object`<br/>|
 | `internal.migration.etcdExtraArgs.PATTERN` | **argument**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^.+:.+$`<br/>|
 | `internal.migration.irsaAdditionalDomain` | **IRSA additional domain** - Additional domain to be added to IRSA trust relationship.|**Type:** `string`<br/>|
+| `internal.osImageVariant` | **OS image variant**|**Type:** `string`<br/>**Default:** `"2"`|
 | `internal.sandboxContainerImage` | **Sandbox image** - The image used by sandbox / pause container|**Type:** `object`<br/>|
 | `internal.sandboxContainerImage.name` | **Repository**|**Type:** `string`<br/>**Default:** `"giantswarm/pause"`|
 | `internal.sandboxContainerImage.registry` | **Registry**|**Type:** `string`<br/>**Default:** `"gsoci.azurecr.io"`|
