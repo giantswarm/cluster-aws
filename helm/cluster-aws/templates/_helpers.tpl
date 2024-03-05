@@ -66,7 +66,7 @@ ami:
 {{- else -}}
 ami: {}
 imageLookupBaseOS: "flatcar-stable"
-{{- $suffix := .Values.internal.osImageVariant }}
+{{- $suffix := .Values.global.providerSpecific.osImageVariant }}
 {{- if $suffix }}
   {{- $suffix = printf "-%s-gs" $suffix }}
 {{- else }}

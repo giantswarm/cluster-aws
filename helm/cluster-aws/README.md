@@ -22,6 +22,7 @@ Properties within the `.global.providerSpecific` object
 | `global.providerSpecific.ami` | **Amazon machine image (AMI)** - If specified, this image will be used to provision EC2 instances.|**Type:** `string`<br/>|
 | `global.providerSpecific.awsClusterRoleIdentityName` | **Cluster role identity name** - Name of an AWSClusterRoleIdentity object. Learn more at https://docs.giantswarm.io/getting-started/cloud-provider-accounts/cluster-api/aws/#configure-the-awsclusterroleidentity .|**Type:** `string`<br/>**Value pattern:** `^[-a-zA-Z0-9_\.]{1,63}$`<br/>**Default:** `"default"`|
 | `global.providerSpecific.flatcarAwsAccount` | **AWS account owning Flatcar image** - AWS account ID owning the Flatcar Container Linux AMI.|**Type:** `string`<br/>**Default:** `"706635527432"`|
+| `global.providerSpecific.osImageVariant` | **OS image variant**|**Type:** `string`<br/>**Default:** `"2"`|
 | `global.providerSpecific.region` | **Region**|**Type:** `string`<br/>|
 
 ### Apps
@@ -175,7 +176,6 @@ For Giant Swarm internal use only, not stable, or not supported by UIs.
 | `internal.hashSalt` | **Hash salt** - If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources.|**Type:** `string`<br/>|
 | `internal.migration` | **Migration values** - Section used for migration of cluster from vintage to CAPI|**Type:** `object`<br/>|
 | `internal.migration.irsaAdditionalDomain` | **IRSA additional domain** - Additional domain to be added to IRSA trust relationship.|**Type:** `string`<br/>|
-| `internal.osImageVariant` | **OS image variant**|**Type:** `string`<br/>**Default:** `"2"`|
 
 ### Kubectl image
 Properties within the `.kubectlImage` top-level object

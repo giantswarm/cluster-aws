@@ -200,9 +200,9 @@ global:
   providerSpecific:
     awsClusterRoleIdentityName: default
     flatcarAwsAccount: "706635527432"
+    osImageVariant: "2"
 internal:
   migration: {}
-  osImageVariant: "2"
 kubectlImage:
   name: giantswarm/kubectl
   registry: gsoci.azurecr.io
