@@ -105,6 +105,7 @@ cluster:
     resourcesApi:
       bastionResourceEnabled: false
       ciliumHelmReleaseResourceEnabled: true
+      cleanupHelmReleaseResourcesEnabled: true
       clusterResourceEnabled: true
       controlPlaneResourceEnabled: true
       coreDnsHelmReleaseResourceEnabled: true
