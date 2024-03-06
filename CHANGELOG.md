@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Use cleanup hook job HelmRelease from cluster chart.
+- Chart: Bump `cluster` to v0.13.0. 
 
 ## [0.64.1] - 2024-02-29
 
