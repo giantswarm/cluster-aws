@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Fix allow list API port 443.
+
 ## [0.64.1] - 2024-02-29
 
 ### Changed
