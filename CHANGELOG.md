@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change image lookup format for base OS image.
 
+## [0.64.2] - 2024-03-06
+
+### Changed
+
+- Fix allow list API port 443.
+
 ## [0.64.1] - 2024-02-29
 
 ### Changed
@@ -1202,7 +1208,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.64.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.64.2...HEAD
+[0.64.2]: https://github.com/giantswarm/cluster-aws/compare/v0.64.1...v0.64.2
 [0.64.1]: https://github.com/giantswarm/cluster-aws/compare/v0.64.0...v0.64.1
 [0.64.0]: https://github.com/giantswarm/cluster-aws/compare/v0.63.0...v0.64.0
 [0.63.0]: https://github.com/giantswarm/cluster-aws/compare/v0.62.1...v0.63.0
