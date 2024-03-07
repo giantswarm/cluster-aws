@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### **Breaking change**
 
-- Change image lookup format for base OS image.
+- Change image lookup format for base OS image. osImageVariant is set to "2" for this kubernetes version. This is a **breaking change** that requires manual steps. For the next kubernetes versions, osImageVariant should not be set.
 
 ## [0.64.2] - 2024-03-06
 
