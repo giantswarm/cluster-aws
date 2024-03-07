@@ -1093,6 +1093,11 @@
                             "description": "AWS account ID owning the Flatcar Container Linux AMI.",
                             "default": "706635527432"
                         },
+                        "osImageVariant": {
+                            "type": "string",
+                            "title": "OS image variant",
+                            "default": "2"
+                        },
                         "region": {
                             "type": "string",
                             "title": "Region"
