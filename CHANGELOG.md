@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Pass `clusterID` to `aws-ebs-csi-driver` app's values for volume tagging purposes.
+
 ### Changed
 
 - Change image lookup format for base OS image.
