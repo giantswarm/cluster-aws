@@ -66,10 +66,16 @@ ami:
 {{- else -}}
 ami: {}
 imageLookupBaseOS: "flatcar-stable"
-imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}-gs" }}
+{{- $suffix := .Values.global.providerSpecific.osImageVariant }}
+{{- if $suffix }}
+  {{- $suffix = printf "-%s-gs" $suffix }}
+{{- else }}
+  {{- $suffix = "-gs" }}
+{{- end }}
+imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}" }}{{$suffix}}
 imageLookupOrg: "706635527432"
 {{- end }}
-{{- end -}}
+{{- end }}
 
 {{/*
 Hash function based on data provided
