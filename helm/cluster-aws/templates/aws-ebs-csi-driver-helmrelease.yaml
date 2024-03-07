@@ -1,6 +1,7 @@
 {{/* Default Helm values for the app */}}
 {{/* See schema for the appropriate app version here https://github.com/giantswarm/aws-ebs-csi-driver-app/blob/master/helm/aws-ebs-csi-driver-app/values.schema.json */}}
 {{- define "defaultAwsEbsCsiDriverHelmValues" }}
+clusterID: {{ include "resource.default.name" $ }}
 extraVolumeTags: {{ include "resource.default.additionalTags" . | nindent 2 }} 
 {{- if (.Values.global.connectivity.proxy).enabled }}
 proxy:
