@@ -1,6 +1,31 @@
 {{/* AWS-specific cilium Helm values*/}}
 {{/* https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/values.yaml*/}}
 {{- define "awsCiliumHelmValues" }}
+provider: capa
+
+{{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+# https://docs.cilium.io/en/v1.14/network/concepts/routing/#id5
+ipam:
+  mode: eni
+eni:
+  enabled: true
+  awsReleaseExcessIPs: true
+enableIPv4Masquerade: false
+tunnel: disabled
+cluster:
+    # Used by cilium to tag ENIs it creates and be able to filter and clean them up.
+    name: {{ include "resource.default.name" $ | quote }}
+cni:
+  # Use https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/templates/cilium-cni-configmap.yaml
+  customConf: true
+  configMap: cilium-cni-configuration
+extraEnv:
+  - name: CNI_CONF_NAME
+    value: "21-cilium.conflist"
+{{- else if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "kubernetes" }}
+{{- /* Use default from `cluster` chart */}}
+{{- end }}
+
 hubble:
   relay:
     tolerations:
