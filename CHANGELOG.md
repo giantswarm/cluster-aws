@@ -7,7 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### **Breaking change**
+### Added
+
+- Make Cilium ENI-based IP allocation configurable with new high-level `global.connectivity.cilium.ipamMode` value
+
+### Changed
+
+- Use cleanup hook job HelmRelease from cluster chart.
+- Chart: Bump `cluster` to v0.13.0.
+
+## [0.65.0] - 2024-03-07
+
+### Fixed
+
+- Pass `clusterID` to `aws-ebs-csi-driver` app's values for volume tagging purposes.
+
+### Changed
 
 - Change image lookup format for base OS image. osImageVariant is set to "2" for this kubernetes version. This is a **breaking change** that requires manual steps. For the next kubernetes versions, osImageVariant should not be set.
 
@@ -21,13 +36,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Chart: Bump `cluster` to v0.11.1. 
+- Chart: Bump `cluster` to v0.11.1.
 
 ## [0.64.0] - 2024-02-28
 
 ### Changed
 
-- Chart: Bump `cluster` to v0.11.0. 
+- Chart: Bump `cluster` to v0.11.0.
 - Use cilium and network-policies from cluster chart, and remove them from cluster-aws.
 
 ## [0.63.0] - 2024-02-22
@@ -86,7 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.60.0] - 2024-01-29
 
-### Changed 
+### Changed
 
 - Bumped kubernetes version to 1.25.16. This change also enforces PSS.
 
@@ -1208,7 +1223,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.64.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.65.0...HEAD
+[0.65.0]: https://github.com/giantswarm/cluster-aws/compare/v0.64.2...v0.65.0
 [0.64.2]: https://github.com/giantswarm/cluster-aws/compare/v0.64.1...v0.64.2
 [0.64.1]: https://github.com/giantswarm/cluster-aws/compare/v0.64.0...v0.64.1
 [0.64.0]: https://github.com/giantswarm/cluster-aws/compare/v0.63.0...v0.64.0
