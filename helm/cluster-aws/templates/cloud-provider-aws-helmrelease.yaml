@@ -1,6 +1,8 @@
 {{/* Default Helm values for the app */}}
 {{/* See schema for the appropriate app version here https://github.com/giantswarm/aws-cloud-controller-manager-app/blob/master/helm/aws-cloud-controller-manager-app/values.schema.json */}}
 {{- define "defaultAwsCloudControllerManagerHelmValues" }}
+image:
+  registry: {{ include "awsContainerImageRegistry" $ }}
 {{- if (.Values.global.connectivity.proxy).enabled }}
 proxy:
   noProxy: "{{ include "cluster.connectivity.proxy.noProxy" (dict "global" $.Values.global "providerIntegration" $.Values.cluster.providerIntegration) }}"

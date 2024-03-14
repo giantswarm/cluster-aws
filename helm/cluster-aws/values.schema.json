@@ -193,10 +193,20 @@
                     "apps": {
                         "cilium": {
                             "configTemplateName": "awsCiliumHelmValues"
-                        }
+                        },
+                        "coreDns": {
+                            "configTemplateName": "awsCorednsHelmValues"
+                        },
                     },
                     "clusterAnnotationsTemplateName": "awsConnectivityLabels",
                     "components": {
+                        "containerd": {
+                            "sandboxContainerImage": {
+                                "registry": {
+                                    "templateName": "awsContainerImageRegistry"
+                                }
+                            }
+                        },
                         "systemd": {
                             "timesyncd": {
                                 "ntp": [
@@ -230,7 +240,7 @@
                                         }
                                     ],
                                     "serviceAccountIssuer": {
-                                        "clusterDomainPrefix": "irsa"
+                                        "templateName": "awsIrsaServiceAccountIssuer"
                                     }
                                 }
                             },

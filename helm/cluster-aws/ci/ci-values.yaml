@@ -11,6 +11,8 @@ global:
       instanceTypeOverrides:
         - r6i.xlarge
         - m5.xlarge
+  providerSpecific:
+    awsAccountId: "1234567890"
   components:
     containerd:
       containerRegistries:
