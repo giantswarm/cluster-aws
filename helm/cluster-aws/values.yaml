@@ -5,8 +5,14 @@ cluster:
     apps:
       cilium:
         configTemplateName: awsCiliumHelmValues
+      coreDns:
+        configTemplateName: awsCorednsHelmValues
     clusterAnnotationsTemplateName: awsConnectivityLabels
     components:
+      containerd:
+        sandboxContainerImage:
+          registry:
+            templateName: awsContainerImageRegistry
       systemd:
         timesyncd:
           ntp:
@@ -28,7 +34,7 @@ cluster:
               - enabled: true
                 name: CronJobTimeZone
             serviceAccountIssuer:
-              clusterDomainPrefix: irsa
+              templateName: awsIrsaServiceAccountIssuer
         files:
           - contentFrom:
               secret:

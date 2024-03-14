@@ -196,7 +196,7 @@
                         },
                         "coreDns": {
                             "configTemplateName": "awsCorednsHelmValues"
-                        },
+                        }
                     },
                     "clusterAnnotationsTemplateName": "awsConnectivityLabels",
                     "components": {
