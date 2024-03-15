@@ -3,9 +3,6 @@
 {{- define "defaultAwsEbsCsiDriverHelmValues" }}
 clusterID: {{ include "resource.default.name" $ }}
 extraVolumeTags: {{ include "resource.default.additionalTags" . | nindent 2 }} 
-global:
-  image:
-    registry: {{ include "awsContainerImageRegistry" $ }}
 {{- if (.Values.global.connectivity.proxy).enabled }}
 proxy:
   noProxy: "{{ include "cluster.connectivity.proxy.noProxy" (dict "global" $.Values.global "providerIntegration" $.Values.cluster.providerIntegration) }}"
@@ -13,6 +10,8 @@ proxy:
   https: {{ .Values.global.connectivity.proxy.httpsProxy | quote }}
 {{- end }}
 global:
+  image:
+    registry: {{ include "awsContainerImageRegistry" $ }}
   podSecurityStandards:
     enforced: {{ .Values.global.podSecurityStandards.enforced }}
 {{- end }}
