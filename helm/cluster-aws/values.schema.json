@@ -200,13 +200,6 @@
                     },
                     "clusterAnnotationsTemplateName": "awsConnectivityLabels",
                     "components": {
-                        "containerd": {
-                            "sandboxContainerImage": {
-                                "registry": {
-                                    "templateName": "awsContainerImageRegistry"
-                                }
-                            }
-                        },
                         "systemd": {
                             "timesyncd": {
                                 "ntp": [
@@ -372,6 +365,9 @@
                         "global.connectivity.vpcMode": "private"
                     },
                     "provider": "aws",
+                    "registry": {
+                        "templateName": "awsContainerImageRegistry"
+                    },
                     "resourcesApi": {
                         "bastionResourceEnabled": false,
                         "ciliumHelmReleaseResourceEnabled": true,
