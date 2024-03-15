@@ -112,8 +112,8 @@ sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}
 {{- end }}
 
 {{- define "awsIrsaServiceAccountIssuer" }}
-{{- if hasPrefix "cn-" (include "aws-region" .) }}
-https://s3.{{include "aws-region" .}}.amazonaws.com.cn/{{include "aws-account-id" .}}-g8s-{{include "resource.default.name" $}}-oidc-pod-identity-v2
+{{- if hasPrefix "cn-" (include "aws-region" .) -}}
+https://s3.{{include "aws-region" .}}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{include "resource.default.name" $}}-oidc-pod-identity-v2
 {{- else -}}
 https://irsa.{{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}
 {{- end }}
