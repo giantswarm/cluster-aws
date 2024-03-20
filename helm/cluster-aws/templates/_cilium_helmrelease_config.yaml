@@ -51,7 +51,7 @@ defaultPolicies:
       operator: Exists
 extraPolicies:
   allowEgressToCoreDNS:
-    enabled: true
+    enabled: false
   allowEgressToProxy:
     enabled: {{ $.Values.global.connectivity.proxy.enabled }}
     httpProxy: {{ $.Values.global.connectivity.proxy.httpProxy | quote }}
