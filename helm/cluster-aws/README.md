@@ -111,7 +111,7 @@ Properties within the `.global.connectivity` object
 | `global.connectivity.proxy.httpProxy` | **HTTP proxy** - To be passed to the HTTP_PROXY environment variable in all hosts.|**Type:** `string`<br/>|
 | `global.connectivity.proxy.httpsProxy` | **HTTPS proxy** - To be passed to the HTTPS_PROXY environment variable in all hosts.|**Type:** `string`<br/>|
 | `global.connectivity.proxy.noProxy` | **No proxy** - To be passed to the NO_PROXY environment variable in all hosts.|**Type:** `string`<br/>|
-| `global.connectivity.subnets` | **Subnets** - Subnets are created and tagged based on this definition.|**Type:** `array`<br/>**Default:** `[{"cidrBlocks":[{"availabilityZone":"a","cidr":"10.0.0.0/20"},{"availabilityZone":"b","cidr":"10.0.16.0/20"},{"availabilityZone":"c","cidr":"10.0.32.0/20"}],"isPublic":true},{"cidrBlocks":[{"availabilityZone":"a","cidr":"10.0.64.0/18"},{"availabilityZone":"b","cidr":"10.0.128.0/18"},{"availabilityZone":"c","cidr":"10.0.192.0/18"}],"isPublic":false}]`|
+| `global.connectivity.subnets` | **Subnets** - Subnets are created and tagged based on this definition.|**Type:** `array`<br/>**Default:** `[{"cidrBlocks":[{"cidr":"10.0.0.0/20"},{"cidr":"10.0.16.0/20"},{"cidr":"10.0.32.0/20"}],"isPublic":true},{"cidrBlocks":[{"cidr":"10.0.64.0/18"},{"cidr":"10.0.128.0/18"},{"cidr":"10.0.192.0/18"}],"isPublic":false}]`|
 | `global.connectivity.subnets[*]` | **Subnet**|**Type:** `object`<br/>|
 | `global.connectivity.subnets[*].cidrBlocks` | **Network**|**Type:** `array`<br/>|
 | `global.connectivity.subnets[*].cidrBlocks[*]` |**None**|**Type:** `object`<br/>|
