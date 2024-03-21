@@ -193,6 +193,9 @@
                     "apps": {
                         "cilium": {
                             "configTemplateName": "awsCiliumHelmValues"
+                        },
+                        "coredns": {
+                            "configTemplateName": "awsCorednsHelmValues"
                         }
                     },
                     "clusterAnnotationsTemplateName": "awsConnectivityLabels",
@@ -230,7 +233,7 @@
                                         }
                                     ],
                                     "serviceAccountIssuer": {
-                                        "clusterDomainPrefix": "irsa"
+                                        "templateName": "awsIrsaServiceAccountIssuer"
                                     }
                                 }
                             },
@@ -362,6 +365,9 @@
                         "global.connectivity.vpcMode": "private"
                     },
                     "provider": "aws",
+                    "registry": {
+                        "templateName": "awsContainerImageRegistry"
+                    },
                     "resourcesApi": {
                         "bastionResourceEnabled": false,
                         "ciliumHelmReleaseResourceEnabled": true,

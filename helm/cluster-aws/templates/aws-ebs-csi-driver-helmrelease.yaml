@@ -10,6 +10,8 @@ proxy:
   https: {{ .Values.global.connectivity.proxy.httpsProxy | quote }}
 {{- end }}
 global:
+  image:
+    registry: {{ include "awsContainerImageRegistry" $ }}
   podSecurityStandards:
     enforced: {{ .Values.global.podSecurityStandards.enforced }}
 {{- end }}

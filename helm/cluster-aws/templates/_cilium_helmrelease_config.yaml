@@ -2,7 +2,8 @@
 {{/* https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/values.yaml*/}}
 {{- define "awsCiliumHelmValues" }}
 provider: capa
-
+image:
+  registry: {{ include "awsContainerImageRegistry" $ }}
 {{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
 # https://docs.cilium.io/en/v1.14/network/concepts/routing/#id5
 ipam:

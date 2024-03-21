@@ -5,6 +5,8 @@ cluster:
     apps:
       cilium:
         configTemplateName: awsCiliumHelmValues
+      coredns:
+        configTemplateName: awsCorednsHelmValues
     clusterAnnotationsTemplateName: awsConnectivityLabels
     components:
       systemd:
@@ -28,7 +30,7 @@ cluster:
               - enabled: true
                 name: CronJobTimeZone
             serviceAccountIssuer:
-              clusterDomainPrefix: irsa
+              templateName: awsIrsaServiceAccountIssuer
         files:
           - contentFrom:
               secret:
@@ -110,6 +112,8 @@ cluster:
     pauseProperties:
       global.connectivity.vpcMode: private
     provider: aws
+    registry:
+      templateName: awsContainerImageRegistry
     resourcesApi:
       bastionResourceEnabled: false
       ciliumHelmReleaseResourceEnabled: true

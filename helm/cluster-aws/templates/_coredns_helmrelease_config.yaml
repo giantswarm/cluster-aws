@@ -1,0 +1,6 @@
+{{/* AWS-specific coredns Helm values*/}}
+{{/* https://github.com/giantswarm/coredns-app/blob/main/helm/coredns/values.yaml*/}}
+{{- define "awsCorednsHelmValues" }}
+image:
+  registry: {{ include "awsContainerImageRegistry" $ }}
+{{- end }}

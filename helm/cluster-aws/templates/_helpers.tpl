@@ -73,7 +73,7 @@ imageLookupBaseOS: "flatcar-stable"
   {{- $suffix = "-gs" }}
 {{- end }}
 imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}" }}{{$suffix}}
-imageLookupOrg: "706635527432"
+imageLookupOrg: "{{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}"
 {{- end }}
 {{- end }}
 
@@ -109,6 +109,22 @@ network-topology.giantswarm.io/prefix-list: "{{ .Values.global.connectivity.topo
 
 {{- define "awsApiServerApiAudiences" }}
 sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}
+{{- end }}
+
+{{- define "awsIrsaServiceAccountIssuer" }}
+{{- if hasPrefix "cn-" (include "aws-region" .) -}}
+https://s3.{{include "aws-region" .}}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{include "resource.default.name" $}}-oidc-pod-identity-v2
+{{- else -}}
+https://irsa.{{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}
+{{- end }}
+{{- end }}
+
+{{- define "awsContainerImageRegistry" -}}
+{{- if hasPrefix "cn-" (include "aws-region" $ ) -}}
+giantswarm-registry.cn-shanghai.cr.aliyuncs.com
+{{- else -}}
+gsoci.azurecr.io
+{{- end }}
 {{- end }}
 
 {{- define "awsNoProxyList" }}
