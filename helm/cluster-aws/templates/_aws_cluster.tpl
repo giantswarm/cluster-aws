@@ -2,6 +2,9 @@
 {{- if and (regexMatch "\\.internal$" (required "global.connectivity.baseDomain is required" .Values.global.connectivity.baseDomain)) (eq (required "global.connectivity.dns.mode required" .Values.global.connectivity.dns.mode) "public") }}
 {{- fail "global.connectivity.dns.mode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
 {{- end }}
+{{- $region := include "aws-region" . }}
+{{/* $azs is a list of availability zones that are available for the region. Used for defaulting. */}}
+{{- $azs := include "azs-in-region" (dict "region" $region  "Files" .Files ) | fromYamlArray -}}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSCluster
 metadata:
@@ -81,14 +84,18 @@ spec:
       {{- end }}
     {{- else }}
     {{- range $i, $cidr := $subnet.cidrBlocks -}}
+    {{- /*
+    Use customer-specified availability zone for this subnet, default to picking one of the available zones from $azs variable
+    We use the 'mod' function as an index because it might be that the number of subnets and the number of availability zones differ in a region
+    */}}
+    {{- $az := $cidr.availabilityZone | default (index $azs (mod $i (len $azs))) -}}
+    {{- if (eq (len $az) 1) -}}
+    {{- $az = printf "%s%s" (include "aws-region" $) $az -}}
+    {{- end -}}
     {{/* CAPA v2.3.0 defaults to using the `id` field as subnet name unless it's an unmanaged one (`id` starts with `subnet-`), so use CAPA's previous standard subnet naming scheme */}}
-    - id: "{{ include "resource.default.name" $ }}-subnet-{{ $subnet.isPublic | default false | ternary "public" "private" }}-{{ if eq (len $cidr.availabilityZone) 1 }}{{ include "aws-region" $ }}{{ end }}{{ $cidr.availabilityZone }}"
+    - id: "{{ include "resource.default.name" $ }}-subnet-{{ $subnet.isPublic | default false | ternary "public" "private" }}-{{ $az }}"
       cidrBlock: "{{ $cidr.cidr }}"
-      {{- if eq (len $cidr.availabilityZone) 1 }}
-      availabilityZone: "{{ include "aws-region" $ }}{{ $cidr.availabilityZone }}"
-      {{- else }}
-      availabilityZone: "{{ $cidr.availabilityZone }}"
-      {{- end }}
+      availabilityZone: "{{ $az }}"
       isPublic: {{ $subnet.isPublic | default false }}
       {{- if or $subnet.tags $cidr.tags }}
       tags:
