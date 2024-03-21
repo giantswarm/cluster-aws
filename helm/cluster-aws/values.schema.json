@@ -777,15 +777,12 @@
                                 {
                                     "cidrBlocks": [
                                         {
-                                            "availabilityZone": "a",
                                             "cidr": "10.0.0.0/20"
                                         },
                                         {
-                                            "availabilityZone": "b",
                                             "cidr": "10.0.16.0/20"
                                         },
                                         {
-                                            "availabilityZone": "c",
                                             "cidr": "10.0.32.0/20"
                                         }
                                     ],
@@ -794,15 +791,12 @@
                                 {
                                     "cidrBlocks": [
                                         {
-                                            "availabilityZone": "a",
                                             "cidr": "10.0.64.0/18"
                                         },
                                         {
-                                            "availabilityZone": "b",
                                             "cidr": "10.0.128.0/18"
                                         },
                                         {
-                                            "availabilityZone": "c",
                                             "cidr": "10.0.192.0/18"
                                         }
                                     ],
