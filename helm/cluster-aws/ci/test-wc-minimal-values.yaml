@@ -5,3 +5,5 @@ global:
     servicePriority: lowest
   connectivity:
     baseDomain: example.com
+  providerSpecific:
+    region: "eu-west-1"

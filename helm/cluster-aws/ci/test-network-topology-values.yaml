@@ -12,3 +12,5 @@ global:
     vpcMode: private
   controlPlane:
     apiMode: private
+  providerSpecific:
+    region: "eu-west-1"
