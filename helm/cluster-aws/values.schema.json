@@ -196,7 +196,7 @@
                         },
                         "coredns": {
                             "configTemplateName": "awsCorednsHelmValues"
-                        }
+                        },
                         "networkPolicies": {
                             "configTemplateName": "awsNetworkPoliciesHelmValues"
                         }
