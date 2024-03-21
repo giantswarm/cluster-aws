@@ -1,7 +1,7 @@
 {{/* AWS-specific network-policies Helm values*/}}
 {{/* https://github.com/giantswarm/network-policies-app/blob/main/helm/network-policies/values.yaml*/}}
 {{- define "awsNetworkPoliciesHelmValues" }}
-allowEgressToCoreDNS:
+allowEgressToDNS:
   enabled: true
 allowEgressToProxy:
   enabled: {{ $.Values.global.connectivity.proxy.enabled }}
