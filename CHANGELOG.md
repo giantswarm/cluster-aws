@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml
+
 ## [0.66.1] - 2024-03-21
 
 ### Fixed
