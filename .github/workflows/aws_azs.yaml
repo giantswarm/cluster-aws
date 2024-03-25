@@ -22,7 +22,7 @@ jobs:
         run: |
           cd azs-getter
           go get
-          go build -o ../azs-getter main.go
+          go build -o ../azs-getter-bin main.go
       - name: Run azs-getter to update azs-in-region.yaml
         env:
           AWS_ACCESS_KEY_ID_CHINA: "${{ secrets.AWS_ACCESS_KEY_ID_CHINA }}"
@@ -30,7 +30,8 @@ jobs:
           AWS_ACCESS_KEY_ID_EUROPE: "${{ secrets.AWS_ACCESS_KEY_ID_EUROPE }}"
           AWS_SECRET_ACCESS_KEY_EUROPE: "${{ secrets.AWS_SECRET_ACCESS_KEY_EUROPE }}"
         run: |
-          ./azs-getter --dest-file=./helm/cluster-aws/files/azs-in-region.yaml
+          ./azs-getter-bin --dest-file=./helm/cluster-aws/files/azs-in-region.yaml
+          rm ./azs-getter-bin
       - name: Check for changes
         id: check_changes
         run: |
