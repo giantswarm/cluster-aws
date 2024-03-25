@@ -62,7 +62,7 @@ func main() {
 		if err != nil {
 			fmt.Println("Error getting azs")
 			fmt.Println(err)
-			os.Exit(1)
+			os.Exit(2)
 		}
 
 		for r, azs := range azsPerRegion {
@@ -74,14 +74,14 @@ func main() {
 	if err != nil {
 		fmt.Println("error marshaling azs to yaml")
 		fmt.Println(err)
-		os.Exit(1)
+		os.Exit(3)
 	}
 
 	err = os.WriteFile(dest, b, 0644)
 	if err != nil {
 		fmt.Println("error writing azs to file")
 		fmt.Println(err)
-		os.Exit(1)
+		os.Exit(4)
 	}
 }
 
