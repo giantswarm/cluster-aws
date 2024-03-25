@@ -25,7 +25,7 @@ func main() {
 
 	var dest string
 
-	flag.StringVar(&dest, "dest-file", "../helm/cluster-aws/files/azs-in-region.yaml", "Path of the yaml file where to write the new AZs")
+	flag.StringVar(&dest, "dest-file", "./helm/cluster-aws/files/azs-in-region.yaml", "Path of the yaml file where to write the new AZs")
 	flag.Parse()
 
 	if dest == "" {
