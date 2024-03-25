@@ -55,14 +55,14 @@ func main() {
 		if err != nil {
 			fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
 			fmt.Println(err)
-			return
+			os.Exit(1)
 		}
 
 		azsPerRegion, err := getAzsFromCredentials(ctx, sdkConfig)
 		if err != nil {
 			fmt.Println("Error getting azs")
 			fmt.Println(err)
-			return
+			os.Exit(1)
 		}
 
 		for r, azs := range azsPerRegion {
@@ -74,14 +74,14 @@ func main() {
 	if err != nil {
 		fmt.Println("error marshaling azs to yaml")
 		fmt.Println(err)
-		return
+		os.Exit(1)
 	}
 
 	err = os.WriteFile(dest, b, 0644)
 	if err != nil {
 		fmt.Println("error writing azs to file")
 		fmt.Println(err)
-		return
+		os.Exit(1)
 	}
 }
 

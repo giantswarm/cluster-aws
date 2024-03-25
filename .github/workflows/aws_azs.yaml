@@ -56,18 +56,18 @@ jobs:
           # Current changes
           current="$(cat CHANGELOG.md | head -n $(($latest - 1))|tail -n $(($latest - $unreleased - 1)))"
 
-          # look for "Added" section
-          added="$(echo "$current" | grep -En '^### Added'|cut -f1 -d:)"
+          # look for "Changed" section
+          changed="$(echo "$current" | grep -En '^### Changed'|cut -f1 -d:)"
 
-          if [ "$added" == "" ]
+          if [ "$changed" == "" ]
           then
-            added=2
-            awk "NR==$(($unreleased + 1)){print \"\n## Added\n\"}7" CHANGELOG.md >changelog.tmp
+            changed=2
+            awk "NR==$(($unreleased + 1)){print \"\n## Changed\n\"}7" CHANGELOG.md >changelog.tmp
             mv changelog.tmp CHANGELOG.md
           fi
 
           # Add new changelog entry
-          awk "NR==$(($unreleased + $added + 2)){print \"- ${msg}\"}7" CHANGELOG.md >changelog.tmp
+          awk "NR==$(($unreleased + $changed + 2)){print \"- ${msg}\n\"}7" CHANGELOG.md >changelog.tmp
           mv changelog.tmp CHANGELOG.md
 
       - name: Prepare branch for PR
