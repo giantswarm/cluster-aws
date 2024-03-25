@@ -37,11 +37,7 @@ jobs:
         run: |
           md5sum helm/cluster-aws/files/azs-in-region.yaml > /tmp/after
 
-          if diff /tmp/before /tmp/after
-          then
-            echo ::set-output name=needs_pr::true
-          fi
-
+          diff /tmp/before /tmp/after || echo ::set-output name=needs_pr::true
       - name: Add Changelog entry
         env:
           msg: "Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml"
