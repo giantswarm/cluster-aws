@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"os"
 
@@ -21,6 +22,16 @@ type credentials struct {
 
 func main() {
 	ctx := context.TODO()
+
+	var dest string
+
+	flag.StringVar(&dest, "dest-file", "../helm/cluster-aws/files/azs-in-region.yaml", "Path of the yaml file where to write the new AZs")
+	flag.Parse()
+
+	if dest == "" {
+		fmt.Println("No destination file provided, defaulting to stdout")
+		dest = "/dev/stdout"
+	}
 
 	creds := []credentials{
 		{
@@ -66,7 +77,12 @@ func main() {
 		return
 	}
 
-	fmt.Print(string(b))
+	err = os.WriteFile(dest, b, 0644)
+	if err != nil {
+		fmt.Println("error writing azs to file")
+		fmt.Println(err)
+		return
+	}
 }
 
 func getAzsFromCredentials(ctx context.Context, sdkConfig aws.Config) (map[string][]string, error) {
