@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Chart: Bump `cluster` to v0.15.0.
+- Chart: Bump `cluster` to v0.16.0.
 
 ## [0.67.0] - 2024-03-26
 
