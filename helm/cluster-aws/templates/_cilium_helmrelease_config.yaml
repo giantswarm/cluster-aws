@@ -50,6 +50,8 @@ defaultPolicies:
     - key: CriticalAddonsOnly
       operator: Exists
 extraPolicies:
+  remove: true
+
   allowEgressToCoreDNS:
     enabled: false
   allowEgressToProxy:
