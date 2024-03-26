@@ -12,3 +12,5 @@ global:
       spotInstances:
         enabled: true
         maxPrice: 1.2
+  providerSpecific:
+    region: "eu-west-1"

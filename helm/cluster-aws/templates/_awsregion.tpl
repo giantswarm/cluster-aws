@@ -12,5 +12,5 @@ If no region is provided in the values we'll attempt to look it up based on the 
 {{- end }}
 {{- end }}
 {{- end }}
-{{- $region }}
+{{- required "Unable to default the region. Please set .global.providerSpecific.region" $region }}
 {{- end }}

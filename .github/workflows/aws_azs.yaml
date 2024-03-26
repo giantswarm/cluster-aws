@@ -1,0 +1,92 @@
+name: Update helm/cluster-aws/files/azs-in-region.yaml with new availability zones
+on:
+  #schedule:
+  #  - cron:  '0 0 * * *'
+  push:
+    branches:
+      - smart-availability-zones
+
+jobs:
+  import_new_regions_and_zones:
+    runs-on: ubuntu-22.04
+    container: quay.io/giantswarm/golang:1.22.1
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+        with:
+          clean: false
+      - name: Calculate md5sum of azs-in-region.yaml before the script runs
+        run: |
+          md5sum helm/cluster-aws/files/azs-in-region.yaml > /tmp/before
+      - name: Build azs-getter
+        run: |
+          cd azs-getter
+          go get
+          go build -o ../azs-getter-bin main.go
+      - name: Run azs-getter to update azs-in-region.yaml
+        env:
+          AWS_ACCESS_KEY_ID_CHINA: "${{ secrets.AWS_ACCESS_KEY_ID_CHINA }}"
+          AWS_SECRET_ACCESS_KEY_CHINA: "${{ secrets.AWS_SECRET_ACCESS_KEY_CHINA }}"
+          AWS_ACCESS_KEY_ID_EUROPE: "${{ secrets.AWS_ACCESS_KEY_ID_EUROPE }}"
+          AWS_SECRET_ACCESS_KEY_EUROPE: "${{ secrets.AWS_SECRET_ACCESS_KEY_EUROPE }}"
+        run: |
+          ./azs-getter-bin --dest-file=./helm/cluster-aws/files/azs-in-region.yaml
+          rm ./azs-getter-bin
+      - name: Check for changes
+        id: check_changes
+        run: |
+          md5sum helm/cluster-aws/files/azs-in-region.yaml > /tmp/after
+
+          diff /tmp/before /tmp/after || echo ::set-output name=needs_pr::true
+      - name: Add Changelog entry
+        env:
+          msg: "Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml"
+        if: steps.check_changes.outputs.needs_pr == 'true'
+        run: |
+          # Line number containing unreleased tag
+          unreleased="$(grep -En '^## \[Unreleased\]' CHANGELOG.md | cut -f1 -d:)"
+
+          # Line number containing latest release
+          latest="$(grep -En '^## \[[0-9]+' CHANGELOG.md | head -n 1|cut -f1 -d:)"
+
+          # Current changes
+          current="$(cat CHANGELOG.md | head -n $(($latest - 1))|tail -n $(($latest - $unreleased - 1)))"
+
+          # look for "Changed" section
+          changed="$(echo "$current" | grep -En '^### Changed'|cut -f1 -d:)"
+
+          if [ "$changed" == "" ]
+          then
+            changed=2
+            awk "NR==$(($unreleased + 1)){print \"\n## Changed\n\"}7" CHANGELOG.md >changelog.tmp
+            mv changelog.tmp CHANGELOG.md
+          fi
+
+          # Add new changelog entry
+          awk "NR==$(($unreleased + $changed + 2)){print \"- ${msg}\n\"}7" CHANGELOG.md >changelog.tmp
+          mv changelog.tmp CHANGELOG.md
+
+      - name: Prepare branch for PR
+        env:
+          remote_repo: "https://${{ github.actor }}:${{ secrets.TAYLORBOT_GITHUB_ACTION }}@github.com/${{ github.repository }}.git"
+          destination_branch_name: "automated-azs"
+          GITHUB_TOKEN: "${{ secrets.TAYLORBOT_GITHUB_ACTION }}"
+          base: "${{ github.ref }}"
+        if: steps.check_changes.outputs.needs_pr == 'true'
+        run: |
+          git config --global --add safe.directory "`pwd`"
+          git config --local user.email "dev@giantswarm.io"
+          git config --local user.name "taylorbot"
+          git add -A
+          git commit -m "Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml"
+          git push "${remote_repo}" HEAD:${destination_branch_name} --force
+
+      - name: Create PR
+        uses: thomaseizinger/create-pull-request@1.3.1
+        if: steps.check_changes.outputs.needs_pr == 'true'
+        with:
+          GITHUB_TOKEN: ${{ secrets.TAYLORBOT_GITHUB_ACTION }}
+          head: "automated-azs"
+          base: ${{ github.ref }}
+          title: "Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml"
+

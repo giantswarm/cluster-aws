@@ -1,0 +1,80 @@
+ap-northeast-1:
+    - a
+    - c
+    - d
+ap-northeast-2:
+    - a
+    - b
+    - c
+    - d
+ap-northeast-3:
+    - a
+    - b
+    - c
+ap-south-1:
+    - a
+    - b
+    - c
+ap-southeast-1:
+    - a
+    - b
+    - c
+ap-southeast-2:
+    - a
+    - b
+    - c
+ca-central-1:
+    - a
+    - b
+    - d
+cn-north-1:
+    - a
+    - b
+    - d
+cn-northwest-1:
+    - a
+    - b
+    - c
+eu-central-1:
+    - a
+    - b
+    - c
+eu-north-1:
+    - a
+    - b
+    - c
+eu-west-1:
+    - a
+    - b
+    - c
+eu-west-2:
+    - a
+    - b
+    - c
+eu-west-3:
+    - a
+    - b
+    - c
+sa-east-1:
+    - a
+    - b
+    - c
+us-east-1:
+    - a
+    - b
+    - c
+    - d
+    - e
+    - f
+us-east-2:
+    - a
+    - b
+    - c
+us-west-1:
+    - a
+    - b
+us-west-2:
+    - a
+    - b
+    - c
+    - d
