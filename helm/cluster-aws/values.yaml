@@ -218,7 +218,7 @@ global:
   providerSpecific:
     awsClusterRoleIdentityName: default
     flatcarAwsAccount: "706635527432"
-    osImageVariant: "2"
+    osImageVariant: "3"
 internal:
   migration: {}
 kubectlImage:
