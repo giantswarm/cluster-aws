@@ -1,10 +1,7 @@
 name: Update helm/cluster-aws/files/azs-in-region.yaml with new availability zones
 on:
-  #schedule:
-  #  - cron:  '0 0 * * *'
-  push:
-    branches:
-      - smart-availability-zones
+  schedule:
+    - cron:  '0 0 * * *'
 
 jobs:
   import_new_regions_and_zones:
