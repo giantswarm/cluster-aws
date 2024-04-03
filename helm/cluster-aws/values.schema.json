@@ -1142,7 +1142,7 @@
                         "osImageVariant": {
                             "type": "string",
                             "title": "OS image variant",
-                            "default": "2"
+                            "default": "3"
                         },
                         "region": {
                             "type": "string",

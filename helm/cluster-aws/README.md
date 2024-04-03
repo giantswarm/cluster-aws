@@ -22,7 +22,7 @@ Properties within the `.global.providerSpecific` object
 | `global.providerSpecific.ami` | **Amazon machine image (AMI)** - If specified, this image will be used to provision EC2 instances.|**Type:** `string`<br/>|
 | `global.providerSpecific.awsClusterRoleIdentityName` | **Cluster role identity name** - Name of an AWSClusterRoleIdentity object. Learn more at https://docs.giantswarm.io/getting-started/cloud-provider-accounts/cluster-api/aws/#configure-the-awsclusterroleidentity .|**Type:** `string`<br/>**Value pattern:** `^[-a-zA-Z0-9_\.]{1,63}$`<br/>**Default:** `"default"`|
 | `global.providerSpecific.flatcarAwsAccount` | **AWS account owning Flatcar image** - AWS account ID owning the Flatcar Container Linux AMI.|**Type:** `string`<br/>**Default:** `"706635527432"`|
-| `global.providerSpecific.osImageVariant` | **OS image variant**|**Type:** `string`<br/>**Default:** `"2"`|
+| `global.providerSpecific.osImageVariant` | **OS image variant**|**Type:** `string`<br/>**Default:** `"3"`|
 | `global.providerSpecific.region` | **Region**|**Type:** `string`<br/>|
 
 ### Apps
