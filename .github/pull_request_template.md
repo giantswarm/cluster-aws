@@ -9,6 +9,9 @@
 
 <!--
 If you want to skip the e2e tests, remove the following line and add the `skip/ci` label to skip the check
+
+Note: Tests are not automatically executed when creating a draft PR
+If you do want to trigger the tests while still in draft then please add a comment with the trigger.
 -->
 
 /run cluster-test-suites
