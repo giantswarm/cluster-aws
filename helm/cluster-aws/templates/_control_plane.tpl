@@ -5,6 +5,8 @@ Any changes to this will trigger the resource to be recreated rather than attemp
 */}}
 {{- define "controlplane-awsmachinetemplate-spec" -}}
 {{- include "ami" $ }}
+instanceMetadataOptions:
+  httpTokens: required
 cloudInit: {}
 instanceType: {{ .Values.global.controlPlane.instanceType }}
 nonRootVolumes:

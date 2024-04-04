@@ -33,6 +33,8 @@ spec:
       - {{ index $tags (keys $tags | first) | quote }}
     {{- end }}
   awsLaunchTemplate:
+    instanceMetadataOptions:
+      httpTokens: required
     {{- include "ami" $ | nindent 4 }}
     iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
     instanceType: {{ $value.instanceType | default "r6i.xlarge" }}
