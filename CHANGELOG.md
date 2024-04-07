@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Chart: Add `aws-pod-identity-webhook` app. ([#577](https://github.com/giantswarm/cluster-aws/pull/577))
+
 ## [0.68.0] - 2024-03-27
 
 ### Changed

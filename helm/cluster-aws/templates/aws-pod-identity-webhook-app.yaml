@@ -1,0 +1,25 @@
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  name: {{ include "resource.default.name" . }}-aws-pod-identity-webhook
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" . }}-cert-manager
+spec:
+  catalog: default
+  name: aws-pod-identity-webhook
+  # repo: giantswarm/aws-pod-identity-webhook
+  version: 1.14.1
+  namespace: kube-system
+  # config:
+  #   configMap:
+  #     name: {{ include "resource.default.name" . }}-cluster-values
+  #     namespace: {{ .Release.Namespace }}
+  kubeConfig:
+    inCluster: false
+    secret:
+      name: {{ include "resource.default.name" . }}-kubeconfig
+      namespace: {{ .Release.Namespace }}
+    context:
+      name: {{ include "resource.default.name" . }}-admin@{{ include "resource.default.name" . }}
