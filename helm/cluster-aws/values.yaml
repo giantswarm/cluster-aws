@@ -5,6 +5,8 @@ cluster:
     apps:
       cilium:
         configTemplateName: awsCiliumHelmValues
+      clusterAutoscaler:
+        configTemplateName: awsClusterAutoscalerHelmValues
       coreDns:
         configTemplateName: awsCorednsHelmValues
       networkPolicies:
