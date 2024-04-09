@@ -7,6 +7,7 @@ cluster:
         configTemplateName: awsCiliumHelmValues
       clusterAutoscaler:
         configTemplateName: awsClusterAutoscalerHelmValues
+        enable: true
       coreDns:
         configTemplateName: awsCorednsHelmValues
       networkPolicies:

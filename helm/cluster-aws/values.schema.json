@@ -216,7 +216,8 @@
                             "configTemplateName": "awsCiliumHelmValues"
                         },
                         "clusterAutoscaler": {
-                            "configTemplateName": "awsClusterAutoscalerHelmValues"
+                            "configTemplateName": "awsClusterAutoscalerHelmValues",
+                            "enable": true
                         },
                         "coreDns": {
                             "configTemplateName": "awsCorednsHelmValues"
