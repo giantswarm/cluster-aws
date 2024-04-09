@@ -9,6 +9,8 @@ cluster:
         enable: true
       certManager:
         enable: true
+      chartOperatorExtensions:
+        enable: true
       cilium:
         configTemplateName: awsCiliumHelmValues
       clusterAutoscaler:
