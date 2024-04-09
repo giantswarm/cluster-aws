@@ -225,7 +225,8 @@
                             "enable": true
                         },
                         "cilium": {
-                            "configTemplateName": "awsCiliumHelmValues"
+                            "configTemplateName": "awsCiliumHelmValues",
+                            "enable": true
                         },
                         "clusterAutoscaler": {
                             "configTemplateName": "awsClusterAutoscalerHelmValues",
@@ -410,7 +411,6 @@
                     },
                     "resourcesApi": {
                         "bastionResourceEnabled": false,
-                        "ciliumHelmReleaseResourceEnabled": true,
                         "cleanupHelmReleaseResourcesEnabled": true,
                         "clusterResourceEnabled": true,
                         "controlPlaneResourceEnabled": true,

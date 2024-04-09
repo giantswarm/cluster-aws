@@ -13,6 +13,7 @@ cluster:
         enable: true
       cilium:
         configTemplateName: awsCiliumHelmValues
+        enable: true
       clusterAutoscaler:
         configTemplateName: awsClusterAutoscalerHelmValues
         enable: true
@@ -129,7 +130,6 @@ cluster:
       templateName: awsContainerImageRegistry
     resourcesApi:
       bastionResourceEnabled: false
-      ciliumHelmReleaseResourceEnabled: true
       cleanupHelmReleaseResourcesEnabled: true
       clusterResourceEnabled: true
       controlPlaneResourceEnabled: true
