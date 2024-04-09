@@ -212,6 +212,9 @@
             "default": {
                 "providerIntegration": {
                     "apps": {
+                        "capiNodeLabeler": {
+                            "enable": true
+                        },
                         "cilium": {
                             "configTemplateName": "awsCiliumHelmValues"
                         },

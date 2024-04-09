@@ -3,6 +3,8 @@
 cluster:
   providerIntegration:
     apps:
+      capiNodeLabeler:
+        enable: true
       cilium:
         configTemplateName: awsCiliumHelmValues
       clusterAutoscaler:
