@@ -14,13 +14,39 @@ cluster:
       cilium:
         configTemplateName: awsCiliumHelmValues
         enable: true
+      ciliumServiceMonitors:
+        enable: true
       clusterAutoscaler:
         configTemplateName: awsClusterAutoscalerHelmValues
         enable: true
       coreDns:
         configTemplateName: awsCorednsHelmValues
+        enable: true
+      etcdKubernetesResourcesCountExporter:
+        enable: true
+      externalDns:
+        enable: true
+      k8sDnsNodeCache:
+        enable: true
+      metricsServer:
+        enable: true
+      netExporter:
+        enable: true
       networkPolicies:
         configTemplateName: awsNetworkPoliciesHelmValues
+        enable: true
+      nodeExporter:
+        enable: true
+      observabilityBundle:
+        enable: true
+      securityBundle:
+        enable: true
+      teleportKubeAgent:
+        enable: true
+      verticalPodAutoscaler:
+        enable: true
+      verticalPodAutoscalerCrd:
+        enable: true
     clusterAnnotationsTemplateName: awsConnectivityLabels
     components:
       systemd:
@@ -133,7 +159,6 @@ cluster:
       cleanupHelmReleaseResourcesEnabled: true
       clusterResourceEnabled: true
       controlPlaneResourceEnabled: true
-      coreDnsHelmReleaseResourceEnabled: true
       helmRepositoryResourcesEnabled: true
       infrastructureCluster:
         group: infrastructure.cluster.x-k8s.io
@@ -145,9 +170,7 @@ cluster:
         version: v1beta1
       machineHealthCheckResourceEnabled: true
       machinePoolResourcesEnabled: true
-      networkPoliciesHelmReleaseResourceEnabled: true
       nodePoolKind: MachinePool
-      verticalPodAutoscalerCrdHelmReleaseResourceEnabled: true
     workers:
       defaultNodePools:
         def00:
