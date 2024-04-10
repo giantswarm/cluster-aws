@@ -12,7 +12,7 @@ metadata:
 spec:
   additionalTags:
     k8s.io/cluster-autoscaler/enabled: "true"
-  availabilityZones: {{ include "aws-availability-zones" $value | nindent 2 }}
+  availabilityZones: {{ include "aws-availability-zones" (dict "mp" $value "Values" $.Values "Files" $.Files) | nindent 2 }}
   subnets:
   - filters:
     - name: tag:kubernetes.io/cluster/{{ include "resource.default.name" $ }}
@@ -21,8 +21,8 @@ spec:
       - owned
     - name: availability-zone
       values:
-      {{- include "aws-availability-zones" $value | nindent 6 }}
-    {{ if eq $.Values.global.connectivity.vpcMode "public" }}
+      {{- include "aws-availability-zones" (dict "mp" $value "Values" $.Values "Files" $.Files) | nindent 6 }}
+    {{- if eq $.Values.global.connectivity.vpcMode "public" }}
     - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
       values:
       - private

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix selecting right AWS region for Machine Pools when cluster is in different AWS region than MC.
+
 ### Changed
 
 - Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml
