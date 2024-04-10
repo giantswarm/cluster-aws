@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Chart: Add `aws-pod-identity-webhook` app. ([#578](https://github.com/giantswarm/cluster-aws/pull/578))
+
 ### Changed
 
 - Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml
