@@ -1,23 +1,23 @@
 apiVersion: v2
 name: cluster-aws
+type: application
+version: 0.68.0
+description: A helm chart for creating Cluster API clusters with the AWS infrastructure provider (CAPA).
+icon: https://s.giantswarm.io/app-icons/aws/2/dark.svg
 home: https://github.com/giantswarm/cluster-aws
 sources:
   - https://github.com/giantswarm/cluster-aws
-description: A helm chart for creating Cluster API clusters with the AWS infrastructure provider (CAPA).
-icon: https://s.giantswarm.io/app-icons/aws/2/dark.svg
-type: application
-version: 0.68.0
 annotations:
-  application.giantswarm.io/team: "phoenix"
-  application.giantswarm.io/app-type: "cluster"
+  application.giantswarm.io/app-type: cluster
+  application.giantswarm.io/team: phoenix
 restrictions:
   compatibleProviders:
     - aws
     - capa
 dependencies:
-  - name: cluster-shared
-    version: "0.7.0"
-    repository: "https://giantswarm.github.io/cluster-catalog"
   - name: cluster
     version: "0.16.0"
-    repository: "https://giantswarm.github.io/cluster-catalog"
+    repository: https://giantswarm.github.io/cluster-catalog
+  - name: cluster-shared
+    version: "0.7.0"
+    repository: https://giantswarm.github.io/cluster-catalog
