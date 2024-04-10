@@ -3,8 +3,62 @@
     "$defs": {
         "app": {
             "type": "object",
+            "title": "App resource",
+            "description": "Configuration of a default app that is part of the cluster and is deployed as an App resource.",
+            "additionalProperties": false,
+            "properties": {
+                "extraConfigs": {
+                    "type": "array",
+                    "title": "Extra config maps or secrets",
+                    "description": "Extra config maps or secrets that will be used to customize to the app. The desired values must be under configmap or secret key 'values'. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.",
+                    "items": {
+                        "type": "object",
+                        "title": "Config map or secret",
+                        "properties": {
+                            "kind": {
+                                "type": "string",
+                                "title": "Kind",
+                                "description": "Specifies whether the resource is a config map or a secret.",
+                                "enum": [
+                                    "configMap",
+                                    "secret"
+                                ]
+                            },
+                            "name": {
+                                "type": "string",
+                                "title": "Name",
+                                "description": "Name of the config map or secret. The object must exist in the same namespace as the cluster App."
+                            },
+                            "priority": {
+                                "type": "integer",
+                                "title": "Priority",
+                                "default": 25,
+                                "max": 150,
+                                "min": 1
+                            }
+                        }
+                    }
+                },
+                "values": {
+                    "type": "object",
+                    "title": "Config map",
+                    "description": "Helm Values to be passed to the app as user config.",
+                    "additionalProperties": true
+                }
+            }
+        },
+        "awsResourceTagValue": {
+            "type": "string",
+            "title": "Tag value",
+            "$comment": "Restrictions based on https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions",
+            "maxLength": 256,
+            "minLength": 0,
+            "pattern": "^[ a-zA-Z0-9\\._:/=+-@]+$"
+        },
+        "helmRelease": {
+            "type": "object",
             "title": "App",
-            "description": "Configuration of an default app that is part of the cluster.",
+            "description": "Configuration of a default app that is part of the cluster and is deployed as a HelmRelease resource.",
             "additionalProperties": false,
             "properties": {
                 "extraConfigs": {
@@ -44,14 +98,6 @@
                     "additionalProperties": true
                 }
             }
-        },
-        "awsResourceTagValue": {
-            "type": "string",
-            "title": "Tag value",
-            "$comment": "Restrictions based on https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions",
-            "maxLength": 256,
-            "minLength": 0,
-            "pattern": "^[ a-zA-Z0-9\\._:/=+-@]+$"
         },
         "machinePool": {
             "type": "object",
@@ -442,31 +488,31 @@
                     "additionalProperties": false,
                     "properties": {
                         "awsCloudControllerManager": {
-                            "$ref": "#/$defs/app",
+                            "$ref": "#/$defs/helmRelease",
                             "type": "object",
                             "title": "AWS cloud controller manager",
                             "description": "Configuration of aws-cloud-controller-manager-app. For all available values see https://github.com/giantswarm/aws-cloud-controller-manager-app."
                         },
                         "awsEbsCsiDriver": {
-                            "$ref": "#/$defs/app",
+                            "$ref": "#/$defs/helmRelease",
                             "type": "object",
                             "title": "AWS EBS CSI driver",
                             "description": "Configuration of aws-ebs-csi-driver-app. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-app."
                         },
                         "cilium": {
-                            "$ref": "#/$defs/app",
+                            "$ref": "#/$defs/helmRelease",
                             "type": "object",
                             "title": "Cilium",
                             "description": "Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app."
                         },
                         "coreDns": {
-                            "$ref": "#/$defs/app",
+                            "$ref": "#/$defs/helmRelease",
                             "type": "object",
                             "title": "CoreDNS",
                             "description": "Configuration of coredns-app. For all available values see https://github.com/giantswarm/coredns-app."
                         },
                         "verticalPodAutoscalerCrd": {
-                            "$ref": "#/$defs/app",
+                            "$ref": "#/$defs/helmRelease",
                             "type": "object",
                             "title": "Vertical-pod-autoscaler CRD",
                             "description": "Configuration of vertical-pod-autoscaler-crd-app. For all available values see https://github.com/giantswarm/vertical-pod-autoscaler-crd."

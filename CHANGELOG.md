@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml
 - AMI: Use new AMI which includes latest teleport binary v15.1.7
+- Values: Separate `app` and `helmRelease` definition. ([#578](https://github.com/giantswarm/cluster-aws/pull/578))
 
 ## [0.68.0] - 2024-03-27
 
