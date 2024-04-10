@@ -141,7 +141,9 @@ cluster:
           customNodeLabels:
             - label=default
           instanceType: r6i.xlarge
+          instanceWarmup: 300
           maxSize: 3
+          minHealthyPercentage: 90
           minSize: 3
       kubeadmConfig:
         files:
