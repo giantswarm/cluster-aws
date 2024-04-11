@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Allow customizing instance refresh parameters.
+
 ### Fixed
 
 - Fix selecting right AWS region for Machine Pools when cluster is in different AWS region than MC.
