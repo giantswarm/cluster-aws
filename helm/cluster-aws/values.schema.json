@@ -134,9 +134,17 @@
                     },
                     "default": []
                 },
+                "instanceWarmup": {
+                    "type": "integer",
+                    "title": "Time interval, in seconds, between node replacement."
+                },
                 "maxSize": {
                     "type": "integer",
                     "title": "Maximum number of nodes"
+                },
+                "minHealthyPercentage": {
+                    "type": "integer",
+                    "title": "Minimum percentage of instances that must remain healthy during node replacement."
                 },
                 "minSize": {
                     "type": "integer",
@@ -399,7 +407,9 @@
                                     "label=default"
                                 ],
                                 "instanceType": "r6i.xlarge",
+                                "instanceWarmup": 300,
                                 "maxSize": 3,
+                                "minHealthyPercentage": 90,
                                 "minSize": 3
                             }
                         },
