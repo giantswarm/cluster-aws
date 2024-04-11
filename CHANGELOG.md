@@ -54,6 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update instanceWarmup to 10' to be on pair with Vintage
 - Enable extraPolicies from network-policies-app.
 - Disable and remove extraPolicies from cilium-app.
+- Values: Separate `app` and `helmRelease` definition. ([#581](https://github.com/giantswarm/cluster-aws/pull/581))
 
 ## [0.70.0] - 2024-04-15
 
