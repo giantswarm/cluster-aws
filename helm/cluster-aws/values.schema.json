@@ -240,7 +240,7 @@
                         "cilium": {
                             "configTemplateName": "awsCiliumHelmValues"
                         },
-                        "coredns": {
+                        "coreDns": {
                             "configTemplateName": "awsCorednsHelmValues"
                         }
                     },
