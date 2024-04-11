@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.69.0] - 2024-04-11
+
 ### Added
 
 - Allow customizing instance refresh parameters.
@@ -1257,7 +1259,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.68.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.69.0...HEAD
+[0.69.0]: https://github.com/giantswarm/cluster-aws/compare/v0.68.0...v0.69.0
 [0.68.0]: https://github.com/giantswarm/cluster-aws/compare/v0.67.0...v0.68.0
 [0.67.0]: https://github.com/giantswarm/cluster-aws/compare/v0.66.1...v0.67.0
 [0.66.1]: https://github.com/giantswarm/cluster-aws/compare/v0.66.0...v0.66.1
