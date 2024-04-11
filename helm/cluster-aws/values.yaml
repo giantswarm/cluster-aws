@@ -240,6 +240,7 @@ global:
   apps:
     awsCloudControllerManager: {}
     awsEbsCsiDriver: {}
+    awsPodIdentityWebhook: {}
     cilium: {}
     coreDns: {}
     networkPolicies: {}

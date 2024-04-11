@@ -649,6 +649,12 @@
                             "title": "AWS EBS CSI driver",
                             "description": "Configuration of aws-ebs-csi-driver-app. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-app."
                         },
+                        "awsPodIdentityWebhook": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "AWS Pod Identity Webhook",
+                            "description": "Configuration of aws-pod-identity-webhook. For all available values see https://github.com/giantswarm/aws-pod-identity-webhook."
+                        },
                         "cilium": {
                             "$ref": "#/$defs/helmRelease",
                             "type": "object",
