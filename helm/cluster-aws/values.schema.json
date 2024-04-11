@@ -243,6 +243,7 @@
                             "enable": true
                         },
                         "externalDns": {
+                            "configTemplateName": "awsExternalDnsHelmValues",
                             "enable": true
                         },
                         "k8sDnsNodeCache": {
