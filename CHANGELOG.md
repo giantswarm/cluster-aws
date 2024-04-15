@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Update cluster chart to v0.18.0. This updates teleport node labels.
 - Update cluster chart to v0.17.0. This updates cilium app from v0.21.0 to v0.22.0.
 
 ## [0.69.0] - 2024-04-11
@@ -25,7 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml
 - AMI: Use new AMI which includes latest teleport binary v15.1.7
-- Chart: Bump `cluster` to v0.18.0.
 
 ## [0.68.0] - 2024-03-27
 
