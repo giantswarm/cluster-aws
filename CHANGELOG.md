@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update cluster chart to v0.17.0. This updates cilium app from v0.21.0 to v0.22.0.
 
+### Fixed
+
+- Update aws-ebs-csi-driver-app from v2.30.0 to v2.30.1. This fixes accidental installation of PSPs which could break the upgrade to previous `cluster-aws` versions which didn't have this fix yet.
+
 ## [0.69.0] - 2024-04-11
 
 ### Added
