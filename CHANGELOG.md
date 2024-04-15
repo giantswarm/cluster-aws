@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update cluster chart to v0.18.0. This updates teleport node labels.
+- Update cluster chart to v0.18.0. This updates teleport node labels and will roll nodes.
 - Update cluster chart to v0.17.0. This updates cilium app from v0.21.0 to v0.22.0.
 
 ## [0.69.0] - 2024-04-11
