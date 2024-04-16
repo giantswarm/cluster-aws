@@ -141,7 +141,7 @@ cluster:
           customNodeLabels:
             - label=default
           instanceType: r6i.xlarge
-          instanceWarmup: 300
+          instanceWarmup: 600
           maxSize: 3
           minHealthyPercentage: 90
           minSize: 3
