@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update cluster chart to v0.18.0. This updates teleport node labels and will roll nodes.
+- Update instanceWarmup to 10' to be on pair with Vintage
 
 ## [0.70.0] - 2024-04-15
 
