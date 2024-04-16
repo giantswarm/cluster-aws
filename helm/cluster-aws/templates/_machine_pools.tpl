@@ -65,7 +65,7 @@ spec:
     {{- end }}
   {{- end }}
   refreshPreferences:
-    instanceWarmup: {{ $value.instanceWarmup | default 300 }}
+    instanceWarmup: {{ $value.instanceWarmup | default 600 }}
     minHealthyPercentage: {{ $value.minHealthyPercentage | default 90 }}
 ---
 {{ end }}
