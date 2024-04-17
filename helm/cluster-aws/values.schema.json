@@ -204,6 +204,9 @@
                         },
                         "coredns": {
                             "configTemplateName": "awsCorednsHelmValues"
+                        },
+                        "networkPolicies": {
+                            "configTemplateName": "awsNetworkPoliciesHelmValues"
                         }
                     },
                     "clusterAnnotationsTemplateName": "awsConnectivityLabels",
@@ -474,6 +477,12 @@
                             "type": "object",
                             "title": "CoreDNS",
                             "description": "Configuration of coredns-app. For all available values see https://github.com/giantswarm/coredns-app."
+                        },
+                        "networkPolicies": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "NetworkPolicies",
+                            "description": "Configuration of network-policies-app. For all available values see https://github.com/giantswarm/network-policies-app."
                         },
                         "verticalPodAutoscalerCrd": {
                             "$ref": "#/$defs/app",

@@ -50,10 +50,12 @@ defaultPolicies:
     - key: CriticalAddonsOnly
       operator: Exists
 extraPolicies:
+  remove: true
+
   allowEgressToCoreDNS:
-    enabled: true
+    enabled: false
   allowEgressToProxy:
-    enabled: {{ $.Values.global.connectivity.proxy.enabled }}
+    enabled: false
     httpProxy: {{ $.Values.global.connectivity.proxy.httpProxy | quote }}
     httpsProxy: {{ $.Values.global.connectivity.proxy.httpsProxy | quote }}
 {{- end }}

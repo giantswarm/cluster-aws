@@ -7,6 +7,8 @@ cluster:
         configTemplateName: awsCiliumHelmValues
       coredns:
         configTemplateName: awsCorednsHelmValues
+      networkPolicies:
+        configTemplateName: awsNetworkPoliciesHelmValues
     clusterAnnotationsTemplateName: awsConnectivityLabels
     components:
       systemd:
@@ -160,6 +162,7 @@ global:
     awsEbsCsiDriver: {}
     cilium: {}
     coreDns: {}
+    networkPolicies: {}
     verticalPodAutoscalerCrd: {}
   components:
     containerd:
