@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Added an annotation to Kubernetes resources to resolve an issue where deletion was stuck due to hanging load balancers.
+
 ### Changed
 
 - Update cluster chart to v0.18.0. This updates teleport node labels and will roll nodes.
