@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add option to configure instance metadata http tokens for EC2 instances.
+
 ### Changed
 
 - Update cluster chart to v0.18.0. This updates teleport node labels and will roll nodes.

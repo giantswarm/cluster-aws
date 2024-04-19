@@ -1158,6 +1158,23 @@
                             "description": "AWS account ID owning the Flatcar Container Linux AMI.",
                             "default": "706635527432"
                         },
+                        "instanceMetadataOptions": {
+                            "type": "object",
+                            "title": "Instance metadata options",
+                            "description": "Instance metadata options for the EC2 instances in the cluster.",
+                            "properties": {
+                                "httpTokens": {
+                                    "type": "string",
+                                    "title": "HTTP tokens",
+                                    "description": "The state of token usage for your instance metadata requests. If you set this parameter to optional, you can use either the default IAM role or a session policy to control the token usage. If you set this parameter to required, you must use a session policy to control the token usage. Learn more at https://aws.amazon.com/blogs/security/defense-in-depth-open-firewalls-reverse-proxies-ssrf-vulnerabilities-ec2-instance-metadata-service/ .",
+                                    "enum": [
+                                        "optional",
+                                        "required"
+                                    ],
+                                    "default": "required"
+                                }
+                            }
+                        },
                         "osImageVariant": {
                             "type": "string",
                             "title": "OS image variant",

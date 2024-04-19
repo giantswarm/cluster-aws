@@ -22,6 +22,8 @@ Properties within the `.global.providerSpecific` object
 | `global.providerSpecific.ami` | **Amazon machine image (AMI)** - If specified, this image will be used to provision EC2 instances.|**Type:** `string`<br/>|
 | `global.providerSpecific.awsClusterRoleIdentityName` | **Cluster role identity name** - Name of an AWSClusterRoleIdentity object. Learn more at https://docs.giantswarm.io/getting-started/cloud-provider-accounts/cluster-api/aws/#configure-the-awsclusterroleidentity .|**Type:** `string`<br/>**Value pattern:** `^[-a-zA-Z0-9_\.]{1,63}$`<br/>**Default:** `"default"`|
 | `global.providerSpecific.flatcarAwsAccount` | **AWS account owning Flatcar image** - AWS account ID owning the Flatcar Container Linux AMI.|**Type:** `string`<br/>**Default:** `"706635527432"`|
+| `global.providerSpecific.instanceMetadataOptions` | **Instance metadata options** - Instance metadata options for the EC2 instances in the cluster.|**Type:** `object`<br/>|
+| `global.providerSpecific.instanceMetadataOptions.httpTokens` | **HTTP tokens** - The state of token usage for your instance metadata requests. If you set this parameter to optional, you can use either the default IAM role or a session policy to control the token usage. If you set this parameter to required, you must use a session policy to control the token usage. Learn more at https://aws.amazon.com/blogs/security/defense-in-depth-open-firewalls-reverse-proxies-ssrf-vulnerabilities-ec2-instance-metadata-service/ .|**Type:** `string`<br/>**Default:** `"required"`|
 | `global.providerSpecific.osImageVariant` | **OS image variant**|**Type:** `string`<br/>**Default:** `"3"`|
 | `global.providerSpecific.region` | **Region**|**Type:** `string`<br/>|
 
