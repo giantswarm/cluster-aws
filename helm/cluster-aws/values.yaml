@@ -41,6 +41,7 @@ cluster:
       observabilityBundle:
         enable: true
       securityBundle:
+        configTemplateName: awsSecurityBundleHelmValues
         enable: true
       teleportKubeAgent:
         enable: true
