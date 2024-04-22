@@ -49,7 +49,7 @@ spec:
       maxPrice: {{ $value.spotInstances.maxPrice | quote }}
     {{- end }}
     instanceMetadataOptions:
-      httpPutResponseHopLimit: 2
+      httpPutResponseHopLimit: 4
       httpTokens: {{ $.Values.global.providerSpecific.instanceMetadataOptions.httpTokens | quote }}
   minSize: {{ $value.minSize | default 1 }}
   maxSize: {{ $value.maxSize | default 3 }}
