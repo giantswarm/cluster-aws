@@ -29,7 +29,7 @@ additionalSecurityGroups:
 {{- toYaml .Values.global.controlPlane.additionalSecurityGroups | nindent 2 }}
 {{- end }}
 instanceMetadataOptions:
-  httpPutResponseHopLimit: 4
+  httpPutResponseHopLimit: 3
   httpTokens: {{ .Values.global.providerSpecific.instanceMetadataOptions.httpTokens | quote }}
 sshKeyName: ""
 subnet:
