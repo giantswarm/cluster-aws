@@ -35,6 +35,7 @@ subnet:
       values:
       - shared
       - owned
+      - superowned
     {{ if eq $.Values.global.connectivity.vpcMode "public" }}
     - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
       values:
