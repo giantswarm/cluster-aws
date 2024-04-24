@@ -1166,7 +1166,7 @@
                                 "httpTokens": {
                                     "type": "string",
                                     "title": "HTTP tokens",
-                                    "description": "The state of token usage for your instance metadata requests. If you set this parameter to `optional`, you can use either the default IAM role or a session policy to control the token usage. If you set this parameter to `required`, you must use a session policy to control the token usage. Learn more at [What’s new in IMDSv2](https://aws.amazon.com/blogs/security/defense-in-depth-open-firewalls-reverse-proxies-ssrf-vulnerabilities-ec2-instance-metadata-service/).",
+                                    "description": "The state of token usage for your instance metadata requests. If you set this parameter to `optional`, you can use either IMDSv1 or IMDSv2. If you set this parameter to `required`, you must use a IMDSv2 to access the instance metadata endpoint. Learn more at [What’s new in IMDSv2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html).",
                                     "enum": [
                                         "optional",
                                         "required"
