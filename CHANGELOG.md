@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.72.0] - 2024-04-24
+
 ### Added
 
 - Add option to configure instance metadata http tokens for EC2 instances to enable or disable IMDSv2 enforcement.
@@ -1282,7 +1284,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.71.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.72.0...HEAD
+[0.72.0]: https://github.com/giantswarm/cluster-aws/compare/v0.71.0...v0.72.0
 [0.71.0]: https://github.com/giantswarm/cluster-aws/compare/v0.70.0...v0.71.0
 [0.70.0]: https://github.com/giantswarm/cluster-aws/compare/v0.69.0...v0.70.0
 [0.69.0]: https://github.com/giantswarm/cluster-aws/compare/v0.68.0...v0.69.0
