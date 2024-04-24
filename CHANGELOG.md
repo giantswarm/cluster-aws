@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add option to configure instance metadata http tokens for EC2 instances to enable or disable IMDSv2 enforcement.
+
 ## [0.71.0] - 2024-04-16
 
 ### Changed

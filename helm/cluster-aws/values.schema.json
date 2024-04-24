@@ -1158,6 +1158,23 @@
                             "description": "AWS account ID owning the Flatcar Container Linux AMI.",
                             "default": "706635527432"
                         },
+                        "instanceMetadataOptions": {
+                            "type": "object",
+                            "title": "Instance metadata options",
+                            "description": "Instance metadata options for the EC2 instances in the cluster.",
+                            "properties": {
+                                "httpTokens": {
+                                    "type": "string",
+                                    "title": "HTTP tokens",
+                                    "description": "The state of token usage for your instance metadata requests. If you set this parameter to `optional`, you can use either IMDSv1 or IMDSv2. If you set this parameter to `required`, you must use a IMDSv2 to access the instance metadata endpoint. Learn more at [What’s new in IMDSv2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html).",
+                                    "enum": [
+                                        "optional",
+                                        "required"
+                                    ],
+                                    "default": "required"
+                                }
+                            }
+                        },
                         "osImageVariant": {
                             "type": "string",
                             "title": "OS image variant",

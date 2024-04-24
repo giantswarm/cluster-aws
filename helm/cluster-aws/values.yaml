@@ -223,6 +223,8 @@ global:
   providerSpecific:
     awsClusterRoleIdentityName: default
     flatcarAwsAccount: "706635527432"
+    instanceMetadataOptions:
+      httpTokens: required
     osImageVariant: "3"
 internal:
   migration: {}

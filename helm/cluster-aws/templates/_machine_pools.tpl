@@ -48,6 +48,9 @@ spec:
     spotMarketOptions:
       maxPrice: {{ $value.spotInstances.maxPrice | quote }}
     {{- end }}
+    instanceMetadataOptions:
+      httpPutResponseHopLimit: 3
+      httpTokens: {{ $.Values.global.providerSpecific.instanceMetadataOptions.httpTokens | quote }}
   minSize: {{ $value.minSize | default 1 }}
   maxSize: {{ $value.maxSize | default 3 }}
   {{- if or (not $value.spotInstances) (not $value.spotInstances.enabled) }}
