@@ -205,7 +205,7 @@ global:
     apiServerPort: 443
     containerdVolumeSizeGB: 100
     etcdVolumeSizeGB: 100
-    instanceType: r6i.xlarge
+    instanceType: r6i.large
     kubeletVolumeSizeGB: 100
     machineHealthCheck:
       enabled: true
