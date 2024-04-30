@@ -56,6 +56,16 @@ spec:
       cidrBlocks: {{- toYaml ((concat .Values.global.controlPlane.loadBalancerIngressAllowCidrBlocks (list "95.179.153.65/32" "185.102.95.187/32")) | uniq) | nindent 6 }}
     {{- end }}
   network:
+    {{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+    additionalControlPlaneIngressRules:
+      - description: "Allow traffic from pods to control plane nodes for access of applications to Kubernetes API"
+        protocol: "-1" # all
+        fromPort: -1
+        toPort: -1
+
+        # We could also use `sourceSecurityGroupIds` here, but the ID of the "<cluster>-pods" security group isn't known yet
+        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+    {{- end }}
     cni:
       cniIngressRules:
       - description: allow AWS CNI traffic across nodes and control plane
@@ -72,6 +82,14 @@ spec:
       {{- end }}
       {{- if .Values.global.connectivity.network.internetGatewayId }}
       internetGatewayId: {{ .Values.global.connectivity.network.internetGatewayId }}
+      {{- end }}
+      {{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+      secondaryCidrBlocks:
+        # Managed by Cilium in ENI mode
+        {{- if not (required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | first | regexMatch "/(1[6-9]|2[0-8])$") }}
+          {{ fail (printf "You have set `global.connectivity.cilium.ipamMode=eni`, but the pod CIDR %s is not supported as AWS VPC CIDR (see https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html: /16 to /28 sizes are supported). Please change `global.connectivity.network.pods.cidrBlocks` to a valid value (see https://github.com/giantswarm/cluster-aws/tree/main/helm/cluster-aws#connectivity)." (.Values.global.connectivity.network.pods.cidrBlocks | first | quote)) }}
+        {{- end }}
+        - ipv4CidrBlock: {{ .Values.global.connectivity.network.pods.cidrBlocks | first | quote }}
       {{- end }}
     subnets:
     {{- range $j, $subnet := .Values.global.connectivity.subnets }}
@@ -100,6 +118,30 @@ spec:
       {{- if or $subnet.tags $cidr.tags }}
       tags:
         {{- toYaml $subnet.tags | nindent 8 }}
+        {{- if $cidr.tags }}
+        {{- toYaml $cidr.tags | nindent 8 }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+
+    {{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+    {{- range $j, $subnet := .Values.global.connectivity.eniModePodSubnets }}
+    {{- range $i, $cidr := $subnet.cidrBlocks }}
+    - id: "{{ include "resource.default.name" $ }}-subnet-secondary-{{ if eq (len $cidr.availabilityZone) 1 }}{{ include "aws-region" $ }}{{ end }}{{ $cidr.availabilityZone }}"
+      cidrBlock: "{{ $cidr.cidr }}"
+      {{- if eq (len $cidr.availabilityZone) 1 }}
+      availabilityZone: "{{ include "aws-region" $ }}{{ $cidr.availabilityZone }}"
+      {{- else }}
+      availabilityZone: "{{ $cidr.availabilityZone }}"
+      {{- end }}
+      isPublic: false
+      {{- if ne (index $cidr.tags "sigs.k8s.io/cluster-api-provider-aws/association") "secondary" }}
+        {{ fail (printf "You have set `global.connectivity.cilium.ipamMode=eni`, but the pod subnet %q in `global.connectivity.eniModePodSubnets` is not tagged with `sigs.k8s.io/cluster-api-provider-aws/association=secondary`, as required so that CAPA does not accidentally choose the subnet for nodes (see https://github.com/giantswarm/cluster-aws/tree/main/helm/cluster-aws#connectivity)." $cidr.cidr) }}
+      {{- end }}
+      {{- if or $subnet.tags $cidr.tags }}
+      tags:
         {{- if $cidr.tags }}
         {{- toYaml $cidr.tags | nindent 8 }}
         {{- end }}
