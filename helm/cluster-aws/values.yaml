@@ -64,6 +64,12 @@ cluster:
                       label: kubelet
                       wipeFilesystem: true
                     name: kubelet
+                  - mount:
+                      device: /dev/xvdf
+                      format: xfs
+                      label: log
+                      wipeFilesystem: true
+                    name: kubelet
               systemd:
                 units:
                   - contents:
@@ -105,6 +111,19 @@ cluster:
                         description: containerd volume
                     enabled: true
                     name: var-lib-containerd.mount
+                  - contents:
+                      install:
+                        wantedBy:
+                          - local-fs-pre.target
+                      mount:
+                        type: xfs
+                        what: /dev/disk/by-label/log
+                        where: /var/log
+                      unit:
+                        defaultDependencies: false
+                        description: log volume
+                    enabled: true
+                    name: var-log.mount
       resources:
         infrastructureMachineTemplate:
           group: infrastructure.cluster.x-k8s.io
@@ -207,6 +226,7 @@ global:
     etcdVolumeSizeGB: 100
     instanceType: r6i.xlarge
     kubeletVolumeSizeGB: 100
+    logVolumeSizeGB: 15
     machineHealthCheck:
       enabled: true
       maxUnhealthy: 40%

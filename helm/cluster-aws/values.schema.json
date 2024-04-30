@@ -292,6 +292,15 @@
                                                         "wipeFilesystem": true
                                                     },
                                                     "name": "kubelet"
+                                                },
+                                                {
+                                                    "mount": {
+                                                        "device": "/dev/xvdf",
+                                                        "format": "xfs",
+                                                        "label": "log",
+                                                        "wipeFilesystem": true
+                                                    },
+                                                    "name": "kubelet"
                                                 }
                                             ]
                                         },
@@ -356,6 +365,26 @@
                                                     },
                                                     "enabled": true,
                                                     "name": "var-lib-containerd.mount"
+                                                },
+                                                {
+                                                    "contents": {
+                                                        "install": {
+                                                            "wantedBy": [
+                                                                "local-fs-pre.target"
+                                                            ]
+                                                        },
+                                                        "mount": {
+                                                            "type": "xfs",
+                                                            "what": "/dev/disk/by-label/log",
+                                                            "where": "/var/log"
+                                                        },
+                                                        "unit": {
+                                                            "description": "log volume",
+                                                            "defaultDependencies": false
+                                                        }
+                                                    },
+                                                    "enabled": true,
+                                                    "name": "var-log.mount"
                                                 }
                                             ]
                                         }
@@ -965,6 +994,11 @@
                                 "type": "string",
                                 "title": "Address range"
                             }
+                        },
+                        "logVolumeSizeGB": {
+                            "type": "integer",
+                            "title": "Log volume size (GB)",
+                            "default": 15
                         },
                         "machineHealthCheck": {
                             "type": "object",
