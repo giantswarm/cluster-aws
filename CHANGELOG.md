@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.73.0] - 2024-04-30
+### Added
 
+- Make Cilium ENI-based IP allocation configurable with high-level `global.connectivity.cilium.ipamMode` value. This feature was previously introduced as prototype and is now fully working.
+
+## [0.73.0] - 2024-04-30
 
 ### Added
 
@@ -76,7 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Make Cilium ENI-based IP allocation configurable with new high-level `global.connectivity.cilium.ipamMode` value
+- Make Cilium ENI-based IP allocation configurable with new high-level `global.connectivity.cilium.ipamMode` value (prototype)
 - Add automatic support for deploying to AWS China.
 
 ### Changed
