@@ -79,7 +79,7 @@ jobs:
           git push "${remote_repo}" HEAD:${destination_branch_name} --force
 
       - name: Create PR
-        uses: thomaseizinger/create-pull-request@1.3.1
+        uses: thomaseizinger/create-pull-request@1.4.0
         if: steps.check_changes.outputs.needs_pr == 'true'
         with:
           GITHUB_TOKEN: ${{ secrets.TAYLORBOT_GITHUB_ACTION }}
