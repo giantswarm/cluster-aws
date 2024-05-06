@@ -597,6 +597,28 @@
                                     }
                                 }
                             }
+                        },
+                        "selinux": {
+                            "type": "object",
+                            "title": "SELinux",
+                            "description": "Configuration of SELinux.",
+                            "required": [
+                                "mode"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                                "mode": {
+                                    "type": "string",
+                                    "title": "SELinux mode",
+                                    "description": "Configure SELinux mode: 'enforcing', 'permissive' or 'disabled'.",
+                                    "enum": [
+                                        "enforcing",
+                                        "permissive",
+                                        "disabled"
+                                    ],
+                                    "default": "permissive"
+                                }
+                            }
                         }
                     }
                 },
