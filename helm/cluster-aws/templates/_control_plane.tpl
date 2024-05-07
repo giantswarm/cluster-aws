@@ -20,6 +20,10 @@ nonRootVolumes:
   encrypted: true
   size: {{ .Values.global.controlPlane.kubeletVolumeSizeGB }}
   type: gp3
+- deviceName: /dev/xvdf
+  encrypted: true
+  size: {{ .Values.global.controlPlane.logVolumeSizeGB }}
+  type: gp3
 rootVolume:
   size: {{ .Values.global.controlPlane.rootVolumeSizeGB }}
   type: gp3
@@ -28,6 +32,9 @@ iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
 additionalSecurityGroups:
 {{- toYaml .Values.global.controlPlane.additionalSecurityGroups | nindent 2 }}
 {{- end }}
+instanceMetadataOptions:
+  httpPutResponseHopLimit: 3
+  httpTokens: {{ .Values.global.providerSpecific.instanceMetadataOptions.httpTokens | quote }}
 sshKeyName: ""
 subnet:
   filters:

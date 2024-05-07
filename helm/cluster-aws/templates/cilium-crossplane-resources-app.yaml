@@ -1,0 +1,45 @@
+{{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+apiVersion: v1
+data:
+  values: |
+    aws_eni_mode:
+      enabled: true
+kind: ConfigMap
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ printf "%s-cilium-crossplane-resources" (include "resource.default.name" $) | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+---
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ printf "%s-cilium-crossplane-resources" (include "resource.default.name" $) | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+spec:
+  catalog: cluster
+  install:
+    timeout: "10m"
+  upgrade:
+    timeout: "10m"
+  kubeConfig:
+    inCluster: true # in management cluster context
+  name: cilium-crossplane-resources
+  namespace: {{ $.Release.Namespace | quote }}
+  # used by renovate
+  # repo: giantswarm/cilium-crossplane-resources
+  version: 0.1.0
+  extraConfigs:
+    # See above
+    - kind: configMap
+      name: {{ printf "%s-cilium-crossplane-resources" (include "resource.default.name" $) | quote }}
+      namespace: {{ $.Release.Namespace | quote }}
+    # Created by aws-crossplane-cluster-config-operator once the cluster gets provisioned
+    - kind: configMap
+      name: {{ printf "%s-crossplane-config" (include "resource.default.name" $) | quote }}
+      namespace: {{ $.Release.Namespace | quote }}
+{{- end }}

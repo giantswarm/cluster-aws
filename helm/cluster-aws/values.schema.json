@@ -292,6 +292,15 @@
                                                         "wipeFilesystem": true
                                                     },
                                                     "name": "kubelet"
+                                                },
+                                                {
+                                                    "mount": {
+                                                        "device": "/dev/xvdf",
+                                                        "format": "xfs",
+                                                        "label": "log",
+                                                        "wipeFilesystem": true
+                                                    },
+                                                    "name": "kubelet"
                                                 }
                                             ]
                                         },
@@ -356,6 +365,26 @@
                                                     },
                                                     "enabled": true,
                                                     "name": "var-lib-containerd.mount"
+                                                },
+                                                {
+                                                    "contents": {
+                                                        "install": {
+                                                            "wantedBy": [
+                                                                "local-fs-pre.target"
+                                                            ]
+                                                        },
+                                                        "mount": {
+                                                            "type": "xfs",
+                                                            "what": "/dev/disk/by-label/log",
+                                                            "where": "/var/log"
+                                                        },
+                                                        "unit": {
+                                                            "description": "log volume",
+                                                            "defaultDependencies": false
+                                                        }
+                                                    },
+                                                    "enabled": true,
+                                                    "name": "var-log.mount"
                                                 }
                                             ]
                                         }
@@ -623,6 +652,85 @@
                                 }
                             }
                         },
+                        "eniModePodSubnets": {
+                            "type": "array",
+                            "title": "Pod Subnets for Cilium ENI mode",
+                            "description": "Pod subnets are created and tagged based on this definition. **Only used for `global.connectivity.cilium.ipamMode=eni`** which puts pods on a secondary CIDR block in the VPC, and therefore requires separate subnets. The subnets must be tagged with `sigs.k8s.io/cluster-api-provider-aws/association=secondary` to be correctly handled by CAPA (so those subnets aren't accidentally chosen for nodes). These subnets are always private.",
+                            "items": {
+                                "type": "object",
+                                "title": "Subnet",
+                                "properties": {
+                                    "cidrBlocks": {
+                                        "type": "array",
+                                        "title": "Network",
+                                        "items": {
+                                            "type": "object",
+                                            "required": [
+                                                "availabilityZone",
+                                                "cidr"
+                                            ],
+                                            "properties": {
+                                                "availabilityZone": {
+                                                    "type": "string",
+                                                    "title": "Availability zone",
+                                                    "examples": [
+                                                        "a"
+                                                    ]
+                                                },
+                                                "cidr": {
+                                                    "type": "string",
+                                                    "title": "Address range",
+                                                    "description": "IPv4 address range, in CIDR notation."
+                                                },
+                                                "tags": {
+                                                    "type": "object",
+                                                    "title": "Tags",
+                                                    "description": "AWS resource tags to assign to this subnet.",
+                                                    "additionalProperties": {
+                                                        "$ref": "#/$defs/awsResourceTagValue"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "tags": {
+                                        "type": "object",
+                                        "title": "Tags",
+                                        "description": "AWS resource tags to assign to this CIDR block.",
+                                        "additionalProperties": {
+                                            "$ref": "#/$defs/awsResourceTagValue"
+                                        }
+                                    }
+                                }
+                            },
+                            "default": [
+                                {
+                                    "cidrBlocks": [
+                                        {
+                                            "availabilityZone": "a",
+                                            "cidr": "10.1.0.0/18",
+                                            "tags": {
+                                                "sigs.k8s.io/cluster-api-provider-aws/association": "secondary"
+                                            }
+                                        },
+                                        {
+                                            "availabilityZone": "b",
+                                            "cidr": "10.1.64.0/18",
+                                            "tags": {
+                                                "sigs.k8s.io/cluster-api-provider-aws/association": "secondary"
+                                            }
+                                        },
+                                        {
+                                            "availabilityZone": "c",
+                                            "cidr": "10.1.128.0/18",
+                                            "tags": {
+                                                "sigs.k8s.io/cluster-api-provider-aws/association": "secondary"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
                         "network": {
                             "type": "object",
                             "title": "Network",
@@ -644,6 +752,7 @@
                                         "cidrBlocks": {
                                             "type": "array",
                                             "title": "Pod subnets",
+                                            "description": "CIDR blocks used for pods. Right now, only one block is supported.<br/><br/>**Note if you use `global.connectivity.cilium.ipamMode=eni` (https://docs.cilium.io/en/latest/network/concepts/ipam/eni/#ipam-eni):** this will be associated as secondary VPC CIDR. Therefore, only sizes /16 to /28 sizes are possible (see https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html). And `global.connectivity.eniModePodSubnets` must be a valid split of the CIDR you chose here – we recommend setting `10.1.0.0/16` here for ENI mode because the default values for `global.connectivity.eniModePodSubnets` match that CIDR.",
                                             "items": {
                                                 "type": "string",
                                                 "title": "Pod subnet",
@@ -966,6 +1075,11 @@
                                 "title": "Address range"
                             }
                         },
+                        "logVolumeSizeGB": {
+                            "type": "integer",
+                            "title": "Log volume size (GB)",
+                            "default": 15
+                        },
                         "machineHealthCheck": {
                             "type": "object",
                             "title": "Machine health check",
@@ -1157,6 +1271,23 @@
                             "title": "AWS account owning Flatcar image",
                             "description": "AWS account ID owning the Flatcar Container Linux AMI.",
                             "default": "706635527432"
+                        },
+                        "instanceMetadataOptions": {
+                            "type": "object",
+                            "title": "Instance metadata options",
+                            "description": "Instance metadata options for the EC2 instances in the cluster.",
+                            "properties": {
+                                "httpTokens": {
+                                    "type": "string",
+                                    "title": "HTTP tokens",
+                                    "description": "The state of token usage for your instance metadata requests. If you set this parameter to `optional`, you can use either IMDSv1 or IMDSv2. If you set this parameter to `required`, you must use a IMDSv2 to access the instance metadata endpoint. Learn more at [What’s new in IMDSv2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html).",
+                                    "enum": [
+                                        "optional",
+                                        "required"
+                                    ],
+                                    "default": "required"
+                                }
+                            }
                         },
                         "osImageVariant": {
                             "type": "string",
