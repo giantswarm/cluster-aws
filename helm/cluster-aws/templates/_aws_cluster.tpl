@@ -19,6 +19,7 @@ metadata:
     cluster.x-k8s.io/paused: "true"
     {{end}}
     aws.cluster.x-k8s.io/external-resource-gc: "true"
+    aws.cluster.x-k8s.io/external-resource-tasks-gc: "load-balancer,security-group"
     aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.global.connectivity.vpcEndpointMode }}"
     network-topology.giantswarm.io/mode: "{{ .Values.global.connectivity.topology.mode }}"
     {{- if .Values.global.connectivity.topology.transitGatewayId }}
