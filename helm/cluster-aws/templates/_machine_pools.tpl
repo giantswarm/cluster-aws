@@ -46,7 +46,7 @@ spec:
       type: gp3
     - deviceName: /dev/xvde
       encrypted: true
-      size: {{ .Values.logVolumeSizeGB | default 40}}
+      size: {{ $value.logVolumeSizeGB | default 40}}
       type: gp3
     sshKeyName: ""
     {{- if $value.additionalSecurityGroups }}
