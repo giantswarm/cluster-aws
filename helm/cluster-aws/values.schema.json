@@ -138,6 +138,18 @@
                     "type": "integer",
                     "title": "Time interval, in seconds, between node replacement."
                 },
+                "libVolumeSizeGB": {
+                    "type": "integer",
+                    "title": "Lib volume size (GB)",
+                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
+                    "default": 200
+                },
+                "logVolumeSizeGB": {
+                    "type": "integer",
+                    "title": "Log volume size (GB)",
+                    "description": "Size of the volume mounted at `/var/log` on the worker nodes.",
+                    "default": 40
+                },
                 "maxSize": {
                     "type": "integer",
                     "title": "Maximum number of nodes"
@@ -152,7 +164,8 @@
                 },
                 "rootVolumeSizeGB": {
                     "type": "integer",
-                    "title": "Root volume size (GB)"
+                    "title": "Root volume size (GB)",
+                    "default": 30
                 },
                 "spotInstances": {
                     "type": "object",
@@ -279,28 +292,19 @@
                                                     "mount": {
                                                         "device": "/dev/xvdd",
                                                         "format": "xfs",
-                                                        "label": "containerd",
+                                                        "label": "lib",
                                                         "wipeFilesystem": true
                                                     },
-                                                    "name": "containerd"
+                                                    "name": "lib"
                                                 },
                                                 {
                                                     "mount": {
                                                         "device": "/dev/xvde",
                                                         "format": "xfs",
-                                                        "label": "kubelet",
-                                                        "wipeFilesystem": true
-                                                    },
-                                                    "name": "kubelet"
-                                                },
-                                                {
-                                                    "mount": {
-                                                        "device": "/dev/xvdf",
-                                                        "format": "xfs",
                                                         "label": "log",
                                                         "wipeFilesystem": true
                                                     },
-                                                    "name": "kubelet"
+                                                    "name": "log"
                                                 }
                                             ]
                                         },
@@ -335,36 +339,16 @@
                                                         },
                                                         "mount": {
                                                             "type": "xfs",
-                                                            "what": "/dev/disk/by-label/kubelet",
-                                                            "where": "/var/lib/kubelet"
+                                                            "what": "/dev/disk/by-label/lib",
+                                                            "where": "/var/lib"
                                                         },
                                                         "unit": {
-                                                            "description": "kubelet volume",
+                                                            "description": "var lib volume",
                                                             "defaultDependencies": false
                                                         }
                                                     },
                                                     "enabled": true,
-                                                    "name": "var-lib-kubelet.mount"
-                                                },
-                                                {
-                                                    "contents": {
-                                                        "install": {
-                                                            "wantedBy": [
-                                                                "local-fs-pre.target"
-                                                            ]
-                                                        },
-                                                        "mount": {
-                                                            "type": "xfs",
-                                                            "what": "/dev/disk/by-label/containerd",
-                                                            "where": "/var/lib/containerd"
-                                                        },
-                                                        "unit": {
-                                                            "description": "containerd volume",
-                                                            "defaultDependencies": false
-                                                        }
-                                                    },
-                                                    "enabled": true,
-                                                    "name": "var-lib-containerd.mount"
+                                                    "name": "var-lib.mount"
                                                 },
                                                 {
                                                     "contents": {
@@ -458,7 +442,79 @@
                                     "path": "/etc/systemd/network/99-unmanaged-devices.network",
                                     "permissions": "0644"
                                 }
-                            ]
+                            ],
+                            "ignition": {
+                                "containerLinuxConfig": {
+                                    "additionalConfig": {
+                                        "storage": {
+                                            "filesystems": [
+                                                {
+                                                    "mount": {
+                                                        "device": "/dev/xvdd",
+                                                        "format": "xfs",
+                                                        "label": "lib",
+                                                        "wipeFilesystem": true
+                                                    },
+                                                    "name": "lib"
+                                                },
+                                                {
+                                                    "mount": {
+                                                        "device": "/dev/xvde",
+                                                        "format": "xfs",
+                                                        "label": "log",
+                                                        "wipeFilesystem": true
+                                                    },
+                                                    "name": "log"
+                                                }
+                                            ]
+                                        },
+                                        "systemd": {
+                                            "units": [
+                                                {
+                                                    "contents": {
+                                                        "install": {
+                                                            "wantedBy": [
+                                                                "local-fs-pre.target"
+                                                            ]
+                                                        },
+                                                        "mount": {
+                                                            "type": "xfs",
+                                                            "what": "/dev/disk/by-label/lib",
+                                                            "where": "/var/lib"
+                                                        },
+                                                        "unit": {
+                                                            "description": "lib volume",
+                                                            "defaultDependencies": false
+                                                        }
+                                                    },
+                                                    "enabled": true,
+                                                    "name": "var-lib.mount"
+                                                },
+                                                {
+                                                    "contents": {
+                                                        "install": {
+                                                            "wantedBy": [
+                                                                "local-fs-pre.target"
+                                                            ]
+                                                        },
+                                                        "mount": {
+                                                            "type": "xfs",
+                                                            "what": "/dev/disk/by-label/log",
+                                                            "where": "/var/log"
+                                                        },
+                                                        "unit": {
+                                                            "description": "log volume",
+                                                            "defaultDependencies": false
+                                                        }
+                                                    },
+                                                    "enabled": true,
+                                                    "name": "var-log.mount"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -1046,11 +1102,6 @@
                             "maximum": 65535,
                             "minimum": 0
                         },
-                        "containerdVolumeSizeGB": {
-                            "type": "integer",
-                            "title": "Containerd volume size (GB)",
-                            "default": 100
-                        },
                         "etcdVolumeSizeGB": {
                             "type": "integer",
                             "title": "Etcd volume size (GB)",
@@ -1061,10 +1112,11 @@
                             "title": "EC2 instance type",
                             "default": "r6i.xlarge"
                         },
-                        "kubeletVolumeSizeGB": {
+                        "libVolumeSizeGB": {
                             "type": "integer",
-                            "title": "Kubelet volume size (GB)",
-                            "default": 100
+                            "title": "Lib volume size (GB)",
+                            "description": "Size of the volume mounted at `/var/lib` on the control plane nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`.",
+                            "default": 200
                         },
                         "loadBalancerIngressAllowCidrBlocks": {
                             "type": "array",
@@ -1078,6 +1130,7 @@
                         "logVolumeSizeGB": {
                             "type": "integer",
                             "title": "Log volume size (GB)",
+                            "description": "Size of the volume mounted at /var/log on the control plane nodes.",
                             "default": 15
                         },
                         "machineHealthCheck": {
