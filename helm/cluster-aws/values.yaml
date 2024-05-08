@@ -264,7 +264,7 @@ global:
     apiServerPort: 443
     etcdVolumeSizeGB: 100
     instanceType: r6i.xlarge
-    libVolumeSizeGB: 200
+    libVolumeSizeGB: 50
     logVolumeSizeGB: 15
     machineHealthCheck:
       enabled: true
@@ -273,7 +273,7 @@ global:
       unhealthyNotReadyTimeout: 10m0s
       unhealthyUnknownTimeout: 10m0s
     oidc: {}
-    rootVolumeSizeGB: 120
+    rootVolumeSizeGB: 8
   metadata:
     preventDeletion: false
     servicePriority: highest

@@ -37,16 +37,16 @@ spec:
     iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
     instanceType: {{ $value.instanceType | default "r6i.xlarge" }}
     rootVolume:
-      size: {{ $value.rootVolumeSizeGB | default 30 }}
+      size: {{ $value.rootVolumeSizeGB | default 8 }}
       type: gp3
     nonRootVolumes:
     - deviceName: /dev/xvdd
       encrypted: true
-      size: {{ $value.libVolumeSizeGB | default 200 }}
+      size: {{ $value.libVolumeSizeGB | default 120 }}
       type: gp3
     - deviceName: /dev/xvde
       encrypted: true
-      size: {{ $value.logVolumeSizeGB | default 40}}
+      size: {{ $value.logVolumeSizeGB | default 30}}
       type: gp3
     sshKeyName: ""
     {{- if $value.additionalSecurityGroups }}

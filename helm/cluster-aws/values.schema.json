@@ -142,13 +142,13 @@
                     "type": "integer",
                     "title": "Lib volume size (GB)",
                     "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
-                    "default": 200
+                    "default": 120
                 },
                 "logVolumeSizeGB": {
                     "type": "integer",
                     "title": "Log volume size (GB)",
                     "description": "Size of the volume mounted at `/var/log` on the worker nodes.",
-                    "default": 40
+                    "default": 30
                 },
                 "maxSize": {
                     "type": "integer",
@@ -165,7 +165,7 @@
                 "rootVolumeSizeGB": {
                     "type": "integer",
                     "title": "Root volume size (GB)",
-                    "default": 30
+                    "default": 8
                 },
                 "spotInstances": {
                     "type": "object",
@@ -1116,7 +1116,7 @@
                             "type": "integer",
                             "title": "Lib volume size (GB)",
                             "description": "Size of the volume mounted at `/var/lib` on the control plane nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`.",
-                            "default": 200
+                            "default": 50
                         },
                         "loadBalancerIngressAllowCidrBlocks": {
                             "type": "array",
@@ -1211,7 +1211,7 @@
                         "rootVolumeSizeGB": {
                             "type": "integer",
                             "title": "Root volume size (GB)",
-                            "default": 120
+                            "default": 8
                         },
                         "subnetTags": {
                             "type": "array",
