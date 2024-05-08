@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `nonRootVolumes` to worker nodes to mount `/var/lib` and `/var/log` on separate disk volumes.
+
+### Changed
+
+- Combine kubelet disk `/var/lib/kubelet` and containerd disk `/var/lib/containerd` into single disk `/var/lib` to share the volume space and safe cost.
+
 ### Fixed
 
 - Added an annotation to Kubernetes resources to resolve an issue where deletion was stuck due to hanging load balancers.
