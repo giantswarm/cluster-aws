@@ -1116,7 +1116,7 @@
                             "type": "integer",
                             "title": "Lib volume size (GB)",
                             "description": "Size of the volume mounted at `/var/lib` on the control plane nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`.",
-                            "default": 50
+                            "default": 40
                         },
                         "loadBalancerIngressAllowCidrBlocks": {
                             "type": "array",
