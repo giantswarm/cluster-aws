@@ -264,7 +264,7 @@ global:
     apiServerPort: 443
     etcdVolumeSizeGB: 100
     instanceType: r6i.xlarge
-    libVolumeSizeGB: 50
+    libVolumeSizeGB: 40
     logVolumeSizeGB: 15
     machineHealthCheck:
       enabled: true
