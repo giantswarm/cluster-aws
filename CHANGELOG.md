@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.74.0] - 2024-05-08
+
 ### Fixed
 
 - Added an annotation to Kubernetes resources to resolve an issue where deletion was stuck due to hanging load balancers.
@@ -1303,7 +1305,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.73.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.74.0...HEAD
+[0.74.0]: https://github.com/giantswarm/cluster-aws/compare/v0.73.0...v0.74.0
 [0.73.0]: https://github.com/giantswarm/cluster-aws/compare/v0.72.0...v0.73.0
 [0.72.0]: https://github.com/giantswarm/cluster-aws/compare/v0.71.0...v0.72.0
 [0.71.0]: https://github.com/giantswarm/cluster-aws/compare/v0.70.0...v0.71.0
