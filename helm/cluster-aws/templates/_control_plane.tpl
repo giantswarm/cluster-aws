@@ -14,13 +14,9 @@ nonRootVolumes:
   type: gp3
 - deviceName: /dev/xvdd
   encrypted: true
-  size: {{ .Values.global.controlPlane.containerdVolumeSizeGB }}
+  size: {{ .Values.global.controlPlane.libVolumeSizeGB }}
   type: gp3
 - deviceName: /dev/xvde
-  encrypted: true
-  size: {{ .Values.global.controlPlane.kubeletVolumeSizeGB }}
-  type: gp3
-- deviceName: /dev/xvdf
   encrypted: true
   size: {{ .Values.global.controlPlane.logVolumeSizeGB }}
   type: gp3

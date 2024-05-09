@@ -55,21 +55,15 @@ cluster:
                   - mount:
                       device: /dev/xvdd
                       format: xfs
-                      label: containerd
+                      label: lib
                       wipeFilesystem: true
-                    name: containerd
+                    name: lib
                   - mount:
                       device: /dev/xvde
                       format: xfs
-                      label: kubelet
-                      wipeFilesystem: true
-                    name: kubelet
-                  - mount:
-                      device: /dev/xvdf
-                      format: xfs
                       label: log
                       wipeFilesystem: true
-                    name: kubelet
+                    name: log
               systemd:
                 units:
                   - contents:
@@ -91,26 +85,13 @@ cluster:
                           - local-fs-pre.target
                       mount:
                         type: xfs
-                        what: /dev/disk/by-label/kubelet
-                        where: /var/lib/kubelet
+                        what: /dev/disk/by-label/lib
+                        where: /var/lib
                       unit:
                         defaultDependencies: false
-                        description: kubelet volume
+                        description: var lib volume
                     enabled: true
-                    name: var-lib-kubelet.mount
-                  - contents:
-                      install:
-                        wantedBy:
-                          - local-fs-pre.target
-                      mount:
-                        type: xfs
-                        what: /dev/disk/by-label/containerd
-                        where: /var/lib/containerd
-                      unit:
-                        defaultDependencies: false
-                        description: containerd volume
-                    enabled: true
-                    name: var-lib-containerd.mount
+                    name: var-lib.mount
                   - contents:
                       install:
                         wantedBy:
@@ -175,6 +156,51 @@ cluster:
                 prependClusterNameAsPrefix: true
             path: /etc/systemd/network/99-unmanaged-devices.network
             permissions: "0644"
+        ignition:
+          containerLinuxConfig:
+            additionalConfig:
+              storage:
+                filesystems:
+                  - mount:
+                      device: /dev/xvdd
+                      format: xfs
+                      label: lib
+                      wipeFilesystem: true
+                    name: lib
+                  - mount:
+                      device: /dev/xvde
+                      format: xfs
+                      label: log
+                      wipeFilesystem: true
+                    name: log
+              systemd:
+                units:
+                  - contents:
+                      install:
+                        wantedBy:
+                          - local-fs-pre.target
+                      mount:
+                        type: xfs
+                        what: /dev/disk/by-label/lib
+                        where: /var/lib
+                      unit:
+                        defaultDependencies: false
+                        description: lib volume
+                    enabled: true
+                    name: var-lib.mount
+                  - contents:
+                      install:
+                        wantedBy:
+                          - local-fs-pre.target
+                      mount:
+                        type: xfs
+                        what: /dev/disk/by-label/log
+                        where: /var/log
+                      unit:
+                        defaultDependencies: false
+                        description: log volume
+                    enabled: true
+                    name: var-log.mount
 global:
   apps:
     awsCloudControllerManager: {}
@@ -238,10 +264,9 @@ global:
   controlPlane:
     apiMode: public
     apiServerPort: 443
-    containerdVolumeSizeGB: 100
     etcdVolumeSizeGB: 100
     instanceType: r6i.xlarge
-    kubeletVolumeSizeGB: 100
+    libVolumeSizeGB: 40
     logVolumeSizeGB: 15
     machineHealthCheck:
       enabled: true
@@ -250,7 +275,7 @@ global:
       unhealthyNotReadyTimeout: 10m0s
       unhealthyUnknownTimeout: 10m0s
     oidc: {}
-    rootVolumeSizeGB: 120
+    rootVolumeSizeGB: 8
   metadata:
     preventDeletion: false
     servicePriority: highest
