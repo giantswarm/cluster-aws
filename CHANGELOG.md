@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.75.0] - 2024-05-09
+
 ### Added
 
 - Worker nodes - Add `nonRootVolumes` fields to mount `/var/lib` and `/var/log` on separate disk volumes.
@@ -1313,7 +1315,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.74.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.75.0...HEAD
+[0.75.0]: https://github.com/giantswarm/cluster-aws/compare/v0.74.0...v0.75.0
 [0.74.0]: https://github.com/giantswarm/cluster-aws/compare/v0.73.0...v0.74.0
 [0.73.0]: https://github.com/giantswarm/cluster-aws/compare/v0.72.0...v0.73.0
 [0.72.0]: https://github.com/giantswarm/cluster-aws/compare/v0.71.0...v0.72.0
