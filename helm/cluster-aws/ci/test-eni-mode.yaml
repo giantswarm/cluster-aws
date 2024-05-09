@@ -1,0 +1,14 @@
+global:
+  metadata:
+    name: test-wc
+    organization: "test"
+  connectivity:
+    baseDomain: example.com
+    cilium:
+      ipamMode: eni
+    network:
+      pods:
+        cidrBlocks:
+          - 10.1.0.0/16
+  providerSpecific:
+    region: "eu-west-1"

@@ -11,6 +11,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Set `r6i.large` as the new default AWS instance type for the control plane nodes.
 
+## [0.75.0] - 2024-05-09
+
+### Added
+
+- Worker nodes - Add `nonRootVolumes` fields to mount `/var/lib` and `/var/log` on separate disk volumes.
+- BREAKING CHANGE: values `global.controlplane.containerdVolumeSizeGB` and `global.controlplane.kubeletVolumeSizeGB` merged into single value `.global.controlPlane.libVolumeSizeGB` which define size of disk volume used for `/var/lib` mount point.
+
+### Changed
+
+- Control-plane nodes - combine kubelet disk `/var/lib/kubelet` and containerd disk `/var/lib/containerd` into single disk `/var/lib` to share the volume space and save cost.
+
+## [0.74.0] - 2024-05-08
+
+### Fixed
+
+- Added an annotation to Kubernetes resources to resolve an issue where deletion was stuck due to hanging load balancers.
+
+### Added
+
+- Make Cilium ENI-based IP allocation configurable with high-level `global.connectivity.cilium.ipamMode` value. This feature was previously introduced as prototype and is now fully working.
+- Allow to configure SELinux mode through `global.components.selinux.mode` helm value.
+
+### Changed
+
+- Update cluster chart to v0.22.0.
+
+## [0.73.0] - 2024-04-30
+
+### Added
+
+- Add `log` volume to control-plane nodes.
+
 ## [0.72.0] - 2024-04-24
 
 ### Added
@@ -73,7 +105,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Make Cilium ENI-based IP allocation configurable with new high-level `global.connectivity.cilium.ipamMode` value
+- Make Cilium ENI-based IP allocation configurable with new high-level `global.connectivity.cilium.ipamMode` value (prototype)
 - Add automatic support for deploying to AWS China.
 
 ### Changed
@@ -1288,7 +1320,10 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.72.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.75.0...HEAD
+[0.75.0]: https://github.com/giantswarm/cluster-aws/compare/v0.74.0...v0.75.0
+[0.74.0]: https://github.com/giantswarm/cluster-aws/compare/v0.73.0...v0.74.0
+[0.73.0]: https://github.com/giantswarm/cluster-aws/compare/v0.72.0...v0.73.0
 [0.72.0]: https://github.com/giantswarm/cluster-aws/compare/v0.71.0...v0.72.0
 [0.71.0]: https://github.com/giantswarm/cluster-aws/compare/v0.70.0...v0.71.0
 [0.70.0]: https://github.com/giantswarm/cluster-aws/compare/v0.69.0...v0.70.0

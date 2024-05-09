@@ -138,6 +138,18 @@
                     "type": "integer",
                     "title": "Time interval, in seconds, between node replacement."
                 },
+                "libVolumeSizeGB": {
+                    "type": "integer",
+                    "title": "Lib volume size (GB)",
+                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
+                    "default": 120
+                },
+                "logVolumeSizeGB": {
+                    "type": "integer",
+                    "title": "Log volume size (GB)",
+                    "description": "Size of the volume mounted at `/var/log` on the worker nodes.",
+                    "default": 30
+                },
                 "maxSize": {
                     "type": "integer",
                     "title": "Maximum number of nodes"
@@ -152,7 +164,8 @@
                 },
                 "rootVolumeSizeGB": {
                     "type": "integer",
-                    "title": "Root volume size (GB)"
+                    "title": "Root volume size (GB)",
+                    "default": 8
                 },
                 "spotInstances": {
                     "type": "object",
@@ -279,19 +292,19 @@
                                                     "mount": {
                                                         "device": "/dev/xvdd",
                                                         "format": "xfs",
-                                                        "label": "containerd",
+                                                        "label": "lib",
                                                         "wipeFilesystem": true
                                                     },
-                                                    "name": "containerd"
+                                                    "name": "lib"
                                                 },
                                                 {
                                                     "mount": {
                                                         "device": "/dev/xvde",
                                                         "format": "xfs",
-                                                        "label": "kubelet",
+                                                        "label": "log",
                                                         "wipeFilesystem": true
                                                     },
-                                                    "name": "kubelet"
+                                                    "name": "log"
                                                 }
                                             ]
                                         },
@@ -326,16 +339,16 @@
                                                         },
                                                         "mount": {
                                                             "type": "xfs",
-                                                            "what": "/dev/disk/by-label/kubelet",
-                                                            "where": "/var/lib/kubelet"
+                                                            "what": "/dev/disk/by-label/lib",
+                                                            "where": "/var/lib"
                                                         },
                                                         "unit": {
-                                                            "description": "kubelet volume",
+                                                            "description": "var lib volume",
                                                             "defaultDependencies": false
                                                         }
                                                     },
                                                     "enabled": true,
-                                                    "name": "var-lib-kubelet.mount"
+                                                    "name": "var-lib.mount"
                                                 },
                                                 {
                                                     "contents": {
@@ -346,16 +359,16 @@
                                                         },
                                                         "mount": {
                                                             "type": "xfs",
-                                                            "what": "/dev/disk/by-label/containerd",
-                                                            "where": "/var/lib/containerd"
+                                                            "what": "/dev/disk/by-label/log",
+                                                            "where": "/var/log"
                                                         },
                                                         "unit": {
-                                                            "description": "containerd volume",
+                                                            "description": "log volume",
                                                             "defaultDependencies": false
                                                         }
                                                     },
                                                     "enabled": true,
-                                                    "name": "var-lib-containerd.mount"
+                                                    "name": "var-log.mount"
                                                 }
                                             ]
                                         }
@@ -429,7 +442,79 @@
                                     "path": "/etc/systemd/network/99-unmanaged-devices.network",
                                     "permissions": "0644"
                                 }
-                            ]
+                            ],
+                            "ignition": {
+                                "containerLinuxConfig": {
+                                    "additionalConfig": {
+                                        "storage": {
+                                            "filesystems": [
+                                                {
+                                                    "mount": {
+                                                        "device": "/dev/xvdd",
+                                                        "format": "xfs",
+                                                        "label": "lib",
+                                                        "wipeFilesystem": true
+                                                    },
+                                                    "name": "lib"
+                                                },
+                                                {
+                                                    "mount": {
+                                                        "device": "/dev/xvde",
+                                                        "format": "xfs",
+                                                        "label": "log",
+                                                        "wipeFilesystem": true
+                                                    },
+                                                    "name": "log"
+                                                }
+                                            ]
+                                        },
+                                        "systemd": {
+                                            "units": [
+                                                {
+                                                    "contents": {
+                                                        "install": {
+                                                            "wantedBy": [
+                                                                "local-fs-pre.target"
+                                                            ]
+                                                        },
+                                                        "mount": {
+                                                            "type": "xfs",
+                                                            "what": "/dev/disk/by-label/lib",
+                                                            "where": "/var/lib"
+                                                        },
+                                                        "unit": {
+                                                            "description": "lib volume",
+                                                            "defaultDependencies": false
+                                                        }
+                                                    },
+                                                    "enabled": true,
+                                                    "name": "var-lib.mount"
+                                                },
+                                                {
+                                                    "contents": {
+                                                        "install": {
+                                                            "wantedBy": [
+                                                                "local-fs-pre.target"
+                                                            ]
+                                                        },
+                                                        "mount": {
+                                                            "type": "xfs",
+                                                            "what": "/dev/disk/by-label/log",
+                                                            "where": "/var/log"
+                                                        },
+                                                        "unit": {
+                                                            "description": "log volume",
+                                                            "defaultDependencies": false
+                                                        }
+                                                    },
+                                                    "enabled": true,
+                                                    "name": "var-log.mount"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -568,6 +653,28 @@
                                     }
                                 }
                             }
+                        },
+                        "selinux": {
+                            "type": "object",
+                            "title": "SELinux",
+                            "description": "Configuration of SELinux.",
+                            "required": [
+                                "mode"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                                "mode": {
+                                    "type": "string",
+                                    "title": "SELinux mode",
+                                    "description": "Configure SELinux mode: 'enforcing', 'permissive' or 'disabled'.",
+                                    "enum": [
+                                        "enforcing",
+                                        "permissive",
+                                        "disabled"
+                                    ],
+                                    "default": "permissive"
+                                }
+                            }
                         }
                     }
                 },
@@ -623,6 +730,85 @@
                                 }
                             }
                         },
+                        "eniModePodSubnets": {
+                            "type": "array",
+                            "title": "Pod Subnets for Cilium ENI mode",
+                            "description": "Pod subnets are created and tagged based on this definition. **Only used for `global.connectivity.cilium.ipamMode=eni`** which puts pods on a secondary CIDR block in the VPC, and therefore requires separate subnets. The subnets must be tagged with `sigs.k8s.io/cluster-api-provider-aws/association=secondary` to be correctly handled by CAPA (so those subnets aren't accidentally chosen for nodes). These subnets are always private.",
+                            "items": {
+                                "type": "object",
+                                "title": "Subnet",
+                                "properties": {
+                                    "cidrBlocks": {
+                                        "type": "array",
+                                        "title": "Network",
+                                        "items": {
+                                            "type": "object",
+                                            "required": [
+                                                "availabilityZone",
+                                                "cidr"
+                                            ],
+                                            "properties": {
+                                                "availabilityZone": {
+                                                    "type": "string",
+                                                    "title": "Availability zone",
+                                                    "examples": [
+                                                        "a"
+                                                    ]
+                                                },
+                                                "cidr": {
+                                                    "type": "string",
+                                                    "title": "Address range",
+                                                    "description": "IPv4 address range, in CIDR notation."
+                                                },
+                                                "tags": {
+                                                    "type": "object",
+                                                    "title": "Tags",
+                                                    "description": "AWS resource tags to assign to this subnet.",
+                                                    "additionalProperties": {
+                                                        "$ref": "#/$defs/awsResourceTagValue"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "tags": {
+                                        "type": "object",
+                                        "title": "Tags",
+                                        "description": "AWS resource tags to assign to this CIDR block.",
+                                        "additionalProperties": {
+                                            "$ref": "#/$defs/awsResourceTagValue"
+                                        }
+                                    }
+                                }
+                            },
+                            "default": [
+                                {
+                                    "cidrBlocks": [
+                                        {
+                                            "availabilityZone": "a",
+                                            "cidr": "10.1.0.0/18",
+                                            "tags": {
+                                                "sigs.k8s.io/cluster-api-provider-aws/association": "secondary"
+                                            }
+                                        },
+                                        {
+                                            "availabilityZone": "b",
+                                            "cidr": "10.1.64.0/18",
+                                            "tags": {
+                                                "sigs.k8s.io/cluster-api-provider-aws/association": "secondary"
+                                            }
+                                        },
+                                        {
+                                            "availabilityZone": "c",
+                                            "cidr": "10.1.128.0/18",
+                                            "tags": {
+                                                "sigs.k8s.io/cluster-api-provider-aws/association": "secondary"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
                         "network": {
                             "type": "object",
                             "title": "Network",
@@ -644,6 +830,7 @@
                                         "cidrBlocks": {
                                             "type": "array",
                                             "title": "Pod subnets",
+                                            "description": "CIDR blocks used for pods. Right now, only one block is supported.<br/><br/>**Note if you use `global.connectivity.cilium.ipamMode=eni` (https://docs.cilium.io/en/latest/network/concepts/ipam/eni/#ipam-eni):** this will be associated as secondary VPC CIDR. Therefore, only sizes /16 to /28 sizes are possible (see https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html). And `global.connectivity.eniModePodSubnets` must be a valid split of the CIDR you chose here – we recommend setting `10.1.0.0/16` here for ENI mode because the default values for `global.connectivity.eniModePodSubnets` match that CIDR.",
                                             "items": {
                                                 "type": "string",
                                                 "title": "Pod subnet",
@@ -937,11 +1124,6 @@
                             "maximum": 65535,
                             "minimum": 0
                         },
-                        "containerdVolumeSizeGB": {
-                            "type": "integer",
-                            "title": "Containerd volume size (GB)",
-                            "default": 100
-                        },
                         "etcdVolumeSizeGB": {
                             "type": "integer",
                             "title": "Etcd volume size (GB)",
@@ -952,10 +1134,11 @@
                             "title": "EC2 instance type",
                             "default": "r6i.large"
                         },
-                        "kubeletVolumeSizeGB": {
+                        "libVolumeSizeGB": {
                             "type": "integer",
-                            "title": "Kubelet volume size (GB)",
-                            "default": 100
+                            "title": "Lib volume size (GB)",
+                            "description": "Size of the volume mounted at `/var/lib` on the control plane nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`.",
+                            "default": 40
                         },
                         "loadBalancerIngressAllowCidrBlocks": {
                             "type": "array",
@@ -965,6 +1148,12 @@
                                 "type": "string",
                                 "title": "Address range"
                             }
+                        },
+                        "logVolumeSizeGB": {
+                            "type": "integer",
+                            "title": "Log volume size (GB)",
+                            "description": "Size of the volume mounted at /var/log on the control plane nodes.",
+                            "default": 15
                         },
                         "machineHealthCheck": {
                             "type": "object",
@@ -1044,7 +1233,7 @@
                         "rootVolumeSizeGB": {
                             "type": "integer",
                             "title": "Root volume size (GB)",
-                            "default": 120
+                            "default": 8
                         },
                         "subnetTags": {
                             "type": "array",
