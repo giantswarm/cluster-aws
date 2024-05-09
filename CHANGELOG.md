@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.75.0] - 2024-05-09
+
+### Added
+
+- Allow to configure SELinux mode through `global.components.selinux.mode` helm value.
+
 ## [0.74.0] - 2024-05-08
 
 ### Fixed
@@ -16,7 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Make Cilium ENI-based IP allocation configurable with high-level `global.connectivity.cilium.ipamMode` value. This feature was previously introduced as prototype and is now fully working.
-- Allow to configure SELinux mode through `global.components.selinux.mode` helm value.
 
 ### Changed
 
@@ -1305,7 +1310,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.74.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.75.0...HEAD
+[0.75.0]: https://github.com/giantswarm/cluster-aws/compare/v0.74.0...v0.75.0
 [0.74.0]: https://github.com/giantswarm/cluster-aws/compare/v0.73.0...v0.74.0
 [0.73.0]: https://github.com/giantswarm/cluster-aws/compare/v0.72.0...v0.73.0
 [0.72.0]: https://github.com/giantswarm/cluster-aws/compare/v0.71.0...v0.72.0
