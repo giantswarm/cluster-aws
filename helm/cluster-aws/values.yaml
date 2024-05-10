@@ -242,9 +242,25 @@ global:
     awsCloudControllerManager: {}
     awsEbsCsiDriver: {}
     awsPodIdentityWebhook: {}
+    capiNodeLabeler: {}
+    certExporter: {}
+    certManager: {}
+    chartOperatorExtensions: {}
     cilium: {}
+    ciliumServiceMonitors: {}
+    clusterAutoscaler: {}
     coreDns: {}
+    etcdKubernetesResourcesCountExporter: {}
+    externalDns: {}
+    k8sDnsNodeCache: {}
+    metricsServer: {}
+    netExporter: {}
     networkPolicies: {}
+    nodeExporter: {}
+    observabilityBundle: {}
+    securityBundle: {}
+    teleportKubeAgent: {}
+    verticalPodAutoscaler: {}
     verticalPodAutoscalerCrd: {}
   components:
     containerd:
