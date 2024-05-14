@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### ⚠️ Breaking change
+
+- Update cluster chart to v0.25.0 and enable all default apps. More details in [cluster chart v0.24.0 release notes](https://github.com/giantswarm/cluster/releases/tag/v0.24.0).
+
+Cluster upgrade steps are the following:
+- Upgrade default-apps-aws App to v0.52.0 or newer.
+- Update default-apps-aws Helm value `.Values.deleteOptions.moveAppsHelmOwnershipToClusterAws` to true.
+  - All apps, except observability-bundle and security-bundle will get `app-operator.giantswarm.io/paused: true` annotation, so wait few minutes for the change to get applied by the Helm post-upgrade hook.
+- Delete default-apps-aws.
+  - App resources for all default apps will get deleted. Wait few minutes for this to happen.
+  - Chart resources on the workload cluster will stay, so all apps will continue running. 
+- Upgrade cluster-aws App to v0.76.0.
+  - cluster-aws will deploy all default apps, wait a few minutes for all Apps to be successfully deployed.
+  - Chart resources on the workload cluster will get updated, as newly deployed App resources will take over the reconciliation of the existing Chart resources.
+
+### Added
+
+- Chart: Add `aws-pod-identity-webhook` app. ([#581](https://github.com/giantswarm/cluster-aws/pull/581)).
+
 ## [0.75.0] - 2024-05-09
 
 ### Added
@@ -54,6 +73,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update instanceWarmup to 10' to be on pair with Vintage
 - Enable extraPolicies from network-policies-app.
 - Disable and remove extraPolicies from cilium-app.
+- Values: Separate `app` and `helmRelease` definition. ([#581](https://github.com/giantswarm/cluster-aws/pull/581))
 
 ## [0.70.0] - 2024-04-15
 

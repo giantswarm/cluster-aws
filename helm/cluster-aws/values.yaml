@@ -3,12 +3,52 @@
 cluster:
   providerIntegration:
     apps:
+      capiNodeLabeler:
+        enable: true
+      certExporter:
+        enable: true
+      certManager:
+        enable: true
+      chartOperatorExtensions:
+        enable: true
       cilium:
         configTemplateName: awsCiliumHelmValues
-      coredns:
+        enable: true
+      ciliumServiceMonitors:
+        enable: true
+      clusterAutoscaler:
+        configTemplateName: awsClusterAutoscalerHelmValues
+        enable: true
+      coreDns:
         configTemplateName: awsCorednsHelmValues
+        enable: true
+      etcdKubernetesResourcesCountExporter:
+        enable: true
+      externalDns:
+        configTemplateName: awsExternalDnsHelmValues
+        enable: true
+      k8sDnsNodeCache:
+        enable: true
+      metricsServer:
+        enable: true
+      netExporter:
+        enable: true
       networkPolicies:
         configTemplateName: awsNetworkPoliciesHelmValues
+        enable: true
+      nodeExporter:
+        enable: true
+      observabilityBundle:
+        enable: true
+      securityBundle:
+        configTemplateName: awsSecurityBundleHelmValues
+        enable: true
+      teleportKubeAgent:
+        enable: true
+      verticalPodAutoscaler:
+        enable: true
+      verticalPodAutoscalerCrd:
+        enable: true
     clusterAnnotationsTemplateName: awsConnectivityLabels
     components:
       systemd:
@@ -118,11 +158,9 @@ cluster:
       templateName: awsContainerImageRegistry
     resourcesApi:
       bastionResourceEnabled: false
-      ciliumHelmReleaseResourceEnabled: true
       cleanupHelmReleaseResourcesEnabled: true
       clusterResourceEnabled: true
       controlPlaneResourceEnabled: true
-      coreDnsHelmReleaseResourceEnabled: true
       helmRepositoryResourcesEnabled: true
       infrastructureCluster:
         group: infrastructure.cluster.x-k8s.io
@@ -134,9 +172,7 @@ cluster:
         version: v1beta1
       machineHealthCheckResourceEnabled: true
       machinePoolResourcesEnabled: true
-      networkPoliciesHelmReleaseResourceEnabled: true
       nodePoolKind: MachinePool
-      verticalPodAutoscalerCrdHelmReleaseResourceEnabled: true
     workers:
       defaultNodePools:
         def00:
@@ -205,9 +241,26 @@ global:
   apps:
     awsCloudControllerManager: {}
     awsEbsCsiDriver: {}
+    awsPodIdentityWebhook: {}
+    capiNodeLabeler: {}
+    certExporter: {}
+    certManager: {}
+    chartOperatorExtensions: {}
     cilium: {}
+    ciliumServiceMonitors: {}
+    clusterAutoscaler: {}
     coreDns: {}
+    etcdKubernetesResourcesCountExporter: {}
+    externalDns: {}
+    k8sDnsNodeCache: {}
+    metricsServer: {}
+    netExporter: {}
     networkPolicies: {}
+    nodeExporter: {}
+    observabilityBundle: {}
+    securityBundle: {}
+    teleportKubeAgent: {}
+    verticalPodAutoscaler: {}
     verticalPodAutoscalerCrd: {}
   components:
     containerd:
