@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Set token audience for `aws-pod-identity-webhook` based on AWS region.
+
 ## [0.76.0] - 2024-05-14
 
 ### ⚠️ Breaking change
