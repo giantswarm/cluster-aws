@@ -1,8 +1,8 @@
 {{- define "awsPodIdentityWebhookValuesDefault" }}
   aws:
-    tokenAudience: {{  include "awsApiServerApiAudiences" . }}
+    tokenAudience: {{ include "awsApiServerApiAudiences" $ }}
 {{- end }}
-{{- $awsPodIdentityWebhookValues := (include "awsPodIdentityWebhookValuesDefault" .) | fromYaml -}}
+{{- $awsPodIdentityWebhookValues := (include "awsPodIdentityWebhookValuesDefault" $ ) | fromYaml -}}
 {{- $customAwsPodIdentityWebhookValues := .Values.global.apps.awsPodIdentityWebhook.values -}}
 {{- if $customAwsPodIdentityWebhookValues -}}
 {{- $awsPodIdentityWebhookValues = mergeOverwrite $awsPodIdentityWebhookValues (deepCopy $customAwsPodIdentityWebhookValues) -}}
