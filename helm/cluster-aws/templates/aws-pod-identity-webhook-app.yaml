@@ -5,7 +5,7 @@
 {{- $awsPodIdentityWebhookValues := (include "awsPodIdentityWebhookValuesDefault" .) | fromYaml -}}
 {{- $customAwsPodIdentityWebhookValues := .Values.global.apps.awsPodIdentityWebhook.values -}}
 {{- if $customAwsPodIdentityWebhookValues -}}
-$awsPodIdentityWebhookValues = mergeOverwrite $awsPodIdentityWebhookValues (deepCopy $customAwsPodIdentityWebhookValues) -}}
+{{- $awsPodIdentityWebhookValues = mergeOverwrite $awsPodIdentityWebhookValues (deepCopy $customAwsPodIdentityWebhookValues) -}}
 {{- end -}}
 apiVersion: v1
 kind: ConfigMap
