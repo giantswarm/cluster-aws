@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.76.1] - 2024-05-16
+
+### Changed
+
+- Set token audience for `aws-pod-identity-webhook` based on AWS region.
+
 ## [0.76.0] - 2024-05-14
 
 ### ⚠️ Breaking change
@@ -1339,7 +1345,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.76.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.76.1...HEAD
+[0.76.1]: https://github.com/giantswarm/cluster-aws/compare/v0.76.0...v0.76.1
 [0.76.0]: https://github.com/giantswarm/cluster-aws/compare/v0.75.0...v0.76.0
 [0.75.0]: https://github.com/giantswarm/cluster-aws/compare/v0.74.0...v0.75.0
 [0.74.0]: https://github.com/giantswarm/cluster-aws/compare/v0.73.0...v0.74.0
