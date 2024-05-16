@@ -1,4 +1,12 @@
-{{- if .Values.global.apps.awsPodIdentityWebhook.values -}}
+{{- define "awsPodIdentityWebhookValuesDefault" }}
+  aws:
+    tokenAudience: {{ include "awsApiServerApiAudiences" $ | trim  -}}
+{{- end }}
+{{- $awsPodIdentityWebhookValues := (include "awsPodIdentityWebhookValuesDefault" $ ) | fromYaml -}}
+{{- $customAwsPodIdentityWebhookValues := .Values.global.apps.awsPodIdentityWebhook.values -}}
+{{- if $customAwsPodIdentityWebhookValues -}}
+{{- $awsPodIdentityWebhookValues = mergeOverwrite $awsPodIdentityWebhookValues (deepCopy $customAwsPodIdentityWebhookValues) -}}
+{{- end -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -8,8 +16,7 @@ metadata:
     {{- include "labels.common" . | nindent 4 }}
 data:
   values: |
-    {{- toYaml .Values.global.apps.awsPodIdentityWebhook.values | nindent 4 }}
-{{- end }}
+    {{- $awsPodIdentityWebhookValues | toYaml | nindent 4 }}
 ---
 apiVersion: application.giantswarm.io/v1alpha1
 kind: App
