@@ -477,11 +477,11 @@
                                         }
                                     }
                                 }
-                            }
+                            },
+                            "preKubeadmCommands": [
+                                "sed -i \"s/IPV4_LOCAL/$(echo $COREOS_EC2_IPV4_LOCAL)/g\" /etc/kubeadm.yml"
+                            ]
                         },
-                        "preKubeadmCommands": [
-                            "sed -i \"s/IPV4_LOCAL/$(echo $COREOS_EC2_IPV4_LOCAL)/g\" /etc/kubeadm.yml"
-                        ],
                         "resources": {
                             "infrastructureMachineTemplate": {
                                 "group": "infrastructure.cluster.x-k8s.io",
@@ -616,11 +616,11 @@
                                         }
                                     }
                                 }
-                            }
-                        },
-                        "preKubeadmCommands": [
-                            "sed -i \"s/IPV4_LOCAL/$(echo $COREOS_EC2_IPV4_LOCAL)/g\" /etc/kubeadm.yml"
-                        ]
+                            },
+                            "preKubeadmCommands": [
+                                "sed -i \"s/IPV4_LOCAL/$(echo $COREOS_EC2_IPV4_LOCAL)/g\" /etc/kubeadm.yml"
+                            ]
+                        }
                     }
                 }
             }
