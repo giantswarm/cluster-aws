@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Replace `IPV4_LOCAL` var with COREOS_IPV4_LOCAL env from coreos-metadata service.
+- Replace `IPV4_LOCAL` var with `COREOS_EC2_IPV4_LOCAL` env from coreos-metadata service.
 
 ## [0.76.1] - 2024-05-16
 
