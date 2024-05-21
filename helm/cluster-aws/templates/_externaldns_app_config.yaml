@@ -1,0 +1,12 @@
+{{/* AWS-specific external-dns Helm values*/}}
+{{/* https://github.com/giantswarm/external-dns-app/blob/main/helm/external-dns-app/values.yaml*/}}
+{{- define "awsExternalDnsHelmValues" }}
+aws:
+  irsa: "true"
+  batchChangeInterval: null
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: "{{ .Values.global.metadata.name }}-Route53Manager-Role"
+extraArgs:
+- "--aws-batch-change-interval=10s"
+{{- end }}

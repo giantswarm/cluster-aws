@@ -1,0 +1,62 @@
+{{- define "awsPodIdentityWebhookValuesDefault" }}
+  aws:
+    tokenAudience: {{ include "awsApiServerApiAudiences" $ | trim  -}}
+{{- end }}
+{{- $awsPodIdentityWebhookValues := (include "awsPodIdentityWebhookValuesDefault" $ ) | fromYaml -}}
+{{- $customAwsPodIdentityWebhookValues := .Values.global.apps.awsPodIdentityWebhook.values -}}
+{{- if $customAwsPodIdentityWebhookValues -}}
+{{- $awsPodIdentityWebhookValues = mergeOverwrite $awsPodIdentityWebhookValues (deepCopy $customAwsPodIdentityWebhookValues) -}}
+{{- end -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "resource.default.name" . }}-aws-pod-identity-webhook-user-values
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+data:
+  values: |
+    {{- $awsPodIdentityWebhookValues | toYaml | nindent 4 }}
+---
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  name: {{ include "resource.default.name" . }}-aws-pod-identity-webhook
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+    giantswarm.io/managed-by: {{ .Chart.Name }}
+  annotations:
+    app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" . }}-cert-manager
+spec:
+  catalog: default
+  name: aws-pod-identity-webhook
+  # repo: giantswarm/aws-pod-identity-webhook
+  version: 1.14.2
+  namespace: kube-system
+  config:
+    configMap:
+      name: {{ include "resource.default.name" . }}-cluster-values
+      namespace: {{ .Release.Namespace }}
+  {{- if .Values.global.apps.awsPodIdentityWebhook.values }}
+  userConfig:
+    configMap:
+      name: {{ include "resource.default.name" . }}-aws-pod-identity-webhook-user-values
+      namespace: {{ .Release.Namespace }}
+  {{- end }}
+  {{- if .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
+  extraConfigs:
+  {{- range .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
+  - kind: {{ .kind }}
+    name: {{ .name }}
+    namespace: {{ .namespace | default $.Release.Namespace }}
+    priority: {{ .priority }}
+  {{- end }}
+  {{- end }}
+  kubeConfig:
+    inCluster: false
+    secret:
+      name: {{ include "resource.default.name" . }}-kubeconfig
+      namespace: {{ .Release.Namespace }}
+    context:
+      name: {{ include "resource.default.name" . }}-admin@{{ include "resource.default.name" . }}
