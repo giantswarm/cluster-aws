@@ -146,6 +146,7 @@ cluster:
                     enabled: true
                     name: var-log.mount
         preKubeadmCommands:
+          - sed -i "s/HOSTNAME/$(echo $COREOS_EC2_HOSTNAME)/g" /etc/kubeadm.yml
           - sed -i "s/IPV4_LOCAL/$(echo $COREOS_EC2_IPV4_LOCAL)/g" /etc/kubeadm.yml
       resources:
         infrastructureMachineTemplate:
