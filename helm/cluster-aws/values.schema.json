@@ -1333,7 +1333,7 @@
                         "instanceType": {
                             "type": "string",
                             "title": "EC2 instance type",
-                            "default": "r6i.xlarge"
+                            "default": "r6i.large"
                         },
                         "libVolumeSizeGB": {
                             "type": "integer",
