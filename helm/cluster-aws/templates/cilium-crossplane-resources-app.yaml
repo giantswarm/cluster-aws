@@ -30,9 +30,9 @@ spec:
     inCluster: true # in management cluster context
   name: cilium-crossplane-resources
   namespace: {{ $.Release.Namespace | quote }}
-  # used by renovate
-  # repo: giantswarm/cilium-crossplane-resources
-  version: 0.1.0
+  {{- $_ := set $ "appName" "cilium-crossplane-resources" }}
+  {{- $appVersion := include "cluster.app.version" $ }}
+  version: {{ $appVersion }}
   extraConfigs:
     # See above
     - kind: configMap

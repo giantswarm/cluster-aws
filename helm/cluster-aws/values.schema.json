@@ -564,6 +564,7 @@
                         "machinePoolResourcesEnabled": true,
                         "nodePoolKind": "MachinePool"
                     },
+                    "useReleases": true,
                     "workers": {
                         "defaultNodePools": {
                             "def00": {
