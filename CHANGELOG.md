@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Replace `IPV4_LOCAL` var with `COREOS_EC2_IPV4_LOCAL` env from coreos-metadata service.
+- Set environment variable `COREOS_EC2_IPV4_LOCAL` to inject value to kubeadm configuration.
+- Set environmane variable `COREOS_EC2_HOSTNAME` to inject value to kubeadm configuration.
 
 ## [0.76.1] - 2024-05-16
 

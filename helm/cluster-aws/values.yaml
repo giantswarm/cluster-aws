@@ -145,15 +145,15 @@ cluster:
                         description: log volume
                     enabled: true
                     name: var-log.mount
-        preKubeadmCommands:
-          - sed -i "s/HOSTNAME/$(echo $COREOS_EC2_HOSTNAME)/g" /etc/kubeadm.yml
-          - sed -i "s/IPV4_LOCAL/$(echo $COREOS_EC2_IPV4_LOCAL)/g" /etc/kubeadm.yml
       resources:
         infrastructureMachineTemplate:
           group: infrastructure.cluster.x-k8s.io
           kind: AWSMachineTemplate
           version: v1beta1
         infrastructureMachineTemplateSpecTemplateName: controlplane-awsmachinetemplate-spec
+    environmentVariables:
+      hostname: COREOS_EC2_HOSTNAME
+      ipv4: COREOS_EC2_IPV4_LOCAL
     pauseProperties:
       global.connectivity.vpcMode: private
     provider: aws
@@ -240,9 +240,6 @@ cluster:
                         description: log volume
                     enabled: true
                     name: var-log.mount
-        preKubeadmCommands:
-          - sed -i "s/HOSTNAME/$(echo $COREOS_EC2_HOSTNAME)/g" /etc/kubeadm.yml
-          - sed -i "s/IPV4_LOCAL/$(echo $COREOS_EC2_IPV4_LOCAL)/g" /etc/kubeadm.yml
 global:
   apps:
     awsCloudControllerManager: {}

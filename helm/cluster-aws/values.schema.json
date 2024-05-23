@@ -477,11 +477,7 @@
                                         }
                                     }
                                 }
-                            },
-                            "preKubeadmCommands": [
-                                "sed -i \"s/HOSTNAME/$(echo $COREOS_EC2_HOSTNAME)/g\" /etc/kubeadm.yml",
-                                "sed -i \"s/IPV4_LOCAL/$(echo $COREOS_EC2_IPV4_LOCAL)/g\" /etc/kubeadm.yml"
-                            ]
+                            }
                         },
                         "resources": {
                             "infrastructureMachineTemplate": {
@@ -491,6 +487,10 @@
                             },
                             "infrastructureMachineTemplateSpecTemplateName": "controlplane-awsmachinetemplate-spec"
                         }
+                    },
+                    "environmentVariables": {
+                        "hostname": "COREOS_EC2_HOSTNAME",
+                        "ipv4": "COREOS_EC2_IPV4_LOCAL"
                     },
                     "pauseProperties": {
                         "global.connectivity.vpcMode": "private"
@@ -617,11 +617,7 @@
                                         }
                                     }
                                 }
-                            },
-                            "preKubeadmCommands": [
-                                "sed -i \"s/HOSTNAME/$(echo $COREOS_EC2_HOSTNAME)/g\" /etc/kubeadm.yml",
-                                "sed -i \"s/IPV4_LOCAL/$(echo $COREOS_EC2_IPV4_LOCAL)/g\" /etc/kubeadm.yml"
-                            ]
+                            }
                         }
                     }
                 }
