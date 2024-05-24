@@ -181,6 +181,8 @@ cluster:
               units:
                 - enabled: true
                   name: kubelet-aws-config.service
+    osImage:
+      variant: "3"
     pauseProperties:
       global.connectivity.vpcMode: private
     provider: aws
@@ -371,7 +373,6 @@ global:
     flatcarAwsAccount: "706635527432"
     instanceMetadataOptions:
       httpTokens: required
-    osImageVariant: "3"
 internal:
   migration: {}
 kubectlImage:
