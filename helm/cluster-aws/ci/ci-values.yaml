@@ -24,11 +24,6 @@ global:
             password: abcdef
         - endpoint: quay.io
 
-# not very nice to pass it twice like this, works for testing, will improve later
-internal:
-  ephemeralConfiguration:
-    offlineTesting:
-      renderWithoutReleaseResource: true
 cluster:
   internal:
     ephemeralConfiguration:
