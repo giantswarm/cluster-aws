@@ -7,3 +7,9 @@ global:
     baseDomain: example.com
   providerSpecific:
     region: "eu-west-1"
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

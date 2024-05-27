@@ -11,3 +11,9 @@ global:
       httpsProxy: http://proxy.mcproxy.example.com:4000
   providerSpecific:
     region: "eu-west-1"
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

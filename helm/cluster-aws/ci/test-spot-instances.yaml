@@ -14,3 +14,9 @@ global:
         maxPrice: 1.2
   providerSpecific:
     region: "eu-west-1"
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true
