@@ -31,7 +31,7 @@ spec:
   chart:
     spec:
       chart: aws-cloud-controller-manager-app
-      {{- $_ := set $ "appName" "aws-cloud-controller-manager" }}
+      {{- $_ := set $ "appName" "cloud-provider-aws" }}
       {{- $appVersion := include "cluster.app.version" $ }}
       version: {{ $appVersion }}
       sourceRef:
