@@ -65,18 +65,12 @@ ami:
   id: {{ . | quote }}
 {{- else -}}
 ami: {}
-{{- if $.Values.internal.useNewFlatcarImageFormat }}
-imageLookupBaseOS: "{{ include "cluster.component.flatcar.version" $ }}"
-imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}
-{{- else }}
 {{- $suffix := include "cluster.component.flatcar.variant" $ }}
-{{- if $suffix }}
-  {{- $suffix = printf "-%s-gs" $suffix }}
+imageLookupBaseOS: "{{ include "cluster.component.flatcar.version" $ }}"
+{{- if and $suffix (ne $suffix "N/A") }}
+imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}-gs-{{$suffix}}
 {{- else }}
-  {{- $suffix = "-gs" }}
-{{- end }}
-imageLookupBaseOS: "flatcar-stable"
-imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}" }}{{$suffix}}
+imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}
 {{- end }}
 imageLookupOrg: "{{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}"
 {{- end }}
