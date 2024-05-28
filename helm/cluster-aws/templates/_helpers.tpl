@@ -68,9 +68,9 @@ ami: {}
 {{- $suffix := include "cluster.component.flatcar.variant" $ }}
 imageLookupBaseOS: "{{ include "cluster.component.flatcar.version" $ }}"
 {{- if and $suffix (ne $suffix "N/A") }}
-imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}-gs-{{$suffix}}
+imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}-alpha.{{$suffix}}
 {{- else }}
-imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}
+imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}-gs
 {{- end }}
 imageLookupOrg: "{{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}"
 {{- end }}
