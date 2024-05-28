@@ -488,6 +488,10 @@
                             "infrastructureMachineTemplateSpecTemplateName": "controlplane-awsmachinetemplate-spec"
                         }
                     },
+                    "environmentVariables": {
+                        "hostName": "COREOS_EC2_HOSTNAME",
+                        "ipv4": "COREOS_EC2_IPV4_LOCAL"
+                    },
                     "pauseProperties": {
                         "global.connectivity.vpcMode": "private"
                     },

@@ -151,6 +151,9 @@ cluster:
           kind: AWSMachineTemplate
           version: v1beta1
         infrastructureMachineTemplateSpecTemplateName: controlplane-awsmachinetemplate-spec
+    environmentVariables:
+      hostName: COREOS_EC2_HOSTNAME
+      ipv4: COREOS_EC2_IPV4_LOCAL
     pauseProperties:
       global.connectivity.vpcMode: private
     provider: aws
