@@ -6,7 +6,7 @@ on:
 jobs:
   import_new_regions_and_zones:
     runs-on: ubuntu-22.04
-    container: quay.io/giantswarm/golang:1.22.2
+    container: quay.io/giantswarm/golang:1.22.3
     steps:
       - name: Check out the code
         uses: actions/checkout@v4
