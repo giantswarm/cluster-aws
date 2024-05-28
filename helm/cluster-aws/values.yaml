@@ -373,6 +373,7 @@ global:
     flatcarAwsAccount: "706635527432"
     instanceMetadataOptions:
       httpTokens: required
+  release: {}
 internal:
   migration: {}
 kubectlImage:

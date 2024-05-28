@@ -669,7 +669,8 @@
             "title": "Global",
             "description": "Properties that are available to all charts and subcharts.",
             "required": [
-                "metadata"
+                "metadata",
+                "release"
             ],
             "additionalProperties": true,
             "properties": {
@@ -1666,6 +1667,20 @@
                         "region": {
                             "type": "string",
                             "title": "Region"
+                        }
+                    }
+                },
+                "release": {
+                    "type": "object",
+                    "title": "Release",
+                    "description": "Information about the workload cluster release.",
+                    "required": [
+                        "version"
+                    ],
+                    "properties": {
+                        "version": {
+                            "type": "string",
+                            "title": "Version"
                         }
                     }
                 }

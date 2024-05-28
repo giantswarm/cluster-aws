@@ -420,6 +420,14 @@ Properties within the `.global.podSecurityStandards` object
 | :----------- | :-------------- | :--------------- |
 | `global.podSecurityStandards.enforced` | **Enforced**|**Type:** `boolean`<br/>**Default:** `true`|
 
+### Release
+Properties within the `.global.release` object
+Information about the workload cluster release.
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `global.release.version` | **Version**|**Type:** `string`<br/>|
+
 ### Other
 
 | **Property** | **Description** | **More Details** |
