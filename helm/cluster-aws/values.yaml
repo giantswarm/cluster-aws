@@ -27,6 +27,8 @@ cluster:
       externalDns:
         configTemplateName: awsExternalDnsHelmValues
         enable: true
+      k8sAuditMetrics:
+        enable: true
       k8sDnsNodeCache:
         enable: true
       metricsServer:
@@ -39,6 +41,8 @@ cluster:
       nodeExporter:
         enable: true
       observabilityBundle:
+        enable: true
+      prometheusBlackboxExporter:
         enable: true
       securityBundle:
         configTemplateName: awsSecurityBundleHelmValues
