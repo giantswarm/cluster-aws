@@ -7,12 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `irsa-servicemonitors` and `aws-ebs-csi-driver-servicemonitors` apps.
+
 ### Changed
 
 - Set environment variable `COREOS_EC2_IPV4_LOCAL` to inject value to kubeadm configuration.
 - Set environmane variable `COREOS_EC2_HOSTNAME` to inject value to kubeadm configuration.
 - Update aws-cloud-controller-manager-app to v1.25.14-gs3.
 - Update cluster chart to v0.27.0. More details in [cluster chart v0.27.0 release notes](https://github.com/giantswarm/cluster/releases/tag/v0.27.0).
+- Set `prometheys-blackbox-exporter` and `k8s-audit-metrics` as enabled.
 
 ## [0.76.1] - 2024-05-16
 

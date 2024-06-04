@@ -292,6 +292,9 @@
                             "configTemplateName": "awsExternalDnsHelmValues",
                             "enable": true
                         },
+                        "k8sAuditMetrics": {
+                            "enable": true
+                        },
                         "k8sDnsNodeCache": {
                             "enable": true
                         },
@@ -309,6 +312,9 @@
                             "enable": true
                         },
                         "observabilityBundle": {
+                            "enable": true
+                        },
+                        "prometheusBlackboxExporter": {
                             "enable": true
                         },
                         "securityBundle": {
@@ -654,6 +660,12 @@
                             "title": "AWS EBS CSI driver",
                             "description": "Configuration of aws-ebs-csi-driver-app. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-app."
                         },
+                        "awsEbsCsiDriverServiceMonitors": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "AWS EBS CSI driver service monitors",
+                            "description": "Configuration of aws-ebs-csi-driver-servicemonitors. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-servicemonitors-app."
+                        },
                         "awsPodIdentityWebhook": {
                             "$ref": "#/$defs/app",
                             "type": "object",
@@ -720,6 +732,18 @@
                             "title": "external-dns",
                             "description": "Configuration of external-dns. For all available values see https://github.com/giantswarm/external-dns-app."
                         },
+                        "irsaServiceMonitors": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "irsa-servicemonitors",
+                            "description": "Configuration of irsa-service-monitor. For all available values see https://github.com/giantswarm/irsa-servicemonitors-app."
+                        },
+                        "k8sAuditMetrics": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "k8s-audit-metrics",
+                            "description": "Configuration of k8s-audit-metrics. For all available values see https://github.com/giantswarm/k8s-audit-metrics."
+                        },
                         "k8sDnsNodeCache": {
                             "$ref": "#/$defs/app",
                             "type": "object",
@@ -755,6 +779,12 @@
                             "type": "object",
                             "title": "observability-bundle",
                             "description": "Configuration of observability-bundle. For all available values see https://github.com/giantswarm/observability-bundle."
+                        },
+                        "prometheusBlackboxExporter": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "prometheus-blackbox-exporter",
+                            "description": "Configuration of prometheus-blackbox-exporter. For all available values see https://github.com/giantswarm/prometheus-blackbox-exporter-app."
                         },
                         "securityBundle": {
                             "$ref": "#/$defs/app",
