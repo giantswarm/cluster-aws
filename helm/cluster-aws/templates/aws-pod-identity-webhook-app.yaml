@@ -38,12 +38,10 @@ spec:
     configMap:
       name: {{ include "resource.default.name" . }}-cluster-values
       namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.apps.awsPodIdentityWebhook.values }}
   userConfig:
     configMap:
       name: {{ include "resource.default.name" . }}-aws-pod-identity-webhook-user-values
       namespace: {{ .Release.Namespace }}
-  {{- end }}
   {{- if .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
   extraConfigs:
   {{- range .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
