@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update cluster chart to v0.27.0. More details in [cluster chart v0.27.0 release notes](https://github.com/giantswarm/cluster/releases/tag/v0.27.0).
 - Always render `userConfig` valeus reference to configmap for `aws-pod-identity-webhook-app`.
 - Store EC2 user data (Ignition config) for machine pools in S3 bucket to overcome the size limit (requires this new CAPA feature and `AWSMachinePool.spec.ignition` field)
+- Update CAPA CR references to API version `v1beta2`
 
 ## [0.76.1] - 2024-05-16
 
