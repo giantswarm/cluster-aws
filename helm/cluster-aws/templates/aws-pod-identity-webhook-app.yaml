@@ -1,6 +1,7 @@
 {{- define "awsPodIdentityWebhookValuesDefault" }}
   aws:
     tokenAudience: {{ include "awsApiServerApiAudiences" $ | trim  -}}
+    region: {{ include "aws-region" $ }}
 {{- end }}
 {{- $awsPodIdentityWebhookValues := (include "awsPodIdentityWebhookValuesDefault" $ ) | fromYaml -}}
 {{- $customAwsPodIdentityWebhookValues := .Values.global.apps.awsPodIdentityWebhook.values -}}
