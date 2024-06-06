@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add configuration for `aws-pod-web-identity-webook` app to include region into the IRSA enabled pods.
+
 ## [0.76.2] - 2024-06-05
 
 ### Changed
