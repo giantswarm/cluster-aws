@@ -33,7 +33,7 @@ spec:
   catalog: default
   name: aws-pod-identity-webhook
   # repo: giantswarm/aws-pod-identity-webhook
-  version: 1.15.1
+  version: 1.16.0
   namespace: kube-system
   config:
     configMap:
