@@ -483,7 +483,7 @@
                             "infrastructureMachineTemplate": {
                                 "group": "infrastructure.cluster.x-k8s.io",
                                 "kind": "AWSMachineTemplate",
-                                "version": "v1beta1"
+                                "version": "v1beta2"
                             },
                             "infrastructureMachineTemplateSpecTemplateName": "controlplane-awsmachinetemplate-spec"
                         }
@@ -508,12 +508,12 @@
                         "infrastructureCluster": {
                             "group": "infrastructure.cluster.x-k8s.io",
                             "kind": "AWSCluster",
-                            "version": "v1beta1"
+                            "version": "v1beta2"
                         },
                         "infrastructureMachinePool": {
                             "group": "infrastructure.cluster.x-k8s.io",
                             "kind": "AWSMachinePool",
-                            "version": "v1beta1"
+                            "version": "v1beta2"
                         },
                         "machineHealthCheckResourceEnabled": true,
                         "machinePoolResourcesEnabled": true,
