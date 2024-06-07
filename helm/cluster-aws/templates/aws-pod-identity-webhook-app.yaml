@@ -1,6 +1,7 @@
 {{- define "awsPodIdentityWebhookValuesDefault" }}
   aws:
-    tokenAudience: {{ include "awsApiServerApiAudiences" $ | trim  -}}
+    tokenAudience: {{ include "awsApiServerApiAudiences" $ | trim  }}
+    region: {{ include "aws-region" $ | trim }}
 {{- end }}
 {{- $awsPodIdentityWebhookValues := (include "awsPodIdentityWebhookValuesDefault" $ ) | fromYaml -}}
 {{- $customAwsPodIdentityWebhookValues := .Values.global.apps.awsPodIdentityWebhook.values -}}
@@ -32,18 +33,16 @@ spec:
   catalog: default
   name: aws-pod-identity-webhook
   # repo: giantswarm/aws-pod-identity-webhook
-  version: 1.15.1
+  version: 1.16.0
   namespace: kube-system
   config:
     configMap:
       name: {{ include "resource.default.name" . }}-cluster-values
       namespace: {{ .Release.Namespace }}
-  {{- if .Values.global.apps.awsPodIdentityWebhook.values }}
   userConfig:
     configMap:
       name: {{ include "resource.default.name" . }}-aws-pod-identity-webhook-user-values
       namespace: {{ .Release.Namespace }}
-  {{- end }}
   {{- if .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
   extraConfigs:
   {{- range .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
