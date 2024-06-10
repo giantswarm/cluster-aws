@@ -9,7 +9,7 @@ metadata:
 apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
-  name: {{ include "resource.default.name" . }}-aws-ebs-csi-driver-servicemonitors
+  name: {{ include "resource.default.name" . }}-aws-ebs-csi-driver-smons
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "labels.common" . | nindent 4 }}
