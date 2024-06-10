@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.78.0] - 2024-06-10
+
 ### Added
 
 - Add `irsa-servicemonitors` and `aws-ebs-csi-driver-servicemonitors` apps.
@@ -1371,7 +1373,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.77.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.78.0...HEAD
+[0.78.0]: https://github.com/giantswarm/cluster-aws/compare/v0.77.0...v0.78.0
 [0.77.0]: https://github.com/giantswarm/cluster-aws/compare/v0.76.2...v0.77.0
 [0.76.2]: https://github.com/giantswarm/cluster-aws/compare/v0.76.1...v0.76.2
 [0.76.1]: https://github.com/giantswarm/cluster-aws/compare/v0.76.0...v0.76.1
