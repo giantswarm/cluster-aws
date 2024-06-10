@@ -7,12 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.78.0] - 2024-06-10
+
+### Added
+
+- Add `irsa-servicemonitors` and `aws-ebs-csi-driver-servicemonitors` apps.
+
+### Changed
+
+- Set `prometheus-blackbox-exporter` and `k8s-audit-metrics` as enabled.
+
+## [0.77.0] - 2024-06-07
+
+### Added
+
+- Add configuration for `aws-pod-web-identity-webook` app to include region into the IRSA enabled pods.
+
+## [0.76.2] - 2024-06-05
+
 ### Changed
 
 - Set environment variable `COREOS_EC2_IPV4_LOCAL` to inject value to kubeadm configuration.
 - Set environmane variable `COREOS_EC2_HOSTNAME` to inject value to kubeadm configuration.
 - Update aws-cloud-controller-manager-app to v1.25.14-gs3.
 - Update cluster chart to v0.27.0. More details in [cluster chart v0.27.0 release notes](https://github.com/giantswarm/cluster/releases/tag/v0.27.0).
+- Always render `userConfig` values reference to configmap for `aws-pod-identity-webhook-app`.
+- Store EC2 user data (Ignition config) for machine pools in S3 bucket to overcome the size limit (requires this new CAPA feature and `AWSMachinePool.spec.ignition` field)
+- Update CAPA CR references to API version `v1beta2`
 
 ## [0.76.1] - 2024-05-16
 
@@ -32,7 +53,7 @@ Cluster upgrade steps are the following:
   - All apps, except observability-bundle and security-bundle will get `app-operator.giantswarm.io/paused: true` annotation, so wait few minutes for the change to get applied by the Helm post-upgrade hook.
 - Delete default-apps-aws.
   - App resources for all default apps will get deleted. Wait few minutes for this to happen.
-  - Chart resources on the workload cluster will stay, so all apps will continue running. 
+  - Chart resources on the workload cluster will stay, so all apps will continue running.
 - Upgrade cluster-aws App to v0.76.0.
   - cluster-aws will deploy all default apps, wait a few minutes for all Apps to be successfully deployed.
   - Chart resources on the workload cluster will get updated, as newly deployed App resources will take over the reconciliation of the existing Chart resources.
@@ -1352,7 +1373,10 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.76.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.78.0...HEAD
+[0.78.0]: https://github.com/giantswarm/cluster-aws/compare/v0.77.0...v0.78.0
+[0.77.0]: https://github.com/giantswarm/cluster-aws/compare/v0.76.2...v0.77.0
+[0.76.2]: https://github.com/giantswarm/cluster-aws/compare/v0.76.1...v0.76.2
 [0.76.1]: https://github.com/giantswarm/cluster-aws/compare/v0.76.0...v0.76.1
 [0.76.0]: https://github.com/giantswarm/cluster-aws/compare/v0.75.0...v0.76.0
 [0.75.0]: https://github.com/giantswarm/cluster-aws/compare/v0.74.0...v0.75.0
