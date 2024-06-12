@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update cluster chart to 0.31.1
+
 ## [0.78.0] - 2024-06-10
 
 ### Added
