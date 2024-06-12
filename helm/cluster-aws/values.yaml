@@ -245,8 +245,6 @@ cluster:
                     enabled: true
                     name: var-log.mount
 global:
-  release:
-    version: PLACEHOLDER
   apps:
     awsCloudControllerManager: {}
     awsEbsCsiDriver: {}
