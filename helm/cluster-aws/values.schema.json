@@ -242,6 +242,20 @@
                     }
                 }
             }
+        },
+        "release": {
+            "type": "object",
+            "title": "Release",
+            "description": "Information about the workload cluster release.",
+            "required": [
+                "version"
+            ],
+            "properties": {
+                "version": {
+                    "type": "string",
+                    "title": "Version"
+                }
+            }
         }
     },
     "type": "object",
