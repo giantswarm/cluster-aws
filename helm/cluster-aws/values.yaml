@@ -3,9 +3,10 @@
 cluster:
   internal:
     ephemeralConfiguration:
-      cilium:
-        versionOverride: 0.24.0-651c15f48577b533601268090166dda685f4ad22
-        catalogOverride: default-test
+      apps:
+        cilium:
+          versionOverride: 0.24.0-651c15f48577b533601268090166dda685f4ad22
+          catalogOverride: default-test
   providerIntegration:
     apps:
       capiNodeLabeler:
