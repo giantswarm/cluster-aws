@@ -5,7 +5,7 @@ cluster:
     ephemeralConfiguration:
       apps:
         cilium:
-          versionOverride: 0.24.0-651c15f48577b533601268090166dda685f4ad22
+          versionOverride: 0.24.0-e6bb82e5363beb499c4b55bea1a6dcd755d77fb4
           catalogOverride: default-test
   providerIntegration:
     apps:
