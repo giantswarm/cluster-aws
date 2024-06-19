@@ -1,0 +1,29 @@
+global:
+  metadata:
+    name: test-wc
+    organization: "test"
+  connectivity:
+    baseDomain: example.com
+  nodePools:
+    pool0:
+      maxSize: 2
+      minSize: 2
+      instanceTypeOverrides:
+        - r6i.xlarge
+        - m5.xlarge
+  providerSpecific:
+    region: "eu-west-1"
+    awsAccountId: "1234567890"
+  components:
+    containerd:
+      containerRegistries:
+        docker.io:
+          - endpoint: giantswarm-1.azurecr.io
+            credentials:
+              username: example
+              password: password
+        gcr.io:
+          - endpoint: giantswarm-2.azurecr.io
+            credentials:
+              username: example
+              password: password
