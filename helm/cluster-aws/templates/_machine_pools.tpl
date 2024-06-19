@@ -79,8 +79,6 @@ spec:
   refreshPreferences:
     instanceWarmup: {{ $value.instanceWarmup | default 600 }}
     minHealthyPercentage: {{ $value.minHealthyPercentage | default 90 }}
-  ignition:
-    version: "3.4"
 ---
 {{ end }}
 {{- end -}}
