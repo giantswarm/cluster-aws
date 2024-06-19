@@ -2,6 +2,8 @@
 
 `cluster-aws` is an app that helps create a CRs for a Cluster API AWS cluster for Giant Swarm platform.
 
+dummy change to test ci...
+
 ## Configuration
 
 See our [full list of configuration options](helm/cluster-aws/README.md).
