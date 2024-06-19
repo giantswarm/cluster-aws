@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.79.0] - 2024-06-19
+
 ### Changed
 
 - Set maximum number of pods (kubelet `--max-pods`) for Cilium ENI mode due to restrictions by number of ENIs and IPs per ENI. This change will roll nodes even if not using Cilium ENI mode, since a new script is introduced.
@@ -1389,7 +1391,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.78.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v0.79.0...HEAD
+[0.79.0]: https://github.com/giantswarm/cluster-aws/compare/v0.78.2...v0.79.0
 [0.78.2]: https://github.com/giantswarm/cluster-aws/compare/v0.78.1...v0.78.2
 [0.78.1]: https://github.com/giantswarm/cluster-aws/compare/v0.78.0...v0.78.1
 [0.78.0]: https://github.com/giantswarm/cluster-aws/compare/v0.77.0...v0.78.0
