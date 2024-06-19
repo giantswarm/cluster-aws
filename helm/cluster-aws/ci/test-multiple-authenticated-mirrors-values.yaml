@@ -18,12 +18,12 @@ global:
     containerd:
       containerRegistries:
         docker.io:
-          - endpoint: giantswarm.azurecr.io
+          - endpoint: giantswarm-1.azurecr.io
             credentials:
               username: example
               password: password
         gcr.io:
-          - endpoint: giantswarm.azurecr.io
+          - endpoint: giantswarm-2.azurecr.io
             credentials:
               username: example
               password: password
