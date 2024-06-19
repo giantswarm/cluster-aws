@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Set maximum number of pods (kubelet `--max-pods`) for Cilium ENI mode due to restrictions by number of ENIs and IPs per ENI. This change will roll nodes even if not using Cilium ENI mode, since a new script is introduced.
+
 ## [0.78.2] - 2024-06-12
 
 ### Changed

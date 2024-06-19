@@ -1,0 +1,16 @@
+[Unit]
+Description=Add AWS specific kubelet configuration
+Wants=network-online.target
+After=network-online.target
+Before=kubelet.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/bin/kubelet-aws-config.sh
+TimeoutStartSec=20
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
