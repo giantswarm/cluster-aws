@@ -66,11 +66,17 @@ ami:
   id: {{ . | quote }}
 {{- else -}}
 ami: {}
+{{- /* Get Flatcar variant, which we use in image name suffix. This helper is defined in the cluster chart and it will
+ get the variant number from the Release CR as cluster-aws is using new releases with Release CRs. */}}
 {{- $suffix := include "cluster.component.flatcar.variant" $ }}
+{{- /* Get Flatcar version. This helper is defined in the cluster chart and it will get the Flatcar version from the
+ Release CR as cluster-aws is using new releases with Release CRs. */}}
 imageLookupBaseOS: "{{ include "cluster.component.flatcar.version" $ }}"
 {{- if and $suffix (ne $suffix "N/A") }}
+{{- /* Build image name with Flatcar variant set. These images with the variant number in the suffix are currently built manually. */}}
 imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}-alpha.{{$suffix}}
 {{- else }}
+{{- /* Build image name without Flatcar variant. These images without variant in the suffix are built by the CI. */}}
 imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}-gs
 {{- end }}
 imageLookupOrg: "{{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}"
