@@ -1,4 +1,6 @@
 global:
+  release:
+    version: v27.0.0-alpha.1
   metadata:
     name: test-wc
     organization: "test"
@@ -12,3 +14,9 @@ global:
           - 10.1.0.0/16
   providerSpecific:
     region: "eu-west-1"
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

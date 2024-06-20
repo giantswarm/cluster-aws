@@ -21,6 +21,7 @@ Common labels
 {{- include "labels.selector" $ }}
 helm.sh/chart: {{ include "chart" . | quote }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
+release.giantswarm.io/version: {{ .Values.global.release.version | trimPrefix "v" | quote }}
 {{- end -}}
 
 {{/*
@@ -65,14 +66,19 @@ ami:
   id: {{ . | quote }}
 {{- else -}}
 ami: {}
-imageLookupBaseOS: "flatcar-stable"
-{{- $suffix := .Values.global.providerSpecific.osImageVariant }}
-{{- if $suffix }}
-  {{- $suffix = printf "-%s-gs" $suffix }}
+{{- /* Get Flatcar variant, which we use in image name suffix. This helper is defined in the cluster chart and it will
+ get the variant number from the Release CR as cluster-aws is using new releases with Release CRs. */}}
+{{- $suffix := include "cluster.component.flatcar.variant" $ }}
+{{- /* Get Flatcar version. This helper is defined in the cluster chart and it will get the Flatcar version from the
+ Release CR as cluster-aws is using new releases with Release CRs. */}}
+imageLookupBaseOS: "{{ include "cluster.component.flatcar.version" $ }}"
+{{- if and $suffix (ne $suffix "N/A") }}
+{{- /* Build image name with Flatcar variant set. These images with the variant number in the suffix are currently built manually. */}}
+imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}-alpha.{{$suffix}}
 {{- else }}
-  {{- $suffix = "-gs" }}
+{{- /* Build image name without Flatcar variant. These images without variant in the suffix are built by the CI. */}}
+imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}-gs
 {{- end }}
-imageLookupFormat: {{ "capa-ami-{{.BaseOS}}-v{{.K8sVersion}}" }}{{$suffix}}
 imageLookupOrg: "{{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}"
 {{- end }}
 {{- end }}

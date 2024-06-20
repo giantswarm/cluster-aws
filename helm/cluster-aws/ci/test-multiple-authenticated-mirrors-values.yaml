@@ -1,4 +1,6 @@
 global:
+  release:
+    version: v27.0.0-alpha.1
   metadata:
     name: test-wc
     organization: "test"
@@ -27,3 +29,9 @@ global:
             credentials:
               username: example
               password: password
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

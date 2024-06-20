@@ -19,8 +19,9 @@ metadata:
 spec:
   catalog: default
   name: aws-ebs-csi-driver-servicemonitors
-  # repo: giantswarm/aws-ebs-csi-driver-servicemonitors
-  version: 0.1.0
+  {{- $_ := set $ "appName" "aws-ebs-csi-driver-servicemonitors" }}
+  {{- $appVersion := include "cluster.app.version" $ }}
+  version: {{ $appVersion }}
   namespace: kube-system
   config:
     configMap:

@@ -31,9 +31,9 @@ spec:
   chart:
     spec:
       chart: aws-cloud-controller-manager-app
-      # used by renovate
-      # repo: giantswarm/aws-cloud-controller-manager-app
-      version: v1.25.14-gs3
+      {{- $_ := set $ "appName" "cloud-provider-aws" }}
+      {{- $appVersion := include "cluster.app.version" $ }}
+      version: {{ $appVersion }}
       sourceRef:
         kind: HelmRepository
         name: {{ include "resource.default.name" $ }}-default

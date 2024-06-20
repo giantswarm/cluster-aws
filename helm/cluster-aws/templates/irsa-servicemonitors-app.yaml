@@ -19,8 +19,9 @@ metadata:
 spec:
   catalog: default
   name: irsa-servicemonitors
-  # repo: giantswarm/irsa-servicemonitors
-  version: 0.0.1
+  {{- $_ := set $ "appName" "irsa-servicemonitors" }}
+  {{- $appVersion := include "cluster.app.version" $ }}
+  version: {{ $appVersion }}
   namespace: kube-system
   config:
     configMap:

@@ -181,6 +181,8 @@ cluster:
               units:
                 - enabled: true
                   name: kubelet-aws-config.service
+    osImage:
+      variant: "3"
     pauseProperties:
       global.connectivity.vpcMode: private
     provider: aws
@@ -203,6 +205,7 @@ cluster:
       machineHealthCheckResourceEnabled: true
       machinePoolResourcesEnabled: true
       nodePoolKind: MachinePool
+    useReleases: true
     workers:
       defaultNodePools:
         def00:
@@ -370,7 +373,7 @@ global:
     flatcarAwsAccount: "706635527432"
     instanceMetadataOptions:
       httpTokens: required
-    osImageVariant: "3"
+  release: {}
 internal:
   migration: {}
 kubectlImage:

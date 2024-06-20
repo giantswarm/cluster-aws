@@ -1,4 +1,6 @@
 global:
+  release:
+    version: v27.0.0-alpha.1
   metadata:
     name: test-mc-proxy
     organization: test
@@ -11,3 +13,9 @@ global:
       httpsProxy: http://proxy.mcproxy.example.com:4000
   providerSpecific:
     region: "eu-west-1"
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

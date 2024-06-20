@@ -32,8 +32,9 @@ metadata:
 spec:
   catalog: default
   name: aws-pod-identity-webhook
-  # repo: giantswarm/aws-pod-identity-webhook
-  version: 1.16.0
+  {{- $_ := set $ "appName" "aws-pod-identity-webhook" }}
+  {{- $appVersion := include "cluster.app.version" $ }}
+  version: {{ $appVersion }}
   namespace: kube-system
   config:
     configMap:
