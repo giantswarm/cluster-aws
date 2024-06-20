@@ -27,3 +27,9 @@ global:
         mirroredRegistries:
           - docker.io
         port: 32767
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

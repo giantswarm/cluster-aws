@@ -29,3 +29,9 @@ global:
             credentials:
               username: example
               password: password
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true
