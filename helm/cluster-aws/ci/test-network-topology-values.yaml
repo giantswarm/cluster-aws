@@ -16,6 +16,7 @@ global:
     apiMode: private
   providerSpecific:
     region: "eu-west-1"
+  managementCluster: test
 
 cluster:
   internal:
