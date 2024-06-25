@@ -17,7 +17,7 @@ metadata:
   annotations:
     app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" . }}-cert-manager
 spec:
-  catalog: default
+  catalog: default-test
   name: irsa-servicemonitors
   {{- $_ := set $ "appName" "irsa-servicemonitors" }}
   {{- $appVersion := include "cluster.app.version" $ }}
