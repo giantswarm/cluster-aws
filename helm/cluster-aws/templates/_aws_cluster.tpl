@@ -37,6 +37,7 @@ metadata:
 spec:
   additionalTags:
     giantswarm.io/cluster: {{ include "resource.default.name" $ }}
+    giantswarm.io/installation: {{ .Values.global.managementCluster }}
     {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
   bastion:
     enabled: false

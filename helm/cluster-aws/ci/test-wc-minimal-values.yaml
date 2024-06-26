@@ -9,6 +9,7 @@ global:
     baseDomain: example.com
   providerSpecific:
     region: "eu-west-1"
+  managementCluster: test
 
 cluster:
   internal:
