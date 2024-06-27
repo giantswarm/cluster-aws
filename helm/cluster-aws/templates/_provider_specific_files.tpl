@@ -7,7 +7,7 @@ metadata:
       changes its content. Automatically appending a hash of the content here doesn't work
       since we'd need to edit `values.schema.json` as well, but that file is created by humans.
   */}}
-  name: {{ include "resource.default.name" $ }}-provider-specific-files-4
+  name: {{ include "resource.default.name" $ }}-provider-specific-files-5
   namespace: {{ $.Release.Namespace | quote }}
 data:
   kubelet-aws-config.service: {{ tpl ($.Files.Get "files/etc/systemd/system/kubelet-aws-config.service") $ | b64enc | quote }}
