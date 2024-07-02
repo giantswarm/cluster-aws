@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - First major release, breaking changes not allowed in minor releases anymore.
+- Update cluster chart to 0.33.1
 
 ## [0.79.0] - 2024-06-19
 
