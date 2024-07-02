@@ -292,6 +292,9 @@
                             "configTemplateName": "awsExternalDnsHelmValues",
                             "enable": true
                         },
+                        "giantswarmClusterSuite": {
+                            "enable": true
+                        },
                         "k8sAuditMetrics": {
                             "enable": true
                         },
