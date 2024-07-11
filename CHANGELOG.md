@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update cluster chart to 0.35.0
 
+### Fixed
+
+- Fixed China IRSA suffix
+
+
 ## [1.0.1] - 2024-07-09
 
 ### Added
