@@ -1,4 +1,5 @@
 global:
+  managementCluster: test
   release:
     version: v27.0.0-alpha.1
   metadata:
