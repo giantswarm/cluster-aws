@@ -72,9 +72,6 @@ cluster:
           apiServer:
             apiAudiences:
               templateName: awsApiServerApiAudiences
-            featureGates:
-              - enabled: true
-                name: CronJobTimeZone
             serviceAccountIssuer:
               templateName: awsIrsaServiceAccountIssuer
         files: []
