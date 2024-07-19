@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Chart: Update `cluster` chart to v0.36.0. ([#703](https://github.com/giantswarm/cluster-aws/pull/703))
+
 ## [1.1.0] - 2024-07-11
 
 ### Changed
