@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+This release removes the `CronJobTimeZone` feature gate as it becomes stable and is included in Kubernetes v1.29.
+
+For Kubernetes <v1.29, you will need to re-enable it using the respective values.
+
 ### Changed
 
 - Chart: Update `cluster` chart to v0.36.0. ([#703](https://github.com/giantswarm/cluster-aws/pull/703))
+
+### Removed
+
+- Feature Gates: Remove `CronJobTimeZone`. ([#699](https://github.com/giantswarm/cluster-aws/pull/699))
 
 ## [1.1.0] - 2024-07-11
 
@@ -20,7 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed China IRSA suffix
-
 
 ## [1.0.1] - 2024-07-09
 
