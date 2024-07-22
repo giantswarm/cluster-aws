@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2024-07-22
+
 This release removes the `CronJobTimeZone` feature gate as it becomes stable and is included in Kubernetes v1.29.
 
 For Kubernetes <v1.29, you will need to re-enable it using the respective values.
@@ -1430,7 +1432,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/giantswarm/cluster-aws/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/giantswarm/cluster-aws/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/giantswarm/cluster-aws/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/giantswarm/cluster-aws/compare/v0.79.0...v1.0.0
