@@ -1591,6 +1591,21 @@
                             "title": "Cluster description",
                             "description": "User-friendly description of the cluster's purpose."
                         },
+                        "labels": {
+                            "type": "object",
+                            "title": "Labels",
+                            "description": "These labels are added to the Kubernetes resources defining this cluster.",
+                            "additionalProperties": false,
+                            "patternProperties": {
+                                "^[a-zA-Z0-9/\\._-]+$": {
+                                    "type": "string",
+                                    "title": "Label",
+                                    "maxLength": 63,
+                                    "minLength": 0,
+                                    "pattern": "^[a-zA-Z0-9\\._-]+$"
+                                }
+                            }
+                        },
                         "name": {
                             "type": "string",
                             "title": "Cluster name",
