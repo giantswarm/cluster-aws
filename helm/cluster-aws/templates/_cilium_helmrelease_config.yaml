@@ -81,7 +81,7 @@ operator:
     value: /tmp
   extraVolumeMounts:
   - name: tmp-dir
-  mountPath: /tmp
+    mountPath: /tmp
   extraVolumes:
   - emptyDir: {}
     name: tmp-dir
