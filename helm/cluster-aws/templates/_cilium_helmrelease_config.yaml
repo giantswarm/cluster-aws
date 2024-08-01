@@ -76,6 +76,15 @@ hubble:
       seccompProfile:
         type: RuntimeDefault
 operator:
+  extraEnv:
+  - name: GOPS_CONFIG_DIR
+    value: /tmp
+  extraVolumeMounts:
+  - name: tmp-dir
+  mountPath: /tmp
+  extraVolumes:
+  - emptyDir: {}
+    name: tmp-dir
   podSecurityContext:
     runAsNonRoot: true
     seccompProfile:
