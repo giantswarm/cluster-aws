@@ -60,18 +60,26 @@ giantswarm.io/prevent-deletion: "true"
 - /opt/control-plane-config.sh
 {{- end -}}
 
+{{- /*
+    "ami" named template renders YAML manifest tha tis the used in AWSMachineTemplate and in AWSMachinePool resources.
+
+    This template is using "cluster.os.*" named templates that are defined in the cluster chart. For more details about
+    how these templates work see cluster chart docs at https://github.com/giantswarm/cluster/tree/main/helm/cluster.
+*/}}
 {{- define "ami" }}
 {{- with .Values.global.providerSpecific.ami }}
 ami:
   id: {{ . | quote }}
 {{- else -}}
 ami: {}
-{{- /* Get Flatcar version. This helper is defined in the cluster chart. */}}
-imageLookupBaseOS: "{{ include "cluster.component.flatcar.version" $ }}"
-{{- /* Get OS tooling version, which we use in image name. */}}
+{{- /* Get OS version. */}}
+imageLookupBaseOS: "{{ include "cluster.os.version" $ }}"
+{{- /* Get OS name, release channel and tooling version, which we use in the OS image name. */}}
+{{- $osName := include "cluster.os.name" $ }}
+{{- $osReleaseChannel := include "cluster.os.releaseChannel" $ }}
 {{- $osToolingVersion := include "cluster.os.tooling.version" $ }}
 {{- /* Build the OS image name. The OS images are built automatically by the CI. */}}
-imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-{{.K8sVersion}}" }}-tooling-{{ $osToolingVersion }}-gs
+imageLookupFormat: {{ $osName }}-{{$osReleaseChannel }}-{{ "{{.BaseOS}}-kube-{{.K8sVersion}}" }}-tooling-{{ $osToolingVersion }}-gs
 imageLookupOrg: "{{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}"
 {{- end }}
 {{- end }}
