@@ -61,7 +61,7 @@ giantswarm.io/prevent-deletion: "true"
 {{- end -}}
 
 {{- /*
-    "ami" named template renders YAML manifest tha tis the used in AWSMachineTemplate and in AWSMachinePool resources.
+    "ami" named template renders YAML manifest that is used in AWSMachineTemplate and in AWSMachinePool resources.
 
     This template is using "cluster.os.*" named templates that are defined in the cluster chart. For more details about
     how these templates work see cluster chart docs at https://github.com/giantswarm/cluster/tree/main/helm/cluster.
