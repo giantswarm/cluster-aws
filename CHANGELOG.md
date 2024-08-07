@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `global.metadata.labels` to values schema. This field is used to add labels to the cluster resources.
 
+### Changed
+
+- Update cluster chart to v1.1.0.
+  - This sets cilium `kubeProxyReplacement` config to `"true"` instead to `"strict"` (`"strict"` has been deprecated since cilium v1.14, see [this upstream cilium](https://github.com/cilium/cilium/issues/32711) issue for more details).
+- Update `ami` named template to correctly render OS image name with the new format `flatcar-stable-<flatcar version>-kube-<kubernetes version>-tooling-<capi-image-builder version>-gs`.
+
 ## [1.3.0] - 2024-07-25
 
 ### Changed
