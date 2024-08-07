@@ -1,6 +1,6 @@
 global:
   release:
-    version: v29.0.0
+    version: v27.0.0-alpha.1
   metadata:
     name: test-wc
     organization: "test"
