@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+> [!IMPORTANT]
+> Releases that include this cluster-aws version must have the `os-tooling` component in the Release resource `.spec.components`.
+> See `ami` changes below for more details about the change and see AWS (CAPA) release v29.0.0 for a Release resource example.
+
 ### Added
 
 - Add `global.metadata.labels` to values schema. This field is used to add labels to the cluster resources.
