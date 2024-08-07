@@ -7,9 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+> [!IMPORTANT]
+> Releases that include this cluster-aws version must have the `os-tooling` component in the Release resource `.spec.components`.
+> See `ami` changes below for more details about the change and see AWS (CAPA) release v29.0.0 for a Release resource example.
+
 ### Added
 
 - Add `global.metadata.labels` to values schema. This field is used to add labels to the cluster resources.
+
+### Changed
+
+- Update cluster chart to v1.1.0.
+  - This sets cilium `kubeProxyReplacement` config to `"true"` instead to `"strict"` (`"strict"` has been deprecated since cilium v1.14, see [this upstream cilium](https://github.com/cilium/cilium/issues/32711) issue for more details).
+- Update `ami` named template to correctly render OS image name with the new format `flatcar-stable-<flatcar version>-kube-<kubernetes version>-tooling-<capi-image-builder version>-gs`.
 
 ## [1.3.0] - 2024-07-25
 
