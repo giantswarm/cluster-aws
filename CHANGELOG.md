@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Chart: Update `cluster` to v1.0.2.
+  - Chart: Add OS tooling named template.
+
 ## [1.3.2] - 2024-09-19
 
 ### Added
