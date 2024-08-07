@@ -42,6 +42,8 @@ cluster:
         enable: true
       observabilityBundle:
         enable: true
+      observabilityPolicies:
+        enable: true
       prometheusBlackboxExporter:
         enable: true
       securityBundle:
@@ -284,6 +286,7 @@ global:
     networkPolicies: {}
     nodeExporter: {}
     observabilityBundle: {}
+    observabilityPolicies: {}
     prometheusBlackboxExporter: {}
     securityBundle: {}
     teleportKubeAgent: {}
