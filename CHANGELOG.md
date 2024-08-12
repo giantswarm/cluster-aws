@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > [!IMPORTANT]
 > Releases that include this cluster-aws version must have the `os-tooling` component in the Release resource `.spec.components`,
 > as well as observability-policies app in the Release resource `.spec.apps`.
-> 
+>
 > See `ami` changes below for more details about the change and see AWS (CAPA) release v29.0.0 for a Release resource example.
 
 ### Added
