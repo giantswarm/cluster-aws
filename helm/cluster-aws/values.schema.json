@@ -1692,6 +1692,11 @@
                             "title": "Amazon machine image (AMI)",
                             "description": "If specified, this image will be used to provision EC2 instances."
                         },
+                        "awsAccountId": {
+                            "type": "string",
+                            "title": "AWS Account id",
+                            "description": "Only used when rendering the chart template locally, you shouldn't use this value. Used to calculate the IRSA service account issuer when using the China region."
+                        },
                         "awsClusterRoleIdentityName": {
                             "type": "string",
                             "title": "Cluster role identity name",
