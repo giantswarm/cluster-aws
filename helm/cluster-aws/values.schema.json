@@ -1694,7 +1694,7 @@
                         },
                         "awsAccountId": {
                             "type": "string",
-                            "title": "AWS Account id",
+                            "title": "AWS Account ID",
                             "description": "Only used when rendering the chart template locally, you shouldn't use this value. Used to calculate the IRSA service account issuer when using the China region."
                         },
                         "awsClusterRoleIdentityName": {
