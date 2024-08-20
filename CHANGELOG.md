@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Do not allow additional properties in most values in order to avoid unnoticed typos
 
+### Removed
+
+- Remove unused kubectl image Helm value.
+
 ## [2.0.0] - 2024-08-07
 
 > [!IMPORTANT]
