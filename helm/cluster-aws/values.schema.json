@@ -1777,27 +1777,6 @@
                 }
             }
         },
-        "kubectlImage": {
-            "type": "object",
-            "title": "Kubectl image",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "title": "Repository",
-                    "default": "giantswarm/kubectl"
-                },
-                "registry": {
-                    "type": "string",
-                    "title": "Registry",
-                    "default": "gsoci.azurecr.io"
-                },
-                "tag": {
-                    "type": "string",
-                    "title": "Tag",
-                    "default": "1.23.5"
-                }
-            }
-        },
         "managementCluster": {
             "type": "string",
             "title": "Management cluster",

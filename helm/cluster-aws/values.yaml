@@ -382,7 +382,3 @@ global:
   release: {}
 internal:
   migration: {}
-kubectlImage:
-  name: giantswarm/kubectl
-  registry: gsoci.azurecr.io
-  tag: 1.23.5
