@@ -1148,6 +1148,7 @@
                         "network": {
                             "type": "object",
                             "title": "Network",
+                            "additionalProperties": false,
                             "properties": {
                                 "allowAllEgress": {
                                     "type": "boolean",
@@ -1162,6 +1163,7 @@
                                 "pods": {
                                     "type": "object",
                                     "title": "Pods",
+                                    "additionalProperties": false,
                                     "properties": {
                                         "cidrBlocks": {
                                             "type": "array",
@@ -1186,6 +1188,7 @@
                                 "services": {
                                     "type": "object",
                                     "title": "Services",
+                                    "additionalProperties": false,
                                     "properties": {
                                         "cidrBlocks": {
                                             "type": "array",
@@ -1253,6 +1256,7 @@
                             "items": {
                                 "type": "object",
                                 "title": "Subnet",
+                                "additionalProperties": false,
                                 "properties": {
                                     "cidrBlocks": {
                                         "type": "array",
@@ -1350,6 +1354,7 @@
                             "type": "object",
                             "title": "Topology",
                             "description": "Networking architecture between management cluster and workload cluster.",
+                            "additionalProperties": false,
                             "properties": {
                                 "mode": {
                                     "type": "string",
@@ -1399,6 +1404,7 @@
                 "controlPlane": {
                     "type": "object",
                     "title": "Control plane",
+                    "additionalProperties": false,
                     "properties": {
                         "additionalSecurityGroups": {
                             "type": "array",
@@ -1407,6 +1413,7 @@
                             "items": {
                                 "type": "object",
                                 "title": "Security group",
+                                "additionalProperties": false,
                                 "properties": {
                                     "id": {
                                         "type": "string",
@@ -1494,6 +1501,7 @@
                         "machineHealthCheck": {
                             "type": "object",
                             "title": "Machine health check",
+                            "additionalProperties": false,
                             "properties": {
                                 "enabled": {
                                     "type": "boolean",
@@ -1541,6 +1549,7 @@
                         "oidc": {
                             "type": "object",
                             "title": "OIDC authentication",
+                            "additionalProperties": false,
                             "properties": {
                                 "caPem": {
                                     "type": "string",
@@ -1668,6 +1677,7 @@
                 "providerSpecific": {
                     "type": "object",
                     "title": "AWS settings",
+                    "additionalProperties": false,
                     "properties": {
                         "additionalResourceTags": {
                             "type": "object",
@@ -1681,6 +1691,11 @@
                             "type": "string",
                             "title": "Amazon machine image (AMI)",
                             "description": "If specified, this image will be used to provision EC2 instances."
+                        },
+                        "awsAccountId": {
+                            "type": "string",
+                            "title": "AWS Account ID",
+                            "description": "Only used when rendering the chart template locally, you shouldn't use this value. Used to calculate the IRSA service account issuer when using the China region."
                         },
                         "awsClusterRoleIdentityName": {
                             "type": "string",
@@ -1702,6 +1717,7 @@
                             "type": "object",
                             "title": "Instance metadata options",
                             "description": "Instance metadata options for the EC2 instances in the cluster.",
+                            "additionalProperties": false,
                             "properties": {
                                 "httpTokens": {
                                     "type": "string",
