@@ -5,16 +5,11 @@ If no availability zones are provided in the values we'll attempt to look it up 
 {{- $region := include "aws-region" . | trim }}
 {{- if .mp.availabilityZones }}
 {{- .mp.availabilityZones | toYaml }}
-{{- $isValid := true -}}
-{{- range $az := .mp.availabilityZones -}}
-  {{- $azRegion := (printf "%s" $az | trunc 9) -}}
-  {{- if ne $azRegion $region -}}
-    {{- $isValid = false -}}
-  {{- end -}}
-{{- end -}}
-{{- if not $isValid -}}
-  {{- fail (printf "Invalid value in global.nodePools.*.availabilityZones: the specified availability zones %v are not in the cluster region %q" .mp.availabilityZones $region) -}}
-{{- end -}}
+{{- range $az := .mp.availabilityZones }}
+  {{- if not (hasPrefix $region $az) }}
+    {{- fail (printf "Invalid value in `global.nodePools.*.availabilityZones`: The specified availability zone %s is not in the cluster's region %s" $az $region) }}
+  {{- end }}
+{{- end }}
 {{- else }}
 {{- include "azs-in-region" (dict "region" $region  "Files" .Files ) }}
 {{- end }}
