@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Do not allow additional properties in most values in order to avoid unnoticed typos
+- Do not allow additional properties in most values in order to avoid unnoticed typos.
+- Validate that machine pool availability zones belong to the selected region.
 
 ### Removed
 
