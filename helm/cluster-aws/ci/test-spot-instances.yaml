@@ -1,6 +1,6 @@
 global:
   release:
-    version: v27.0.0-alpha.1
+    version: 29.1.0
   metadata:
     name: test-wc-minimal
     organization: test
