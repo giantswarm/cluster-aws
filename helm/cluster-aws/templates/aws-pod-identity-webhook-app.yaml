@@ -30,11 +30,10 @@ metadata:
   annotations:
     app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" . }}-cert-manager
 spec:
-  catalog: default
-  name: aws-pod-identity-webhook
   {{- $_ := set $ "appName" "aws-pod-identity-webhook" }}
-  {{- $appVersion := include "cluster.app.version" $ }}
-  version: {{ $appVersion }}
+  catalog: {{ include "cluster.app.catalog" $ }}
+  name: aws-pod-identity-webhook
+  version: {{ include "cluster.app.version" $ }}
   namespace: kube-system
   config:
     configMap:

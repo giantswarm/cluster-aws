@@ -21,18 +21,17 @@ metadata:
   name: {{ printf "%s-cilium-crossplane-resources" (include "resource.default.name" $) | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
-  catalog: cluster
+  {{- $_ := set $ "appName" "cilium-crossplane-resources" }}
+  catalog: {{ include "cluster.app.catalog" $ }}
+  name: cilium-crossplane-resources
+  version: {{ include "cluster.app.version" $ }}
   install:
     timeout: "10m"
   upgrade:
     timeout: "10m"
   kubeConfig:
     inCluster: true # in management cluster context
-  name: cilium-crossplane-resources
   namespace: {{ $.Release.Namespace | quote }}
-  {{- $_ := set $ "appName" "cilium-crossplane-resources" }}
-  {{- $appVersion := include "cluster.app.version" $ }}
-  version: {{ $appVersion }}
   extraConfigs:
     # See above
     - kind: configMap

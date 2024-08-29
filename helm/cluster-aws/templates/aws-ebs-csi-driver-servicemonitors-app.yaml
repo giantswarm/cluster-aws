@@ -17,11 +17,10 @@ metadata:
   annotations:
     app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" . }}-prometheus-operator-crd
 spec:
-  catalog: default
-  name: aws-ebs-csi-driver-servicemonitors
   {{- $_ := set $ "appName" "aws-ebs-csi-driver-servicemonitors" }}
-  {{- $appVersion := include "cluster.app.version" $ }}
-  version: {{ $appVersion }}
+  catalog: {{ include "cluster.app.catalog" $ }}
+  name: aws-ebs-csi-driver-servicemonitors
+  version: {{ include "cluster.app.version" $ }}
   namespace: kube-system
   config:
     configMap:
