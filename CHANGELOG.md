@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Do not allow additional properties in most values in order to avoid unnoticed typos.
 - Validate that machine pool availability zones belong to the selected region.
+- CI: Bump release version. ([#792](https://github.com/giantswarm/cluster-aws/pull/792))
 
 ### Removed
 
