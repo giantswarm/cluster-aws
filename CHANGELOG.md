@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Set provider specific configuration for cilium CNI ENI values.
+
 ## [2.1.0] - 2024-08-29
 
 ### Changed

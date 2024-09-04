@@ -20,6 +20,16 @@ cni:
   # Use https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/templates/cilium-cni-configmap.yaml
   customConf: true
   configMap: cilium-cni-configuration
+cniCustomConf:
+  eni:
+    firstInterfaceIndex: 1
+    securityGroupTags:
+      "kubernetes.io/cluster/{{ include "resource.default.name" $ }}": "owned"
+      "sigs.k8s.io/cluster-api-provider-aws/association": "secondary"
+    subnetTags:
+      "sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}": "owned"
+      "sigs.k8s.io/cluster-api-provider-aws/association": "secondary"
+      "sigs.k8s.io/cluster-api-provider-aws/role": "private"
 extraEnv:
   - name: CNI_CONF_NAME
     value: "21-cilium.conflist"
