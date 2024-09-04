@@ -1,0 +1,20 @@
+global:
+  release:
+    version: v29.1.0
+  metadata:
+    name: test-wc
+    organization: "test"
+  connectivity:
+    baseDomain: example.com
+    subnets:
+      - isPublic: true
+        cidrBlocks:
+        - cidr: "10.0.0.1/24"
+          tags:
+            key3: value3
+            key4: value4
+        tags:
+          key1: "value1"
+          key2: "value2"
+  providerSpecific:
+    region: "eu-west-1"
