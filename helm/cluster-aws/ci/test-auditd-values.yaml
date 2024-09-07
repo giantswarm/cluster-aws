@@ -1,0 +1,21 @@
+global:
+  release:
+    version: v27.0.0-alpha.1
+  metadata:
+    name: test-wc-minimal
+    organization: test
+    servicePriority: lowest
+  components:
+    auditd:
+      enabled: true
+  connectivity:
+    baseDomain: example.com
+  providerSpecific:
+    region: "eu-west-1"
+  managementCluster: test
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true
