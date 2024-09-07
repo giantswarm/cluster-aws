@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Allow to enable `auditd` through `global.components.auditd.enabled` helm value.
+
 ### Changed
 
+- Update cluster chart to v1.3.0.
 - Set provider specific configuration for cilium CNI ENI values.
 
 ## [2.1.0] - 2024-08-29
