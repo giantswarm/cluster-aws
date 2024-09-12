@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update cluster chart to v1.3.0.
 - Set provider specific configuration for cilium CNI ENI values.
 
+### Removed
+
+- Remove Cilium app deprecated values.
+
 ## [2.1.0] - 2024-08-29
 
 ### Changed

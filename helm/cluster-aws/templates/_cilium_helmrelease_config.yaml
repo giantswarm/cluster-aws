@@ -48,24 +48,4 @@ hubble:
       - key: "node.cluster.x-k8s.io/uninitialized"
         operator: "Exists"
         effect: "NoSchedule"
-defaultPolicies:
-  enabled: false
-  remove: true
-
-  tolerations:
-    - effect: NoSchedule
-      operator: Exists
-    - effect: NoExecute
-      operator: Exists
-    - key: CriticalAddonsOnly
-      operator: Exists
-extraPolicies:
-  remove: true
-
-  allowEgressToCoreDNS:
-    enabled: false
-  allowEgressToProxy:
-    enabled: false
-    httpProxy: {{ $.Values.global.connectivity.proxy.httpProxy | quote }}
-    httpsProxy: {{ $.Values.global.connectivity.proxy.httpsProxy | quote }}
 {{- end }}
