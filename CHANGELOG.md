@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update cluster chart to 0.35.1. This includes the additional `node-cidr-mask-flag` value for `kube-controller-manager`.
+
 ## [1.1.0] - 2024-07-11
 
 ### Changed
