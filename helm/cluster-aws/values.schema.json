@@ -365,9 +365,11 @@
                                             "name": "CronJobTimeZone"
                                         }
                                     ],
-                                    "serviceAccountIssuer": {
-                                        "templateName": "awsIrsaServiceAccountIssuer"
-                                    }
+                                    "serviceAccountIssuers": [
+                                        {
+                                            "templateName": "awsIrsaServiceAccountIssuer"
+                                        }
+                                    ]
                                 }
                             },
                             "files": [],
@@ -1695,18 +1697,6 @@
                     "type": "string",
                     "title": "Hash salt",
                     "description": "If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources."
-                },
-                "migration": {
-                    "type": "object",
-                    "title": "Migration values",
-                    "description": "Section used for migration of cluster from vintage to CAPI",
-                    "properties": {
-                        "irsaAdditionalDomain": {
-                            "type": "string",
-                            "title": "IRSA additional domain",
-                            "description": "Additional domain to be added to IRSA trust relationship."
-                        }
-                    }
                 }
             }
         },
