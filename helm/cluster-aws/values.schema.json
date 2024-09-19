@@ -362,9 +362,11 @@
                                     "apiAudiences": {
                                         "templateName": "awsApiServerApiAudiences"
                                     },
-                                    "serviceAccountIssuer": {
-                                        "templateName": "awsIrsaServiceAccountIssuer"
-                                    }
+                                    "serviceAccountIssuers": [
+                                        {
+                                            "templateName": "awsIrsaServiceAccountIssuer"
+                                        }
+                                    ]
                                 }
                             },
                             "files": [],
@@ -1196,6 +1198,11 @@
                                             ],
                                             "maxItems": 1,
                                             "minItems": 1
+                                        },
+                                        "nodeCidrMaskSize": {
+                                            "type": "integer",
+                                            "title": "Node CIDR mask size",
+                                            "description": "The size of the mask that is used for the node CIDR. The node CIDR is a sub-range of the pod CIDR and so the mask size and pod CIDR must be chosen such that there is enough space for the maximum number of nodes in the cluster."
                                         }
                                     }
                                 },
@@ -1776,18 +1783,6 @@
                     "type": "string",
                     "title": "Hash salt",
                     "description": "If specified, this token is used as a salt to the hash suffix of some resource names. Can be used to force-recreate some resources."
-                },
-                "migration": {
-                    "type": "object",
-                    "title": "Migration values",
-                    "description": "Section used for migration of cluster from vintage to CAPI",
-                    "properties": {
-                        "irsaAdditionalDomain": {
-                            "type": "string",
-                            "title": "IRSA additional domain",
-                            "description": "Additional domain to be added to IRSA trust relationship."
-                        }
-                    }
                 }
             }
         },

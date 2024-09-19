@@ -74,8 +74,8 @@ cluster:
           apiServer:
             apiAudiences:
               templateName: awsApiServerApiAudiences
-            serviceAccountIssuer:
-              templateName: awsIrsaServiceAccountIssuer
+            serviceAccountIssuers:
+              - templateName: awsIrsaServiceAccountIssuer
         files: []
         ignition:
           containerLinuxConfig:
@@ -382,5 +382,4 @@ global:
     instanceMetadataOptions:
       httpTokens: required
   release: {}
-internal:
-  migration: {}
+internal: {}
