@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Chart: Add `global.connectivity.network.pods.nodeCidrMaskSize` to schema.
+- Chart: Allow to enable `auditd` through `global.components.auditd.enabled`.
 
 ## [1.1.1] - 2024-09-18
 
