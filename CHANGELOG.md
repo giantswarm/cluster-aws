@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Chart: Support multiple service account issuers.\
+  This is used for example in the migration from Vintage AWS clusters to CAPA. Multiple issuers were previously supported only through internal chart values (this change removes `internal.migration.irsaAdditionalDomain`). The internal annotation `aws.giantswarm.io/irsa-additional-domain` on AWSMachineTemplate objects is changed to plural `aws.giantswarm.io/irsa-trust-domains` on the AWSCluster object.
+
+### Changed
+
+- Chart: Update `cluster` to v1.0.1.
+
 ## [1.3.0] - 2024-07-25
 
 ### Changed
@@ -139,7 +148,6 @@ Cluster upgrade steps are the following:
 
 - Worker nodes - Add `nonRootVolumes` fields to mount `/var/lib` and `/var/log` on separate disk volumes.
 - BREAKING CHANGE: values `global.controlplane.containerdVolumeSizeGB` and `global.controlplane.kubeletVolumeSizeGB` merged into single value `.global.controlPlane.libVolumeSizeGB` which define size of disk volume used for `/var/lib` mount point.
-
 
 ### Changed
 

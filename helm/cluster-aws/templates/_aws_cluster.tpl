@@ -28,6 +28,10 @@ metadata:
     {{- if .Values.global.connectivity.topology.prefixListId }}
     network-topology.giantswarm.io/prefix-list: "{{ .Values.global.connectivity.topology.prefixListId }}"
     {{- end }}
+    {{- /* Used for migration from Vintage AWS to CAPA cluster. This adds all listed service account issuers to IAM trust policies. */}}
+    {{- if .Values.cluster.providerIntegration.controlPlane.kubeadmConfig.clusterConfiguration.apiServer.serviceAccountIssuers }}
+    aws.giantswarm.io/irsa-trust-domains: {{ include "service-account-issuers-comma-separated" $ | quote }}
+    {{- end }}
   labels:
     {{- include "labels.common" $ | nindent 4 }}
     {{- include "preventDeletionLabel" $ | nindent 4 -}}
