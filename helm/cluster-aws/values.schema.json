@@ -1202,7 +1202,10 @@
                                         "nodeCidrMaskSize": {
                                             "type": "integer",
                                             "title": "Node CIDR mask size",
-                                            "description": "The size of the mask that is used for the node CIDR. The node CIDR is a sub-range of the pod CIDR and so the mask size and pod CIDR must be chosen such that there is enough space for the maximum number of nodes in the cluster."
+                                            "description": "The size of the mask that is used for the node CIDR. The node CIDR is a sub-range of the pod CIDR and so the mask size and pod CIDR must be chosen such that there is enough space for the maximum number of nodes in the cluster.",
+                                            "default": 24,
+                                            "maximum": 27,
+                                            "minimum": 16
                                         }
                                     }
                                 },
