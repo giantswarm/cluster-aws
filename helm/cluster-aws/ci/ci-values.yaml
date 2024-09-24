@@ -17,6 +17,8 @@ global:
     region: "eu-west-1"
     awsAccountId: "1234567890"
   components:
+    auditd:
+      enabled: false
     containerd:
       containerRegistries:
         with-auth.example.com:
