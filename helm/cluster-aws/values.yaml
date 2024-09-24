@@ -336,6 +336,7 @@ global:
       pods:
         cidrBlocks:
           - 100.64.0.0/12
+        nodeCidrMaskSize: 24
       services:
         cidrBlocks:
           - 172.31.0.0/16
