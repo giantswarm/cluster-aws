@@ -26,9 +26,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0] - 2024-08-29
 
+### ⚠️ Breaking change
+
+- Do not allow additional properties in the following fields in order to avoid unnoticed typos:
+  - global.connectivity.network
+  - global.connectivity.network.pods
+  - global.connectivity.network.services
+  - global.connectivity.subnets[]
+  - global.connectivity.topology
+  - global.controlPlane
+  - global.controlPlane.additionalSecurityGroups[]
+  - global.controlPlane.machineHealthCheck
+  - global.controlPlane.oidc
+  - global.providerSpecific
+  - global.providerSpecific.instanceMetadataOptions
+
 ### Changed
 
-- Do not allow additional properties in most values in order to avoid unnoticed typos.
 - Validate that machine pool availability zones belong to the selected region.
 - CI: Bump release version.
 - Apps: Use `catalog` from Release CR.
