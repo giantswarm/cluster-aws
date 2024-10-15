@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump `cluster` chart to `1.0.3` so that we can configure node pools for cgroupsv1.
+
 ## [1.3.3] - 2024-09-30
 
 ### Changed
