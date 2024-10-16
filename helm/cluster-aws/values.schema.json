@@ -196,13 +196,24 @@
                     "description": "Size of the volume mounted at `/var/log` on the worker nodes.",
                     "default": 30
                 },
+                "maxHealthyPercentage": {
+                    "type": "integer",
+                    "title": "Minimum percentage of instances that must remain healthy during node replacement.",
+                    "description": "The percentage of capacity in ASG that can be in service and healthy, or pending, to support your workload when replacing instances. A larger range increases the number of instances that can be replaced at the same time. The difference between minHealthyPercentage and maxnHealthyPercentage cannot be greater than 100.",
+                    "default": 100,
+                    "maximum": 200,
+                    "minimum": 100
+                },
                 "maxSize": {
                     "type": "integer",
                     "title": "Maximum number of nodes"
                 },
                 "minHealthyPercentage": {
                     "type": "integer",
-                    "title": "Minimum percentage of instances that must remain healthy during node replacement."
+                    "title": "Minimum percentage of instances that must remain healthy during node replacement.",
+                    "default": 90,
+                    "maximum": 100,
+                    "minimum": 0
                 },
                 "minSize": {
                     "type": "integer",
