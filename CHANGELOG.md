@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2024-10-17
+
 ### Added
 
 - Expose the `maxHealthyPercentage` property to allow setting the maximum percentage of healthy machines in the Auto Scaling Group during upgrades.
@@ -1510,7 +1512,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/giantswarm/cluster-aws/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/giantswarm/cluster-aws/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/giantswarm/cluster-aws/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/giantswarm/cluster-aws/compare/v1.3.0...v2.0.0
