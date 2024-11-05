@@ -123,7 +123,9 @@ spec:
       isPublic: {{ $subnet.isPublic | default false }}
       {{- if or $subnet.tags $cidr.tags }}
       tags:
+        {{- if $subnet.tags }}
         {{- toYaml $subnet.tags | nindent 8 }}
+        {{- end }}
         {{- if $cidr.tags }}
         {{- toYaml $cidr.tags | nindent 8 }}
         {{- end }}
