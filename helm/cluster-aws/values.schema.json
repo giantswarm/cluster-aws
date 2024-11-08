@@ -1626,6 +1626,14 @@
                                 "$ref": "#/$defs/awsResourceTagValue"
                             }
                         },
+                        "additionalNodeTags": {
+                            "type": "object",
+                            "title": "Additional node tags",
+                            "description": "Additional tags to add to AWS nodes created by the cluster.",
+                            "additionalProperties": {
+                                "$ref": "#/$defs/awsResourceTagValue"
+                            }
+                        },
                         "ami": {
                             "type": "string",
                             "title": "Amazon machine image (AMI)",
