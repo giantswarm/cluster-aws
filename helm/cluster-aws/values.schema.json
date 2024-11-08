@@ -1618,18 +1618,18 @@
                     "type": "object",
                     "title": "AWS settings",
                     "properties": {
-                        "additionalResourceTags": {
-                            "type": "object",
-                            "title": "Additional resource tags",
-                            "description": "Additional tags to add to AWS resources created by the cluster.",
-                            "additionalProperties": {
-                                "$ref": "#/$defs/awsResourceTagValue"
-                            }
-                        },
                         "additionalNodeTags": {
                             "type": "object",
                             "title": "Additional node tags",
                             "description": "Additional tags to add to AWS nodes created by the cluster.",
+                            "additionalProperties": {
+                                "$ref": "#/$defs/awsResourceTagValue"
+                            }
+                        },
+                        "additionalResourceTags": {
+                            "type": "object",
+                            "title": "Additional resource tags",
+                            "description": "Additional tags to add to AWS resources created by the cluster.",
                             "additionalProperties": {
                                 "$ref": "#/$defs/awsResourceTagValue"
                             }
