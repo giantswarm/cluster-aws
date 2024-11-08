@@ -13,7 +13,7 @@ spec:
   additionalTags:
     k8s.io/cluster-autoscaler/enabled: "true"
     giantswarm.io/machinepool: {{ $name }}
-    {{- if .Values.global.providerSpecific.additionalNodeTags -}}{{- toYaml .Values.global.providerSpecific.additionalNodeTags | nindent 4 }}{{- end}}
+    {{- if $.Values.global.providerSpecific.additionalNodeTags -}}{{- toYaml $.Values.global.providerSpecific.additionalNodeTags | nindent 4 }}{{- end}}
   availabilityZones: {{ include "aws-availability-zones" (dict "mp" $value "Values" $.Values "Files" $.Files) | nindent 2 }}
   subnets:
   - filters:
