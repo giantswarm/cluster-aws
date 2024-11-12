@@ -5,8 +5,8 @@ on:
 
 jobs:
   import_new_regions_and_zones:
-    runs-on: ubuntu-22.04
-    container: quay.io/giantswarm/golang:1.22.3
+    runs-on: ubuntu-24.04
+    container: gsoci.azurecr.io/giantswarm/golang:1.23.3
     steps:
       - name: Check out the code
         uses: actions/checkout@v4

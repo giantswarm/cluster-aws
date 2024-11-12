@@ -15,13 +15,12 @@ metadata:
     {{- include "labels.common" . | nindent 4 }}
     giantswarm.io/managed-by: {{ .Chart.Name }}
   annotations:
-    app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" . }}-cert-manager
+    app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" . }}-prometheus-operator-crd
 spec:
-  catalog: default
-  name: irsa-servicemonitors
   {{- $_ := set $ "appName" "irsa-servicemonitors" }}
-  {{- $appVersion := include "cluster.app.version" $ }}
-  version: {{ $appVersion }}
+  catalog: {{ include "cluster.app.catalog" $ }}
+  name: irsa-servicemonitors
+  version: {{ include "cluster.app.version" $ }}
   namespace: kube-system
   config:
     configMap:

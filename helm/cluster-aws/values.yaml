@@ -42,6 +42,8 @@ cluster:
         enable: true
       observabilityBundle:
         enable: true
+      observabilityPolicies:
+        enable: true
       prometheusBlackboxExporter:
         enable: true
       securityBundle:
@@ -72,11 +74,8 @@ cluster:
           apiServer:
             apiAudiences:
               templateName: awsApiServerApiAudiences
-            featureGates:
-              - enabled: true
-                name: CronJobTimeZone
-            serviceAccountIssuer:
-              templateName: awsIrsaServiceAccountIssuer
+            serviceAccountIssuers:
+              - templateName: awsIrsaServiceAccountIssuer
         files: []
         ignition:
           containerLinuxConfig:
@@ -287,21 +286,30 @@ global:
     networkPolicies: {}
     nodeExporter: {}
     observabilityBundle: {}
+    observabilityPolicies: {}
     prometheusBlackboxExporter: {}
     securityBundle: {}
     teleportKubeAgent: {}
     verticalPodAutoscaler: {}
     verticalPodAutoscalerCrd: {}
   components:
+    auditd:
+      enabled: false
     containerd:
       containerRegistries:
         docker.io:
           - endpoint: registry-1.docker.io
           - endpoint: giantswarm.azurecr.io
+        gsoci.azurecr.io:
+          - endpoint: gsoci.azurecr.io
       localRegistryCache:
         enabled: false
         mirroredRegistries: []
         port: 32767
+      managementClusterRegistryCache:
+        enabled: true
+        mirroredRegistries:
+          - gsoci.azurecr.io
     selinux:
       mode: permissive
   connectivity:
@@ -328,6 +336,7 @@ global:
       pods:
         cidrBlocks:
           - 100.64.0.0/12
+        nodeCidrMaskSize: 24
       services:
         cidrBlocks:
           - 172.31.0.0/16
@@ -374,9 +383,4 @@ global:
     instanceMetadataOptions:
       httpTokens: required
   release: {}
-internal:
-  migration: {}
-kubectlImage:
-  name: giantswarm/kubectl
-  registry: gsoci.azurecr.io
-  tag: 1.23.5
+internal: {}

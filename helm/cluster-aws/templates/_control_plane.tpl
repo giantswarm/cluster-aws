@@ -53,14 +53,17 @@ subnet:
     {{- end }}
 {{- end }}
 
+{{- define "service-account-issuers-comma-separated" }}
+{{- range $serviceAccountIssuerIndex, $serviceAccountIssuer := .Values.cluster.providerIntegration.controlPlane.kubeadmConfig.clusterConfiguration.apiServer.serviceAccountIssuers }}
+{{- if gt $serviceAccountIssuerIndex 0 }},{{- end -}}
+{{ regexReplaceAll "^(http://|https://)" (include "cluster.internal.controlPlane.kubeadm.clusterConfiguration.apiServer.serviceAccountIssuer" (dict "Values" $.Values "Release" $.Release "serviceAccountIssuer" $serviceAccountIssuer)) "" }}
+{{- end -}}
+{{- end -}}
+
 {{- define "control-plane" }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachineTemplate
 metadata:
-  annotations:
-    {{- if .Values.internal.migration.irsaAdditionalDomain }}
-    aws.giantswarm.io/irsa-additional-domain: "{{ .Values.internal.migration.irsaAdditionalDomain }}"
-    {{- end }}
   labels:
     cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}

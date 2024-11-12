@@ -20,6 +20,16 @@ cni:
   # Use https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/templates/cilium-cni-configmap.yaml
   customConf: true
   configMap: cilium-cni-configuration
+cniCustomConf:
+  eni:
+    firstInterfaceIndex: 1
+    securityGroupTags:
+      "kubernetes.io/cluster/{{ include "resource.default.name" $ }}": "owned"
+      "sigs.k8s.io/cluster-api-provider-aws/association": "secondary"
+    subnetTags:
+      "sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}": "owned"
+      "sigs.k8s.io/cluster-api-provider-aws/association": "secondary"
+      "sigs.k8s.io/cluster-api-provider-aws/role": "private"
 extraEnv:
   - name: CNI_CONF_NAME
     value: "21-cilium.conflist"
@@ -38,24 +48,4 @@ hubble:
       - key: "node.cluster.x-k8s.io/uninitialized"
         operator: "Exists"
         effect: "NoSchedule"
-defaultPolicies:
-  enabled: false
-  remove: true
-
-  tolerations:
-    - effect: NoSchedule
-      operator: Exists
-    - effect: NoExecute
-      operator: Exists
-    - key: CriticalAddonsOnly
-      operator: Exists
-extraPolicies:
-  remove: true
-
-  allowEgressToCoreDNS:
-    enabled: false
-  allowEgressToProxy:
-    enabled: false
-    httpProxy: {{ $.Values.global.connectivity.proxy.httpProxy | quote }}
-    httpsProxy: {{ $.Values.global.connectivity.proxy.httpsProxy | quote }}
 {{- end }}

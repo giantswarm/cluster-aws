@@ -9,6 +9,115 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `global.providerSpecific.additionalNodeTags`. Field used to specify tags applied to nodes only.
 
+### Fixed
+
+- Only try to render subnet tags if they are defined by the user.
+
+## [2.3.0] - 2024-10-17
+
+### Added
+
+- Expose the `maxHealthyPercentage` property to allow setting the maximum percentage of healthy machines in the Auto Scaling Group during upgrades.
+
+## [2.2.0] - 2024-09-23
+
+### Added
+
+- Allow to enable `auditd` through `global.components.auditd.enabled` helm value.
+- Chart: Support multiple service account issuers.\
+  This is used for example in the migration from Vintage AWS clusters to CAPA. Multiple issuers were previously supported only through internal chart values (this change removes `internal.migration.irsaAdditionalDomain`). The internal annotation `aws.giantswarm.io/irsa-additional-domain` on AWSMachineTemplate objects is changed to plural `aws.giantswarm.io/irsa-trust-domains` on the AWSCluster object.
+
+### Changed
+
+- Chart: Update `cluster` to v1.4.1.
+- Set provider specific configuration for cilium CNI ENI values.
+
+### Removed
+
+- Remove Cilium app deprecated values.
+
+## [2.1.0] - 2024-08-29
+
+### ⚠️ Breaking change
+
+- Do not allow additional properties in the following fields in order to avoid unnoticed typos:
+  - global.connectivity.network
+  - global.connectivity.network.pods
+  - global.connectivity.network.services
+  - global.connectivity.subnets[]
+  - global.connectivity.topology
+  - global.controlPlane
+  - global.controlPlane.additionalSecurityGroups[]
+  - global.controlPlane.machineHealthCheck
+  - global.controlPlane.oidc
+  - global.providerSpecific
+  - global.providerSpecific.instanceMetadataOptions
+
+### Changed
+
+- Validate that machine pool availability zones belong to the selected region.
+- CI: Bump release version.
+- Apps: Use `catalog` from Release CR.
+
+### Removed
+
+- Remove unused kubectl image Helm value.
+
+## [2.0.0] - 2024-08-07
+
+> [!IMPORTANT]
+> Releases that include this cluster-aws version must have the `os-tooling` component in the Release resource `.spec.components`,
+> as well as observability-policies app in the Release resource `.spec.apps`.
+>
+> See `ami` changes below for more details about the change and see AWS (CAPA) release v29.0.0 for a Release resource example.
+
+### Added
+
+- Add `global.metadata.labels` to values schema. This field is used to add labels to the cluster resources.
+- Enable `observability-policies` app.
+
+### Changed
+
+- Update cluster chart to v1.1.0.
+  - This sets cilium `kubeProxyReplacement` config to `"true"` instead to `"strict"` (`"strict"` has been deprecated since cilium v1.14, see [this upstream cilium](https://github.com/cilium/cilium/issues/32711) issue for more details).
+- Update `ami` named template to correctly render OS image name with the new format `flatcar-stable-<flatcar version>-kube-<kubernetes version>-tooling-<capi-image-builder version>-gs`.
+
+## [1.3.0] - 2024-07-25
+
+### Changed
+
+- Update cluster chart version to v1.0.0. This update adds MC Zot deployment as a registry mirror for `gsoci.azurecr.io` registry. This is the new default behavior.
+
+## [1.2.1] - 2024-07-22
+
+### Changed
+
+- Apps: Fix service monitor dependencies.
+
+## [1.2.0] - 2024-07-22
+
+This release removes the `CronJobTimeZone` feature gate as it becomes stable and is included in Kubernetes v1.29.
+
+For Kubernetes <v1.29, you will need to re-enable it using the respective values.
+
+### Changed
+
+- Chart: Update `cluster` chart to v0.36.0. ([#703](https://github.com/giantswarm/cluster-aws/pull/703))
+
+### Removed
+
+- Feature Gates: Remove `CronJobTimeZone`. ([#699](https://github.com/giantswarm/cluster-aws/pull/699))
+
+## [1.1.0] - 2024-07-11
+
+### Changed
+
+- Update cluster chart to 0.35.0
+
+### Fixed
+
+- Fixed China IRSA suffix
+
 ## [1.0.1] - 2024-07-09
 
 ### Added
@@ -105,7 +214,6 @@ Cluster upgrade steps are the following:
 
 - Worker nodes - Add `nonRootVolumes` fields to mount `/var/lib` and `/var/log` on separate disk volumes.
 - BREAKING CHANGE: values `global.controlplane.containerdVolumeSizeGB` and `global.controlplane.kubeletVolumeSizeGB` merged into single value `.global.controlPlane.libVolumeSizeGB` which define size of disk volume used for `/var/lib` mount point.
-
 
 ### Changed
 
@@ -1410,7 +1518,15 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/giantswarm/cluster-aws/compare/v2.2.0...v2.3.0
+[2.2.0]: https://github.com/giantswarm/cluster-aws/compare/v2.1.0...v2.2.0
+[2.1.0]: https://github.com/giantswarm/cluster-aws/compare/v2.0.0...v2.1.0
+[2.0.0]: https://github.com/giantswarm/cluster-aws/compare/v1.3.0...v2.0.0
+[1.3.0]: https://github.com/giantswarm/cluster-aws/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/giantswarm/cluster-aws/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/giantswarm/cluster-aws/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/giantswarm/cluster-aws/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/giantswarm/cluster-aws/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/giantswarm/cluster-aws/compare/v0.79.0...v1.0.0
 [0.79.0]: https://github.com/giantswarm/cluster-aws/compare/v0.78.2...v0.79.0

@@ -60,25 +60,26 @@ giantswarm.io/prevent-deletion: "true"
 - /opt/control-plane-config.sh
 {{- end -}}
 
+{{- /*
+    "ami" named template renders YAML manifest that is used in AWSMachineTemplate and in AWSMachinePool resources.
+
+    This template is using "cluster.os.*" named templates that are defined in the cluster chart. For more details about
+    how these templates work see cluster chart docs at https://github.com/giantswarm/cluster/tree/main/helm/cluster.
+*/}}
 {{- define "ami" }}
 {{- with .Values.global.providerSpecific.ami }}
 ami:
   id: {{ . | quote }}
 {{- else -}}
 ami: {}
-{{- /* Get Flatcar variant, which we use in image name suffix. This helper is defined in the cluster chart and it will
- get the variant number from the Release CR as cluster-aws is using new releases with Release CRs. */}}
-{{- $suffix := include "cluster.component.flatcar.variant" $ }}
-{{- /* Get Flatcar version. This helper is defined in the cluster chart and it will get the Flatcar version from the
- Release CR as cluster-aws is using new releases with Release CRs. */}}
-imageLookupBaseOS: "{{ include "cluster.component.flatcar.version" $ }}"
-{{- if and $suffix (ne $suffix "N/A") }}
-{{- /* Build image name with Flatcar variant set. These images with the variant number in the suffix are currently built manually. */}}
-imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}-alpha.{{$suffix}}
-{{- else }}
-{{- /* Build image name without Flatcar variant. These images without variant in the suffix are built by the CI. */}}
-imageLookupFormat: {{ "flatcar-stable-{{.BaseOS}}-kube-v{{.K8sVersion}}" }}-gs
-{{- end }}
+{{- /* Get OS version. */}}
+imageLookupBaseOS: "{{ include "cluster.os.version" $ }}"
+{{- /* Get OS name, release channel and tooling version, which we use in the OS image name. */}}
+{{- $osName := include "cluster.os.name" $ }}
+{{- $osReleaseChannel := include "cluster.os.releaseChannel" $ }}
+{{- $osToolingVersion := include "cluster.os.tooling.version" $ }}
+{{- /* Build the OS image name. The OS images are built automatically by the CI. */}}
+imageLookupFormat: {{ $osName }}-{{$osReleaseChannel }}-{{ "{{.BaseOS}}-kube-{{.K8sVersion}}" }}-tooling-{{ $osToolingVersion }}-gs
 imageLookupOrg: "{{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}"
 {{- end }}
 {{- end }}
@@ -119,7 +120,7 @@ sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}
 
 {{- define "awsIrsaServiceAccountIssuer" }}
 {{- if hasPrefix "cn-" (include "aws-region" .) -}}
-https://s3.{{include "aws-region" .}}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{include "resource.default.name" $}}-oidc-pod-identity-v2
+https://s3.{{include "aws-region" .}}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{include "resource.default.name" $}}-oidc-pod-identity-v3
 {{- else -}}
 https://irsa.{{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}
 {{- end }}

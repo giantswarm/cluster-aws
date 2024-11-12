@@ -2,10 +2,15 @@
 If no availability zones are provided in the values we'll attempt to look it up based on the region specified in AWSCluster if its missing as well, AZs of the management cluster are used
 */}}
 {{- define "aws-availability-zones" }}
+{{- $region := include "aws-region" . | trim }}
 {{- if .mp.availabilityZones }}
+{{- range $az := .mp.availabilityZones }}
+  {{- if not (hasPrefix $region $az) }}
+    {{- fail (printf "Invalid value in `global.nodePools.*.availabilityZones`: The specified availability zone %s is not in the cluster's region %s" $az $region) }}
+  {{- end }}
+{{- end }}
 {{- .mp.availabilityZones | toYaml }}
 {{- else }}
-{{- $region := include "aws-region" . }}
 {{- include "azs-in-region" (dict "region" $region  "Files" .Files ) }}
 {{- end }}
 {{- end }}

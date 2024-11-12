@@ -2,14 +2,18 @@ global:
   release:
     version: 29.1.0
   metadata:
-    name: test-wc-minimal
-    organization: test
-    servicePriority: lowest
+    name: test-wc
+    organization: "test"
   connectivity:
     baseDomain: example.com
+    cilium:
+      ipamMode: eni
+    network:
+      pods:
+        cidrBlocks:
+          - 10.1.0.0/16
   providerSpecific:
     region: "eu-west-1"
-  managementCluster: test
 
 cluster:
   internal:
