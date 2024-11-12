@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `global.providerSpecific.additionalNodeTags`. Field used to specify tags applied to nodes only.
+
 ### Fixed
 
 - Only try to render subnet tags if they are defined by the user.

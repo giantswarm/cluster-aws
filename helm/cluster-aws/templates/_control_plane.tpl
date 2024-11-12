@@ -5,6 +5,9 @@ Any changes to this will trigger the resource to be recreated rather than attemp
 */}}
 {{- define "controlplane-awsmachinetemplate-spec" -}}
 {{- include "ami" $ }}
+{{- if $.Values.global.providerSpecific.additionalNodeTags }}
+additionalTags: {{ toYaml $.Values.global.providerSpecific.additionalNodeTags | nindent 2 }}
+{{- end }}
 cloudInit: {}
 instanceType: {{ .Values.global.controlPlane.instanceType }}
 nonRootVolumes:
