@@ -577,6 +577,32 @@
                         "machinePoolResourcesEnabled": true,
                         "nodePoolKind": "MachinePool"
                     },
+                    "teleport": {
+                        "type": "object",
+                        "title": "Teleport",
+                        "properties": {
+                            "enabled": {
+                                "type": "boolean",
+                                "title": "Enable teleport",
+                                "default": true
+                            },
+                            "initialJoinToken": {
+                                "type": "string",
+                                "title": "Teleport initial Node Join Token",
+                                "default": ""
+                            },
+                            "proxyAddr": {
+                                "type": "string",
+                                "title": "Teleport proxy address",
+                                "default": "teleport.giantswarm.io:443"
+                            },
+                            "version": {
+                                "type": "string",
+                                "title": "Teleport version",
+                                "default": "16.1.7"
+                            }
+                        }
+                    },
                     "useReleases": true,
                     "workers": {
                         "defaultNodePools": {
