@@ -589,12 +589,12 @@
                             "initialJoinToken": {
                                 "type": "string",
                                 "title": "Teleport initial Node Join Token",
-                                "default": ""
+                                "default": "cfe8e11ae01e13076cf046da32f89ccf"
                             },
                             "proxyAddr": {
                                 "type": "string",
                                 "title": "Teleport proxy address",
-                                "default": "teleport.giantswarm.io:443"
+                                "default": "test.teleport.giantswarm.io:443"
                             },
                             "version": {
                                 "type": "string",
