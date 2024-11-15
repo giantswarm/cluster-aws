@@ -211,11 +211,11 @@ cluster:
           title: Enable teleport
           type: boolean
         initialJoinToken:
-          default: cfe8e11ae01e13076cf046da32f89ccf
+          default: ""
           title: Teleport initial Node Join Token
           type: string
         proxyAddr:
-          default: test.teleport.giantswarm.io:443
+          default: teleport.giantswarm.io:443
           title: Teleport proxy address
           type: string
         version:
