@@ -205,23 +205,29 @@ cluster:
       machinePoolResourcesEnabled: true
       nodePoolKind: MachinePool
     teleport:
+      default:
+        enabled: true
+        initialJoinToken: ""
+        proxyAddr: teleport.giantswarm.io:443
+        version: 16.1.7
+      description: Teleport configuration for cluster access
       properties:
         enabled:
-          default: true
           title: Enable teleport
           type: boolean
         initialJoinToken:
-          default: ""
           title: Teleport initial Node Join Token
           type: string
         proxyAddr:
-          default: teleport.giantswarm.io:443
           title: Teleport proxy address
           type: string
         version:
-          default: 16.1.7
           title: Teleport version
           type: string
+      required:
+        - enabled
+        - proxyAddr
+        - initialJoinToken
       title: Teleport
       type: object
     useReleases: true
