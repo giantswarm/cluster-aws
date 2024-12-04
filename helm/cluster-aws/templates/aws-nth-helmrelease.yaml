@@ -42,7 +42,7 @@ spec:
         namespace: {{ $.Release.Namespace }}
   kubeConfig:
     secretRef:
-      name: {{ include "resource.default.name" $ }}-kubeconfig
+      name: {{ $.Values.global.managementCluster }}-kubeconfig
   interval: 5m
   install:
     remediation:
