@@ -27,8 +27,6 @@ metadata:
 spec:
   suspend: false # It can be unsuspended by the post-install/post-upgrade hook. Useful if we need to populate some fields later on.
   releaseName: aws-nth-bundle
-  targetNamespace: kube-system
-  storageNamespace: kube-system
   chart:
     spec:
       chart: aws-nth-bundle
