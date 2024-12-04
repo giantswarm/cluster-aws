@@ -91,8 +91,8 @@ spec:
     heartbeatTimeout: 2h0m0s
     lifecycleTransition: autoscaling:EC2_INSTANCE_TERMINATING
     name: NTHTerminationHook
-    notificationTargetARN: arn:aws:sqs:eu-west-2:{{ include "aws-account-id" $}}:{{ include "resource.default.name" $ }}-nth
-    roleARN: arn:aws:iam::{{ include "aws-account-id" $}}:role/{{ include "resource.default.name" $ }}-nth-notification
+    notificationTargetARN: arn:{{ include "aws-partition" $}}:sqs:{{ $.Values.global.providerSpecific.region }}:{{ include "aws-account-id" $}}:{{ include "resource.default.name" $ }}-nth
+    roleARN: arn:{{ include "aws-partition" $}}:iam::{{ include "aws-account-id" $}}:role/{{ include "resource.default.name" $ }}-nth-notification
 ---
 {{ end }}
 {{- end -}}
