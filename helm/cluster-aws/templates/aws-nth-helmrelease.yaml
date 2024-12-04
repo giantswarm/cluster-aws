@@ -36,7 +36,7 @@ spec:
       version: {{ include "cluster.app.version" $ }}
       sourceRef:
         kind: HelmRepository
-        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+        name: {{ include "cluster.app.catalog" $ }}-catalog
   dependsOn:
       - name: {{ include "resource.default.name" $ }}-cloud-provider-aws
         namespace: {{ $.Release.Namespace }}
