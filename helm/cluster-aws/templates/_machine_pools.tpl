@@ -86,6 +86,13 @@ spec:
     maxHealthyPercentage: {{ $value.maxHealthyPercentage }}
   ignition:
     version: "3.4"
+  lifecycleHooks:
+  - defaultResult: CONTINUE
+    heartbeatTimeout: 2h0m0s
+    lifecycleTransition: autoscaling:EC2_INSTANCE_TERMINATING
+    name: NTHTerminationHook
+    notificationTargetARN: {{ include "resource.default.name" $ }}-nth
+    roleARN: {{ include "resource.default.name" $ }}-nth-notification
 ---
 {{ end }}
 {{- end -}}
