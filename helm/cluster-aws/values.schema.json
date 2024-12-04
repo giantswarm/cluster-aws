@@ -708,6 +708,12 @@
                             "title": "AWS EBS CSI driver service monitors",
                             "description": "Configuration of aws-ebs-csi-driver-servicemonitors. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-servicemonitors-app."
                         },
+                        "awsNodeTerminationHandler": {
+                            "$ref": "#/$defs/helmRelease",
+                            "type": "object",
+                            "title": "AWS EBS CSI driver",
+                            "description": "Configuration of aws-nth-bundle. For all available values see https://github.com/giantswarm/aws-nth-bundle."
+                        },
                         "awsPodIdentityWebhook": {
                             "$ref": "#/$defs/app",
                             "type": "object",
