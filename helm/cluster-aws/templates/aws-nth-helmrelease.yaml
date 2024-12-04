@@ -17,7 +17,7 @@ global:
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: {{ include "resource.default.name" $ }}-aws-ebs-csi-driver
+  name: {{ include "resource.default.name" $ }}-nth-bundle
   namespace: {{ $.Release.Namespace }}
   annotations:
     cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
