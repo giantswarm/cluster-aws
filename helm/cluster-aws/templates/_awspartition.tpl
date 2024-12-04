@@ -7,7 +7,7 @@ Output: The AWS partition (e.g., "aws", "aws-cn")
 */ -}}
 {{- define "extractAWSPartition" -}}
 {{- $parts := (split ":" .) -}}
-{{- if ge (len $parts) 5 -}}{{- $parts._2 -}}{{- end -}}
+{{- if ge (len $parts) 5 -}}{{- $parts._1 -}}{{- end -}}
 {{- end -}}
 
 {{- define "aws-partition" -}}
