@@ -35,9 +35,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
-  dependsOn:
-      - name: {{ include "resource.default.name" $ }}-cloud-provider-aws
-        namespace: {{ $.Release.Namespace }}
   kubeConfig:
     secretRef:
       name: {{ $.Values.global.managementCluster }}-kubeconfig
