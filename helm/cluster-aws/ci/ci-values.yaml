@@ -16,6 +16,7 @@ global:
   providerSpecific:
     region: "eu-west-1"
     awsAccountId: "1234567890"
+    partition: "aws"
   components:
     containerd:
       containerRegistries:
