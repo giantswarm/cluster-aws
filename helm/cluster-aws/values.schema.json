@@ -1756,6 +1756,11 @@
                             "minLength": 1,
                             "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$"
                         },
+                        "controlPlaneAmi": {
+                            "type": "string",
+                            "title": "Amazon machine image (AMI) for control plane",
+                            "description": "If specified, this image will be used to provision EC2 instances for the control plane."
+                        },
                         "flatcarAwsAccount": {
                             "type": "string",
                             "title": "AWS account owning Flatcar image",
@@ -1779,6 +1784,11 @@
                                     "default": "required"
                                 }
                             }
+                        },
+                        "nodePoolAmi": {
+                            "type": "string",
+                            "title": "Amazon machine image (AMI) for node pools",
+                            "description": "If specified, this image will be used to provision EC2 instances for node pools."
                         },
                         "region": {
                             "type": "string",
