@@ -267,6 +267,7 @@ global:
     awsCloudControllerManager: {}
     awsEbsCsiDriver: {}
     awsEbsCsiDriverServiceMonitors: {}
+    awsNodeTerminationHandler: {}
     awsPodIdentityWebhook: {}
     capiNodeLabeler: {}
     certExporter: {}
