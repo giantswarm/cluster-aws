@@ -88,9 +88,13 @@ spec:
     version: "3.4"
   lifecycleHooks:
   - defaultResult: CONTINUE
-    heartbeatTimeout: 2h0m0s
+    # High enough heartbeat timeout because aws-node-termination-handler (shortened to "NTH" here)
+    # doesn't send heartbeats (https://github.com/aws/aws-node-termination-handler/issues/493),
+    # but low enough so that if the controller is down, instances can still terminate within
+    # a reasonable time.
+    heartbeatTimeout: 30m
     lifecycleTransition: autoscaling:EC2_INSTANCE_TERMINATING
-    name: NTHTerminationHook
+    name: aws-node-termination-handler
     notificationTargetARN: arn:{{ include "aws-partition" $}}:sqs:{{ include "aws-region" $ }}:{{ include "aws-account-id" $}}:{{ include "resource.default.name" $ }}-nth
     roleARN: arn:{{ include "aws-partition" $}}:iam::{{ include "aws-account-id" $}}:role/{{ include "resource.default.name" $ }}-nth-notification
 ---
