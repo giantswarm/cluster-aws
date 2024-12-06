@@ -700,6 +700,12 @@
                             "title": "AWS EBS CSI driver service monitors",
                             "description": "Configuration of aws-ebs-csi-driver-servicemonitors. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-servicemonitors-app."
                         },
+                        "awsNodeTerminationHandler": {
+                            "$ref": "#/$defs/helmRelease",
+                            "type": "object",
+                            "title": "AWS EBS CSI driver",
+                            "description": "Configuration of aws-nth-bundle. For all available values see https://github.com/giantswarm/aws-nth-bundle."
+                        },
                         "awsPodIdentityWebhook": {
                             "$ref": "#/$defs/app",
                             "type": "object",
@@ -1664,6 +1670,11 @@
                             "maxLength": 63,
                             "minLength": 1,
                             "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$"
+                        },
+                        "awsPartition": {
+                            "type": "string",
+                            "title": "AWS Partition",
+                            "description": "Only used when rendering the chart template locally, you shouldn't use this value."
                         },
                         "flatcarAwsAccount": {
                             "type": "string",
