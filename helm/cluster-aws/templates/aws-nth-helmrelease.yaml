@@ -1,5 +1,5 @@
 {{/* Default Helm values for the app */}}
-{{/* See schema for the appropriate app version here https://github.com/giantswarm/aws-ebs-csi-driver-app/blob/master/helm/aws-ebs-csi-driver-app/values.schema.json */}}
+{{/* See schema for the appropriate app version here https://github.com/giantswarm/aws-nth-bundle/blob/main/helm/aws-nth-bundle/values.schema.json */}}
 {{- define "defaultAwsNodeTerminationHandlerHelmValues" }}
 clusterID: {{ include "resource.default.name" $ }}
 {{- if (.Values.global.connectivity.proxy).enabled }}
@@ -25,7 +25,6 @@ metadata:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" . | nindent 4 }}
 spec:
-  suspend: false # It can be unsuspended by the post-install/post-upgrade hook. Useful if we need to populate some fields later on.
   releaseName: aws-nth-bundle
   chart:
     spec:
@@ -42,13 +41,13 @@ spec:
   install:
     remediation:
       retries: 30
-  {{- $AwsNodeTerminationHandlerHelmValues := (include "defaultAwsNodeTerminationHandlerHelmValues" .) | fromYaml -}}
+  {{- $awsNodeTerminationHandlerHelmValues := (include "defaultAwsNodeTerminationHandlerHelmValues" .) | fromYaml -}}
   {{- $customAwsNodeTerminationHandlerHelmValues := $.Values.global.apps.awsNodeTerminationHandler.values -}}
   {{- if $customAwsNodeTerminationHandlerHelmValues }}
-  {{- $AwsNodeTerminationHandlerHelmValues = merge (deepCopy $customAwsNodeTerminationHandlerHelmValues) $AwsNodeTerminationHandlerHelmValues -}}
+  {{- $awsNodeTerminationHandlerHelmValues = merge (deepCopy $customAwsNodeTerminationHandlerHelmValues) $awsNodeTerminationHandlerHelmValues -}}
   {{- end }}
-  {{- if $AwsNodeTerminationHandlerHelmValues }}
-  values: {{- $AwsNodeTerminationHandlerHelmValues | toYaml | nindent 4 }}
+  {{- if $awsNodeTerminationHandlerHelmValues }}
+  values: {{- $awsNodeTerminationHandlerHelmValues | toYaml | nindent 4 }}
   {{- end }}
   {{- if $.Values.global.apps.awsNodeTerminationHandler.extraConfigs }}
   valuesFrom:

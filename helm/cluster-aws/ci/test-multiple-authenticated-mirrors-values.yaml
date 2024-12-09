@@ -16,7 +16,6 @@ global:
   providerSpecific:
     region: "eu-west-1"
     awsAccountId: "1234567890"
-    awsPartition: "aws"
   managementCluster: test
   components:
     containerd:
@@ -31,6 +30,9 @@ global:
             credentials:
               username: example
               password: password
+
+internal:
+  awsPartition: "aws"
 
 cluster:
   internal:

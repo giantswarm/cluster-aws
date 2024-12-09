@@ -16,7 +16,6 @@ global:
   providerSpecific:
     region: "eu-west-1"
     awsAccountId: "1234567890"
-    awsPartition: "aws"
   managementCluster: test
   components:
     containerd:
@@ -29,6 +28,9 @@ global:
         mirroredRegistries:
           - docker.io
         port: 32767
+
+internal:
+  awsPartition: "aws"
 
 cluster:
   internal:

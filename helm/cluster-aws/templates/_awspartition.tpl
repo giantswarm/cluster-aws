@@ -12,7 +12,7 @@ Output: The AWS partition (e.g., "aws", "aws-cn")
 
 {{- define "aws-partition" -}}
 {{- $roleName := .Values.global.providerSpecific.awsClusterRoleIdentityName -}}
-{{- $partition := .Values.global.providerSpecific.awsPartition -}}
+{{- $partition := .Values.internal.awsPartition -}}
 {{- $role := (lookup "infrastructure.cluster.x-k8s.io/v1beta2" "AWSClusterRoleIdentity" "" $roleName) -}}
 {{- if $role -}}
 {{- $partition = (include "extractAWSPartition" $role.spec.roleARN) -}}

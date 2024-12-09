@@ -16,7 +16,6 @@ global:
   providerSpecific:
     region: "eu-west-1"
     awsAccountId: "1234567890"
-    awsPartition: "aws"
   components:
     containerd:
       containerRegistries:
@@ -26,6 +25,9 @@ global:
             username: giantswarmpull
             password: abcdef
         - endpoint: quay.io
+
+internal:
+  awsPartition: "aws"
 
 cluster:
   internal:
