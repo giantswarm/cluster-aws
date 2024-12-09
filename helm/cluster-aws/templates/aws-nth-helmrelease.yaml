@@ -7,10 +7,10 @@ awsNodeTerminationHandler:
       registry: {{ include "awsContainerImageRegistry" $ }}
 
     # Allow running on control plane nodes. On deletion, CAPI will first delete the worker nodes
-    # and we still want aws-node-termination-handler to take care of the last workers' EC2 lifecycle
-    # hooks since they otherwise won't be completed, resulting in unnecessary waiting time before
-    # AWS can terminate the instances
-    # (see `AWSMachinePool.spec.lifecycleHooks["aws-node-termination-handler"].heartbeatTimeout`).
+    # and we still want aws-node-termination-handler, if it's even still running and the HelmRelease
+    # not deleted yet, to take care of the last workers' EC2 lifecycle hooks since they otherwise
+    # won't be completed, resulting in unnecessary waiting time before AWS can terminate the
+    # instances (see `AWSMachinePool.spec.lifecycleHooks["aws-node-termination-handler"].heartbeatTimeout`).
     # This runs on workers by default but allows moving pods to control plane nodes. Requires
     # queue processing mode i.e. running as `Deployment`, not `DaemonSet`.
     affinity:
