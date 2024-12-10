@@ -1,6 +1,31 @@
 {{/* Default Helm values for the app */}}
-{{/* See schema for the appropriate app version here https://github.com/giantswarm/aws-ebs-csi-driver-app/blob/master/helm/aws-ebs-csi-driver-app/values.schema.json */}}
+{{/* See schema for the appropriate app version here https://github.com/giantswarm/aws-nth-bundle/blob/main/helm/aws-nth-bundle/values.schema.json */}}
 {{- define "defaultAwsNodeTerminationHandlerHelmValues" }}
+awsNodeTerminationHandler:
+  values:
+    image:
+      registry: {{ include "awsContainerImageRegistry" $ }}
+
+    # Allow running on control plane nodes. On deletion, CAPI will first delete the worker nodes
+    # and we still want aws-node-termination-handler, if it's even still running and the HelmRelease
+    # not deleted yet, to take care of the last workers' EC2 lifecycle hooks since they otherwise
+    # won't be completed, resulting in unnecessary waiting time before AWS can terminate the
+    # instances (see `AWSMachinePool.spec.lifecycleHooks["aws-node-termination-handler"].heartbeatTimeout`).
+    # This runs on workers by default but allows moving pods to control plane nodes. Requires
+    # queue processing mode i.e. running as `Deployment`, not `DaemonSet`.
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: DoesNotExist
+            weight: 10
+    tolerations:
+      - effect: NoSchedule
+        operator: Exists
+        key: node-role.kubernetes.io/control-plane
+
 clusterID: {{ include "resource.default.name" $ }}
 {{- if (.Values.global.connectivity.proxy).enabled }}
 proxy:
@@ -25,7 +50,6 @@ metadata:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" . | nindent 4 }}
 spec:
-  suspend: false # It can be unsuspended by the post-install/post-upgrade hook. Useful if we need to populate some fields later on.
   releaseName: aws-nth-bundle
   chart:
     spec:
@@ -42,13 +66,13 @@ spec:
   install:
     remediation:
       retries: 30
-  {{- $AwsNodeTerminationHandlerHelmValues := (include "defaultAwsNodeTerminationHandlerHelmValues" .) | fromYaml -}}
+  {{- $awsNodeTerminationHandlerHelmValues := (include "defaultAwsNodeTerminationHandlerHelmValues" .) | fromYaml -}}
   {{- $customAwsNodeTerminationHandlerHelmValues := $.Values.global.apps.awsNodeTerminationHandler.values -}}
   {{- if $customAwsNodeTerminationHandlerHelmValues }}
-  {{- $AwsNodeTerminationHandlerHelmValues = merge (deepCopy $customAwsNodeTerminationHandlerHelmValues) $AwsNodeTerminationHandlerHelmValues -}}
+  {{- $awsNodeTerminationHandlerHelmValues = merge (deepCopy $customAwsNodeTerminationHandlerHelmValues) $awsNodeTerminationHandlerHelmValues -}}
   {{- end }}
-  {{- if $AwsNodeTerminationHandlerHelmValues }}
-  values: {{- $AwsNodeTerminationHandlerHelmValues | toYaml | nindent 4 }}
+  {{- if $awsNodeTerminationHandlerHelmValues }}
+  values: {{- $awsNodeTerminationHandlerHelmValues | toYaml | nindent 4 }}
   {{- end }}
   {{- if $.Values.global.apps.awsNodeTerminationHandler.extraConfigs }}
   valuesFrom:

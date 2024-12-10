@@ -711,7 +711,7 @@
                         "awsNodeTerminationHandler": {
                             "$ref": "#/$defs/helmRelease",
                             "type": "object",
-                            "title": "AWS EBS CSI driver",
+                            "title": "AWS Node Termination Handler",
                             "description": "Configuration of aws-nth-bundle. For all available values see https://github.com/giantswarm/aws-nth-bundle."
                         },
                         "awsPodIdentityWebhook": {
@@ -1756,11 +1756,6 @@
                             "minLength": 1,
                             "pattern": "^[-a-zA-Z0-9_\\.]{1,63}$"
                         },
-                        "awsPartition": {
-                            "type": "string",
-                            "title": "AWS Partition",
-                            "description": "Only used when rendering the chart template locally, you shouldn't use this value."
-                        },
                         "flatcarAwsAccount": {
                             "type": "string",
                             "title": "AWS account owning Flatcar image",
@@ -1812,6 +1807,11 @@
             "title": "Internal",
             "description": "For Giant Swarm internal use only, not stable, or not supported by UIs.",
             "properties": {
+                "awsPartition": {
+                    "type": "string",
+                    "title": "AWS Partition",
+                    "description": "Only used when rendering the chart template locally, you shouldn't use this value."
+                },
                 "hashSalt": {
                     "type": "string",
                     "title": "Hash salt",
