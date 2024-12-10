@@ -703,7 +703,7 @@
                         "awsNodeTerminationHandler": {
                             "$ref": "#/$defs/helmRelease",
                             "type": "object",
-                            "title": "AWS EBS CSI driver",
+                            "title": "AWS Node Termination Handler",
                             "description": "Configuration of aws-nth-bundle. For all available values see https://github.com/giantswarm/aws-nth-bundle."
                         },
                         "awsPodIdentityWebhook": {
