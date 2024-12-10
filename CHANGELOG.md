@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.4] - 2024-12-10
+
 ### Added
 
 - Add aws-node-termination-handler bundle
@@ -1445,7 +1447,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.1.3...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.1.4...HEAD
+[1.1.4]: https://github.com/giantswarm/cluster-aws/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/giantswarm/cluster-aws/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/giantswarm/cluster-aws/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/giantswarm/cluster-aws/compare/v1.1.0...v1.1.1
