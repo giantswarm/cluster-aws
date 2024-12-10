@@ -29,6 +29,9 @@ global:
           - docker.io
         port: 32767
 
+internal:
+  awsPartition: "aws"
+
 cluster:
   internal:
     ephemeralConfiguration:

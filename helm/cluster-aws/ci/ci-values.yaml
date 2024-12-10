@@ -26,6 +26,9 @@ global:
             password: abcdef
         - endpoint: quay.io
 
+internal:
+  awsPartition: "aws"
+
 cluster:
   internal:
     ephemeralConfiguration:
