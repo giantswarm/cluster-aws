@@ -4,7 +4,12 @@ This function is used for both the `.Spec` value and as the data for the hash fu
 Any changes to this will trigger the resource to be recreated rather than attempting to update in-place.
 */}}
 {{- define "controlplane-awsmachinetemplate-spec" -}}
-{{- include "ami" $ }}
+{{- with (.Values.global.providerSpecific.controlPlaneAmi | default .Values.global.providerSpecific.ami) }}
+ami:
+  id: {{ . | quote }}
+{{- else }}
+{{- include "imageLookupParameters" $ }}
+{{- end }}
 cloudInit: {}
 instanceType: {{ .Values.global.controlPlane.instanceType }}
 nonRootVolumes:
