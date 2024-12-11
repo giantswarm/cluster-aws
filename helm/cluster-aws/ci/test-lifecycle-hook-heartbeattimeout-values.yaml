@@ -1,0 +1,24 @@
+global:
+  release:
+    version: v27.0.0-alpha.1
+  metadata:
+    name: test-wc-minimal
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+  nodePools:
+    pool0:
+      maxSize: 2
+      minSize: 2
+      awsNodeTerminationHandler:
+        heartbeatTimeoutSeconds: 60
+  providerSpecific:
+    region: "eu-west-1"
+  managementCluster: test
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true
