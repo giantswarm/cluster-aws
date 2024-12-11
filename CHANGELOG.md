@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Values: Add `global.providerSpecific.controlPlaneAmi` & `global.providerSpecific.nodePoolAmi`.
 - Add aws-node-termination-handler bundle
 
+### Fixed
+
+- Fix aws-nth-bundle to use the MC's kubeconfig context if it's in a different organization namespace.
+
+  Workload clusters outside the MC's `org-giantswarm` namespace failed to deploy the bundle because `HelmRelease` does not allow specifying the MC's kubeconfig secret namespace. The bundle was therefore switched to an `App`.
+
 ## [1.3.4] - 2024-10-15
 
 ### Changed
