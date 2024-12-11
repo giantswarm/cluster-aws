@@ -709,7 +709,7 @@
                             "description": "Configuration of aws-ebs-csi-driver-servicemonitors. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-servicemonitors-app."
                         },
                         "awsNodeTerminationHandler": {
-                            "$ref": "#/$defs/helmRelease",
+                            "$ref": "#/$defs/app",
                             "type": "object",
                             "title": "AWS Node Termination Handler",
                             "description": "Configuration of aws-nth-bundle. For all available values see https://github.com/giantswarm/aws-nth-bundle."
