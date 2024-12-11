@@ -127,6 +127,20 @@
                         "title": "Availability zone"
                     }
                 },
+                "awsNodeTerminationHandler": {
+                    "type": "object",
+                    "title": "aws-node-termination-handler related settings",
+                    "description": "Configuration for the ASG lifecycle hook used by aws-node-termination-handler",
+                    "properties": {
+                        "heartbeatTimeoutSeconds": {
+                            "type": "number",
+                            "title": "Heartbeat timeout for ASG lifecycle hook",
+                            "default": 1800,
+                            "maximum": 7200,
+                            "minimum": 30
+                        }
+                    }
+                },
                 "customNodeLabels": {
                     "type": "array",
                     "title": "Custom node labels",

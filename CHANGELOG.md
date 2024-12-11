@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add aws-node-termination-handler bundle
 - Values: Add `global.providerSpecific.controlPlaneAmi` & `global.providerSpecific.nodePoolAmi`.
+- Make ASG lifecycle hook heartbeat timeout configurable
 
 ### Fixed
 
