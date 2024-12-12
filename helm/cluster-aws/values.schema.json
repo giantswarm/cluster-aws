@@ -127,6 +127,20 @@
                         "title": "Availability zone"
                     }
                 },
+                "awsNodeTerminationHandler": {
+                    "type": "object",
+                    "title": "aws-node-termination-handler related settings",
+                    "description": "Configuration for the ASG lifecycle hook used by aws-node-termination-handler",
+                    "properties": {
+                        "heartbeatTimeoutSeconds": {
+                            "type": "number",
+                            "title": "Heartbeat timeout for ASG lifecycle hook",
+                            "default": 1800,
+                            "maximum": 7200,
+                            "minimum": 30
+                        }
+                    }
+                },
                 "customNodeLabels": {
                     "type": "array",
                     "title": "Custom node labels",
@@ -693,6 +707,12 @@
                             "type": "object",
                             "title": "AWS EBS CSI driver service monitors",
                             "description": "Configuration of aws-ebs-csi-driver-servicemonitors. For all available values see https://github.com/giantswarm/aws-ebs-csi-driver-servicemonitors-app."
+                        },
+                        "awsNodeTerminationHandler": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "AWS Node Termination Handler",
+                            "description": "Configuration of aws-nth-bundle. For all available values see https://github.com/giantswarm/aws-nth-bundle."
                         },
                         "awsPodIdentityWebhook": {
                             "$ref": "#/$defs/app",
@@ -1752,6 +1772,11 @@
             "title": "Internal",
             "description": "For Giant Swarm internal use only, not stable, or not supported by UIs.",
             "properties": {
+                "awsPartition": {
+                    "type": "string",
+                    "title": "AWS Partition",
+                    "description": "Only used when rendering the chart template locally, you shouldn't use this value."
+                },
                 "hashSalt": {
                     "type": "string",
                     "title": "Hash salt",

@@ -1,0 +1,92 @@
+{{/* Default Helm values for the app */}}
+{{/* See schema for the appropriate app version here https://github.com/giantswarm/aws-nth-bundle/blob/main/helm/aws-nth-bundle/values.schema.json */}}
+{{- define "defaultAwsNodeTerminationHandlerHelmValues" }}
+awsNodeTerminationHandler:
+  values:
+    image:
+      registry: {{ include "awsContainerImageRegistry" $ }}
+
+    # Allow running on control plane nodes. On deletion, CAPI will first delete the worker nodes
+    # and we still want aws-node-termination-handler, if it's even still running and the HelmRelease
+    # not deleted yet, to take care of the last workers' EC2 lifecycle hooks since they otherwise
+    # won't be completed, resulting in unnecessary waiting time before AWS can terminate the
+    # instances (see `AWSMachinePool.spec.lifecycleHooks["aws-node-termination-handler"].heartbeatTimeout`).
+    # This runs on workers by default but allows moving pods to control plane nodes. Requires
+    # queue processing mode i.e. running as `Deployment`, not `DaemonSet`.
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: DoesNotExist
+            weight: 10
+    tolerations:
+      - effect: NoSchedule
+        operator: Exists
+        key: node-role.kubernetes.io/control-plane
+
+clusterID: {{ include "resource.default.name" $ }}
+{{- if (.Values.global.connectivity.proxy).enabled }}
+proxy:
+  noProxy: "{{ include "cluster.connectivity.proxy.noProxy" (dict "global" $.Values.global "providerIntegration" $.Values.cluster.providerIntegration) }}"
+  http: {{ .Values.global.connectivity.proxy.httpProxy | quote }}
+  https: {{ .Values.global.connectivity.proxy.httpsProxy | quote }}
+{{- end }}
+global:
+  image:
+    registry: {{ include "awsContainerImageRegistry" $ }}
+  podSecurityStandards:
+    enforced: {{ .Values.global.podSecurityStandards.enforced }}
+{{- end }}
+---
+apiVersion: v1
+data:
+  {{- $awsNodeTerminationHandlerHelmValues := (include "defaultAwsNodeTerminationHandlerHelmValues" .) | fromYaml -}}
+  {{- $customAwsNodeTerminationHandlerHelmValues := $.Values.global.apps.awsNodeTerminationHandler.values -}}
+  {{- if $customAwsNodeTerminationHandlerHelmValues }}
+  {{- $awsNodeTerminationHandlerHelmValues = merge (deepCopy $customAwsNodeTerminationHandlerHelmValues) $awsNodeTerminationHandlerHelmValues -}}
+  {{- end }}
+  values: | {{- $awsNodeTerminationHandlerHelmValues | toYaml | nindent 4 }}
+kind: ConfigMap
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ printf "%s-aws-nth-bundle-user-values" (include "resource.default.name" $) | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+---
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ printf "%s-aws-nth-bundle" (include "resource.default.name" $) | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+spec:
+  catalog: {{ include "cluster.app.catalog" $ | quote }}
+  install:
+    timeout: "10m"
+  upgrade:
+    timeout: "10m"
+  kubeConfig:
+    inCluster: true # in management cluster context
+  name: aws-nth-bundle
+  namespace: {{ $.Release.Namespace | quote }}
+  {{- $_ := set $ "appName" "aws-nth-bundle" }}
+  {{- $appVersion := include "cluster.app.version" $ }}
+  version: {{ $appVersion }}
+  extraConfigs:
+    # See above
+    - kind: configMap
+      name: {{ printf "%s-aws-nth-bundle-user-values" (include "resource.default.name" $) | quote }}
+      namespace: {{ $.Release.Namespace | quote }}
+    {{- if .Values.global.apps.awsNodeTerminationHandler.extraConfigs }}
+    {{- range .Values.global.apps.awsNodeTerminationHandler.extraConfigs }}
+    - kind: {{ .kind }}
+      name: {{ .name }}
+      namespace: {{ .namespace | default $.Release.Namespace }}
+      priority: {{ .priority }}
+    {{- end }}
+    {{- end }}

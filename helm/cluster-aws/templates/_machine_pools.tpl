@@ -87,6 +87,21 @@ spec:
     minHealthyPercentage: {{ $value.minHealthyPercentage | default 90 }}
   ignition:
     version: "3.4"
+  lifecycleHooks:
+  - defaultResult: CONTINUE
+
+    {{/*
+        The default is a high enough heartbeat timeout because aws-node-termination-handler (shortened to "NTH" here)
+        doesn't send heartbeats (https://github.com/aws/aws-node-termination-handler/issues/493),
+        but low enough so that if the controller is down, instances can still terminate within
+        a reasonable time.
+    */}}
+    heartbeatTimeout: "{{ ($value.awsNodeTerminationHandler).heartbeatTimeoutSeconds | default 1800 }}s"
+
+    lifecycleTransition: autoscaling:EC2_INSTANCE_TERMINATING
+    name: aws-node-termination-handler
+    notificationTargetARN: arn:{{ include "aws-partition" $}}:sqs:{{ include "aws-region" $ }}:{{ include "aws-account-id" $}}:{{ include "resource.default.name" $ }}-nth
+    roleARN: arn:{{ include "aws-partition" $}}:iam::{{ include "aws-account-id" $}}:role/{{ include "resource.default.name" $ }}-nth-notification
 ---
 {{ end }}
 {{- end -}}
