@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.5] - 2024-12-12
 
+### Added
+
+- Make ASG lifecycle hook heartbeat timeout configurable
+
 ### Fixed
 
 - Fix aws-nth-bundle to use the MC's kubeconfig context if it's in a different organization namespace.
