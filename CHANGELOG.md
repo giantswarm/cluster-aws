@@ -7,11 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0] - 2024-12-13
+
 ### Added
 
 - Add aws-node-termination-handler bundle
 - Values: Add `global.providerSpecific.controlPlaneAmi` & `global.providerSpecific.nodePoolAmi`.
 - Make ASG lifecycle hook heartbeat timeout configurable
+
+### Changed
+
+- Chart: Update `cluster` to [v1.7.0](https://github.com/giantswarm/cluster/releases/tag/v1.7.0).
+  - Add `teleport-init` systemd unit to handle initial token setup before `teleport` service starts
+  - Improve `teleport` service reliability by adding proper file and service dependencies and pre-start checks
 
 ### Fixed
 
@@ -1534,7 +1542,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v2.4.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/giantswarm/cluster-aws/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/giantswarm/cluster-aws/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/giantswarm/cluster-aws/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/giantswarm/cluster-aws/compare/v2.1.0...v2.2.0
