@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Explicitly set aws-node-termination-handler queue region so crash-loops are avoided, allowing faster startup
+
 ## [2.5.0] - 2024-12-13
 
 ### Added
