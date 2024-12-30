@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Explicitly set Ignition user data storage type to S3 bucket objects for machine pools
+
 ## [2.5.0] - 2024-12-13
 
 ### Added
