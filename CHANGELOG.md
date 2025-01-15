@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Chart: Reduce default etcd volume size to 50 GB.
+
 ## [2.5.0] - 2024-12-13
 
 ### Added
