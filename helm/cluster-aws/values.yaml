@@ -361,7 +361,7 @@ global:
   controlPlane:
     apiMode: public
     apiServerPort: 443
-    etcdVolumeSizeGB: 100
+    etcdVolumeSizeGB: 50
     instanceType: r6i.xlarge
     libVolumeSizeGB: 40
     logVolumeSizeGB: 15
