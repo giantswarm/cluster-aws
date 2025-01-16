@@ -1498,7 +1498,7 @@
                         "etcdVolumeSizeGB": {
                             "type": "integer",
                             "title": "Etcd volume size (GB)",
-                            "default": 100
+                            "default": 50
                         },
                         "instanceType": {
                             "type": "string",
