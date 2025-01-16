@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Chart: Reduce default etcd volume size to 50 GB.
+- Explicitly set Ignition user data storage type to S3 bucket objects for machine pools
 
 ## [2.5.0] - 2024-12-13
 

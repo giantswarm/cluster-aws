@@ -90,6 +90,7 @@ spec:
     minHealthyPercentage: {{ $value.minHealthyPercentage | default 90 }}
     maxHealthyPercentage: {{ $value.maxHealthyPercentage }}
   ignition:
+    storageType: ClusterObjectStore # store user data in S3 bucket
     version: "3.4"
   lifecycleHooks:
   - defaultResult: CONTINUE
