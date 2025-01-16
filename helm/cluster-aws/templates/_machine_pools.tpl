@@ -86,6 +86,7 @@ spec:
     instanceWarmup: {{ $value.instanceWarmup | default 600 }}
     minHealthyPercentage: {{ $value.minHealthyPercentage | default 90 }}
   ignition:
+    storageType: ClusterObjectStore # store user data in S3 bucket
     version: "3.4"
   lifecycleHooks:
   - defaultResult: CONTINUE
