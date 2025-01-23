@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Chart: Reduce default etcd volume size to 50 GB.
 - Explicitly set Ignition user data storage type to S3 bucket objects for machine pools
+- Use reduced IAM permissions on worker nodes instance profile. This can be toggled back with `global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers`.
 
 ## [1.3.5] - 2024-12-12
 

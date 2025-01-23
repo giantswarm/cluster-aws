@@ -1745,6 +1745,12 @@
                             "title": "Amazon machine image (AMI) for node pools",
                             "description": "If specified, this image will be used to provision EC2 instances for node pools."
                         },
+                        "reducedInstanceProfileIamPermissionsForWorkers": {
+                            "type": "boolean",
+                            "title": "Use reduced IAM permissions on worker nodes instance profile",
+                            "description": "Defaults to true. If something breaks, this can temporarily be disabled in order to bring certain IAM permissions (e.g. EC2) back for the worker nodes' IAM instance profile. Applications must use [IRSA](https://docs.giantswarm.io/tutorials/access-management/iam-roles-for-service-accounts/) to authenticate with the AWS API instead of falling back to the instance profile.",
+                            "default": true
+                        },
                         "region": {
                             "type": "string",
                             "title": "Region"
