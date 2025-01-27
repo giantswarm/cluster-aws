@@ -6,6 +6,12 @@ metadata:
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
+    {{- if (required "global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers is required" $.Values.global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers) }}
+    alpha.aws.giantswarm.io/reduced-instance-permissions-workers: "true"
+    {{- end }}
+    {{- if eq (required "global.connectivity.cilium.ipamMode is required" $.Values.global.connectivity.cilium.ipamMode) "eni" }}
+    alpha.aws.giantswarm.io/ipam-mode: "eni"
+    {{- end }}
     app.kubernetes.io/version: {{ $.Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
@@ -86,6 +92,7 @@ spec:
     instanceWarmup: {{ $value.instanceWarmup | default 600 }}
     minHealthyPercentage: {{ $value.minHealthyPercentage | default 90 }}
   ignition:
+    storageType: ClusterObjectStore # store user data in S3 bucket
     version: "3.4"
   lifecycleHooks:
   - defaultResult: CONTINUE

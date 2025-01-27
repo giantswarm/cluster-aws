@@ -3,6 +3,8 @@
 {{- define "defaultAwsNodeTerminationHandlerHelmValues" }}
 awsNodeTerminationHandler:
   values:
+    awsRegion: {{ include "aws-region" $ | quote }}
+
     image:
       registry: {{ include "awsContainerImageRegistry" $ }}
 
