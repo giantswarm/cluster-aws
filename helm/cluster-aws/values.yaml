@@ -22,6 +22,8 @@ cluster:
       coreDns:
         configTemplateName: awsCorednsHelmValues
         enable: true
+      coreDnsExtensions:
+        enable: true
       etcdKubernetesResourcesCountExporter:
         enable: true
       externalDns:

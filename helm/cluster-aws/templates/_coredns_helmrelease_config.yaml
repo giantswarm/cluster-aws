@@ -3,4 +3,7 @@
 {{- define "awsCorednsHelmValues" }}
 image:
   registry: {{ include "awsContainerImageRegistry" $ }}
+
+hpa:
+  targetMemoryUtilizationPercentage: 0
 {{- end }}
