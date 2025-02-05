@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.7] - 2025-02-05
+
 ### Added
 
 - Add ingress rule in nodes Security Group to allow access to the Kubelet API when using ENI mode. This is needed by the metrics server to gather metrics from the Kubelet
@@ -1504,7 +1506,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.3.6...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.3.7...HEAD
+[1.3.7]: https://github.com/giantswarm/cluster-aws/compare/v1.3.6...v1.3.7
 [1.3.6]: https://github.com/giantswarm/cluster-aws/compare/v1.3.5...v1.3.6
 [1.3.5]: https://github.com/giantswarm/cluster-aws/compare/v1.3.4...v1.3.5
 [1.3.4]: https://github.com/giantswarm/cluster-aws/compare/v1.3.3...v1.3.4
