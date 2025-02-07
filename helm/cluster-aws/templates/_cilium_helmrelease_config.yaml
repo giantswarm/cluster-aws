@@ -12,7 +12,7 @@ eni:
   enabled: true
   awsReleaseExcessIPs: true
 enableIPv4Masquerade: false
-tunnel: disabled
+routingMode: native
 cluster:
     # Used by cilium to tag ENIs it creates and be able to filter and clean them up.
     name: {{ include "resource.default.name" $ | quote }}
