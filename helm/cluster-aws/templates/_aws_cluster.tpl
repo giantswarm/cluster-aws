@@ -71,6 +71,14 @@ spec:
 
         # We could also use `sourceSecurityGroupIds` here, but the ID of the "<cluster>-pods" security group isn't known yet
         cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+    additionalNodeIngressRules:
+      - description: "Allow traffic from Pods to the Kubelet API running on the nodes"
+        protocol: "tcp"
+        fromPort: 10250
+        toPort: 10250
+
+        # We could also use `sourceSecurityGroupIds` here, but the ID of the "<cluster>-pods" security group isn't known yet
+        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
     {{- end }}
     cni:
       cniIngressRules:
