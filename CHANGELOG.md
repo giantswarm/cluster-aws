@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.8] - 2025-02-07
+
 ### Changed
 
 - Cilium: Replace no longer supported `tunnel` option by `routingMode`.
@@ -1510,7 +1512,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.3.7...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.3.8...HEAD
+[1.3.8]: https://github.com/giantswarm/cluster-aws/compare/v1.3.7...v1.3.8
 [1.3.7]: https://github.com/giantswarm/cluster-aws/compare/v1.3.6...v1.3.7
 [1.3.6]: https://github.com/giantswarm/cluster-aws/compare/v1.3.5...v1.3.6
 [1.3.5]: https://github.com/giantswarm/cluster-aws/compare/v1.3.4...v1.3.5
