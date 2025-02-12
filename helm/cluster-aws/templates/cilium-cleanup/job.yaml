@@ -1,0 +1,72 @@
+{{- if eq (required "global.connectivity.cilium.ipamMode is required" .Values.global.connectivity.cilium.ipamMode) "eni" }}
+#
+# When working in eni mode and ENIs need to be deleted (e.g. on cluster deletion), Cilium first needs to detach
+# the ENIs from the EC2 instance, and then delete them.
+# If cilium-operator gets killed / removed after it detaches an ENI but before it deletes it, the ENI will be orphaned.
+#
+# This is a possible scenario on cluster deletion. To prevent it, this pre-delete hook will scale down cilium-operator before deleting.
+# This way ENIs remain attached to the EC2 instances and get automatically deleted by AWS upon instance termination.
+#
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "resource.default.name" . }}-cilium-cleanup
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    helm.sh/hook: pre-delete
+    helm.sh/hook-delete-policy: before-hook-creation
+    helm.sh/hook-weight: "0"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  template:
+    metadata:
+      labels:
+        {{- include "labels.common" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "resource.default.name" . }}-cilium-cleanup
+      containers:
+      - name: kubectl
+        image: {{ include "awsContainerImageRegistry" . }}/giantswarm/kubectl:{{ .Values.cluster.providerIntegration.kubernetesVersion }}
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        env:
+        - name: CLUSTER
+          value: {{ include "resource.default.name" . }}
+        - name: KUBECONFIG
+          value: /etc/kubeconfig/value
+        command:
+        - /bin/sh
+        args:
+        - -c
+        - |
+          echo "Scaling down cilium-operator on cluster ${CLUSTER} as it is about to be deleted."
+          kubectl scale --namespace kube-system deployment cilium-operator --replicas=0
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 256Mi
+        volumeMounts:
+          - name: kubeconfig
+            mountPath: /etc/kubeconfig
+            readOnly: true
+      restartPolicy: Never
+      volumes:
+        - name: kubeconfig
+          secret:
+            secretName: {{ include "resource.default.name" . }}-kubeconfig
+            defaultMode: 420
+  ttlSecondsAfterFinished: 86400 # 24h
+{{- end }}
