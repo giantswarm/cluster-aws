@@ -38,19 +38,27 @@ spec:
           capabilities:
             drop:
             - ALL
-          readOnlyRootFilesystem: true
         env:
         - name: CLUSTER
           value: {{ include "resource.default.name" . }}
-        - name: KUBECONFIG
-          value: /etc/kubeconfig/value
+        - name: NAMESPACE
+          value: {{ .Release.Namespace }}
         command:
         - /bin/sh
         args:
         - -c
         - |
-          echo "Scaling down cilium-operator on cluster ${CLUSTER} as it is about to be deleted."
-          kubectl scale --namespace kube-system deployment cilium-operator --replicas=0
+          echo "Fetching ${CLUSTER} kubeconfig..."
+          kubectl get secret -n ${NAMESPACE} ${CLUSTER}-kubeconfig -o jsonpath='{.data.value}' | base64 -d > /tmp/${CLUSTER}-kubeconfig
+          if [ ! -f /tmp/${CLUSTER}-kubeconfig ]; then
+            echo "Failed to fetch kubeconfig for cluster ${CLUSTER}. Assuming it is already deleted."
+            exit 0
+          fi
+
+          echo "Scaling down cilium-operator on cluster ${CLUSTER} as it is about to be deleted..."
+          kubectl --kubeconfig /tmp/${CLUSTER}-kubeconfig scale --namespace kube-system deployment cilium-operator --replicas=0
+
+          exit 0 # Ignore previous exit code, we don't want to block app deletion
         resources:
           requests:
             cpu: 10m
@@ -58,15 +66,6 @@ spec:
           limits:
             cpu: 100m
             memory: 256Mi
-        volumeMounts:
-          - name: kubeconfig
-            mountPath: /etc/kubeconfig
-            readOnly: true
       restartPolicy: Never
-      volumes:
-        - name: kubeconfig
-          secret:
-            secretName: {{ include "resource.default.name" . }}-kubeconfig
-            defaultMode: 420
   ttlSecondsAfterFinished: 86400 # 24h
 {{- end }}
