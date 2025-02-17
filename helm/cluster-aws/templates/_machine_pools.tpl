@@ -1,5 +1,6 @@
 {{- define "machine-pools" }}
 {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
+{{- if or (not $value.nodepoolType) (eq $value.nodepoolType "machinepool") }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachinePool
 metadata:
@@ -114,5 +115,6 @@ spec:
     notificationTargetARN: arn:{{ include "aws-partition" $}}:sqs:{{ include "aws-region" $ }}:{{ include "aws-account-id" $}}:{{ include "resource.default.name" $ }}-nth
     roleARN: arn:{{ include "aws-partition" $}}:iam::{{ include "aws-account-id" $}}:role/{{ include "resource.default.name" $ }}-nth-notification
 ---
+{{- end }}
 {{ end }}
 {{- end -}}
