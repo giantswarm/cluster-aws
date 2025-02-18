@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Scale down cilium-operator before deleting a cluster (only in eni mode)
-- Chart: Update `cluster` to v2.0.0.
+- Chart: Update `cluster` to v2.0.1.
 
 ## [2.6.1] - 2025-02-07
 
