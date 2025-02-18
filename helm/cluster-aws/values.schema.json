@@ -764,6 +764,12 @@
                             "title": "Cilium",
                             "description": "Configuration of cilium-app. For all available values see https://github.com/giantswarm/cilium-app."
                         },
+                        "ciliumCrossplaneResources": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "Cilium Crossplane resources",
+                            "description": "Configuration of cilium-crossplane-resources. For all available values see https://github.com/giantswarm/cilium-crossplane-resources."
+                        },
                         "ciliumServiceMonitors": {
                             "$ref": "#/$defs/app",
                             "type": "object",
