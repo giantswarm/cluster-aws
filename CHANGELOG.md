@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Values: Add schema for `cilium-crossplane-resources`.
+
 ### Changed
 
 - Scale down cilium-operator before deleting a cluster (only in eni mode)

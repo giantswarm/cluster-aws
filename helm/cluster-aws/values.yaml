@@ -274,6 +274,7 @@ global:
     certManager: {}
     chartOperatorExtensions: {}
     cilium: {}
+    ciliumCrossplaneResources: {}
     ciliumServiceMonitors: {}
     clusterAutoscaler: {}
     coreDns: {}
