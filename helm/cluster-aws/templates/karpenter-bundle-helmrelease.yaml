@@ -1,0 +1,58 @@
+{{/* Default Helm values for the app */}}
+{{- define "defaultKarpenterHelmValues" }}
+karpenterNodepools:
+  clusterName: {{ include "resource.default.name" $ }}
+  clusterRegion: {{ include "aws-region" $ }}
+
+  nodePools:
+{{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
+{{- if or (not $value.nodepoolType) (eq $value.nodepoolType "karpenter") }}
+    {{ $name }}:
+      rootVolumeSizeGB: {{ $value.rootVolumeSizeGB | default 8Gi }}
+      libVolumeSizeGB: {{ $value.libVolumeSizeGB | default 120Gi }}
+      logVolumeSizeGB: {{ $value.logVolumeSizeGB | default 30Gi }}
+{{- end }}
+{{- end }}
+
+{{- if include "hasKarpenterNodePool" . }}
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: {{ include "resource.default.name" $ }}-karpenter-bundle
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
+  labels:
+    cluster-apps-operator.giantswarm.io/watching: ""
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  suspend: false
+  releaseName: karpenter-bundle
+  targetNamespace: kube-system
+  storageNamespace: kube-system
+  chart:
+    spec:
+      chart: karpenter-bundle
+      {{- $_ := set $ "appName" "karpenter-bundle" }}
+      version: {{ include "cluster.app.version" $ }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+  dependsOn:
+      - name: {{ include "resource.default.name" $ }}-karpenter
+        namespace: {{ $.Release.Namespace }}
+  kubeConfig:
+    inCluster: true
+  interval: 5m
+  install:
+    remediation:
+      retries: 30
+  {{- $KarpenterHelmValues := (include "defaultKarpenterHelmValues" .) | fromYaml -}}
+  {{- $customKarpenterHelmValues := $.Values.global.apps.awsEbsCsiDriver.values -}}
+  {{- if $customKarpenterHelmValues }}
+  {{- $KarpenterHelmValues = merge (deepCopy $customKarpenterHelmValues) $KarpenterHelmValues -}}
+  {{- end }}
+  {{- if $KarpenterHelmValues }}
+  values: {{- $KarpenterHelmValues | toYaml | nindent 4 }}
+  {{- end }}
+{{- end }}
