@@ -9,11 +9,9 @@ data:
 
         nodePools:
       {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
-      {{- if or (not $value.nodepoolType) (eq $value.nodepoolType "karpenter") }}
+      {{- if eq $value.nodepoolType "karpenter" }}
           {{ $name }}:
-            rootVolumeSizeGB: {{ $value.rootVolumeSizeGB | default "8Gi" }}
-            libVolumeSizeGB: {{ $value.libVolumeSizeGB | default "120Gi" }}
-            logVolumeSizeGB: {{ $value.logVolumeSizeGB | default "30Gi" }}
+            {{- (tpl ($value | toYaml | toString) $) | nindent 12 }}
       {{- end }}
       {{- end }}
 kind: ConfigMap
