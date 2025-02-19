@@ -264,6 +264,15 @@
                     "type": "integer",
                     "title": "Minimum number of nodes"
                 },
+                "nodepoolType": {
+                    "type": "string",
+                    "title": "Node pool type",
+                    "description": "Controller that will manage the node pool.",
+                    "enum": [
+                        "machinepool",
+                        "karpenter"
+                    ]
+                },
                 "rootVolumeSizeGB": {
                     "type": "integer",
                     "title": "Root volume size (GB)",
