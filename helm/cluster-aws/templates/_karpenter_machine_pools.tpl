@@ -10,11 +10,11 @@ metadata:
     app.kubernetes.io/version: {{ $.Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
-  iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }} 
 spec:
   clusterName: {{ include "resource.default.name" $ }}
   # TODO: Version lo tenemos en machinepool, lo necesitamos aqui tambien?
   version: v1.29.13
+  iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }} 
 ---
 {{ end }}
 {{ end }}
