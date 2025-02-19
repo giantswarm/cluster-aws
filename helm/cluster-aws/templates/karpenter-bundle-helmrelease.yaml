@@ -43,6 +43,10 @@ spec:
   kubeConfig:
     inCluster: true # in management cluster context
   namespace: {{ $.Release.Namespace | quote }}
+  config:
+    configMap:
+      name: {{ printf "%s-cluster-values" (include "resource.default.name" $) | quote }}
+      namespace: {{ $.Release.Namespace | quote }}
   extraConfigs:
     - kind: configMap
       name: {{ printf "%s-karpenter-bundle" (include "resource.default.name" $) | quote }}
