@@ -8,9 +8,9 @@ karpenterNodepools:
 {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
 {{- if or (not $value.nodepoolType) (eq $value.nodepoolType "karpenter") }}
     {{ $name }}:
-      rootVolumeSizeGB: {{ $value.rootVolumeSizeGB | default 8Gi }}
-      libVolumeSizeGB: {{ $value.libVolumeSizeGB | default 120Gi }}
-      logVolumeSizeGB: {{ $value.logVolumeSizeGB | default 30Gi }}
+      rootVolumeSizeGB: {{ $value.rootVolumeSizeGB | default "8Gi" }}
+      libVolumeSizeGB: {{ $value.libVolumeSizeGB | default "120Gi" }}
+      logVolumeSizeGB: {{ $value.logVolumeSizeGB | default "30Gi" }}
 {{- end }}
 {{- end }}
 
