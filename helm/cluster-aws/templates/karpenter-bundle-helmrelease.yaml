@@ -29,7 +29,7 @@ metadata:
     app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
   annotations:
-    app-operator.giantswarm.io/depends-on: {{ printf "%s-kyverno" (include "resource.default.name" $) | quote }}
+    app-operator.giantswarm.io/depends-on: {{ printf "%s-kyverno-crds" (include "resource.default.name" $) | quote }}
   name: {{ printf "%s-karpenter-bundle" (include "resource.default.name" $) | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
