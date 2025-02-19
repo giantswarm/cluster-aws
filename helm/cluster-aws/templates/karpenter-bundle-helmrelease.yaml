@@ -13,6 +13,7 @@ karpenterNodepools:
       logVolumeSizeGB: {{ $value.logVolumeSizeGB | default "30Gi" }}
 {{- end }}
 {{- end }}
+{{- end }}
 
 {{- if include "hasKarpenterNodePool" . }}
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
