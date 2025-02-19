@@ -1,4 +1,4 @@
-{{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+{{- if include "hasKarpenterNodePool" . }}
 apiVersion: v1
 data:
   values: |
