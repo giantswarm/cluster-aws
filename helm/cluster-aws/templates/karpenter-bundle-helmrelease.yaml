@@ -6,7 +6,7 @@ data:
       values:
         clusterName: {{ include "resource.default.name" $ }}
         clusterRegion: {{ include "aws-region" $ }}
-        k8sVersion: {{ .Values.cluster.providerIntegration.kubernetesVersion }}
+        k8sVersion: {{ include "cluster.component.kubernetes.version" $ }}
         baseOS: {{ include "cluster.os.version" $ }}
         toolingVersion: {{ include "cluster.os.tooling.version" $ }}
         amiOwner: {{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}
