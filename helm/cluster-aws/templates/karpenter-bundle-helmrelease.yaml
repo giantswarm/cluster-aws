@@ -18,7 +18,7 @@ data:
             {{- (tpl ($value | toYaml | toString) $) | nindent 12 }}
             {{- with ($.Values.global.providerSpecific.nodePoolAmi | default $.Values.global.providerSpecific.ami) }}
             amiId: {{ . | quote }}
-            {{- else }}
+            {{- end }}
       {{- end }}
       {{- end }}
 kind: ConfigMap
