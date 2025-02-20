@@ -6,9 +6,9 @@ data:
       values:
         clusterName: {{ include "resource.default.name" $ }}
         clusterRegion: {{ include "aws-region" $ }}
-        k8sVersion: "{{ .Values.cluster.providerIntegration.kubernetesVersion }}"
-        baseOS: "{{ include "cluster.os.version" $ }}"
-        toolingVersion: "{{ include "cluster.os.tooling.version" $ }}"
+        k8sVersion: "{{ printf "%s" (.Values.cluster.providerIntegration.kubernetesVersion) }}"
+        baseOS: "{{ printf "%s" (include "cluster.os.version" $) }}"
+        toolingVersion: "{{ printf "%s" (include "cluster.os.tooling.version" $) }}"
         amiOwner: "{{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}"
 
         nodePools:
