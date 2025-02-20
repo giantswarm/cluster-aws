@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2025-02-20
+
 ### Added
 
 - Values: Add schema for `cilium-crossplane-resources`.
@@ -1574,7 +1576,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v2.6.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/giantswarm/cluster-aws/compare/v2.6.1...v3.0.0
 [2.6.1]: https://github.com/giantswarm/cluster-aws/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/giantswarm/cluster-aws/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/giantswarm/cluster-aws/compare/v2.4.0...v2.5.0
