@@ -4,6 +4,8 @@
 
 ## Configuration
 
+dummy test
+
 See our [full list of configuration options](helm/cluster-aws/README.md).
 
 ## Custom Subnet Layouts
