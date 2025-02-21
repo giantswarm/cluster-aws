@@ -35,6 +35,9 @@ metadata:
   labels:
     {{- include "labels.common" $ | nindent 4 }}
     {{- include "preventDeletionLabel" $ | nindent 4 -}}
+    {{- if (required "global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers is required" $.Values.global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers) }}
+    alpha.aws.giantswarm.io/reduced-instance-permissions-workers: "true"
+    {{- end }}
     app.kubernetes.io/version: {{ .Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}
   namespace: {{ .Release.Namespace }}
