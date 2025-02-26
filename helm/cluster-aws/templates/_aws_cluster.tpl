@@ -79,6 +79,12 @@ spec:
 
         # We could also use `sourceSecurityGroupIds` here, but the ID of the "<cluster>-pods" security group isn't known yet
         cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+      - description: "Allow traffic from Pods to the Cilium Relay port running on the nodes"
+        protocol: "tcp"
+        fromPort: 4244
+        toPort: 4244
+        # We could also use `sourceSecurityGroupIds` here, but the ID of the "<cluster>-pods" security group isn't known yet
+        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
     {{- end }}
     cni:
       cniIngressRules:
