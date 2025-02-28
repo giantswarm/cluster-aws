@@ -98,6 +98,7 @@ spec:
   ignition:
     storageType: ClusterObjectStore # store user data in S3 bucket
     version: "3.4"
+  {{- if $.Values.global.providerSpecific.nodeTerminationHandlerEnabled }}
   lifecycleHooks:
   - defaultResult: CONTINUE
 
@@ -113,6 +114,7 @@ spec:
     name: aws-node-termination-handler
     notificationTargetARN: arn:{{ include "aws-partition" $}}:sqs:{{ include "aws-region" $ }}:{{ include "aws-account-id" $}}:{{ include "resource.default.name" $ }}-nth
     roleARN: arn:{{ include "aws-partition" $}}:iam::{{ include "aws-account-id" $}}:role/{{ include "resource.default.name" $ }}-nth-notification
+  {{- end }}
 ---
 {{ end }}
 {{- end -}}

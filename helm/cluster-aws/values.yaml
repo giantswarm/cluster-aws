@@ -390,6 +390,7 @@ global:
     flatcarAwsAccount: "706635527432"
     instanceMetadataOptions:
       httpTokens: required
+    nodeTerminationHandlerEnabled: true
     reducedInstanceProfileIamPermissionsForWorkers: true
   release: {}
 internal: {}
