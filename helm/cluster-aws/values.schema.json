@@ -1832,7 +1832,7 @@
                             "type": "boolean",
                             "title": "Use the AWS Node Termination Handler app",
                             "description": "Defaults to true. Whether or not to enable the Auto Scaling Groups lifecycle hooks and use the node-termination-handler app (NTH) to manage the termination of EC2 instances.",
-                            "default": true
+                            "default": false
                         },
                         "reducedInstanceProfileIamPermissionsForWorkers": {
                             "type": "boolean",
