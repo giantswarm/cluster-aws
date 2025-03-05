@@ -1828,6 +1828,12 @@
                             "title": "Amazon machine image (AMI) for node pools",
                             "description": "If specified, this image will be used to provision EC2 instances for node pools."
                         },
+                        "nodeTerminationHandlerEnabled": {
+                            "type": "boolean",
+                            "title": "Use the AWS Node Termination Handler app",
+                            "description": "Defaults to true. Whether or not to enable the Auto Scaling Groups lifecycle hooks and use the node-termination-handler app (NTH) to manage the termination of EC2 instances.",
+                            "default": true
+                        },
                         "reducedInstanceProfileIamPermissionsForWorkers": {
                             "type": "boolean",
                             "title": "Use reduced IAM permissions on worker nodes instance profile",

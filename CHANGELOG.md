@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Chart: Update `cluster` to v2.1.1.
+- Add option `global.providerSpecific.nodeTerminationHandlerEnabled` to disable the AWS Node Termination Handler (NTH).
 
 ## [3.0.0] - 2025-02-20
 
