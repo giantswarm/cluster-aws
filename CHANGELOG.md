@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add ingress rule in nodes Security Group to allow access to the Cilium Relay when using ENI mode.
+
 ## [2.6.1] - 2025-02-07
 
 ### Added
