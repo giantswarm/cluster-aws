@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.2] - 2025-03-07
+
 ### Added
 
 - Add ingress rule in nodes Security Group to allow access to the Cilium Relay when using ENI mode.
@@ -1568,7 +1570,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v2.6.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v2.6.2...HEAD
+[2.6.2]: https://github.com/giantswarm/cluster-aws/compare/v2.6.1...v2.6.2
 [2.6.1]: https://github.com/giantswarm/cluster-aws/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/giantswarm/cluster-aws/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/giantswarm/cluster-aws/compare/v2.4.0...v2.5.0
