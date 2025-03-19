@@ -72,18 +72,40 @@ spec:
         # We could also use `sourceSecurityGroupIds` here, but the ID of the "<cluster>-pods" security group isn't known yet
         cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
     additionalNodeIngressRules:
-      - description: "Allow traffic from Pods to the Kubelet API running on the nodes"
-        protocol: "tcp"
-        fromPort: 10250
-        toPort: 10250
-
-        # We could also use `sourceSecurityGroupIds` here, but the ID of the "<cluster>-pods" security group isn't known yet
-        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
       - description: "Allow traffic from Pods to the Cilium Relay port running on the nodes"
         protocol: "tcp"
         fromPort: 4244
         toPort: 4244
-        # We could also use `sourceSecurityGroupIds` here, but the ID of the "<cluster>-pods" security group isn't known yet
+        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+      - description: "Allow traffic from Pods to Chart Operator running on the nodes"
+        protocol: "tcp"
+        fromPort: 8000
+        toPort: 8000
+        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+      - description: "Allow traffic from Pods to EBS CSI Controller running on the nodes"
+        protocol: "tcp"
+        fromPort: 8610
+        toPort: 8610
+        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+      - description: "Allow traffic from Pods to Cilium Operator and Envoy running on the nodes"
+        protocol: "tcp"
+        fromPort: 9963
+        toPort: 9964
+        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+      - description: "Allow traffic from Pods to the Kubelet API running on the nodes"
+        protocol: "tcp"
+        fromPort: 10250
+        toPort: 10250
+        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+      - description: "Allow traffic from Pods to Node Exporter running on the nodes"
+        protocol: "tcp"
+        fromPort: 10300
+        toPort: 10300
+        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+      - description: "Allow traffic from Pods to Kubernetes Resource Count Exporter running on the nodes"
+        protocol: "tcp"
+        fromPort: 10999
+        toPort: 10999
         cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
     {{- end }}
     cni:
