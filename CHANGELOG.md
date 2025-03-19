@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add ingress rule in nodes Security Group to allow access for monitoring Chart Operator, EBS CSI Controller, Cilium Operator and Node Exporter.
+
 ## [1.3.9] - 2025-02-26
 
 ### Added
