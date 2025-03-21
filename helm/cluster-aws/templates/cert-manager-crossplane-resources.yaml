@@ -2,7 +2,7 @@ apiVersion: v1
 data:
   values: |
     clusterName: {{ include "resource.default.name" $ }}
-    accountID: {{ include "aws-account-id" $ }}
+    accountID: {{ include "aws-account-id" $ | quote }}
     awsPartition: {{ include "aws-partition" $ }}
     region: {{ include "aws-region" $ }}
     # Construct OIDC domain based on cluster name and base domain
