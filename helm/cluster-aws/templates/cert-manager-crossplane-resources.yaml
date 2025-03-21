@@ -6,7 +6,9 @@ data:
     awsPartition: {{ include "aws-partition" $ }}
     region: {{ include "aws-region" $ }}
     # Construct OIDC domain based on cluster name and base domain
-    oidcDomain: {{ printf "oidc.%s.%s" (include "resource.default.name" $) .Values.global.baseDomain }}
+    {{- if .Values.global.connectivity.baseDomain }}
+    oidcDomain: "oidc.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}"
+    {{- end }}
     serviceType: managed
 kind: ConfigMap
 metadata:
