@@ -1,0 +1,22 @@
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ printf "%s-cert-manager-crossplane-resources" (include "resource.default.name" $) | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+spec:
+  catalog: {{ include "cluster.app.catalog" $ | quote }}
+  install:
+    timeout: "10m"
+  upgrade:
+    timeout: "10m"
+  kubeConfig:
+    inCluster: true # in management cluster context
+  name: cert-manager-crossplane-resources
+  namespace: {{ $.Release.Namespace | quote }}
+  {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
+  version: 0.0.1
+    {{- end }}
+{{- end }}
