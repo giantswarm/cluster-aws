@@ -1,3 +1,21 @@
+apiVersion: v1
+data:
+  values: |
+    clusterName: {{ include "resource.default.name" $ }}
+    accountID: {{ include "aws-account-id" $ }}
+    awsPartition: {{ include "aws-partition" $ }}
+    region: {{ include "aws-region" $ }}
+    # Construct OIDC domain based on cluster name and base domain
+    oidcDomain: {{ printf "oidc.%s.%s" (include "resource.default.name" $) .Values.global.baseDomain }}
+    serviceType: managed
+kind: ConfigMap
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ printf "%s-cm-crossplane-config" (include "resource.default.name" $) | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+---
 apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
@@ -7,7 +25,7 @@ metadata:
   name: {{ printf "%s-cm-crossplane-resources" (include "resource.default.name" $) | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
-  catalog: giantswarm #{{ include "cluster.app.catalog" $ | quote }}
+  catalog: giantswarm
   install:
     timeout: "10m"
   upgrade:
@@ -16,5 +34,8 @@ spec:
     inCluster: true # in management cluster context
   name: cm-crossplane-resources
   namespace: {{ $.Release.Namespace | quote }}
-  {{- $_ := set $ "appName" "cm-crossplane-resources" }}
   version: 0.0.3
+  extraConfigs:
+    - kind: configMap
+      name: {{ printf "%s-cm-crossplane-config" (include "resource.default.name" $) | quote }}
+      namespace: {{ $.Release.Namespace | quote }}
