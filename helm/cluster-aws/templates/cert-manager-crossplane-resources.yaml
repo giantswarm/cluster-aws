@@ -17,4 +17,4 @@ spec:
   name: cert-manager-crossplane-resources
   namespace: {{ $.Release.Namespace | quote }}
   {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
-  version: 0.0.1
+  version: 0.0.2

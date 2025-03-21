@@ -8,6 +8,16 @@
     defaultIssuerGroup: cert-manager.io
   ciliumNetworkPolicy:
     enabled: true
-  route53IRSA:
-    enabled: true
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: arn:{{ .Values.awsPartition | default "aws" }}:iam::{{ .Values.accountID }}:role/{{ .Values.clusterName }}-cert-manager
+  giantSwarmClusterIssuer:
+    acme:
+      dns01:
+        route53:
+          enabled: true
+          {{- $region := include "aws-region" . }}
+          region: {{ $region }}
+    http01:
+      enabled: false
 {{- end }}
