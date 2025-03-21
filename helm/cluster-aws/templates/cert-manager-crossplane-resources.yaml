@@ -36,7 +36,7 @@ spec:
     inCluster: true # in management cluster context
   name: cm-crossplane-resources
   namespace: {{ $.Release.Namespace | quote }}
-  version: 0.0.3
+  version: 0.0.4
   extraConfigs:
     - kind: configMap
       name: {{ printf "%s-cm-crossplane-config" (include "resource.default.name" $) | quote }}
