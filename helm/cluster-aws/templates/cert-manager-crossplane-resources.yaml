@@ -17,4 +17,4 @@ spec:
   name: cm-crossplane-resources
   namespace: {{ $.Release.Namespace | quote }}
   {{- $_ := set $ "appName" "cm-crossplane-resources" }}
-  version: 0.0.2
+  version: 0.0.3
