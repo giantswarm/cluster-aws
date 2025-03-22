@@ -7,7 +7,7 @@ data:
     region: {{ include "aws-region" $ }}
     # Construct OIDC domain based on cluster name and base domain
     {{- if .Values.global.connectivity.baseDomain }}
-    oidcDomain: "oidc.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}"
+    oidcDomain: "irsa.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}"
     {{- end }}
     serviceType: managed
 kind: ConfigMap
