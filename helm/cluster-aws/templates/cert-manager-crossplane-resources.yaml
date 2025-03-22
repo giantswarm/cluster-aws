@@ -6,7 +6,11 @@ data:
     awsPartition: {{ include "aws-partition" $ }}
     region: {{ include "aws-region" $ }}
     # Construct OIDC domain based on cluster name and base domain
-    {{- if .Values.global.connectivity.baseDomain }}
+    {{- if hasPrefix "cn-" (include "aws-region" .) }}
+    # For Chinese regions, extract just the domain part without https://
+    oidcDomain: "s3.{{ include "aws-region" . }}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{ include "resource.default.name" $ }}-oidc-pod-identity-v3"
+    {{- else }}
+    # For non-Chinese regions
     oidcDomain: "irsa.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}"
     {{- end }}
     serviceType: managed
