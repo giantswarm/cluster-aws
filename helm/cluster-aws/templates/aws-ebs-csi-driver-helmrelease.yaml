@@ -47,7 +47,10 @@ spec:
   interval: 5m
   install:
     remediation:
-      retries: 30
+      retries: -1
+  upgrade:
+    remediation:
+      retries: -1
   {{- $awsEbsCsiDriverHelmValues := (include "defaultAwsEbsCsiDriverHelmValues" .) | fromYaml -}}
   {{- $customAwsEbsCsiDriverHelmValues := $.Values.global.apps.awsEbsCsiDriver.values -}}
   {{- if $customAwsEbsCsiDriverHelmValues }}

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Configure HelmReleases to retry indefinitely when installation or upgrade fails by setting retries: -1.
+
 ## [3.2.1] - 2025-03-19
 
 ### Added
