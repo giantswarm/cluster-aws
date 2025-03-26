@@ -1,0 +1,47 @@
+apiVersion: v1
+data:
+  values: |
+    clusterName: {{ include "resource.default.name" $ }}
+    accountID: {{ include "aws-account-id" $ | quote }}
+    awsPartition: {{ include "aws-partition" $ }}
+    region: {{ include "aws-region" $ }}
+    # Construct OIDC domain based on cluster name and base domain
+    {{- if hasPrefix "cn-" (include "aws-region" .) }}
+    # For Chinese regions, extract just the domain part without https://
+    oidcDomain: "s3.{{ include "aws-region" . }}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{ include "resource.default.name" $ }}-oidc-pod-identity-v3"
+    {{- else }}
+    # For non-Chinese regions
+    oidcDomain: "irsa.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}"
+    {{- end }}
+    serviceType: managed
+kind: ConfigMap
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ printf "%s-cm-crossplane-config" (include "resource.default.name" $) | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+---
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ printf "%s-cm-crossplane-resources" (include "resource.default.name" $) | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+spec:
+  catalog: giantswarm
+  install:
+    timeout: "10m"
+  upgrade:
+    timeout: "10m"
+  kubeConfig:
+    inCluster: true # in management cluster context
+  name: cm-crossplane-resources
+  namespace: {{ $.Release.Namespace | quote }}
+  version: 0.0.3
+  extraConfigs:
+    - kind: configMap
+      name: {{ printf "%s-cm-crossplane-config" (include "resource.default.name" $) | quote }}
+      namespace: {{ $.Release.Namespace | quote }}
