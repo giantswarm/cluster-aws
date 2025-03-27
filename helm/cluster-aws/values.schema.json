@@ -290,6 +290,7 @@
                             "enable": true
                         },
                         "certManager": {
+                            "configTemplateName": "awsCertManagerHelmValues",
                             "enable": true
                         },
                         "chartOperatorExtensions": {

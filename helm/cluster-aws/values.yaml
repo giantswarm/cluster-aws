@@ -8,6 +8,7 @@ cluster:
       certExporter:
         enable: true
       certManager:
+        configTemplateName: awsCertManagerHelmValues
         enable: true
       chartOperatorExtensions:
         enable: true
