@@ -31,16 +31,17 @@ metadata:
   name: {{ printf "%s-cm-crossplane-resources" (include "resource.default.name" $) | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
-  catalog: giantswarm
+  {{- $_ := set $ "appName" "cm-crossplane-resources" }}
+  catalog: {{ include "cluster.app.catalog" $ }}
+  name: cm-crossplane-resources
+  version: {{ include "cluster.app.version" $ }}
   install:
     timeout: "10m"
   upgrade:
     timeout: "10m"
   kubeConfig:
-    inCluster: true # in management cluster context
-  name: cm-crossplane-resources
+    inCluster: true
   namespace: {{ $.Release.Namespace | quote }}
-  version: 0.0.3
   extraConfigs:
     - kind: configMap
       name: {{ printf "%s-cm-crossplane-config" (include "resource.default.name" $) | quote }}
