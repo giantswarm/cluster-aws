@@ -190,6 +190,7 @@ cluster:
       global.connectivity.vpcMode: private
     provider: aws
     registry:
+      mirrorsTemplateName: awsContainerMirrorRegistry
       templateName: awsContainerImageRegistry
     resourcesApi:
       bastionResourceEnabled: false

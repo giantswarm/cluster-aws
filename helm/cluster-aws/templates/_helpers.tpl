@@ -128,6 +128,17 @@ gsoci.azurecr.io
 {{- end }}
 {{- end }}
 
+{{- define "awsContainerMirrorRegistry" -}}
+{{- if hasPrefix "cn-" (include "aws-region" $ ) -}}
+docker.io:
+  - endpoint: giantswarm-registry.cn-shanghai.cr.aliyuncs.com
+  - endpoint: gsoci.azurecr.io
+gsoci.azurecr.io:
+  - endpoint: giantswarm-registry.cn-shanghai.cr.aliyuncs.com
+  - endpoint: gsoci.azurecr.io
+{{- end -}}
+{{- end -}}
+
 {{- define "awsNoProxyList" }}
 - {{ $.Values.global.connectivity.network.vpcCidr }}
 {{- end }}

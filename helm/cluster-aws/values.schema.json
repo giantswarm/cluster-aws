@@ -575,6 +575,7 @@
                     },
                     "provider": "aws",
                     "registry": {
+                        "mirrorsTemplateName": "awsContainerMirrorRegistry",
                         "templateName": "awsContainerImageRegistry"
                     },
                     "resourcesApi": {
