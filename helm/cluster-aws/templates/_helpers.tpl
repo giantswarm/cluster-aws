@@ -136,6 +136,8 @@ docker.io:
 gsoci.azurecr.io:
   - endpoint: giantswarm-registry.cn-shanghai.cr.aliyuncs.com
   - endpoint: gsoci.azurecr.io
+{{- else -}}
+{{- $.Values.global.components.containerd.containerRegistries | toYaml -}}
 {{- end -}}
 {{- end -}}
 
