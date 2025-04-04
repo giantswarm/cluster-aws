@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Configure HelmReleases to retry indefinitely when installation or upgrade fails by setting retries: -1.
+- Allow configuration of IMDS Response Hop Limit.
+- Change default ResponseHopLimit from 3 to 2 to increase security.
 
 ## [3.2.1] - 2025-03-19
 

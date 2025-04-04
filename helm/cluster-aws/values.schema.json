@@ -1811,6 +1811,12 @@
                             "description": "Instance metadata options for the EC2 instances in the cluster.",
                             "additionalProperties": false,
                             "properties": {
+                                "httpPutResponseHopLimit": {
+                                    "type": "number",
+                                    "title": "HTTP Put Response Hop Limit",
+                                    "description": "The number of allowed network hops from the instance to the metadata service.",
+                                    "default": 2
+                                },
                                 "httpTokens": {
                                     "type": "string",
                                     "title": "HTTP tokens",

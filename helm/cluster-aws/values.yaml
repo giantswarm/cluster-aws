@@ -389,6 +389,7 @@ global:
     awsClusterRoleIdentityName: default
     flatcarAwsAccount: "706635527432"
     instanceMetadataOptions:
+      httpPutResponseHopLimit: 2
       httpTokens: required
     nodeTerminationHandlerEnabled: true
     reducedInstanceProfileIamPermissionsForWorkers: true
