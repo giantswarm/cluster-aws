@@ -70,7 +70,7 @@ spec:
       maxPrice: {{ $value.spotInstances.maxPrice | quote }}
     {{- end }}
     instanceMetadataOptions:
-      {{- if eq (required "global.connectivity.cilium.ipamMode is required" .Values.global.connectivity.cilium.ipamMode) "eni" }}
+      {{- if eq (required "global.connectivity.cilium.ipamMode is required" $.Values.global.connectivity.cilium.ipamMode) "eni" }}
       httpPutResponseHopLimit: 2
       {{- else }}
       httpPutResponseHopLimit: 3
