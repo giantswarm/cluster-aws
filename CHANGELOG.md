@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.11] - 2025-04-07
+
 ### Changed
 
 - Reduce IMDS Response Hop Limit to 2 if pod networking is in ENI mode to increase security. 
@@ -1528,7 +1530,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.3.10...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v1.3.11...HEAD
+[1.3.11]: https://github.com/giantswarm/cluster-aws/compare/v1.3.10...v1.3.11
 [1.3.10]: https://github.com/giantswarm/cluster-aws/compare/v1.3.9...v1.3.10
 [1.3.9]: https://github.com/giantswarm/cluster-aws/compare/v1.3.8...v1.3.9
 [1.3.8]: https://github.com/giantswarm/cluster-aws/compare/v1.3.7...v1.3.8
