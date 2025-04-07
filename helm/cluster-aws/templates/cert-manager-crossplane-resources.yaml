@@ -1,3 +1,4 @@
+{{ if eq .Values.global.connectivity.vpcMode "private" }}
 apiVersion: v1
 data:
   values: |
@@ -19,7 +20,7 @@ metadata:
   labels:
     app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ printf "%s-cert-manager-crossplane-config" (include "resource.default.name" $) | quote }}
+  name: {{ printf "%s-cert-manager-crossplane-config" (include "resource.default.name" $) | trunc 63 | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 ---
 apiVersion: application.giantswarm.io/v1alpha1
@@ -28,7 +29,7 @@ metadata:
   labels:
     app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ printf "%s-cert-manager-crossplane-resources" (include "resource.default.name" $) | quote }}
+  name: {{ printf "%s-cm-crossplane-resources" (include "resource.default.name" $) | trunc 53 | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
   {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
@@ -44,5 +45,6 @@ spec:
   namespace: {{ $.Release.Namespace | quote }}
   extraConfigs:
     - kind: configMap
-      name: {{ printf "%s-cert-manager-crossplane-config" (include "resource.default.name" $) | quote }}
+      name: {{ printf "%s-cert-manager-crossplane-config" (include "resource.default.name" $) | trunc 63 | quote }}
       namespace: {{ $.Release.Namespace | quote }}
+{{ end }}
