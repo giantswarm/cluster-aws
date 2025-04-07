@@ -19,7 +19,7 @@ metadata:
   labels:
     app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ printf "%s-cm-crossplane-config" (include "resource.default.name" $) | quote }}
+  name: {{ printf "%s-cert-manager-crossplane-config" (include "resource.default.name" $) | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 ---
 apiVersion: application.giantswarm.io/v1alpha1
@@ -28,12 +28,12 @@ metadata:
   labels:
     app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ printf "%s-cm-crossplane-resources" (include "resource.default.name" $) | quote }}
+  name: {{ printf "%s-cert-manager-crossplane-resources" (include "resource.default.name" $) | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
-  {{- $_ := set $ "appName" "cm-crossplane-resources" }}
+  {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
   catalog: {{ include "cluster.app.catalog" $ }}
-  name: cm-crossplane-resources
+  name: cert-manager-crossplane-resources
   version: {{ include "cluster.app.version" $ }}
   install:
     timeout: "10m"
@@ -44,5 +44,5 @@ spec:
   namespace: {{ $.Release.Namespace | quote }}
   extraConfigs:
     - kind: configMap
-      name: {{ printf "%s-cm-crossplane-config" (include "resource.default.name" $) | quote }}
+      name: {{ printf "%s-cert-manager-crossplane-config" (include "resource.default.name" $) | quote }}
       namespace: {{ $.Release.Namespace | quote }}
