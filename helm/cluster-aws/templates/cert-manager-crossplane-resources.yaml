@@ -35,7 +35,7 @@ spec:
   {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
   catalog: {{ include "cluster.app.catalog" $ }}
   name: cert-manager-crossplane-resources
-  version: {{ include "cluster.app.version" $ }}
+  version: 0.0.6
   install:
     timeout: "10m"
   upgrade:
