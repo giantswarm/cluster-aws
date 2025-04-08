@@ -293,6 +293,9 @@
                             "configTemplateName": "awsCertManagerHelmValues",
                             "enable": true
                         },
+                        "certManagerCrossplaneResources": {
+                            "enable": true
+                        },
                         "chartOperatorExtensions": {
                             "enable": true
                         },
