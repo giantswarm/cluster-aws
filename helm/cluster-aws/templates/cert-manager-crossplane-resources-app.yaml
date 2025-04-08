@@ -1,4 +1,6 @@
 {{ if eq .Values.global.connectivity.vpcMode "private" }}
+{{- $resourceName := printf "%s-cert-manager-crossplane-resources" (include "resource.default.name" $) }}
+{{- $truncatedResourceName := trunc 53 $resourceName }}
 apiVersion: v1
 data:
   values: |
@@ -20,7 +22,7 @@ metadata:
   labels:
     app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ printf "%s-cert-manager-crossplane-resources" (include "resource.default.name" $) | quote }}
+  name: {{ $truncatedResourceName | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 ---
 apiVersion: application.giantswarm.io/v1alpha1
@@ -29,7 +31,7 @@ metadata:
   labels:
     app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ printf "%s-cert-manager-crossplane-resources" (include "resource.default.name" $) | quote }}
+  name: {{ $truncatedResourceName | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
   {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
@@ -46,7 +48,7 @@ spec:
   extraConfigs:
     # See above
     - kind: configMap
-      name: {{ printf "%s-cert-manager-crossplane-resources" (include "resource.default.name" $) | quote }}
+      name: {{ $truncatedResourceName | quote }}
       namespace: {{ $.Release.Namespace | quote }}
     # Created by aws-crossplane-cluster-config-operator once the cluster gets provisioned
     - kind: configMap
