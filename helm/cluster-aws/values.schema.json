@@ -762,7 +762,7 @@
                         "certManagerCrossplaneResources": {
                             "$ref": "#/$defs/app",
                             "type": "object",
-                            "title": "cert-manager Crossplane resources",
+                            "title": "CertManager Crossplane Resources",
                             "description": "Configuration of cert-manager-crossplane-resources. For all available values see https://github.com/giantswarm/cert-manager-crossplane-resources."
                         },
                         "chartOperatorExtensions": {
