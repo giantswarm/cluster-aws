@@ -1,4 +1,7 @@
 {{ if eq .Values.global.connectivity.vpcMode "private" }}
+{{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
+{{- /* Check if app is in Release CR */}}
+{{- if include "cluster.app.in-release" $ | eq "true" }}
 {{- $resourceName := printf "%s-cert-manager-crossplane-resources" (include "resource.default.name" $) }}
 {{- $truncatedResourceName := trunc 53 $resourceName }}
 apiVersion: v1
@@ -34,7 +37,6 @@ metadata:
   name: {{ $truncatedResourceName | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
-  {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
   catalog: {{ include "cluster.app.catalog" $ }}
   name: cert-manager-crossplane-resources
   version: {{ include "cluster.app.version" $ }}
@@ -54,4 +56,5 @@ spec:
     - kind: configMap
       name: {{ printf "%s-crossplane-config" (include "resource.default.name" $) | quote }}
       namespace: {{ $.Release.Namespace | quote }}
+{{- end }}
 {{- end }}
