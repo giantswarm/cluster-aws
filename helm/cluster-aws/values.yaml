@@ -8,6 +8,7 @@ cluster:
       certExporter:
         enable: true
       certManager:
+        configTemplateName: awsCertManagerHelmValues
         enable: true
       chartOperatorExtensions:
         enable: true
@@ -276,6 +277,7 @@ global:
     capiNodeLabeler: {}
     certExporter: {}
     certManager: {}
+    certManagerCrossplaneResources: {}
     chartOperatorExtensions: {}
     cilium: {}
     ciliumCrossplaneResources: {}

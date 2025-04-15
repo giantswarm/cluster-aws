@@ -1,0 +1,60 @@
+{{ if eq .Values.global.connectivity.vpcMode "private" }}
+{{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
+{{- /* Check if app is in Release CR */}}
+{{- if include "cluster.app.in-release" $ | eq "true" }}
+{{- $resourceName := printf "%s-cert-manager-crossplane-resources" (include "resource.default.name" $) }}
+{{- $truncatedResourceName := trunc 53 $resourceName }}
+apiVersion: v1
+data:
+  values: |
+    clusterName: {{ include "resource.default.name" $ }}
+    accountID: {{ include "aws-account-id" $ | quote }}
+    awsPartition: {{ include "aws-partition" $ }}
+    region: {{ include "aws-region" $ }}
+    # Construct OIDC domain based on cluster name and base domain
+    {{- if hasPrefix "cn-" (include "aws-region" .) }}
+    # For Chinese regions, extract just the domain part without https://
+    oidcDomain: "s3.{{ include "aws-region" . }}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{ include "resource.default.name" $ }}-oidc-pod-identity-v3"
+    {{- else }}
+    # For non-Chinese regions
+    oidcDomain: "irsa.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}"
+    {{- end }}
+    serviceType: managed
+kind: ConfigMap
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ $truncatedResourceName | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+---
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ $truncatedResourceName | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+spec:
+  catalog: {{ include "cluster.app.catalog" $ }}
+  name: cert-manager-crossplane-resources
+  version: {{ include "cluster.app.version" $ }}
+  install:
+    timeout: "10m"
+  upgrade:
+    timeout: "10m"
+  kubeConfig:
+    inCluster: true # in management cluster context
+  namespace: {{ $.Release.Namespace | quote }}
+  extraConfigs:
+    # See above
+    - kind: configMap
+      name: {{ $truncatedResourceName | quote }}
+      namespace: {{ $.Release.Namespace | quote }}
+    # Created by aws-crossplane-cluster-config-operator once the cluster gets provisioned
+    - kind: configMap
+      name: {{ printf "%s-crossplane-config" (include "resource.default.name" $) | quote }}
+      namespace: {{ $.Release.Namespace | quote }}
+{{- end }}
+{{- end }}

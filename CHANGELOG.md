@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `cert-manager-crossplane-resources` App in private clusters so `DNS01` `clusterIssuer`.
+- Add configuration for `DNS01` `clusterIssuer` deployed by `cert-manager-app` in private clusters.
+
 ### Changed
 
 - Configure HelmReleases to retry indefinitely when installation or upgrade fails by setting retries: -1.
