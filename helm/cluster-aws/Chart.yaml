@@ -16,7 +16,7 @@ restrictions:
     - capa
 dependencies:
   - name: cluster
-    version: "2.2.0-5ee4105a6e65ab4fcb770f3524bde47e0c795804"
+    version: "2.2.0-e3aa3e1e38df14a5c5a1ad834d0e8aa7418755a9"
     repository: https://giantswarm.github.io/cluster-test-catalog
   - name: cluster-shared
     version: "0.7.1"
