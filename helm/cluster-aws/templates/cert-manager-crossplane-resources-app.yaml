@@ -8,18 +8,23 @@ apiVersion: v1
 data:
   values: |
     clusterName: {{ include "resource.default.name" $ }}
-    accountID: {{ include "aws-account-id" $ | quote }}
-    awsPartition: {{ include "aws-partition" $ }}
-    region: {{ include "aws-region" $ }}
-    # Construct OIDC domain based on cluster name and base domain
-    {{- if hasPrefix "cn-" (include "aws-region" .) }}
-    # For Chinese regions, extract just the domain part without https://
-    oidcDomain: "s3.{{ include "aws-region" . }}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{ include "resource.default.name" $ }}-oidc-pod-identity-v3"
-    {{- else }}
-    # For non-Chinese regions
-    oidcDomain: "irsa.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}"
-    {{- end }}
-    serviceType: managed
+    # Configure the AWS provider
+    providers:
+      aws:
+        enabled: true
+        accountID: {{ include "aws-account-id" $ | quote }}
+        partition: {{ include "aws-partition" $ }}
+        region: {{ include "aws-region" $ }}
+        oidc:
+          # Construct OIDC domain based on cluster name and base domain
+          {{- if hasPrefix "cn-" (include "aws-region" .) }}
+          # For Chinese regions, extract just the domain part without https://
+          domain: "s3.{{ include "aws-region" . }}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{ include "resource.default.name" $ }}-oidc-pod-identity-v3"
+          {{- else }}
+          # For non-Chinese regions
+          domain: "irsa.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}"
+          {{- end }}
+        serviceType: managed
 kind: ConfigMap
 metadata:
   labels:
