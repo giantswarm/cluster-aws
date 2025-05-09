@@ -6,6 +6,9 @@ kind: AWSMachinePool
 metadata:
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
+    {{- if (required "global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers is required" $.Values.global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers) }}
+    alpha.aws.giantswarm.io/reduced-instance-permissions-workers: "true"
+    {{- end }}
     {{- include "labels.common" $ | nindent 4 }}
     {{- if eq (required "global.connectivity.cilium.ipamMode is required" $.Values.global.connectivity.cilium.ipamMode) "eni" }}
     alpha.aws.giantswarm.io/ipam-mode: "eni"
