@@ -1,14 +1,15 @@
 {{- define "machine-pools" }}
 {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
+{{- if or (not $value.nodepoolType) (eq $value.nodepoolType "machinepool") }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachinePool
 metadata:
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
-    {{- include "labels.common" $ | nindent 4 }}
     {{- if (required "global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers is required" $.Values.global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers) }}
     alpha.aws.giantswarm.io/reduced-instance-permissions-workers: "true"
     {{- end }}
+    {{- include "labels.common" $ | nindent 4 }}
     {{- if eq (required "global.connectivity.cilium.ipamMode is required" $.Values.global.connectivity.cilium.ipamMode) "eni" }}
     alpha.aws.giantswarm.io/ipam-mode: "eni"
     {{- end }}
@@ -116,5 +117,6 @@ spec:
     roleARN: arn:{{ include "aws-partition" $}}:iam::{{ include "aws-account-id" $}}:role/{{ include "resource.default.name" $ }}-nth-notification
   {{- end }}
 ---
+{{- end }}
 {{ end }}
 {{- end -}}
