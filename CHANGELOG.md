@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `cert-manager-crossplane-resources` App in private clusters so `DNS01` `clusterIssuer`.
 - Add configuration for `DNS01` `clusterIssuer` deployed by `cert-manager-app` in private clusters.
+- Add `karpenter` support
+  - Expose new values to configure karpenter node pools.
+  - Deploy `karpenter` app when `karpenter` node pools are configured.
 
 ### Changed
 
