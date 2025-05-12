@@ -11,10 +11,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
-  clusterName: {{ include "resource.default.name" $ }}
-  # TODO: Version lo tenemos en machinepool, lo necesitamos aqui tambien?
-  version: v1.29.13
-  iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }} 
+  iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
 ---
 {{ end }}
 {{ end }}
