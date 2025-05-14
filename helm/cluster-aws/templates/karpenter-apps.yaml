@@ -2,25 +2,23 @@
 apiVersion: v1
 data:
   values: |
-    karpenterNodepools:
-      values:
-        clusterName: {{ include "resource.default.name" $ }}
-        clusterRegion: {{ include "aws-region" $ }}
-        k8sVersion: {{ include "cluster.component.kubernetes.version" $ }}
-        baseOS: {{ include "cluster.os.version" $ }}
-        toolingVersion: {{ include "cluster.os.tooling.version" $ }}
-        amiOwner: {{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}
+    clusterName: {{ include "resource.default.name" $ }}
+    clusterRegion: {{ include "aws-region" $ }}
+    k8sVersion: {{ include "cluster.component.kubernetes.version" $ }}
+    baseOS: {{ include "cluster.os.version" $ }}
+    toolingVersion: {{ include "cluster.os.tooling.version" $ }}
+    amiOwner: {{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}
 
-        nodePools:
-      {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
-      {{- if eq $value.nodepoolType "karpenter" }}
-          {{ $name }}:
-            {{- (tpl ($value | toYaml | toString) $) | nindent 12 }}
-            {{- with ($.Values.global.providerSpecific.nodePoolAmi | default $.Values.global.providerSpecific.ami) }}
-            amiId: {{ . | quote }}
-            {{- end }}
-      {{- end }}
-      {{- end }}
+    nodePools:
+  {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
+  {{- if eq $value.nodepoolType "karpenter" }}
+      {{ $name }}:
+        {{- (tpl ($value | toYaml | toString) $) | nindent 12 }}
+        {{- with ($.Values.global.providerSpecific.nodePoolAmi | default $.Values.global.providerSpecific.ami) }}
+        amiId: {{ . | quote }}
+        {{- end }}
+  {{- end }}
+  {{- end }}
 kind: ConfigMap
 metadata:
   labels:
