@@ -1,0 +1,22 @@
+global:
+  managementCluster: test
+  metadata:
+    name: test-karpenter
+    organization: test
+  connectivity:
+    baseDomain: example.com
+  nodePools:
+    pool0:
+      maxSize: 2
+      minSize: 2
+      nodepoolType: karpenter
+  providerSpecific:
+    region: "eu-west-1"
+  release:
+    version: 29.1.0
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true
