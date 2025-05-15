@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-## [3.2.1] - 2025-03-19
+- Chart: Update `cluster` to v2.2.1.
 
-- Chart: Update `cluster` to v2.2.0.
+## [3.2.1] - 2025-03-19
 
 ### Added
 
