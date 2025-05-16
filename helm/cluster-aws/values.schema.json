@@ -597,13 +597,7 @@
                                     }
                                 }
                             }
-                        },
-                        "taints": [
-                            {
-                                "effect": "NoExecute",
-                                "key": "ebs.csi.aws.com/agent-not-ready"
-                            }
-                        ]
+                        }
                     },
                     "osImage": {
                         "variant": "3"
@@ -722,7 +716,13 @@
                                         }
                                     }
                                 }
-                            }
+                            },
+                            "taints": [
+                                {
+                                    "effect": "NoExecute",
+                                    "key": "ebs.csi.aws.com/agent-not-ready"
+                                }
+                            ]
                         }
                     }
                 }
