@@ -55,6 +55,37 @@
             "minLength": 0,
             "pattern": "^[ a-zA-Z0-9\\._:/=+-@]+$"
         },
+        "customNodeTaints": {
+            "type": "array",
+            "title": "Custom node taints",
+            "items": {
+                "type": "object",
+                "required": [
+                    "effect",
+                    "key"
+                ],
+                "properties": {
+                    "effect": {
+                        "type": "string",
+                        "title": "Effect",
+                        "enum": [
+                            "NoSchedule",
+                            "PreferNoSchedule",
+                            "NoExecute"
+                        ]
+                    },
+                    "key": {
+                        "type": "string",
+                        "title": "Key"
+                    },
+                    "value": {
+                        "type": "string",
+                        "title": "Value"
+                    }
+                }
+            },
+            "default": []
+        },
         "helmRelease": {
             "type": "object",
             "title": "App",
@@ -566,7 +597,13 @@
                                     }
                                 }
                             }
-                        }
+                        },
+                        "taints": [
+                            {
+                                "effect": "NoExecute",
+                                "key": "ebs.csi.aws.com/agent-not-ready"
+                            }
+                        ]
                     },
                     "osImage": {
                         "variant": "3"
