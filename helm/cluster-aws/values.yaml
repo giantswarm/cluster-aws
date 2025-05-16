@@ -267,6 +267,9 @@ cluster:
                         description: log volume
                     enabled: true
                     name: var-log.mount
+        taints:
+          - effect: NoExecute
+            key: ebs.csi.aws.com/agent-not-ready
 global:
   apps:
     awsCloudControllerManager: {}
