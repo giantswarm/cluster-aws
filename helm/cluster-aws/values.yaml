@@ -185,6 +185,9 @@ cluster:
               units:
                 - enabled: true
                   name: kubelet-aws-config.service
+      taints:
+        - effect: NoExecute
+          key: ebs.csi.aws.com/agent-not-ready
     osImage:
       variant: "3"
     pauseProperties:
