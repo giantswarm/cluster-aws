@@ -185,9 +185,6 @@ cluster:
               units:
                 - enabled: true
                   name: kubelet-aws-config.service
-      taints:
-        - effect: NoExecute
-          key: ebs.csi.aws.com/agent-not-ready
     osImage:
       variant: "3"
     pauseProperties:
@@ -270,6 +267,9 @@ cluster:
                         description: log volume
                     enabled: true
                     name: var-log.mount
+        taints:
+          - effect: NoExecute
+            key: ebs.csi.aws.com/agent-not-ready
 global:
   apps:
     awsCloudControllerManager: {}
