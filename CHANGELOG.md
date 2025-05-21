@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Configure HelmReleases to retry indefinitely when installation or upgrade fails by setting retries: -1.
+- Reduce IMDS Response Hop Limit to 2 if pod networking is in ENI mode to increase security. 
 
 ## [3.2.2] - 2025-05-15
 
