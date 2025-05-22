@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `cert-manager-crossplane-resources` App in private clusters so `DNS01` `clusterIssuer`.
 - Add configuration for `DNS01` `clusterIssuer` deployed by `cert-manager-app` in private clusters.
-- Apply startup taint for AWS EBS CSI driver on worker nodes.
+- Apply startup taint `ebs.csi.aws.com/agent-not-ready` for AWS EBS CSI driver on worker nodes.
 
 ### Changed
 
