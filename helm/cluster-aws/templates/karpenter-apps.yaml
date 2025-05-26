@@ -27,6 +27,38 @@ metadata:
   name: {{ include "resource.default.name" $ }}-karpenter-nodepools-config
   namespace: {{ $.Release.Namespace | quote }}
 ---
+apiVersion: v1
+data:
+  values: |
+    karpenter:
+      values:
+        controller:
+          env:
+            - name: AWS_ROLE_ARN
+              value: arn:aws:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-karpenter
+            - name: AWS_WEB_IDENTITY_TOKEN_FILE
+              value: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
+          extraVolumeMounts:
+            - name: aws-token
+              mountPath: /var/run/secrets/eks.amazonaws.com/serviceaccount/
+              readOnly: true
+        extraVolumes:
+        - name: aws-token
+          projected:
+            sources:
+              - serviceAccountToken:
+                  audience: sts.amazonaws.com
+                  expirationSeconds: 86400
+                  path: token
+
+kind: ConfigMap
+metadata:
+  labels:
+    app-operator.giantswarm.io/version: 0.0.0
+    {{ include "labels.common" $ | nindent 4 }}
+  name: {{ include "resource.default.name" $ }}-karpenter-bundle
+  namespace: {{ $.Release.Namespace | quote }}
+---
 apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
@@ -52,6 +84,9 @@ spec:
   extraConfigs:
     - kind: configMap
       name: {{ printf "%s-cluster-values" (include "resource.default.name" $) | quote }}
+      namespace: {{ $.Release.Namespace | quote }}
+    - kind: configMap
+      name: {{ include "resource.default.name" $ }}-karpenter-bundle
       namespace: {{ $.Release.Namespace | quote }}
 ---
 apiVersion: application.giantswarm.io/v1alpha1
