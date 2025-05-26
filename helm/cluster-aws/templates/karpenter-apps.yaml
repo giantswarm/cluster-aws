@@ -34,6 +34,8 @@ data:
       values:
         controller:
           env:
+            - name: AWS_REGION
+              value: {{ include "aws-region" $ }}
             - name: AWS_ROLE_ARN
               value: arn:aws:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-karpenter
             - name: AWS_WEB_IDENTITY_TOKEN_FILE
