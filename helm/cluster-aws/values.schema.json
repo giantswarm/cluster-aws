@@ -134,6 +134,15 @@
             "type": "object",
             "title": "Node pool",
             "properties": {
+                "type": {
+                    "type": "string",
+                    "title": "Node pool type",
+                    "description": "Controller that will manage the node pool. Only used to enable karpenter node pools.",
+                    "enum": [
+                        "machinepool",
+                        "karpenter"
+                    ]
+                },
                 "additionalSecurityGroups": {
                     "type": "array",
                     "title": "Machine pool additional security groups",
@@ -263,15 +272,6 @@
                 "minSize": {
                     "type": "integer",
                     "title": "Minimum number of nodes"
-                },
-                "nodepoolType": {
-                    "type": "string",
-                    "title": "Node pool type",
-                    "description": "Controller that will manage the node pool.",
-                    "enum": [
-                        "machinepool",
-                        "karpenter"
-                    ]
                 },
                 "rootVolumeSizeGB": {
                     "type": "integer",

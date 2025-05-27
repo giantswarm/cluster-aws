@@ -1,6 +1,6 @@
 {{- define "machine-pools" }}
 {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
-{{- if or (not $value.nodepoolType) (eq $value.nodepoolType "machinepool") }}
+{{- if or (not $value.type) (eq $value.type "machinepool") }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachinePool
 metadata:

@@ -1,6 +1,6 @@
 {{- define "karpenter-machine-pools" }}
 {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
-{{- if eq $value.nodepoolType "karpenter" }}
+{{- if eq $value.type "karpenter" }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: KarpenterMachinePool
 metadata:
