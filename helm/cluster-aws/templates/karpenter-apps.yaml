@@ -11,7 +11,7 @@ data:
 
     nodePools:
   {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
-  {{- if eq $value.nodepoolType "karpenter" }}
+  {{- if eq $value.type "karpenter" }}
       {{ $name }}:
         {{- (tpl ($value | toYaml | toString) $) | nindent 12 }}
         {{- with ($.Values.global.providerSpecific.nodePoolAmi | default $.Values.global.providerSpecific.ami) }}
