@@ -101,6 +101,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-karpenter-nodepools
   namespace: {{ $.Release.Namespace }}
 spec:
+  {{- $_ := set $ "appName" "karpenter-nodepools" }}
   catalog: {{ include "cluster.app.catalog" $ }}
   config:
     configMap:
