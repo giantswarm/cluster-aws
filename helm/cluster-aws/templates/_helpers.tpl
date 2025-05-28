@@ -140,7 +140,7 @@ giantswarm.io/cluster: {{ include "resource.default.name" $ }}
 {{- end -}}
 
 {{- define "hasKarpenterNodePool" -}}
-{{- range $name, $value := (coalesce .Values.global.nodePools .Values.cluster.providerIntegration.workers.defaultNodePools) }}
+{{- range $name, $value := .Values.global.nodePools }}
   {{- if eq $value.type "karpenter" }}
     {{- print "true" -}}
     {{- break -}}
