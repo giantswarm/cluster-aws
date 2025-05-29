@@ -52,6 +52,8 @@ data:
                   audience: {{ include "awsApiServerApiAudiences" $ | trim }}
                   expirationSeconds: 86400
                   path: token
+        nodeSelector:
+          node-role.kubernetes.io/control-plane: ""
 
 kind: ConfigMap
 metadata:
