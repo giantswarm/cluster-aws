@@ -4,4 +4,8 @@
 serviceAccount:
   annotations:
     eks.amazonaws.com/role-arn: "{{ .Values.global.metadata.name }}-cluster-autoscaler-role"
+{{- if include "hasKarpenterNodePool" . }}
+configmap:
+  newPodScaleUpDelay: 300s
+{{- end }}
 {{- end }}
