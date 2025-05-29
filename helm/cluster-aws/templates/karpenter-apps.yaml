@@ -24,7 +24,7 @@ kind: ConfigMap
 metadata:
   labels:
     {{- include "labels.common" $ | nindent 4 }}
-  name: {{ include "resource.default.name" $ }}-karpenter-nodepools-config
+  name: {{ include "resource.default.name" $ }}-karpenter-nodepools
   namespace: {{ $.Release.Namespace | quote }}
 ---
 apiVersion: v1
@@ -69,8 +69,8 @@ metadata:
     app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
   annotations:
-    app-operator.giantswarm.io/depends-on: {{ printf "%s-kyverno-crds" (include "resource.default.name" $) | quote }}
-  name: {{ printf "%s-karpenter-bundle" (include "resource.default.name" $) | quote }}
+    app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" $ }}-kyverno-crds
+  name: {{ include "resource.default.name" $ }}-karpenter-bundle
   namespace: {{ $.Release.Namespace | quote }}
 spec:
   {{- $_ := set $ "appName" "karpenter-bundle" }}
@@ -86,7 +86,7 @@ spec:
   namespace: {{ $.Release.Namespace | quote }}
   extraConfigs:
     - kind: configMap
-      name: {{ printf "%s-cluster-values" (include "resource.default.name" $) | quote }}
+      name: {{ include "resource.default.name" $ }}-cluster-values
       namespace: {{ $.Release.Namespace | quote }}
     - kind: configMap
       name: {{ include "resource.default.name" $ }}-karpenter-bundle
@@ -99,7 +99,7 @@ metadata:
     giantswarm.io/managed-by: {{ .Chart.Name }}
     {{- include "labels.common" $ | nindent 4 }}
   annotations:
-    app-operator.giantswarm.io/depends-on: {{ printf "%s-karpenter-bundle" (include "resource.default.name" $) | quote }}
+    app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" $ }}-karpenter-bundle
   name: {{ include "resource.default.name" $ }}-karpenter-nodepools
   namespace: {{ $.Release.Namespace }}
 spec:
@@ -125,6 +125,6 @@ spec:
   version: {{ include "cluster.app.version" $ }}
   extraConfigs:
     - kind: configMap
-      name: {{ include "resource.default.name" $ }}-karpenter-nodepools-config
+      name: {{ include "resource.default.name" $ }}-karpenter-nodepools
       namespace: {{ $.Release.Namespace }}
 {{- end }}

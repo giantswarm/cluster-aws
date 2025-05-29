@@ -220,6 +220,20 @@
                         }
                     }
                 },
+                "expireAfter": {
+                    "type": "string",
+                    "title": "Expire after",
+                    "description": "The duration the controller will wait before terminating a node, measured from when the node is created. Use either 'Never' or specify duration in the format `Xs`, `Xm`, `Xh`.",
+                    "examples": [
+                        "1h",
+                        "30m",
+                        "1h30m",
+                        "Never",
+                        "45s"
+                    ],
+                    "default": "720h",
+                    "pattern": "^(([0-9]+(s|m|h))+|Never)$"
+                },
                 "instanceType": {
                     "type": "string",
                     "title": "EC2 instance type"
@@ -306,7 +320,79 @@
                         }
                     }
                 }
-            }
+            },
+            "allOf": [
+                {
+                    "if": {
+                        "required": [
+                            "type"
+                        ],
+                        "properties": {
+                            "type": {
+                                "enum": [
+                                    "karpenter"
+                                ]
+                            }
+                        }
+                    },
+                    "then": {
+                        "not": {
+                            "anyOf": [
+                                {
+                                    "required": [
+                                        "availabilityZones"
+                                    ]
+                                },
+                                {
+                                    "required": [
+                                        "awsNodeTerminationHandler"
+                                    ]
+                                },
+                                {
+                                    "required": [
+                                        "instanceTypeOverrides"
+                                    ]
+                                },
+                                {
+                                    "required": [
+                                        "instanceType"
+                                    ]
+                                },
+                                {
+                                    "required": [
+                                        "instanceWarmup"
+                                    ]
+                                },
+                                {
+                                    "required": [
+                                        "maxHealthyPercentage"
+                                    ]
+                                },
+                                {
+                                    "required": [
+                                        "maxSize"
+                                    ]
+                                },
+                                {
+                                    "required": [
+                                        "minHealthyPercentage"
+                                    ]
+                                },
+                                {
+                                    "required": [
+                                        "minSize"
+                                    ]
+                                },
+                                {
+                                    "required": [
+                                        "spotInstances"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
         }
     },
     "type": "object",
