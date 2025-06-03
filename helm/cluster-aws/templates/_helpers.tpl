@@ -138,3 +138,12 @@ gsoci.azurecr.io
 {{- end }}
 giantswarm.io/cluster: {{ include "resource.default.name" $ }}
 {{- end -}}
+
+{{- define "hasKarpenterNodePool" -}}
+{{- range $name, $value := .Values.global.nodePools }}
+  {{- if eq $value.type "karpenter" }}
+    {{- print "true" -}}
+    {{- break -}}
+  {{- end }}
+{{- end }}
+{{- end }}
