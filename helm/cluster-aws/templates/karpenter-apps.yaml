@@ -32,6 +32,14 @@ data:
   values: |
     karpenter:
       values:
+        additionalLabels:
+          application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | default "phoenix" | quote }}
+          giantswarm.io/managed-by: {{ .Release.Name | quote }}
+          giantswarm.io/service-type: managed
+        settings:
+          clusterEndpoint: {{ printf "%s.%s" "http://api" .Values.global.connectivity.baseDomain }}
+          clusterName: {{ include "resource.default.name" $ }}
+          interruptionQueue: {{ include "resource.default.name" $ }}
         controller:
           env:
             - name: AWS_REGION
@@ -54,6 +62,9 @@ data:
                   path: token
         nodeSelector:
           node-role.kubernetes.io/control-plane: ""
+        serviceAccount:
+          annotations:
+            eks.amazonaws.com/role-arn: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-karpenter
 
 kind: ConfigMap
 metadata:
