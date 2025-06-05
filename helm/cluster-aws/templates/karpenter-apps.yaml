@@ -65,6 +65,10 @@ data:
         serviceAccount:
           annotations:
             eks.amazonaws.com/role-arn: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-karpenter
+        tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
 
 kind: ConfigMap
 metadata:
