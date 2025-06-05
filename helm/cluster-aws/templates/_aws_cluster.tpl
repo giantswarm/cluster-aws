@@ -151,6 +151,7 @@ spec:
         {{ end }}
       {{- end }}
     subnets:
+    {{- $generatedSubnetIds := dict }}
     {{- range $j, $subnet := .Values.global.connectivity.subnets }}
     {{- if $subnet.id }}
     - id: {{ $subnet.id }}
@@ -169,8 +170,19 @@ spec:
     {{- if (eq (len $az) 1) -}}
     {{- $az = printf "%s%s" (include "aws-region" $) $az -}}
     {{- end -}}
-    {{/* CAPA v2.3.0 defaults to using the `id` field as subnet name unless it's an unmanaged one (`id` starts with `subnet-`), so use CAPA's previous standard subnet naming scheme */}}
-    - id: "{{ include "resource.default.name" $ }}-subnet-{{ $subnet.isPublic | default false | ternary "public" "private" }}-{{ $az }}"
+    {{/* CAPA v2.3.0 defaults to using the `id` field as subnet name unless it's an unmanaged one (`id` starts with `subnet-`), so use CAPA's previous standard subnet naming scheme. That field must be unique since it's used as map key, so if there are too many subnets, we ensure uniqueness with a suffix. */}}
+    {{- $generatedSubnetId := printf "%s-subnet-%s-%s" (include "resource.default.name" $) ($subnet.isPublic | default false | ternary "public" "private") $az }}
+    {{- if index $generatedSubnetIds $generatedSubnetId }}
+      {{- range $i := list 1 2 3 4 5 6 7 8 9 10 }}
+        {{- $generatedSubnetIdWithSuffix := printf "%s-%d" $generatedSubnetId $i }}
+        {{- if not (index $generatedSubnetIds $generatedSubnetIdWithSuffix) }}
+          {{- $generatedSubnetId = $generatedSubnetIdWithSuffix }}
+          {{- break }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- $_ := set $generatedSubnetIds $generatedSubnetId true }}
+    - id: {{ $generatedSubnetId | quote }}
       cidrBlock: "{{ $cidr.cidr }}"
       availabilityZone: "{{ $az }}"
       isPublic: {{ $subnet.isPublic | default false }}
