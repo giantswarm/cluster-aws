@@ -9,6 +9,7 @@ data:
     toolingVersion: {{ include "cluster.os.tooling.version" $ }}
     amiOwner: {{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}
     instanceMetadataHttpTokens: {{ $.Values.global.providerSpecific.instanceMetadataOptions.httpTokens }}
+    vpcMode: {{ .Values.global.connectivity.vpcMode }}
 
     nodePools:
   {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
