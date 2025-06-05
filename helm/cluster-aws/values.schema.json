@@ -1283,7 +1283,7 @@
                                         "cidrBlocks": {
                                             "type": "array",
                                             "title": "Pod subnets",
-                                            "description": "CIDR blocks used for pods. Right now, only one block is supported.<br/><br/>**Note if you use `global.connectivity.cilium.ipamMode=eni` (https://docs.cilium.io/en/latest/network/concepts/ipam/eni/#ipam-eni):** this will be associated as secondary VPC CIDR. Therefore, only sizes /16 to /28 sizes are possible (see https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html). And `global.connectivity.eniModePodSubnets` must be a valid split of the CIDR you chose here – we recommend setting `10.1.0.0/16` here for ENI mode because the default values for `global.connectivity.eniModePodSubnets` match that CIDR.",
+                                            "description": "CIDR blocks used for pods. Multiple blocks are supported.<br/><br/>These will be associated as primary/secondary VPC CIDRs. Therefore, only sizes /16 to /28 sizes are possible (see https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html).<br/><br/>**Note if you use `global.connectivity.cilium.ipamMode=eni` (https://docs.cilium.io/en/latest/network/concepts/ipam/eni/#ipam-eni):** `global.connectivity.eniModePodSubnets` must be a valid split of the CIDR you chose here – we recommend setting `10.1.0.0/16` here for ENI mode because the default values for `global.connectivity.eniModePodSubnets` match that CIDR.",
                                             "items": {
                                                 "type": "string",
                                                 "title": "Pod subnet",
@@ -1334,9 +1334,25 @@
                                 },
                                 "vpcCidr": {
                                     "type": "string",
-                                    "title": "VPC subnet",
+                                    "title": "VPC CIDR",
                                     "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
                                     "default": "10.0.0.0/16"
+                                },
+                                "vpcCidrs": {
+                                    "type": "array",
+                                    "title": "VPC CIDRs",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "VPC CIDR",
+                                        "description": "IPv4 address range to assign to this cluster's VPC, in CIDR notation.",
+                                        "examples": [
+                                            "172.31.0.0/16"
+                                        ]
+                                    },
+                                    "default": [
+                                        "10.0.0.0/16"
+                                    ],
+                                    "minItems": 1
                                 },
                                 "vpcId": {
                                     "type": "string",

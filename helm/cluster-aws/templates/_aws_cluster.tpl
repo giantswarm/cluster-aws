@@ -120,6 +120,12 @@ spec:
       {{- if .Values.global.connectivity.network.vpcId }}
       id: {{ .Values.global.connectivity.network.vpcId }}
       {{- else }}
+      {{- if and .Values.global.connectivity.network.vpcCidr (ne .Values.global.connectivity.network.vpcCidr (.Values.global.connectivity.network.vpcCidrs | first)) }}
+        {{ fail (printf "You have a VPC CIDR block %s specified in `global.connectivity.network.vpcCidr` that is different from the the first CIDR %s in the list `global.connectivity.network.vpcCidrs`. Please remove the deprecated `global.connectivity.network.vpcCidr` and ensure `global.connectivity.network.vpcCidrs` contains the desired CIDRs. Do not change a cluster's primary CIDR. The primary CIDR must be listed first." (.Values.global.connectivity.network.vpcCidr | quote) (.Values.global.connectivity.network.vpcCidrs | first | quote)) }}
+      {{- end }}
+      {{- if not (.Values.global.connectivity.network.vpcCidr | regexMatch "/(1[6-9]|2[0-8])$") }}
+        {{ fail (printf "You have a VPC CIDR block %s in `global.connectivity.network.vpcCidr` which is not supported as AWS VPC CIDR (see https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html: /16 to /28 sizes are supported). Please change it to a valid value (see https://github.com/giantswarm/cluster-aws/tree/main/helm/cluster-aws#connectivity)." (.Values.global.connectivity.network.vpcCidr | quote)) }}
+      {{- end }}
       cidrBlock: {{ .Values.global.connectivity.network.vpcCidr }}
       {{- end }}
       {{- if .Values.global.connectivity.network.internetGatewayId }}
@@ -132,6 +138,17 @@ spec:
           {{ fail (printf "You have set `global.connectivity.cilium.ipamMode=eni`, but the pod CIDR %s is not supported as AWS VPC CIDR (see https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html: /16 to /28 sizes are supported). Please change `global.connectivity.network.pods.cidrBlocks` to a valid value (see https://github.com/giantswarm/cluster-aws/tree/main/helm/cluster-aws#connectivity)." (.Values.global.connectivity.network.pods.cidrBlocks | first | quote)) }}
         {{- end }}
         - ipv4CidrBlock: {{ .Values.global.connectivity.network.pods.cidrBlocks | first | quote }}
+      {{- else if gt (len (required "global.connectivity.network.vpcCidrs is required" .Values.global.connectivity.network.vpcCidrs)) 1 }}
+      secondaryCidrBlocks:
+        {{/* First block gets created by CAPA through `AWSCluster.spec.vpc.cidrBlock`, others must be listed here */}}
+        {{ range $cidrBlockIndex, $cidrBlock := .Values.global.connectivity.network.vpcCidrs }}
+          {{ if gt $cidrBlockIndex 0 }}
+            {{- if not ($cidrBlock | regexMatch "/(1[6-9]|2[0-8])$") }}
+              {{ fail (printf "You have a VPC CIDR block %s in `global.connectivity.network.vpcCidrs` which is not supported as AWS VPC CIDR (see https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html: /16 to /28 sizes are supported). Please change it to a valid value (see https://github.com/giantswarm/cluster-aws/tree/main/helm/cluster-aws#connectivity)." ($cidrBlock | quote)) }}
+            {{- end }}
+            - ipv4CidrBlock: {{ $cidrBlock | quote }}
+          {{- end }}
+        {{ end }}
       {{- end }}
     subnets:
     {{- range $j, $subnet := .Values.global.connectivity.subnets }}

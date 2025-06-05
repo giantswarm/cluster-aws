@@ -354,6 +354,8 @@ global:
         cidrBlocks:
           - 172.31.0.0/16
       vpcCidr: 10.0.0.0/16
+      vpcCidrs:
+        - 10.0.0.0/16
     proxy: {}
     subnets:
       - cidrBlocks:
