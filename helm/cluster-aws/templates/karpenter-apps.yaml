@@ -39,7 +39,7 @@ data:
         settings:
           clusterEndpoint: {{ printf "%s.%s" "http://api" .Values.global.connectivity.baseDomain }}
           clusterName: {{ include "resource.default.name" $ }}
-          interruptionQueue: {{ include "resource.default.name" $ }}
+          interruptionQueue: {{ include "resource.default.name" $ }}-karpenter
         controller:
           env:
             - name: AWS_REGION
