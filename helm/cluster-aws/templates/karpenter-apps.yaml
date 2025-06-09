@@ -53,6 +53,8 @@ data:
             - name: aws-iam-token
               mountPath: /var/run/secrets/eks.amazonaws.com/serviceaccount/
               readOnly: true
+          image:
+            repository: gsoci.azurecr.io/giantswarm/karpenter-controller
         extraVolumes:
         - name: aws-iam-token
           projected:
