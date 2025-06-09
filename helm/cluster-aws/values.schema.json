@@ -329,66 +329,22 @@
                         ],
                         "properties": {
                             "type": {
-                                "enum": [
-                                    "karpenter"
-                                ]
+                                "const": "karpenter"
                             }
                         }
                     },
                     "then": {
-                        "not": {
-                            "anyOf": [
-                                {
-                                    "required": [
-                                        "availabilityZones"
-                                    ]
-                                },
-                                {
-                                    "required": [
-                                        "awsNodeTerminationHandler"
-                                    ]
-                                },
-                                {
-                                    "required": [
-                                        "instanceTypeOverrides"
-                                    ]
-                                },
-                                {
-                                    "required": [
-                                        "instanceType"
-                                    ]
-                                },
-                                {
-                                    "required": [
-                                        "instanceWarmup"
-                                    ]
-                                },
-                                {
-                                    "required": [
-                                        "maxHealthyPercentage"
-                                    ]
-                                },
-                                {
-                                    "required": [
-                                        "maxSize"
-                                    ]
-                                },
-                                {
-                                    "required": [
-                                        "minHealthyPercentage"
-                                    ]
-                                },
-                                {
-                                    "required": [
-                                        "minSize"
-                                    ]
-                                },
-                                {
-                                    "required": [
-                                        "spotInstances"
-                                    ]
-                                }
-                            ]
+                        "properties": {
+                            "availabilityZones": false,
+                            "awsNodeTerminationHandler": false,
+                            "instanceType": false,
+                            "instanceTypeOverrides": false,
+                            "instanceWarmup": false,
+                            "maxHealthyPercentage": false,
+                            "maxSize": false,
+                            "minHealthyPercentage": false,
+                            "minSize": false,
+                            "spotInstances": false
                         }
                     }
                 }

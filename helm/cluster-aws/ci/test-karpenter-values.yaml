@@ -7,6 +7,12 @@ global:
     baseDomain: example.com
   nodePools:
     pool0:
+      maxSize: 2
+      minSize: 2
+      instanceTypeOverrides:
+        - r6i.xlarge
+        - m5.xlarge
+    pool1:
       type: karpenter
   providerSpecific:
     region: "eu-west-1"
