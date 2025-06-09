@@ -7,15 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Reduce IMDS Response Hop Limit to 2 if pod networking is in ENI mode to increase security. 
+
+
+## [3.3.0] - 2025-06-03
+
 ### Added
 
 - Add `cert-manager-crossplane-resources` App in private clusters so `DNS01` `clusterIssuer`.
 - Add configuration for `DNS01` `clusterIssuer` deployed by `cert-manager-app` in private clusters.
+- Apply startup taint `ebs.csi.aws.com/agent-not-ready` for AWS EBS CSI driver on worker nodes.
 
 ### Changed
 
 - Configure HelmReleases to retry indefinitely when installation or upgrade fails by setting retries: -1.
-- Reduce IMDS Response Hop Limit to 2 if pod networking is in ENI mode to increase security. 
+- Chart: Update `cluster` to v2.4.0.
 
 ## [3.2.2] - 2025-05-15
 
@@ -1617,7 +1625,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.2.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.3.0...HEAD
+[3.3.0]: https://github.com/giantswarm/cluster-aws/compare/v3.2.2...v3.3.0
 [3.2.2]: https://github.com/giantswarm/cluster-aws/compare/v3.2.1...v3.2.2
 [3.2.1]: https://github.com/giantswarm/cluster-aws/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/giantswarm/cluster-aws/compare/v3.1.1...v3.2.0
