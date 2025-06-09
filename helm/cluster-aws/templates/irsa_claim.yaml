@@ -12,7 +12,7 @@ spec:
   bucketName: {{ include "aws-account-id" . }}-g8s-{{ include "resource.default.name" $ }}-oidc-pod-identity-v3
   {{- if not hasPrefix "cn-" (include "aws-region" .) -}}
   domain: {{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}
-  {{- else -}}
+  {{- end -}}
   providerConfigRef: {{ include "resource.default.name" $ }}
   region: {{ include "aws-region" . }}
 {{- end}}
