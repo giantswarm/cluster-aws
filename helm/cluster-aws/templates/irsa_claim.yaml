@@ -1,0 +1,18 @@
+{{- if .Values.global.connectivity.dns.resolverRulesOwnerAccount }}
+apiVersion: crossplane.giantswarm.io/v1
+kind: IRSAClaim
+metadata:
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ include "resource.default.name" $ }}
+spec:
+  compositionRef:
+    name: irsa-composition
+  name: {{ include "resource.default.name" $ }}
+  bucketName: {{ include "aws-account-id" . }}-g8s-{{ include "resource.default.name" $ }}-oidc-pod-identity-v3
+  {{- if not hasPrefix "cn-" (include "aws-region" .) -}}
+  domain: {{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}
+  {{- else -}}
+  providerConfigRef: {{ include "resource.default.name" $ }}
+  region: {{ include "aws-region" . }}
+{{- end}}
