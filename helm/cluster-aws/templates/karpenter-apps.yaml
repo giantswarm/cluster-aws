@@ -115,7 +115,7 @@ metadata:
     giantswarm.io/managed-by: {{ .Chart.Name }}
     {{- include "labels.common" $ | nindent 4 }}
   annotations:
-    app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" $ }}-karpenter-app
+    app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" $ }}-karpenter
   name: {{ include "resource.default.name" $ }}-karpenter-nodepools
   namespace: {{ $.Release.Namespace }}
 spec:
