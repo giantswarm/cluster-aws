@@ -1,4 +1,4 @@
-{{- if .Values.global.connectivity.dns.resolverRulesOwnerAccount }}
+{{- if .Values.global.providerSpecific.irsa_crossplane }}
 apiVersion: crossplane.giantswarm.io/v1
 kind: IRSAClaim
 metadata:
