@@ -395,6 +395,7 @@ global:
     flatcarAwsAccount: "706635527432"
     instanceMetadataOptions:
       httpTokens: required
+    irsa_crossplane: true
     nodeTerminationHandlerEnabled: true
     reducedInstanceProfileIamPermissionsForWorkers: true
   release: {}
