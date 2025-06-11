@@ -123,7 +123,10 @@ spec:
       {{- if .Values.global.connectivity.network.vpcId }}
       id: {{ .Values.global.connectivity.network.vpcId }}
       {{- else }}
-      cidrBlock: {{ .Values.global.connectivity.network.vpcCidr }}
+      {{- if and .Values.global.connectivity.network.vpcCidr (ne .Values.global.connectivity.network.vpcCidr (required "global.connectivity.network.vpcCidrs is required" .Values.global.connectivity.network.vpcCidrs | first)) }}
+        {{ fail (printf "You have a VPC CIDR block %s specified in `global.connectivity.network.vpcCidr` that is different from the the first CIDR %s in the list `global.connectivity.network.vpcCidrs`. If this is an existing cluster template, this error happens because you need to migrate to `global.connectivity.network.vpcCidrs` (plural!). Please remove the deprecated `global.connectivity.network.vpcCidr` and ensure `global.connectivity.network.vpcCidrs` contains the desired CIDRs. If needed, `global.connectivity.network.vpcCidr` can be kept for backward compatibility, but its value must be the same as the first item in the array `global.connectivity.network.vpcCidrs`." (.Values.global.connectivity.network.vpcCidr | quote) (.Values.global.connectivity.network.vpcCidrs | first | quote)) }}
+      {{- end }}
+      cidrBlock: {{ .Values.global.connectivity.network.vpcCidrs | first | quote }}
       {{- end }}
       {{- if .Values.global.connectivity.network.internetGatewayId }}
       internetGatewayId: {{ .Values.global.connectivity.network.internetGatewayId }}
@@ -135,8 +138,24 @@ spec:
           {{ fail (printf "You have set `global.connectivity.cilium.ipamMode=eni`, but the pod CIDR %s is not supported as AWS VPC CIDR (see https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html: /16 to /28 sizes are supported). Please change `global.connectivity.network.pods.cidrBlocks` to a valid value (see https://github.com/giantswarm/cluster-aws/tree/main/helm/cluster-aws#connectivity)." (.Values.global.connectivity.network.pods.cidrBlocks | first | quote)) }}
         {{- end }}
         - ipv4CidrBlock: {{ .Values.global.connectivity.network.pods.cidrBlocks | first | quote }}
+
+        {{/* First block gets created by CAPA through `AWSCluster.spec.vpc.cidrBlock`, others must be listed here */}}
+        {{ range $cidrBlockIndex, $cidrBlock := .Values.global.connectivity.network.vpcCidrs }}
+          {{ if and (gt $cidrBlockIndex 0) (ne $cidrBlock ($.Values.global.connectivity.network.pods.cidrBlocks | first)) }}
+        - ipv4CidrBlock: {{ $cidrBlock | quote }}
+          {{- end }}
+        {{ end }}
+      {{- else if gt (len (required "global.connectivity.network.vpcCidrs is required" .Values.global.connectivity.network.vpcCidrs)) 1 }}
+      secondaryCidrBlocks:
+        {{/* First block gets created by CAPA through `AWSCluster.spec.vpc.cidrBlock`, others must be listed here */}}
+        {{ range $cidrBlockIndex, $cidrBlock := .Values.global.connectivity.network.vpcCidrs }}
+          {{ if gt $cidrBlockIndex 0 }}
+            - ipv4CidrBlock: {{ $cidrBlock | quote }}
+          {{- end }}
+        {{ end }}
       {{- end }}
     subnets:
+    {{- $generatedSubnetIds := dict }}
     {{- range $j, $subnet := .Values.global.connectivity.subnets }}
     {{- if $subnet.id }}
     - id: {{ $subnet.id }}
@@ -155,8 +174,19 @@ spec:
     {{- if (eq (len $az) 1) -}}
     {{- $az = printf "%s%s" (include "aws-region" $) $az -}}
     {{- end -}}
-    {{/* CAPA v2.3.0 defaults to using the `id` field as subnet name unless it's an unmanaged one (`id` starts with `subnet-`), so use CAPA's previous standard subnet naming scheme */}}
-    - id: "{{ include "resource.default.name" $ }}-subnet-{{ $subnet.isPublic | default false | ternary "public" "private" }}-{{ $az }}"
+    {{/* CAPA v2.3.0 defaults to using the `id` field as subnet name unless it's an unmanaged one (`id` starts with `subnet-`), so use CAPA's previous standard subnet naming scheme. That field must be unique since it's used as map key, so if there are too many subnets, we ensure uniqueness with a suffix. */}}
+    {{- $generatedSubnetId := printf "%s-subnet-%s-%s" (include "resource.default.name" $) ($subnet.isPublic | default false | ternary "public" "private") $az }}
+    {{- if index $generatedSubnetIds $generatedSubnetId }}
+      {{- range $i := list 1 2 3 4 5 6 7 8 9 10 }}
+        {{- $generatedSubnetIdWithSuffix := printf "%s-%d" $generatedSubnetId $i }}
+        {{- if not (index $generatedSubnetIds $generatedSubnetIdWithSuffix) }}
+          {{- $generatedSubnetId = $generatedSubnetIdWithSuffix }}
+          {{- break }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- $_ := set $generatedSubnetIds $generatedSubnetId true }}
+    - id: {{ $generatedSubnetId | quote }}
       cidrBlock: "{{ $cidr.cidr }}"
       availabilityZone: "{{ $az }}"
       isPublic: {{ $subnet.isPublic | default false }}
