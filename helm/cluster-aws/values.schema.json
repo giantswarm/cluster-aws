@@ -2021,6 +2021,12 @@
                                 }
                             }
                         },
+                        "irsa_crossplane": {
+                            "type": "boolean",
+                            "title": "Use Crossplane to provision IRSA infrastructure",
+                            "description": "Defaults to true. Crossplane will adopt all the resources created by IRSA Operator. If set to false, the IRSA Operator will take over the infrastructure again.",
+                            "default": true
+                        },
                         "nodePoolAmi": {
                             "type": "string",
                             "title": "Amazon machine image (AMI) for node pools",
