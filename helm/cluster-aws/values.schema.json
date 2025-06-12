@@ -133,323 +133,430 @@
         "machinePool": {
             "type": "object",
             "title": "Node pool",
-            "properties": {
-                "type": {
-                    "type": "string",
-                    "title": "Node pool type",
-                    "description": "Controller that will manage the node pool. Only used to enable karpenter node pools.",
-                    "enum": [
-                        "machinepool",
-                        "karpenter"
-                    ]
-                },
-                "additionalSecurityGroups": {
-                    "type": "array",
-                    "title": "Machine pool additional security groups",
-                    "description": "Additional security groups that will be added to the machine pool nodes.",
-                    "items": {
-                        "type": "object",
-                        "title": "security group",
-                        "properties": {
-                            "id": {
-                                "type": "string",
-                                "title": "Id of the security group",
-                                "description": "ID of the security group that will be added to the machine pool nodes. The security group must exist."
-                            }
-                        }
-                    }
-                },
-                "availabilityZones": {
-                    "type": "array",
-                    "title": "Availability zones",
-                    "items": {
-                        "type": "string",
-                        "title": "Availability zone"
-                    }
-                },
-                "awsNodeTerminationHandler": {
-                    "type": "object",
-                    "title": "aws-node-termination-handler related settings",
-                    "description": "Configuration for the ASG lifecycle hook used by aws-node-termination-handler",
-                    "properties": {
-                        "heartbeatTimeoutSeconds": {
-                            "type": "number",
-                            "title": "Heartbeat timeout for ASG lifecycle hook",
-                            "default": 1800,
-                            "maximum": 7200,
-                            "minimum": 30
-                        }
-                    }
-                },
-                "customNodeLabels": {
-                    "type": "array",
-                    "title": "Custom node labels",
-                    "items": {
-                        "type": "string",
-                        "title": "Label"
-                    }
-                },
-                "customNodeTaints": {
-                    "type": "array",
-                    "title": "Custom node taints",
-                    "items": {
-                        "type": "object",
-                        "required": [
-                            "effect",
-                            "key",
-                            "value"
-                        ],
-                        "properties": {
-                            "effect": {
-                                "type": "string",
-                                "title": "Effect",
-                                "enum": [
-                                    "NoSchedule",
-                                    "PreferNoSchedule",
-                                    "NoExecute"
-                                ]
-                            },
-                            "key": {
-                                "type": "string",
-                                "title": "Key"
-                            },
-                            "value": {
-                                "type": "string",
-                                "title": "Value"
-                            }
-                        }
-                    }
-                },
-                "expireAfter": {
-                    "type": "string",
-                    "title": "Expire after",
-                    "description": "The duration the controller will wait before terminating a node, measured from when the node is created. Use either 'Never' or specify duration in the format `Xs`, `Xm`, `Xh`.",
-                    "examples": [
-                        "1h",
-                        "30m",
-                        "1h30m",
-                        "Never",
-                        "45s"
-                    ],
-                    "default": "720h",
-                    "pattern": "^(([0-9]+(s|m|h))+|Never)$"
-                },
-                "instanceType": {
-                    "type": "string",
-                    "title": "EC2 instance type"
-                },
-                "instanceTypeOverrides": {
-                    "type": "array",
-                    "title": "Instance type overrides",
-                    "description": "Ordered list of instance types to be used for the machine pool. The first instance type that is available in the region will be used. Read more in our docs https://docs.giantswarm.io/advanced/cluster-management/node-pools-capi/",
-                    "items": {
-                        "type": "string",
-                        "title": "EC2 instance type"
-                    },
-                    "default": []
-                },
-                "instanceWarmup": {
-                    "type": "integer",
-                    "title": "Time interval, in seconds, between node replacement."
-                },
-                "libVolumeSizeGB": {
-                    "type": "integer",
-                    "title": "Lib volume size (GB)",
-                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
-                    "default": 120
-                },
-                "limits": {
-                    "type": "object",
-                    "title": "Nodepool limits",
-                    "description": "These limits constrains the maximum amount of resources that the NodePool can consume",
-                    "properties": {
-                        "cpu": {
-                            "type": "string",
-                            "description": "CPU limits are described with a DecimalSI value",
-                            "default": "1000"
-                        },
-                        "memory": {
-                            "type": "string",
-                            "description": "Memory limits are described with a BinarySI value, such as 1000Gi.",
-                            "default": "1000Gi"
-                        }
-                    }
-                },
-                "logVolumeSizeGB": {
-                    "type": "integer",
-                    "title": "Log volume size (GB)",
-                    "description": "Size of the volume mounted at `/var/log` on the worker nodes.",
-                    "default": 30
-                },
-                "maxHealthyPercentage": {
-                    "type": "integer",
-                    "title": "Maximum percentage of instances that can be in service when replacing instances.",
-                    "description": "The percentage of capacity in ASG that can be in service and healthy, or pending, to support your workload when replacing instances. A larger range increases the number of instances that can be replaced at the same time. The difference between minHealthyPercentage and maxHealthyPercentage cannot be greater than 100.",
-                    "default": 100,
-                    "maximum": 200,
-                    "minimum": 100
-                },
-                "maxSize": {
-                    "type": "integer",
-                    "title": "Maximum number of nodes"
-                },
-                "minHealthyPercentage": {
-                    "type": "integer",
-                    "title": "Minimum percentage of instances that must remain healthy during node replacement.",
-                    "default": 90,
-                    "maximum": 100,
-                    "minimum": 0
-                },
-                "minSize": {
-                    "type": "integer",
-                    "title": "Minimum number of nodes"
-                },
-                "requirements": {
-                    "type": "array",
-                    "title": "Nodepool requirements",
-                    "description": "Requirements that constrain the parameters of provisioned nodes.",
-                    "examples": [
-                        [
-                            {
-                                "key": "karpenter.k8s.aws/instance-family",
-                                "operator": "NotIn",
-                                "values": [
-                                    "t3",
-                                    "t3a",
-                                    "t2"
-                                ]
-                            },
-                            {
-                                "key": "karpenter.sh/capacity-type",
-                                "operator": "In",
-                                "values": [
-                                    "spot",
-                                    "on-demand"
-                                ]
-                            }
-                        ],
-                        [
-                            {
-                                "key": "karpenter.k8s.aws/instance-cpu",
-                                "operator": "In",
-                                "values": [
-                                    "4",
-                                    "8",
-                                    "16",
-                                    "32"
-                                ]
-                            },
-                            {
-                                "key": "karpenter.k8s.aws/instance-hypervisor",
-                                "operator": "In",
-                                "values": [
-                                    "nitro"
-                                ]
-                            },
-                            {
-                                "key": "kubernetes.io/arch",
-                                "operator": "In",
-                                "values": [
-                                    "amd64"
-                                ]
-                            },
-                            {
-                                "key": "kubernetes.io/os",
-                                "operator": "In",
-                                "values": [
-                                    "linux"
-                                ]
-                            }
-                        ]
-                    ],
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "key": {
-                                "type": "string",
-                                "description": "The label key that the selector applies to."
-                            },
-                            "operator": {
-                                "description": "Represents a key's relationship to a set of values.",
-                                "enum": [
-                                    "In",
-                                    "NotIn",
-                                    "Exists",
-                                    "DoesNotExist",
-                                    "Gt",
-                                    "Lt"
-                                ]
-                            },
-                            "values": {
-                                "type": "array",
-                                "description": "If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer.",
-                                "items": {
-                                    "type": "string"
+            "oneOf": [
+                {
+                    "allOf": [
+                        {
+                            "required": ["type"],
+                            "properties": {
+                                "type": {
+                                    "const": "karpenter"
                                 }
                             }
-                        }
-                    }
-                },
-                "rootVolumeSizeGB": {
-                    "type": "integer",
-                    "title": "Root volume size (GB)",
-                    "default": 8
-                },
-                "spotInstances": {
-                    "type": "object",
-                    "title": "Spot instances",
-                    "description": "Compared to on-demand instances, spot instances can help you save cost.",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "title": "Enable",
-                            "default": false
                         },
-                        "maxPrice": {
-                            "type": "number",
-                            "title": "Maximum price to pay per instance per hour, in USD."
+                        {
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "title": "Node pool type",
+                                    "description": "Controller that will manage the node pool. Only used to enable karpenter node pools.",
+                                    "enum": [
+                                        "machinepool",
+                                        "karpenter"
+                                    ]
+                                },
+                                "additionalSecurityGroups": {
+                                    "type": "array",
+                                    "title": "Machine pool additional security groups",
+                                    "description": "Additional security groups that will be added to the machine pool nodes.",
+                                    "items": {
+                                        "type": "object",
+                                        "title": "security group",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "title": "Id of the security group",
+                                                "description": "ID of the security group that will be added to the machine pool nodes. The security group must exist."
+                                            }
+                                        }
+                                    }
+                                },
+                                "customNodeLabels": {
+                                    "type": "array",
+                                    "title": "Custom node labels",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Label"
+                                    }
+                                },
+                                "customNodeTaints": {
+                                    "type": "array",
+                                    "title": "Custom node taints",
+                                    "items": {
+                                        "type": "object",
+                                        "required": [
+                                            "effect",
+                                            "key",
+                                            "value"
+                                        ],
+                                        "properties": {
+                                            "effect": {
+                                                "type": "string",
+                                                "title": "Effect",
+                                                "enum": [
+                                                    "NoSchedule",
+                                                    "PreferNoSchedule",
+                                                    "NoExecute"
+                                                ]
+                                            },
+                                            "key": {
+                                                "type": "string",
+                                                "title": "Key"
+                                            },
+                                            "value": {
+                                                "type": "string",
+                                                "title": "Value"
+                                            }
+                                        }
+                                    }
+                                },
+                                "expireAfter": {
+                                    "type": "string",
+                                    "title": "Expire after",
+                                    "description": "The duration the controller will wait before terminating a node, measured from when the node is created. Use either 'Never' or specify duration in the format `Xs`, `Xm`, `Xh`.",
+                                    "examples": [
+                                        "1h",
+                                        "30m",
+                                        "1h30m",
+                                        "Never",
+                                        "45s"
+                                    ],
+                                    "default": "720h",
+                                    "pattern": "^(([0-9]+(s|m|h))+|Never)$"
+                                },
+                                "libVolumeSizeGB": {
+                                    "type": "integer",
+                                    "title": "Lib volume size (GB)",
+                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
+                                    "default": 120
+                                },
+                                "limits": {
+                                    "type": "object",
+                                    "title": "Nodepool limits",
+                                    "description": "These limits constrains the maximum amount of resources that the NodePool can consume",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string",
+                                            "description": "CPU limits are described with a DecimalSI value",
+                                            "default": "1000"
+                                        },
+                                        "memory": {
+                                            "type": "string",
+                                            "description": "Memory limits are described with a BinarySI value, such as 1000Gi.",
+                                            "default": "1000Gi"
+                                        }
+                                    }
+                                },
+                                "logVolumeSizeGB": {
+                                    "type": "integer",
+                                    "title": "Log volume size (GB)",
+                                    "description": "Size of the volume mounted at `/var/log` on the worker nodes.",
+                                    "default": 30
+                                },
+                                "requirements": {
+                                    "type": "array",
+                                    "title": "Nodepool requirements",
+                                    "description": "Requirements that constrain the parameters of provisioned nodes.",
+                                    "examples": [
+                                        [
+                                            {
+                                                "key": "karpenter.k8s.aws/instance-family",
+                                                "operator": "NotIn",
+                                                "values": [
+                                                    "t3",
+                                                    "t3a",
+                                                    "t2"
+                                                ]
+                                            },
+                                            {
+                                                "key": "karpenter.sh/capacity-type",
+                                                "operator": "In",
+                                                "values": [
+                                                    "spot",
+                                                    "on-demand"
+                                                ]
+                                            }
+                                        ],
+                                        [
+                                            {
+                                                "key": "karpenter.k8s.aws/instance-cpu",
+                                                "operator": "In",
+                                                "values": [
+                                                    "4",
+                                                    "8",
+                                                    "16",
+                                                    "32"
+                                                ]
+                                            },
+                                            {
+                                                "key": "karpenter.k8s.aws/instance-hypervisor",
+                                                "operator": "In",
+                                                "values": [
+                                                    "nitro"
+                                                ]
+                                            },
+                                            {
+                                                "key": "kubernetes.io/arch",
+                                                "operator": "In",
+                                                "values": [
+                                                    "amd64"
+                                                ]
+                                            },
+                                            {
+                                                "key": "kubernetes.io/os",
+                                                "operator": "In",
+                                                "values": [
+                                                    "linux"
+                                                ]
+                                            }
+                                        ]
+                                    ],
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "key": {
+                                                "type": "string",
+                                                "description": "The label key that the selector applies to."
+                                            },
+                                            "operator": {
+                                                "description": "Represents a key's relationship to a set of values.",
+                                                "enum": [
+                                                    "In",
+                                                    "NotIn",
+                                                    "Exists",
+                                                    "DoesNotExist",
+                                                    "Gt",
+                                                    "Lt"
+                                                ]
+                                            },
+                                            "values": {
+                                                "type": "array",
+                                                "description": "If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer.",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "rootVolumeSizeGB": {
+                                    "type": "integer",
+                                    "title": "Root volume size (GB)",
+                                    "default": 8
+                                },
+                                "subnetTags": {
+                                    "type": "array",
+                                    "title": "Subnet tags",
+                                    "description": "Tags to filter which AWS subnets will be used for this node pool.",
+                                    "items": {
+                                        "type": "object",
+                                        "title": "Subnet tag",
+                                        "additionalProperties": {
+                                            "$ref": "#/$defs/awsResourceTagValue"
+                                        }
+                                    }
+                                }
+                            },
+                            "additionalProperties": false
                         }
-                    }
+                    ]
                 },
-                "subnetTags": {
-                    "type": "array",
-                    "title": "Subnet tags",
-                    "description": "Tags to filter which AWS subnets will be used for this node pool.",
-                    "items": {
-                        "type": "object",
-                        "title": "Subnet tag",
-                        "additionalProperties": {
-                            "$ref": "#/$defs/awsResourceTagValue"
-                        }
-                    }
-                }
-            },
-            "allOf": [
                 {
-                    "if": {
-                        "required": [
-                            "type"
-                        ],
-                        "properties": {
-                            "type": {
-                                "const": "karpenter"
-                            }
+                    "allOf": [
+                        {
+                            "anyOf": [
+                                {
+                                    "not": {
+                                        "required": ["type"]
+                                    }
+                                },
+                                {
+                                    "properties": {
+                                        "type": {
+                                            "const": "machinepool"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "title": "Node pool type",
+                                    "description": "Controller that will manage the node pool. Only used to enable karpenter node pools.",
+                                    "enum": [
+                                        "machinepool",
+                                        "karpenter"
+                                    ]
+                                },
+                                "additionalSecurityGroups": {
+                                    "type": "array",
+                                    "title": "Machine pool additional security groups",
+                                    "description": "Additional security groups that will be added to the machine pool nodes.",
+                                    "items": {
+                                        "type": "object",
+                                        "title": "security group",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "title": "Id of the security group",
+                                                "description": "ID of the security group that will be added to the machine pool nodes. The security group must exist."
+                                            }
+                                        }
+                                    }
+                                },
+                                "availabilityZones": {
+                                    "type": "array",
+                                    "title": "Availability zones",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Availability zone"
+                                    }
+                                },
+                                "awsNodeTerminationHandler": {
+                                    "type": "object",
+                                    "title": "aws-node-termination-handler related settings",
+                                    "description": "Configuration for the ASG lifecycle hook used by aws-node-termination-handler",
+                                    "properties": {
+                                        "heartbeatTimeoutSeconds": {
+                                            "type": "number",
+                                            "title": "Heartbeat timeout for ASG lifecycle hook",
+                                            "default": 1800,
+                                            "maximum": 7200,
+                                            "minimum": 30
+                                        }
+                                    }
+                                },
+                                "customNodeLabels": {
+                                    "type": "array",
+                                    "title": "Custom node labels",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Label"
+                                    }
+                                },
+                                "customNodeTaints": {
+                                    "type": "array",
+                                    "title": "Custom node taints",
+                                    "items": {
+                                        "type": "object",
+                                        "required": [
+                                            "effect",
+                                            "key",
+                                            "value"
+                                        ],
+                                        "properties": {
+                                            "effect": {
+                                                "type": "string",
+                                                "title": "Effect",
+                                                "enum": [
+                                                    "NoSchedule",
+                                                    "PreferNoSchedule",
+                                                    "NoExecute"
+                                                ]
+                                            },
+                                            "key": {
+                                                "type": "string",
+                                                "title": "Key"
+                                            },
+                                            "value": {
+                                                "type": "string",
+                                                "title": "Value"
+                                            }
+                                        }
+                                    }
+                                },
+                                "instanceType": {
+                                    "type": "string",
+                                    "title": "EC2 instance type"
+                                },
+                                "instanceTypeOverrides": {
+                                    "type": "array",
+                                    "title": "Instance type overrides",
+                                    "description": "Ordered list of instance types to be used for the machine pool. The first instance type that is available in the region will be used. Read more in our docs https://docs.giantswarm.io/advanced/cluster-management/node-pools-capi/",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "EC2 instance type"
+                                    },
+                                    "default": []
+                                },
+                                "instanceWarmup": {
+                                    "type": "integer",
+                                    "title": "Time interval, in seconds, between node replacement."
+                                },
+                                "libVolumeSizeGB": {
+                                    "type": "integer",
+                                    "title": "Lib volume size (GB)",
+                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
+                                    "default": 120
+                                },
+                                "logVolumeSizeGB": {
+                                    "type": "integer",
+                                    "title": "Log volume size (GB)",
+                                    "description": "Size of the volume mounted at `/var/log` on the worker nodes.",
+                                    "default": 30
+                                },
+                                "maxHealthyPercentage": {
+                                    "type": "integer",
+                                    "title": "Maximum percentage of instances that can be in service when replacing instances.",
+                                    "description": "The percentage of capacity in ASG that can be in service and healthy, or pending, to support your workload when replacing instances. A larger range increases the number of instances that can be replaced at the same time. The difference between minHealthyPercentage and maxHealthyPercentage cannot be greater than 100.",
+                                    "default": 100,
+                                    "maximum": 200,
+                                    "minimum": 100
+                                },
+                                "maxSize": {
+                                    "type": "integer",
+                                    "title": "Maximum number of nodes"
+                                },
+                                "minHealthyPercentage": {
+                                    "type": "integer",
+                                    "title": "Minimum percentage of instances that must remain healthy during node replacement.",
+                                    "default": 90,
+                                    "maximum": 100,
+                                    "minimum": 0
+                                },
+                                "minSize": {
+                                    "type": "integer",
+                                    "title": "Minimum number of nodes"
+                                },
+                                "rootVolumeSizeGB": {
+                                    "type": "integer",
+                                    "title": "Root volume size (GB)",
+                                    "default": 8
+                                },
+                                "spotInstances": {
+                                    "type": "object",
+                                    "title": "Spot instances",
+                                    "description": "Compared to on-demand instances, spot instances can help you save cost.",
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean",
+                                            "title": "Enable",
+                                            "default": false
+                                        },
+                                        "maxPrice": {
+                                            "type": "number",
+                                            "title": "Maximum price to pay per instance per hour, in USD."
+                                        }
+                                    }
+                                },
+                                "subnetTags": {
+                                    "type": "array",
+                                    "title": "Subnet tags",
+                                    "description": "Tags to filter which AWS subnets will be used for this node pool.",
+                                    "items": {
+                                        "type": "object",
+                                        "title": "Subnet tag",
+                                        "additionalProperties": {
+                                            "$ref": "#/$defs/awsResourceTagValue"
+                                        }
+                                    }
+                                }
+                            },
+                            "additionalProperties": false
                         }
-                    },
-                    "then": {
-                        "properties": {
-                            "availabilityZones": false,
-                            "awsNodeTerminationHandler": false,
-                            "instanceType": false,
-                            "instanceTypeOverrides": false,
-                            "instanceWarmup": false,
-                            "maxHealthyPercentage": false,
-                            "maxSize": false,
-                            "minHealthyPercentage": false,
-                            "minSize": false,
-                            "spotInstances": false
-                        }
-                    }
+                    ]
                 }
             ]
         }
