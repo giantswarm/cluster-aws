@@ -1883,7 +1883,7 @@
                                 }
                             }
                         },
-                        "irsa_crossplane": {
+                        "irsaCrossplane": {
                             "type": "boolean",
                             "title": "Use Crossplane to provision IRSA infrastructure",
                             "description": "Defaults to true. Crossplane will adopt all the resources created by IRSA Operator. If set to false, the IRSA Operator will take over the infrastructure again.",

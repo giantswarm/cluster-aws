@@ -15,7 +15,7 @@ metadata:
     {{- if .Values.global.connectivity.dns.resolverRulesOwnerAccount }}
     aws.giantswarm.io/resolver-rules-owner-account: "{{ .Values.global.connectivity.dns.resolverRulesOwnerAccount }}"
     {{- end}}
-    {{- if .Values.global.providerSpecific.irsa_crossplane }}
+    {{- if .Values.global.providerSpecific.irsaCrossplane }}
     giantswarm.io/pause-irsa-operator: "true"
     {{- end}}
     {{- if (eq .Values.global.connectivity.vpcMode "private") }}

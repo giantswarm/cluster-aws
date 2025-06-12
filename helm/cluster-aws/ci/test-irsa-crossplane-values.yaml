@@ -1,0 +1,19 @@
+global:
+  release:
+    version: 29.1.0
+  metadata:
+    name: test-wc-minimal
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+  providerSpecific:
+    irsaCrossplane: true
+    region: "eu-west-1"
+  managementCluster: test
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true
