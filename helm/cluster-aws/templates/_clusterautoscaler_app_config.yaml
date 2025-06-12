@@ -4,4 +4,10 @@
 serviceAccount:
   annotations:
     eks.amazonaws.com/role-arn: "{{ .Values.global.metadata.name }}-cluster-autoscaler-role"
+{{/* When there are karpenter node pools, we deploy karpenter.
+In that case, we add a delay to cluster-autoscaler, so that cluster-autoscaler and karpenter don't fight each other. */}}
+{{- if include "hasKarpenterNodePool" . }}
+configmap:
+  newPodScaleUpDelay: 300s
+{{- end }}
 {{- end }}
