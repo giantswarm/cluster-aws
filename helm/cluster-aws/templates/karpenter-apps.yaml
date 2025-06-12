@@ -55,6 +55,7 @@ data:
               readOnly: true
           image:
             repository: {{ include "awsContainerImageRegistry" . }}/giantswarm/karpenter-controller
+        dnsPolicy: Default
         extraVolumes:
         - name: aws-iam-token
           projected:
