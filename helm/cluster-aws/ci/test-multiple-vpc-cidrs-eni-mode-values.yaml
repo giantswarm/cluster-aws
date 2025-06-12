@@ -1,0 +1,63 @@
+global:
+  release:
+    version: 29.1.0
+  metadata:
+    name: test-wc-multiple-vpc-cidrs-eni-mode
+    organization: "test"
+  connectivity:
+    baseDomain: example.com
+    cilium:
+      ipamMode: eni
+    network:
+      vpcCidrs:
+        - 10.1.0.0/16
+        - 10.2.0.0/16
+        - 10.3.0.0/16
+      pods:
+        cidrBlocks:
+          - 10.50.0.0/16
+    subnets:
+      - cidrBlocks:
+          - cidr: 10.1.0.0/20
+          - cidr: 10.1.16.0/20
+          - cidr: 10.1.32.0/20
+          - cidr: 10.2.0.0/20
+          - cidr: 10.2.16.0/20
+          - cidr: 10.2.32.0/20
+          - cidr: 10.3.0.0/20
+          - cidr: 10.3.16.0/20
+          - cidr: 10.3.32.0/20
+        isPublic: true
+      - cidrBlocks:
+          - cidr: 10.1.64.0/18
+          - cidr: 10.1.128.0/18
+          - cidr: 10.1.192.0/18
+          - cidr: 10.2.64.0/18
+          - cidr: 10.2.128.0/18
+          - cidr: 10.2.192.0/18
+          - cidr: 10.3.64.0/18
+          - cidr: 10.3.128.0/18
+          - cidr: 10.3.192.0/18
+        isPublic: false
+    eniModePodSubnets:
+      - cidrBlocks:
+          - availabilityZone: a
+            cidr: 10.50.0.0/18
+            tags:
+              sigs.k8s.io/cluster-api-provider-aws/association: secondary
+          - availabilityZone: b
+            cidr: 10.50.64.0/18
+            tags:
+              sigs.k8s.io/cluster-api-provider-aws/association: secondary
+          - availabilityZone: c
+            cidr: 10.50.128.0/18
+            tags:
+              sigs.k8s.io/cluster-api-provider-aws/association: secondary
+  providerSpecific:
+    region: "eu-west-1"
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

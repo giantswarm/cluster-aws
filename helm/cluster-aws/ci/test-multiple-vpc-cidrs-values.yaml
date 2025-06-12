@@ -1,0 +1,47 @@
+global:
+  release:
+    version: 29.1.0
+  metadata:
+    name: test-wc-multiple-vpc-cidrs
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+    network:
+      vpcCidr: 10.1.0.0/16  # not needed, but should be okay to fill (for backward compatibility)
+      vpcCidrs:
+        - 10.1.0.0/16
+        - 10.2.0.0/16
+        - 10.3.0.0/16
+    subnets:
+      - cidrBlocks:
+          - cidr: 10.1.0.0/20
+          - cidr: 10.1.16.0/20
+          - cidr: 10.1.32.0/20
+          - cidr: 10.2.0.0/20
+          - cidr: 10.2.16.0/20
+          - cidr: 10.2.32.0/20
+          - cidr: 10.3.0.0/20
+          - cidr: 10.3.16.0/20
+          - cidr: 10.3.32.0/20
+        isPublic: true
+      - cidrBlocks:
+          - cidr: 10.1.64.0/18
+          - cidr: 10.1.128.0/18
+          - cidr: 10.1.192.0/18
+          - cidr: 10.2.64.0/18
+          - cidr: 10.2.128.0/18
+          - cidr: 10.2.192.0/18
+          - cidr: 10.3.64.0/18
+          - cidr: 10.3.128.0/18
+          - cidr: 10.3.192.0/18
+        isPublic: false
+  providerSpecific:
+    region: "eu-west-1"
+  managementCluster: test
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

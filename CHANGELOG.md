@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Adopt IRSA infrastructure with Crossplane. It can be disabled to use IRSA Operator.
+- Support multiple VPC CIDRs
 
 
 ## [3.3.0] - 2025-06-03
