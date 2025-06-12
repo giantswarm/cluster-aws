@@ -74,7 +74,11 @@ spec:
       maxPrice: {{ $value.spotInstances.maxPrice | quote }}
     {{- end }}
     instanceMetadataOptions:
+      {{- if eq (required "global.connectivity.cilium.ipamMode is required" $.Values.global.connectivity.cilium.ipamMode) "eni" }}
+      httpPutResponseHopLimit: 2
+      {{- else }}
       httpPutResponseHopLimit: 3
+      {{- end }}
       httpTokens: {{ $.Values.global.providerSpecific.instanceMetadataOptions.httpTokens | quote }}
   minSize: {{ $value.minSize | default 1 }}
   maxSize: {{ $value.maxSize | default 3 }}
