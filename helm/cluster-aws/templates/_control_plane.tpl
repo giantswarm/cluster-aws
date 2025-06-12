@@ -37,7 +37,11 @@ additionalSecurityGroups:
 {{- toYaml .Values.global.controlPlane.additionalSecurityGroups | nindent 2 }}
 {{- end }}
 instanceMetadataOptions:
+{{- if eq (required "global.connectivity.cilium.ipamMode is required" .Values.global.connectivity.cilium.ipamMode) "eni" }}
+  httpPutResponseHopLimit: 2
+{{- else }}
   httpPutResponseHopLimit: 3
+{{- end }}
   httpTokens: {{ .Values.global.providerSpecific.instanceMetadataOptions.httpTokens | quote }}
 sshKeyName: ""
 subnet:
