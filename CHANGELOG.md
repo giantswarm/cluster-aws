@@ -7,15 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.4.0] - 2025-06-12
+
 ### Changed
 
-- Reduce IMDS Response Hop Limit to 2 if pod networking is in ENI mode to increase security. 
+- Reduce IMDS Response Hop Limit to 2 if pod networking is in ENI mode to increase security.
 
 ### Added
 
 - Adopt IRSA infrastructure with Crossplane. It can be disabled to use IRSA Operator.
 - Support multiple VPC CIDRs
-
+- Add `karpenter` support
+  - Expose new values to configure karpenter node pools.
+  - Deploy `karpenter` app when `karpenter` node pools are configured.
 
 ## [3.3.0] - 2025-06-03
 
@@ -24,9 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `cert-manager-crossplane-resources` App in private clusters so `DNS01` `clusterIssuer`.
 - Add configuration for `DNS01` `clusterIssuer` deployed by `cert-manager-app` in private clusters.
 - Apply startup taint `ebs.csi.aws.com/agent-not-ready` for AWS EBS CSI driver on worker nodes.
-- Add `karpenter` support
-  - Expose new values to configure karpenter node pools.
-  - Deploy `karpenter` app when `karpenter` node pools are configured.
 
 ### Changed
 
@@ -1633,7 +1634,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.4.0...HEAD
+[3.4.0]: https://github.com/giantswarm/cluster-aws/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/giantswarm/cluster-aws/compare/v3.2.2...v3.3.0
 [3.2.2]: https://github.com/giantswarm/cluster-aws/compare/v3.2.1...v3.2.2
 [3.2.1]: https://github.com/giantswarm/cluster-aws/compare/v3.2.0...v3.2.1
