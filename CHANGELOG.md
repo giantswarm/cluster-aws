@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Only deploy `node-termination-handler` when there are non karpenter node pools.
+
 ## [3.4.0] - 2025-06-12
 
 ### Changed
