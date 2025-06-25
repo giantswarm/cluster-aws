@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Only deploy `node-termination-handler` when there are non-karpenter node pools because karpenter takes care of node draining
 
+### Fixed
+
+- Use reduced IAM permissions on `karpenter` worker nodes instance profile. This can be toggled back with `global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers`.
+
 ## [3.4.0] - 2025-06-12
 
 ### Changed
