@@ -41,7 +41,7 @@ global:
   podSecurityStandards:
     enforced: {{ .Values.global.podSecurityStandards.enforced }}
 {{- end }}
-{{- if .Values.global.providerSpecific.nodeTerminationHandlerEnabled }}
+{{- if and (include "hasAWSMachinePools" .) .Values.global.providerSpecific.nodeTerminationHandlerEnabled }}
 ---
 apiVersion: v1
 data:

@@ -147,3 +147,12 @@ giantswarm.io/cluster: {{ include "resource.default.name" $ }}
   {{- end }}
 {{- end }}
 {{- end }}
+
+{{- define "hasAWSMachinePools" -}}
+{{- range $name, $value := .Values.global.nodePools }}
+  {{- if ne $value.type "karpenter" }}
+    {{- print "true" -}}
+    {{- break -}}
+  {{- end }}
+{{- end }}
+{{- end }}
