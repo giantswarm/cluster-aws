@@ -72,9 +72,12 @@ imageLookupBaseOS: "{{ include "cluster.os.version" $ }}"
 {{- /* Get OS name, release channel and tooling version, which we use in the OS image name. */}}
 {{- $osName := include "cluster.os.name" $ }}
 {{- $osReleaseChannel := include "cluster.os.releaseChannel" $ }}
+{{- $osVersion := include "cluster.os.version" $ }}
 {{- $osToolingVersion := include "cluster.os.tooling.version" $ }}
+{{- $k8sVersion := include "cluster.component.kubernetes.version" $ }}
 {{- /* Build the OS image name. The OS images are built automatically by the CI. */}}
-imageLookupFormat: {{ $osName }}-{{$osReleaseChannel }}-{{ "{{.BaseOS}}-kube-{{.K8sVersion}}" }}-tooling-{{ $osToolingVersion }}-gs
+{{- /* Example result: `flatcar-stable-4230.2.0-kube-1.33.2-tooling-1.26.1-gs` */}}
+imageLookupFormat: {{ $osName }}-{{$osReleaseChannel }}-{{$osVersion}}-kube-{{$k8sVersion}}-tooling-{{ $osToolingVersion }}-gs
 imageLookupOrg: "{{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}"
 {{- end }}
 
