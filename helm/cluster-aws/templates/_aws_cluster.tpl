@@ -197,6 +197,9 @@ spec:
         {{- if $subnet.tags }}
         {{- toYaml $subnet.tags | nindent 8 }}
         {{- end }}
+        {{- if not (hasKey $subnet.tags "giantswarm.io/role") and not ($subnet.isPublic | default false) }}
+        giantswarm.io/role: "nodes"
+        {{- end }}
         {{- if $cidr.tags }}
         {{- toYaml $cidr.tags | nindent 8 }}
         {{- end }}

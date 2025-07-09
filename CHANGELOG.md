@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `giantswarm.io/role: nodes` by default to private subnets used for nodes. Can be overwritten.
+
 ### Changed
 
 - Only deploy `node-termination-handler` when there are non-karpenter node pools because karpenter takes care of node draining
