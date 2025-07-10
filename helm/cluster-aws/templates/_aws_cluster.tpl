@@ -201,7 +201,7 @@ spec:
         When set to "nodes", it marks this subnet as available for worker nodes.
         This helps distinguish between private subnets used for nodes vs pods.
         */}}
-        {{- if and (not (hasKey $subnet.tags "giantswarm.io/role")) (not ($subnet.isPublic | default false)) }}
+        {{- if and (not (hasKey ($subnet.tags | default dict) "giantswarm.io/role")) (not ($subnet.isPublic | default false)) }}
         giantswarm.io/role: "nodes"
         {{- end }}
         {{- if $cidr.tags }}
