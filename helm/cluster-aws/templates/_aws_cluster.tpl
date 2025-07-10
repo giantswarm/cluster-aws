@@ -192,7 +192,6 @@ spec:
       cidrBlock: "{{ $cidr.cidr }}"
       availabilityZone: "{{ $az }}"
       isPublic: {{ $subnet.isPublic | default false }}
-      {{- if or $subnet.tags $cidr.tags }}
       tags:
         {{- if $subnet.tags }}
         {{- toYaml $subnet.tags | nindent 8 }}
@@ -208,7 +207,6 @@ spec:
         {{- if $cidr.tags }}
         {{- toYaml $cidr.tags | nindent 8 }}
         {{- end }}
-      {{- end }}
     {{- end }}
     {{- end }}
     {{- end }}
