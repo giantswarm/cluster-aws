@@ -17,7 +17,7 @@ spec:
   iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
   ec2NodeClass:
     amiName: flatcar-stable-{{ include "cluster.os.version" $ }}-kube-{{ include "cluster.component.kubernetes.version" $ }}-tooling-{{ include "cluster.os.tooling.version" $ }}-gs
-    amiOwner: {{ if hasPrefix "cn-" (include "aws-region" $) }}306934455918{{else}}706635527432{{end}}
+    amiOwner: {{ if hasPrefix "cn-" (include "aws-region" $) }}"306934455918"{{else}}"706635527432"{{end}}
     securityGroups:
       sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
       sigs.k8s.io/cluster-api-provider-aws/role: node
@@ -62,10 +62,10 @@ spec:
         - key: karpenter.k8s.aws/instance-cpu
           operator: In
           values:
-          - 4
-          - 8
-          - 16
-          - 32
+          - "4"
+          - "8"
+          - "16"
+          - "32"
         - key: karpenter.k8s.aws/instance-hypervisor
           operator: In
           values:
