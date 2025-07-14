@@ -36,7 +36,7 @@ spec:
     template:
       metadata:
         labels:
-          giantswarm.io/machine-pool: {{ $.Values.clusterName }}-{{ $name }}
+          giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
       spec:
         expireAfter: {{ $value.expireAfter | default "720h" }}
         requirements:
