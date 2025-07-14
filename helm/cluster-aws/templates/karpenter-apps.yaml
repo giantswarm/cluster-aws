@@ -1,32 +1,32 @@
 {{- if include "hasKarpenterNodePool" . }}
-apiVersion: v1
-data:
-  values: |
-    clusterName: {{ include "resource.default.name" $ }}
-    clusterRegion: {{ include "aws-region" $ }}
-    k8sVersion: {{ include "cluster.component.kubernetes.version" $ }}
-    baseOS: {{ include "cluster.os.version" $ }}
-    toolingVersion: {{ include "cluster.os.tooling.version" $ }}
-    amiOwner: {{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}
-    instanceMetadataHttpTokens: {{ $.Values.global.providerSpecific.instanceMetadataOptions.httpTokens }}
-    vpcMode: {{ .Values.global.connectivity.vpcMode }}
+{{/*apiVersion: v1*/}}
+{{/*data:*/}}
+{{/*  values: |*/}}
+{{/*    clusterName: {{ include "resource.default.name" $ }}*/}}
+{{/*    clusterRegion: {{ include "aws-region" $ }}*/}}
+{{/*    k8sVersion: {{ include "cluster.component.kubernetes.version" $ }}*/}}
+{{/*    baseOS: {{ include "cluster.os.version" $ }}*/}}
+{{/*    toolingVersion: {{ include "cluster.os.tooling.version" $ }}*/}}
+{{/*    amiOwner: {{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}*/}}
+{{/*    instanceMetadataHttpTokens: {{ $.Values.global.providerSpecific.instanceMetadataOptions.httpTokens }}*/}}
+{{/*    vpcMode: {{ .Values.global.connectivity.vpcMode }}*/}}
 
-    nodePools:
-  {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}
-  {{- if eq $value.type "karpenter" }}
-      {{ $name }}:
-        {{- (tpl ($value | toYaml | toString) $) | nindent 12 }}
-        {{- with ($.Values.global.providerSpecific.nodePoolAmi | default $.Values.global.providerSpecific.ami) }}
-        amiId: {{ . | quote }}
-        {{- end }}
-  {{- end }}
-  {{- end }}
-kind: ConfigMap
-metadata:
-  labels:
-    {{- include "labels.common" $ | nindent 4 }}
-  name: {{ include "resource.default.name" $ }}-karpenter-nodepools
-  namespace: {{ $.Release.Namespace | quote }}
+{{/*    nodePools:*/}}
+{{/*  {{- range $name, $value := .Values.global.nodePools | default .Values.cluster.providerIntegration.workers.defaultNodePools }}*/}}
+{{/*  {{- if eq $value.type "karpenter" }}*/}}
+{{/*      {{ $name }}:*/}}
+{{/*        {{- (tpl ($value | toYaml | toString) $) | nindent 12 }}*/}}
+{{/*        {{- with ($.Values.global.providerSpecific.nodePoolAmi | default $.Values.global.providerSpecific.ami) }}*/}}
+{{/*        amiId: {{ . | quote }}*/}}
+{{/*        {{- end }}*/}}
+{{/*  {{- end }}*/}}
+{{/*  {{- end }}*/}}
+{{/*kind: ConfigMap*/}}
+{{/*metadata:*/}}
+{{/*  labels:*/}}
+{{/*    {{- include "labels.common" $ | nindent 4 }}*/}}
+{{/*  name: {{ include "resource.default.name" $ }}-karpenter-nodepools*/}}
+{{/*  namespace: {{ $.Release.Namespace | quote }}*/}}
 ---
 apiVersion: v1
 data:
@@ -110,40 +110,40 @@ spec:
     - kind: configMap
       name: {{ include "resource.default.name" $ }}-karpenter-bundle
       namespace: {{ $.Release.Namespace | quote }}
----
-apiVersion: application.giantswarm.io/v1alpha1
-kind: App
-metadata:
-  labels:
-    giantswarm.io/managed-by: {{ .Chart.Name }}
-    {{- include "labels.common" $ | nindent 4 }}
-  annotations:
-    app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" $ }}-karpenter
-  name: {{ include "resource.default.name" $ }}-karpenter-nodepools
-  namespace: {{ $.Release.Namespace }}
-spec:
-  {{- $_ := set $ "appName" "karpenter-nodepools" }}
-  catalog: {{ include "cluster.app.catalog" $ }}
-  config:
-    configMap:
-      name: {{ include "resource.default.name" $ }}-cluster-values
-      namespace: {{ $.Release.Namespace }}
-  install:
-    timeout: "10m"
-  upgrade:
-    timeout: "10m"
-  kubeConfig:
-    context:
-      name: {{ include "resource.default.name" $ }}-admin@{{ include "resource.default.name" $ }}
-    inCluster: false
-    secret:
-      name: {{ include "resource.default.name" $ }}-kubeconfig
-      namespace: {{ $.Release.Namespace}}
-  name: karpenter-nodepools
-  namespace: kube-system
-  version: {{ include "cluster.app.version" $ }}
-  extraConfigs:
-    - kind: configMap
-      name: {{ include "resource.default.name" $ }}-karpenter-nodepools
-      namespace: {{ $.Release.Namespace }}
+{{/*---*/}}
+{{/*apiVersion: application.giantswarm.io/v1alpha1*/}}
+{{/*kind: App*/}}
+{{/*metadata:*/}}
+{{/*  labels:*/}}
+{{/*    giantswarm.io/managed-by: {{ .Chart.Name }}*/}}
+{{/*    {{- include "labels.common" $ | nindent 4 }}*/}}
+{{/*  annotations:*/}}
+{{/*    app-operator.giantswarm.io/depends-on: {{ include "resource.default.name" $ }}-karpenter*/}}
+{{/*  name: {{ include "resource.default.name" $ }}-karpenter-nodepools*/}}
+{{/*  namespace: {{ $.Release.Namespace }}*/}}
+{{/*spec:*/}}
+{{/*  {{- $_ := set $ "appName" "karpenter-nodepools" }}*/}}
+{{/*  catalog: {{ include "cluster.app.catalog" $ }}*/}}
+{{/*  config:*/}}
+{{/*    configMap:*/}}
+{{/*      name: {{ include "resource.default.name" $ }}-cluster-values*/}}
+{{/*      namespace: {{ $.Release.Namespace }}*/}}
+{{/*  install:*/}}
+{{/*    timeout: "10m"*/}}
+{{/*  upgrade:*/}}
+{{/*    timeout: "10m"*/}}
+{{/*  kubeConfig:*/}}
+{{/*    context:*/}}
+{{/*      name: {{ include "resource.default.name" $ }}-admin@{{ include "resource.default.name" $ }}*/}}
+{{/*    inCluster: false*/}}
+{{/*    secret:*/}}
+{{/*      name: {{ include "resource.default.name" $ }}-kubeconfig*/}}
+{{/*      namespace: {{ $.Release.Namespace}}*/}}
+{{/*  name: karpenter-nodepools*/}}
+{{/*  namespace: kube-system*/}}
+{{/*  version: {{ include "cluster.app.version" $ }}*/}}
+{{/*  extraConfigs:*/}}
+{{/*    - kind: configMap*/}}
+{{/*      name: {{ include "resource.default.name" $ }}-karpenter-nodepools*/}}
+{{/*      namespace: {{ $.Release.Namespace }}*/}}
 {{- end }}
