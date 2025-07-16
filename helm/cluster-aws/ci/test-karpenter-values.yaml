@@ -8,6 +8,16 @@ global:
   nodePools:
     pool1:
       type: karpenter
+      consolidateAfter: 5m
+      consolidationPolicy: WhenEmptyOrUnderutilized
+      consolidationBudgets:
+        - nodes: "20%"
+        - schedule: "0 9 * * mon-fri"
+          duration: "8h"
+          nodes: "0"
+          reasons:
+            - "Drifted"
+      expireAfter: 20h
       requirements:
         - key: karpenter.k8s.aws/instance-cpu
           operator: In
