@@ -9,12 +9,6 @@ global:
     pool1:
       type: karpenter
       requirements:
-        - key: karpenter.k8s.aws/instance-family
-          operator: NotIn
-          values:
-            - t3
-            - t3a
-            - t2
         - key: karpenter.k8s.aws/instance-cpu
           operator: In
           values:
@@ -22,14 +16,6 @@ global:
             - "8"
             - "16"
             - "32"
-        - key: karpenter.k8s.aws/instance-hypervisor
-          operator: In
-          values:
-            - nitro
-        - key: kubernetes.io/arch
-          operator: In
-          values:
-            - amd64
         - key: karpenter.sh/capacity-type
           operator: In
           values:
@@ -39,6 +25,11 @@ global:
           operator: In
           values:
             - linux
+      customNodeLabels:
+        - mycustomlabel=yeaaah
+      customNodeTaints:
+        - key: example.com/special-taint
+          effect: NoSchedule
   providerSpecific:
     region: "eu-west-1"
   release:
