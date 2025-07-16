@@ -32,6 +32,15 @@ spec:
       {{- end }}
       {{- end }}
   nodePool:
+    disruption:
+      consolidateAfter: {{ $value.consolidateAfter | default "3m" }}
+      {{- with $value.consolidationPolicy }}
+      consolidationPolicy: {{ . }}
+      {{- end }}
+      {{- with $value.consolidationBudgets }}
+      budgets:
+      {{ toYaml . | nindent 8 }}
+      {{- end }}
     {{- $limits := default (dict "cpu" "1000" "memory" "1000Gi") $value.limits }}
     limits:
       cpu: {{ $limits.cpu }}
@@ -49,7 +58,9 @@ spec:
           {{- end }}
           {{- end }}
       spec:
-        expireAfter: {{ $value.expireAfter | default "720h" }}
+        {{- with $value.expireAfter }}
+        expireAfter: {{ . }}
+        {{- end }}
         requirements:
         {{- range $value.requirements }}
         - key: {{ .key }}
@@ -99,7 +110,7 @@ spec:
           value: "true"
         {{- with $value.customNodeTaints }}
         taints:
-        {{- range $value.customNodeTaints }}
+        {{- range . }}
         - key: {{ .key }}
           effect: {{ .effect }}
           {{- if .value }}
