@@ -24,19 +24,30 @@ spec:
     subnets:
       sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
       giantswarm.io/role: nodes
-  nodePool:
-    limits:
-      {{- if $value.limits }}
-      cpu: {{ $value.limits.cpu | default "1000" }}
-      memory: {{ $value.limits.memory | default "1000Gi" }}
-      {{- else }}
-      cpu: "1000"
-      memory: "1000Gi"
+      {{- if $value.subnetTags }}
+      {{- range $value.subnetTags }}
+      {{- range $key, $val := . }}
+      {{ $key }}: {{ $val | quote }}
       {{- end }}
+      {{- end }}
+      {{- end }}
+  nodePool:
+    {{- $limits := default (dict "cpu" "1000" "memory" "1000Gi") $value.limits }}
+    limits:
+      cpu: {{ $limits.cpu }}
+      memory: {{ $limits.memory }}
     template:
       metadata:
         labels:
           giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
+          {{- with $value.customNodeLabels }}
+          {{- range . }}
+          {{- $parts := splitList "=" . }}
+          {{- if eq (len $parts) 2 }}
+          {{ index $parts 0 }}: {{ index $parts 1 | quote }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
       spec:
         expireAfter: {{ $value.expireAfter | default "720h" }}
         requirements:
@@ -86,6 +97,16 @@ spec:
         - effect: NoExecute
           key: node.cluster.x-k8s.io/uninitialized
           value: "true"
+        {{- with $value.customNodeTaints }}
+        taints:
+        {{- range $value.customNodeTaints }}
+        - key: {{ .key }}
+          effect: {{ .effect }}
+          {{- if .value }}
+          value: {{ .value | quote }}
+          {{- end }}
+        {{- end }}
+        {{- end }}
 ---
 {{ end }}
 {{ end }}
