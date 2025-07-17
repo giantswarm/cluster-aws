@@ -14,10 +14,10 @@ metadata:
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:
-  iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
   ec2NodeClass:
     amiName: flatcar-stable-{{ include "cluster.os.version" $ }}-kube-{{ include "cluster.component.kubernetes.version" $ }}-tooling-{{ include "cluster.os.tooling.version" $ }}-gs
     amiOwner: {{ if hasPrefix "cn-" (include "aws-region" $) }}"306934455918"{{else}}"706635527432"{{end}}
+    instanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
     securityGroups:
       sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
       sigs.k8s.io/cluster-api-provider-aws/role: node
