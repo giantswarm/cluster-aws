@@ -8,6 +8,18 @@ global:
   nodePools:
     pool1:
       type: karpenter
+      blockDeviceMappings:
+        - deviceName: /dev/xvda
+          ebs:
+            volumeSize: 100Gi
+            volumeType: gp3
+            iops: 10000
+            encrypted: true
+            kmsKeyID: "1234abcd-12ab-34cd-56ef-1234567890ab"
+            deleteOnTermination: true
+            throughput: 125
+            snapshotID: snap-0123456789
+            volumeInitializationRate: 100
       consolidateAfter: 5m
       consolidationPolicy: WhenEmptyOrUnderutilized
       consolidationBudgets:

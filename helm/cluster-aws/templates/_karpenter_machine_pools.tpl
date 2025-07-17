@@ -32,6 +32,10 @@ spec:
       {{- end }}
       {{- end }}
   nodePool:
+    {{- with $value.blockDeviceMappings }}
+    blockDeviceMappings:
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
     disruption:
       consolidateAfter: {{ $value.consolidateAfter | default "3m" }}
       {{- with $value.consolidationPolicy }}
@@ -39,7 +43,7 @@ spec:
       {{- end }}
       {{- with $value.consolidationBudgets }}
       budgets:
-      {{ toYaml . | nindent 8 }}
+      {{- toYaml . | nindent 8 }}
       {{- end }}
     {{- $limits := default (dict "cpu" "1000" "memory" "1000Gi") $value.limits }}
     limits:
