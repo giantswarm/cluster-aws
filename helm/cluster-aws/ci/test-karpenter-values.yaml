@@ -8,13 +8,29 @@ global:
   nodePools:
     pool1:
       type: karpenter
+      blockDeviceMappings:
+        - deviceName: /dev/xvda
+          ebs:
+            volumeSize: 100Gi
+            volumeType: gp3
+            iops: 10000
+            encrypted: true
+            kmsKeyID: "1234abcd-12ab-34cd-56ef-1234567890ab"
+            deleteOnTermination: true
+            throughput: 125
+            snapshotID: snap-0123456789
+            volumeInitializationRate: 100
+      consolidateAfter: 5m
+      consolidationPolicy: WhenEmptyOrUnderutilized
+      consolidationBudgets:
+        - nodes: "20%"
+        - schedule: "0 9 * * mon-fri"
+          duration: "8h"
+          nodes: "0"
+          reasons:
+            - "Drifted"
+      expireAfter: 20h
       requirements:
-        - key: karpenter.k8s.aws/instance-family
-          operator: NotIn
-          values:
-            - t3
-            - t3a
-            - t2
         - key: karpenter.k8s.aws/instance-cpu
           operator: In
           values:
@@ -22,14 +38,6 @@ global:
             - "8"
             - "16"
             - "32"
-        - key: karpenter.k8s.aws/instance-hypervisor
-          operator: In
-          values:
-            - nitro
-        - key: kubernetes.io/arch
-          operator: In
-          values:
-            - amd64
         - key: karpenter.sh/capacity-type
           operator: In
           values:
@@ -39,6 +47,11 @@ global:
           operator: In
           values:
             - linux
+      customNodeLabels:
+        - mycustomlabel=yeaaah
+      customNodeTaints:
+        - key: example.com/special-taint
+          effect: NoSchedule
   providerSpecific:
     region: "eu-west-1"
   release:
