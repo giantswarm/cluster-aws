@@ -23,6 +23,22 @@ spec:
     - tags:
         sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
         sigs.k8s.io/cluster-api-provider-aws/role: node
+    {{- if $value.additionalSecurityGroups }}
+    {{- range $value.additionalSecurityGroups }}
+    - id: {{ .id }}
+    {{- end }}
+    {{- end }}
+    subnetSelectorTerms:
+    - tags:
+        sigs.k8s.io/cluster-api-provider-aws/cluster/{{ $.Values.clusterName }}: "owned"
+        giantswarm.io/role: "nodes"
+        {{- if $value.subnetTags }}
+        {{- range $value.subnetTags }}
+        {{- range $key, $val := . }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
     subnets:
       sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
       giantswarm.io/role: nodes
