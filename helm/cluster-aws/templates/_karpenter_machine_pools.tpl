@@ -30,7 +30,7 @@ spec:
     {{- end }}
     subnetSelectorTerms:
     - tags:
-        sigs.k8s.io/cluster-api-provider-aws/cluster/{{ $.Values.clusterName }}: "owned"
+        sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
         giantswarm.io/role: "nodes"
         {{- if $value.subnetTags }}
         {{- range $value.subnetTags }}
@@ -39,16 +39,6 @@ spec:
         {{- end }}
         {{- end }}
         {{- end }}
-    subnets:
-      sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
-      giantswarm.io/role: nodes
-      {{- if $value.subnetTags }}
-      {{- range $value.subnetTags }}
-      {{- range $key, $val := . }}
-      {{ $key }}: {{ $val | quote }}
-      {{- end }}
-      {{- end }}
-      {{- end }}
   nodePool:
     {{- with $value.blockDeviceMappings }}
     blockDeviceMappings:
