@@ -8,6 +8,8 @@ global:
   nodePools:
     pool1:
       type: karpenter
+      additionalSecurityGroups:
+        - id: sg-12345
       blockDeviceMappings:
         - deviceName: /dev/xvda
           ebs:
@@ -29,6 +31,11 @@ global:
           nodes: "0"
           reasons:
             - "Drifted"
+      customNodeLabels:
+        - mycustomlabel=yeaaah
+      customNodeTaints:
+        - key: example.com/special-taint
+          effect: NoSchedule
       expireAfter: 20h
       requirements:
         - key: karpenter.k8s.aws/instance-cpu
@@ -47,11 +54,8 @@ global:
           operator: In
           values:
             - linux
-      customNodeLabels:
-        - mycustomlabel=yeaaah
-      customNodeTaints:
-        - key: example.com/special-taint
-          effect: NoSchedule
+      subnetTags:
+        - giantswarm.io/else: "something"
   providerSpecific:
     region: "eu-west-1"
   release:
