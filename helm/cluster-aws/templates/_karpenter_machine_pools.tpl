@@ -18,6 +18,30 @@ spec:
     amiSelectorTerms:
       - name: flatcar-stable-{{ include "cluster.os.version" $ }}-kube-{{ include "cluster.component.kubernetes.version" $ }}-tooling-{{ include "cluster.os.tooling.version" $ }}-gs
         owner: {{ if hasPrefix "cn-" (include "aws-region" $) }}"306934455918"{{else}}"706635527432"{{end}}
+    {{- with $value.blockDeviceMappings }}
+    blockDeviceMappings:
+    {{- toYaml . | nindent 4 }}
+    {{- else }}
+    blockDeviceMappings:
+    - deviceName: /dev/xvda
+      rootVolume: true
+      ebs:
+        volumeSize: 8Gi
+        volumeType: gp3
+        deleteOnTermination: true
+    - deviceName: /dev/xvdd
+      ebs:
+        encrypted: true
+        volumeSize: 120Gi
+        volumeType: gp3
+        deleteOnTermination: true
+    - deviceName: /dev/xvde
+      ebs:
+        encrypted: true
+        volumeSize: 30Gi
+        volumeType: gp3
+        deleteOnTermination: true
+    {{- end }}
     instanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
     securityGroupSelectorTerms:
     - tags:
@@ -40,10 +64,6 @@ spec:
         {{- end }}
         {{- end }}
   nodePool:
-    {{- with $value.blockDeviceMappings }}
-    blockDeviceMappings:
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
     disruption:
       consolidateAfter: {{ $value.consolidateAfter | default "3m" }}
       {{- with $value.consolidationPolicy }}
