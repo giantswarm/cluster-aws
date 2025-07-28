@@ -43,6 +43,13 @@ spec:
         deleteOnTermination: true
     {{- end }}
     instanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
+    metadataOptions:
+      {{- if eq (required "global.connectivity.cilium.ipamMode is required" $.Values.global.connectivity.cilium.ipamMode) "eni" }}
+      httpPutResponseHopLimit: 2
+      {{- else }}
+      httpPutResponseHopLimit: 3
+      {{- end }}
+      httpTokens: {{ $.Values.global.providerSpecific.instanceMetadataOptions.httpTokens | quote }}
     securityGroupSelectorTerms:
     - tags:
         sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
