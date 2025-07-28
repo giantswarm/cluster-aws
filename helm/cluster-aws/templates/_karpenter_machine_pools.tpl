@@ -144,9 +144,6 @@ spec:
         - effect: NoExecute
           key: node.cilium.io/agent-not-ready
           value: "true"
-        - effect: NoExecute
-          key: node.cluster.x-k8s.io/uninitialized
-          value: "true"
         {{- with $value.customNodeTaints }}
         taints:
         {{- range . }}
