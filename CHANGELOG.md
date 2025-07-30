@@ -7,15 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### ⚠️ Breaking change
+
+- Change default NodePort security group ingress rules from allowing `0.0.0.0/0` to the configured VPC CIDRs. These ingress rules can be further customized with extra CIDRs using `global.connectivity.network.nodePortIngressRuleCidrBlocks`.
+
 ### Added
 
 - Add `giantswarm.io/role: nodes` by default to private subnets used for nodes. Can be overwritten.
+- Add `global.connectivity.network.nodePortIngressRuleCidrBlocks` value to allow to configure the CIDRs in the NodePort security group ingress rules.
 
 ### Changed
 
 - Only deploy `node-termination-handler` when there are non-karpenter node pools because karpenter takes care of node draining
 - Change `imageLookupFormat` to use a static string rather than CAPI replacing the OS and Kubernetes versions.
-- Configure `NodePortIngressRuleCidrBlocks` field to allow the VPC CIDRs and the custom user defined CIDRs in the NodePort security group ingress rules.
 
 ### Fixed
 
