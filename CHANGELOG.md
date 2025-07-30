@@ -7,12 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Expose new `machinepool` values to configure the karpenter node pools:
+    - `blockDeviceMappings`
+    - `consolidateAfter`
+    - `consolidationBudgets`
+    - `consolidationPolicy`
+
+### Removed
+
+- Remove Helm chart that creates karpenter node pools, because they will be created by a kubernetes controller running in the management cluster.
+
 ## [3.5.0] - 2025-07-30
 
 ### Added
 
 - Add `giantswarm.io/role: nodes` by default to private subnets used for nodes. Can be overwritten.
-- Make IMDSv2 hop limit configurable
 
 ### Changed
 
