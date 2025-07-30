@@ -121,13 +121,19 @@ spec:
       availabilityZoneUsageLimit: {{ .Values.global.connectivity.availabilityZoneUsageLimit }}
       emptyRoutesDefaultVPCSecurityGroup: true
       {{ $vpcCidrs := list }}
+      {{- if .Values.global.connectivity.network.vpcCidrs }}
+      {{- $vpcCidrs = .Values.global.connectivity.network.vpcCidrs }}
+      {{- else if .Values.global.connectivity.network.vpcCidr }}
+      {{- $vpcCidrs = list .Values.global.connectivity.network.vpcCidr }}
+      {{- else }}
+      {{- $vpcCidrs = list "10.0.0.0/16" }}
+      {{- end }}
       {{- if .Values.global.connectivity.network.vpcId }}
       id: {{ .Values.global.connectivity.network.vpcId }}
       {{- else }}
       {{- if and .Values.global.connectivity.network.vpcCidr .Values.global.connectivity.network.vpcCidrs (ne .Values.global.connectivity.network.vpcCidr (.Values.global.connectivity.network.vpcCidrs | first)) }}
         {{ fail (printf "You have a VPC CIDR block %s specified in `global.connectivity.network.vpcCidr` that is different from the the first CIDR %s in the list `global.connectivity.network.vpcCidrs`. If this is an existing cluster template, this error happens because you need to migrate to `global.connectivity.network.vpcCidrs` (plural!). Please remove the deprecated `global.connectivity.network.vpcCidr` and ensure `global.connectivity.network.vpcCidrs` contains the desired CIDRs. If needed, `global.connectivity.network.vpcCidr` can be kept for backward compatibility, but its value must be the same as the first item in the array `global.connectivity.network.vpcCidrs`." (.Values.global.connectivity.network.vpcCidr | quote) (.Values.global.connectivity.network.vpcCidrs | first | quote)) }}
       {{- end }}
-      {{- $vpcCidrs = or .Values.global.connectivity.network.vpcCidrs (list .Values.global.connectivity.network.vpcCidr) (list "10.0.0.0/16") }}
       cidrBlock: {{ $vpcCidrs | first | quote }}
       {{- end }}
       {{- if .Values.global.connectivity.network.internetGatewayId }}
@@ -156,6 +162,16 @@ spec:
           {{- end }}
         {{ end }}
       {{- end }}
+    {{- $allCidrs := concat $vpcCidrs ($.Values.global.connectivity.network.nodePortIngressRuleCidrBlocks | default list) }}
+    {{- $seen := dict }}
+    nodePortIngressRuleCidrBlocks:
+    {{- range $cidr := $allCidrs }}
+      {{- if and $cidr (not (hasKey $seen $cidr)) }}
+      - {{ $cidr | quote }}
+      {{- $_ := set $seen $cidr true }}
+      {{- end }}
+    {{- end }}
+
     subnets:
     {{- $generatedSubnetIds := dict }}
     {{- range $j, $subnet := .Values.global.connectivity.subnets }}

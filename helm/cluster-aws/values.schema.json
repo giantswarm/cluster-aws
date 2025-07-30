@@ -1540,6 +1540,21 @@
                                     "title": "Internet Gateway ID",
                                     "description": "ID of the Internet gateway for the VPC."
                                 },
+                                "nodePortIngressRuleCidrBlocks": {
+                                    "type": "array",
+                                    "title": "NodePort security group ingress rules",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "CIDR",
+                                        "description": "IPv4 address range to allow in the NodePort security group ingress rules. These will get merged with the CIDRs defined in .Values.global.connectivity.network.vpcCidrs.",
+                                        "examples": [
+                                            [
+                                                "10.0.0.0/16"
+                                            ]
+                                        ],
+                                        "pattern": "^(([0-9]{1,3}\\.){3}[0-9]{1,3}/(1[6-9]|2[0-8]))$"
+                                    }
+                                },
                                 "pods": {
                                     "type": "object",
                                     "title": "Pods",
