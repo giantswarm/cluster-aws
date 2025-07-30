@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Only deploy `node-termination-handler` when there are non-karpenter node pools because karpenter takes care of node draining
-- Change `imageLookupFormat` to use a static string rather than CAPI replacing the OS and Kubernetes versions.
+- Change `imageLookupFormat` to use a static string rather than CAPI replacing the OS and Kubernetes versions. This rolls control plane nodes.
 
 ### Fixed
 
