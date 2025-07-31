@@ -55,6 +55,44 @@
             "minLength": 0,
             "pattern": "^[ a-zA-Z0-9\\._:/=+-@]+$"
         },
+        "consolidationBudget": {
+            "type": "object",
+            "title": "Budget",
+            "properties": {
+                "duration": {
+                    "type": "string",
+                    "title": "Duration",
+                    "description": "Determines how long a Budget is active since each Schedule hit. Only minutes and hours are accepted, as cron does not work in seconds. If omitted, the budget is always active.",
+                    "pattern": "^((([0-9]+(h|m))|([0-9]+h[0-9]+m))(0s)?)$"
+                },
+                "nodes": {
+                    "type": "string",
+                    "title": "Nodes",
+                    "description": "Dictates the maximum number of NodeClaims owned by this NodePool that can be terminating at once. This is calculated by counting nodes that have a deletion timestamp set, or are actively being deleted by Karpenter. This field is required when specifying a budget.",
+                    "default": "10%",
+                    "pattern": "^((100|[0-9]{1,2})%|[0-9]+)$"
+                },
+                "reasons": {
+                    "type": "array",
+                    "title": "Disruption reasons",
+                    "description": "List of disruption methods that this budget applies to. If Reasons is not set, this budget applies to all methods.",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "Underutilized",
+                            "Empty",
+                            "Drifted"
+                        ]
+                    }
+                },
+                "schedule": {
+                    "type": "string",
+                    "title": "Schedule",
+                    "description": "Specifies when a budget begins being active, following the upstream cronjob syntax. If omitted, the budget is always active. Timezones are not supported.",
+                    "pattern": "^(@(annually|yearly|monthly|weekly|daily|midnight|hourly))|((.+)\\s(.+)\\s(.+)\\s(.+)\\s(.+))$"
+                }
+            }
+        },
         "customNodeTaints": {
             "type": "array",
             "title": "Custom node taints",
@@ -165,6 +203,9 @@
                                     "items": {
                                         "type": "object",
                                         "title": "security group",
+                                        "required": [
+                                            "id"
+                                        ],
                                         "properties": {
                                             "id": {
                                                 "type": "string",
@@ -173,6 +214,42 @@
                                             }
                                         }
                                     }
+                                },
+                                "consolidateAfter": {
+                                    "type": "string",
+                                    "title": "Consolidate after",
+                                    "description": "The duration karpenter will wait before attempting to terminate nodes that are underutilized after a pod has been added or removed from the node.",
+                                    "examples": [
+                                        "3m",
+                                        "24h",
+                                        "Never"
+                                    ],
+                                    "pattern": "^(([0-9]+(s|m|h))+|Never)$"
+                                },
+                                "consolidationBudgets": {
+                                    "type": "array",
+                                    "title": "Disruption budgets",
+                                    "description": "Budgets control the speed Karpenter can scale down nodes. Karpenter will respect the minimum of the currently active budgets, and will round up when considering percentages. Duration and Schedule must be set together.",
+                                    "items": {
+                                        "$ref": "#/$defs/consolidationBudget",
+                                        "type": "object",
+                                        "title": "Karpenter consolidation budget"
+                                    },
+                                    "default": [
+                                        {
+                                            "nodes": "10%"
+                                        }
+                                    ]
+                                },
+                                "consolidationPolicy": {
+                                    "type": "string",
+                                    "title": "Consolidation policy",
+                                    "description": "Describes which nodes Karpenter can disrupt through its consolidation algorithm. If using 'WhenEmptyOrUnderutilized', Karpenter will consider all nodes for consolidation and attempt to remove or replace Nodes when it discovers that the Node is empty or underutilized and could be changed to reduce cost. If using `WhenEmpty`, Karpenter will only consider nodes for consolidation that contain no workload pods.",
+                                    "enum": [
+                                        "WhenEmptyOrUnderutilized",
+                                        "WhenEmpty"
+                                    ],
+                                    "default": "WhenEmptyOrUnderutilized"
                                 },
                                 "customNodeLabels": {
                                     "type": "array",
@@ -189,8 +266,7 @@
                                         "type": "object",
                                         "required": [
                                             "effect",
-                                            "key",
-                                            "value"
+                                            "key"
                                         ],
                                         "properties": {
                                             "effect": {
@@ -340,7 +416,57 @@
                                                 }
                                             }
                                         }
-                                    }
+                                    },
+                                    "default": [
+                                        {
+                                            "key": "karpenter.k8s.aws/instance-family",
+                                            "operator": "NotIn",
+                                            "values": [
+                                                "t3",
+                                                "t3a",
+                                                "t2"
+                                            ]
+                                        },
+                                        {
+                                            "key": "karpenter.sh/capacity-type",
+                                            "operator": "In",
+                                            "values": [
+                                                "spot",
+                                                "on-demand"
+                                            ]
+                                        },
+                                        {
+                                            "key": "karpenter.k8s.aws/instance-cpu",
+                                            "operator": "In",
+                                            "values": [
+                                                "4",
+                                                "8",
+                                                "16",
+                                                "32"
+                                            ]
+                                        },
+                                        {
+                                            "key": "karpenter.k8s.aws/instance-hypervisor",
+                                            "operator": "In",
+                                            "values": [
+                                                "nitro"
+                                            ]
+                                        },
+                                        {
+                                            "key": "kubernetes.io/arch",
+                                            "operator": "In",
+                                            "values": [
+                                                "amd64"
+                                            ]
+                                        },
+                                        {
+                                            "key": "kubernetes.io/os",
+                                            "operator": "In",
+                                            "values": [
+                                                "linux"
+                                            ]
+                                        }
+                                    ]
                                 },
                                 "rootVolumeSizeGB": {
                                     "type": "integer",
@@ -448,8 +574,7 @@
                                         "type": "object",
                                         "required": [
                                             "effect",
-                                            "key",
-                                            "value"
+                                            "key"
                                         ],
                                         "properties": {
                                             "effect": {

@@ -1,0 +1,59 @@
+global:
+  managementCluster: test
+  metadata:
+    name: test-karpenter
+    organization: test
+  connectivity:
+    baseDomain: example.com
+  nodePools:
+    pool1:
+      type: karpenter
+      additionalSecurityGroups:
+        - id: sg-12345
+      consolidateAfter: 5m
+      consolidationPolicy: WhenEmptyOrUnderutilized
+      consolidationBudgets:
+        - nodes: "20%"
+        - schedule: "0 9 * * mon-fri"
+          duration: "8h"
+          nodes: "0"
+          reasons:
+            - "Drifted"
+      customNodeLabels:
+        - mycustomlabel=yeaaah
+      customNodeTaints:
+        - key: example.com/special-taint
+          effect: NoSchedule
+      expireAfter: 20h
+      libVolumeSizeGB: 120
+      logVolumeSizeGB: 30
+      requirements:
+        - key: karpenter.k8s.aws/instance-cpu
+          operator: In
+          values:
+            - "4"
+            - "8"
+            - "16"
+            - "32"
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values:
+            - spot
+            - on-demand
+        - key: kubernetes.io/os
+          operator: In
+          values:
+            - linux
+      rootVolumeSizeGB: 8
+      subnetTags:
+        - giantswarm.io/else: "something"
+  providerSpecific:
+    region: "eu-west-1"
+  release:
+    version: 29.1.0
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true
