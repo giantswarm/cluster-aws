@@ -56,7 +56,7 @@ spec:
         sigs.k8s.io/cluster-api-provider-aws/role: node
     {{- if $value.additionalSecurityGroups }}
     {{- range $value.additionalSecurityGroups }}
-    - id: {{ .id }}
+    - id: {{ .id | quote }}
     {{- end }}
     {{- end }}
     subnetSelectorTerms:
@@ -66,7 +66,7 @@ spec:
         {{- if $value.subnetTags }}
         {{- range $value.subnetTags }}
         {{- range $key, $val := . }}
-        {{ $key }}: {{ $val | quote }}
+        {{ $key | quote }}: {{ $val | quote }}
         {{- end }}
         {{- end }}
         {{- end }}
@@ -92,7 +92,7 @@ spec:
           {{- range . }}
           {{- $parts := splitList "=" . }}
           {{- if eq (len $parts) 2 }}
-          {{ index $parts 0 }}: {{ index $parts 1 | quote }}
+          {{ index $parts 0 | quote }}: {{ index $parts 1 | quote }}
           {{- end }}
           {{- end }}
           {{- end }}
@@ -147,8 +147,8 @@ spec:
         {{- with $value.customNodeTaints }}
         taints:
         {{- range . }}
-        - key: {{ .key }}
-          effect: {{ .effect }}
+        - key: {{ .key | quote }}
+          effect: {{ .effect | quote }}
           {{- if .value }}
           value: {{ .value | quote }}
           {{- end }}
