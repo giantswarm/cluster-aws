@@ -276,6 +276,9 @@
                                     "items": {
                                         "type": "object",
                                         "title": "security group",
+                                        "required": [
+                                            "id"
+                                        ],
                                         "properties": {
                                             "id": {
                                                 "type": "string",
