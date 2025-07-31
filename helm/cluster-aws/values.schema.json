@@ -55,79 +55,6 @@
             "minLength": 0,
             "pattern": "^[ a-zA-Z0-9\\._:/=+-@]+$"
         },
-        "blockDeviceMapping": {
-            "type": "object",
-            "title": "Block device mapping",
-            "properties": {
-                "deviceName": {
-                    "type": "string",
-                    "title": "Device name",
-                    "description": "The device name (for example, /dev/sdh or xvdh).",
-                    "examples": [
-                        "/dev/sdh"
-                    ]
-                },
-                "ebs": {
-                    "type": "object",
-                    "description": "Parameters used to automatically set up EBS volumes when an instance is launched.",
-                    "properties": {
-                        "deleteOnTermination": {
-                            "type": "boolean",
-                            "description": "Indicates whether the EBS volume is deleted on instance termination.",
-                            "default": false
-                        },
-                        "encrypted": {
-                            "type": "boolean",
-                            "description": "Indicates whether the EBS volume is encrypted.",
-                            "default": false
-                        },
-                        "iops": {
-                            "type": "integer",
-                            "description": "The number of I/O operations per second (IOPS). For gp3, io1, and io2 volumes, this represents the number of IOPS that are provisioned for the volume. For gp2 volumes, this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for bursting.",
-                            "examples": [
-                                10000
-                            ]
-                        },
-                        "kmsKeyID": {
-                            "type": "string",
-                            "description": "Identifier (key ID, key alias, key ARN, or alias ARN) of the customer managed KMS key to use for EBS encryption."
-                        },
-                        "snapshotID": {
-                            "type": "string",
-                            "description": "Identifier (key ID, key alias, key ARN, or alias ARN) of the customer managed KMS key to use for EBS encryption."
-                        },
-                        "throughput": {
-                            "type": "integer",
-                            "description": "Throughput to provision for a gp3 volume, with a maximum of 1,000 MiB/s. Valid Range: Minimum value of 125. Maximum value of 1000."
-                        },
-                        "volumeSize": {
-                            "type": "string",
-                            "description": "VolumeSize in `Gi`, `G`, `Ti`, or `T`. You must specify either a snapshot ID or a volume size",
-                            "pattern": "^((?:[1-9][0-9]{0,3}|[1-4][0-9]{4}|[5][0-8][0-9]{3}|59000)Gi|(?:[1-9][0-9]{0,3}|[1-5][0-9]{4}|[6][0-3][0-9]{3}|64000)G|([1-9]||[1-5][0-7]|58)Ti|([1-9]||[1-5][0-9]|6[0-3]|64)T)$"
-                        },
-                        "volumeType": {
-                            "type": "string",
-                            "description": "VolumeType of the block device.",
-                            "enum": [
-                                "standard",
-                                "io1",
-                                "io2",
-                                "gp2",
-                                "sc1",
-                                "st1",
-                                "gp3"
-                            ]
-                        }
-                    }
-                },
-                "rootVolume": {
-                    "type": "boolean",
-                    "title": "Root volume",
-                    "description": "RootVolume is a flag indicating if this device is mounted as kubelet root dir. You can configure at most one root volume in BlockDeviceMappings.",
-                    "default": false
-                }
-            }
-        },
         "consolidationBudget": {
             "type": "object",
             "title": "Budget",
@@ -286,15 +213,6 @@
                                                 "description": "ID of the security group that will be added to the machine pool nodes. The security group must exist."
                                             }
                                         }
-                                    }
-                                },
-                                "blockDeviceMappings": {
-                                    "type": "array",
-                                    "title": "Storage devices",
-                                    "items": {
-                                        "$ref": "#/$defs/blockDeviceMapping",
-                                        "type": "object",
-                                        "title": "Block device mapping"
                                     }
                                 },
                                 "consolidateAfter": {

@@ -18,30 +18,25 @@ spec:
     amiSelectorTerms:
       - name: flatcar-stable-{{ include "cluster.os.version" $ }}-kube-{{ include "cluster.component.kubernetes.version" $ }}-tooling-{{ include "cluster.os.tooling.version" $ }}-gs
         owner: {{ if hasPrefix "cn-" (include "aws-region" $) }}"306934455918"{{else}}"706635527432"{{end}}
-    {{- with $value.blockDeviceMappings }}
-    blockDeviceMappings:
-    {{- toYaml . | nindent 4 }}
-    {{- else }}
     blockDeviceMappings:
     - deviceName: /dev/xvda
       rootVolume: true
       ebs:
-        volumeSize: 8Gi
+        volumeSize: {{ $value.rootVolumeSizeGB | default 8 }}Gi
         volumeType: gp3
         deleteOnTermination: true
     - deviceName: /dev/xvdd
       ebs:
         encrypted: true
-        volumeSize: 120Gi
+        volumeSize: {{ $value.libVolumeSizeGB | default 120 }}Gi
         volumeType: gp3
         deleteOnTermination: true
     - deviceName: /dev/xvde
       ebs:
         encrypted: true
-        volumeSize: 30Gi
+        volumeSize: {{ $value.logVolumeSizeGB | default 30}}Gi
         volumeType: gp3
         deleteOnTermination: true
-    {{- end }}
     instanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
     metadataOptions:
       {{- if eq (required "global.connectivity.cilium.ipamMode is required" $.Values.global.connectivity.cilium.ipamMode) "eni" }}

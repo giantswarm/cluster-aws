@@ -10,18 +10,6 @@ global:
       type: karpenter
       additionalSecurityGroups:
         - id: sg-12345
-      blockDeviceMappings:
-        - deviceName: /dev/xvda
-          ebs:
-            volumeSize: 100Gi
-            volumeType: gp3
-            iops: 10000
-            encrypted: true
-            kmsKeyID: "1234abcd-12ab-34cd-56ef-1234567890ab"
-            deleteOnTermination: true
-            throughput: 125
-            snapshotID: snap-0123456789
-            volumeInitializationRate: 100
       consolidateAfter: 5m
       consolidationPolicy: WhenEmptyOrUnderutilized
       consolidationBudgets:
@@ -37,6 +25,8 @@ global:
         - key: example.com/special-taint
           effect: NoSchedule
       expireAfter: 20h
+      libVolumeSizeGB: 120
+      logVolumeSizeGB: 30
       requirements:
         - key: karpenter.k8s.aws/instance-cpu
           operator: In
@@ -54,6 +44,7 @@ global:
           operator: In
           values:
             - linux
+      rootVolumeSizeGB: 8
       subnetTags:
         - giantswarm.io/else: "something"
   providerSpecific:
