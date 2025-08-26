@@ -18,9 +18,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove Helm chart that creates karpenter node pools, because they will be created by a kubernetes controller running in the management cluster.
 
+## [3.7.0] - 2025-08-25
+
 ### Changed
 
-- Chart: Update `cluster` to v2.6.0.
+- Chart: Update `cluster` to v2.6.1.
+
+## [3.6.1] - 2025-08-21
+
+### Changed
+
+- Chart: Update `cluster` to v2.5.1.
 
 ## [3.6.0] - 2025-07-31
 
@@ -1670,7 +1678,9 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.6.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.7.0...HEAD
+[3.7.0]: https://github.com/giantswarm/cluster-aws/compare/v3.6.1...v3.7.0
+[3.6.1]: https://github.com/giantswarm/cluster-aws/compare/v3.6.0...v3.6.1
 [3.6.0]: https://github.com/giantswarm/cluster-aws/compare/v3.5.0...v3.6.0
 [3.5.0]: https://github.com/giantswarm/cluster-aws/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/giantswarm/cluster-aws/compare/v3.3.0...v3.4.0
