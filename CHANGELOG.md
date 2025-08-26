@@ -15,6 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `global.connectivity.network.nodePortIngressRuleCidrBlocks` value to allow configuring the CIDRs in the NodePort security group ingress rules.
 
+### Added
+
+- Expose new `machinepool` values to configure the karpenter node pools:
+    - `consolidateAfter`
+    - `consolidationBudgets`
+    - `consolidationPolicy`
+
+### Removed
+
+- Remove Helm chart that creates karpenter node pools, because they will be created by a kubernetes controller running in the management cluster.
+
 ## [3.7.0] - 2025-08-25
 
 ### Changed
@@ -38,7 +49,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `giantswarm.io/role: nodes` by default to private subnets used for nodes. Can be overwritten.
-- Make IMDSv2 hop limit configurable
 
 ### Changed
 

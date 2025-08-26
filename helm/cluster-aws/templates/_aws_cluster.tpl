@@ -212,7 +212,7 @@ spec:
         {{- if $subnet.tags }}
         {{- toYaml $subnet.tags | nindent 8 }}
         {{- end }}
-        {{- /* 
+        {{- /*
         giantswarm.io/role tag is used to identify networks for node provisioning.
         When set to "nodes", it marks this subnet as available for worker nodes.
         This helps distinguish between private subnets used for nodes vs pods.
