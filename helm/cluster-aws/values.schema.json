@@ -1367,6 +1367,23 @@
                                             ]
                                         }
                                     }
+                                },
+                                "selinux": {
+                                    "type": "object",
+                                    "title": "SELinux configuration",
+                                    "description": "SELinux configuration for containerd.",
+                                    "required": [
+                                        "enabled"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean",
+                                            "title": "Enabled",
+                                            "description": "Enabling this will configure containerd to do SELinux relabeling to containers.",
+                                            "default": false
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -2151,6 +2168,13 @@
                             "description": "Instance metadata options for the EC2 instances in the cluster.",
                             "additionalProperties": false,
                             "properties": {
+                                "httpPutResponseHopLimit": {
+                                    "type": "number",
+                                    "title": "Metadata response hop limit",
+                                    "description": "The hop limit is the number of network hops that the PUT response is allowed to make towards the instance metadata service. Learn more in [AWS documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html). If specified, this applies to all nodes.",
+                                    "maximum": 64,
+                                    "minimum": 1
+                                },
                                 "httpTokens": {
                                     "type": "string",
                                     "title": "HTTP tokens",

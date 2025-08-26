@@ -1,0 +1,29 @@
+global:
+  release:
+    version: 31.0.0
+  metadata:
+    name: test-hop-count-tuning
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+  managementCluster: test
+  providerSpecific:
+    region: "eu-west-1"
+
+# Test-specific stuff (begin)
+    instanceMetadataOptions:
+      httpPutResponseHopLimit: 2
+
+  apps:
+    cilium:
+      values:
+        endpointRoutes:
+          enabled: true
+# Test-specific stuff (end)
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

@@ -13,13 +13,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add `giantswarm.io/role: nodes` by default to private subnets used for nodes. Can be overwritten.
 - Add `global.connectivity.network.nodePortIngressRuleCidrBlocks` value to allow to configure the CIDRs in the NodePort security group ingress rules.
+
+## [3.7.0] - 2025-08-25
+
+### Changed
+
+- Chart: Update `cluster` to v2.6.1.
+
+## [3.6.1] - 2025-08-21
+
+### Changed
+
+- Chart: Update `cluster` to v2.5.1.
+
+## [3.6.0] - 2025-07-31
+
+### Changed
+
+- Chart: Update `cluster` to v2.5.0.
+
+## [3.5.0] - 2025-07-30
+
+### Added
+
+- Add `giantswarm.io/role: nodes` by default to private subnets used for nodes. Can be overwritten.
+- Make IMDSv2 hop limit configurable
 
 ### Changed
 
 - Only deploy `node-termination-handler` when there are non-karpenter node pools because karpenter takes care of node draining
-- Change `imageLookupFormat` to use a static string rather than CAPI replacing the OS and Kubernetes versions.
+- Change `imageLookupFormat` to use a static string rather than CAPI replacing the OS and Kubernetes versions. This rolls control plane nodes.
 
 ### Fixed
 
@@ -1652,7 +1676,11 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.4.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.7.0...HEAD
+[3.7.0]: https://github.com/giantswarm/cluster-aws/compare/v3.6.1...v3.7.0
+[3.6.1]: https://github.com/giantswarm/cluster-aws/compare/v3.6.0...v3.6.1
+[3.6.0]: https://github.com/giantswarm/cluster-aws/compare/v3.5.0...v3.6.0
+[3.5.0]: https://github.com/giantswarm/cluster-aws/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/giantswarm/cluster-aws/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/giantswarm/cluster-aws/compare/v3.2.2...v3.3.0
 [3.2.2]: https://github.com/giantswarm/cluster-aws/compare/v3.2.1...v3.2.2
