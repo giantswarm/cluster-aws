@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### ⚠️ Breaking change
 
-- Change default NodePort security group ingress rules from allowing `0.0.0.0/0` to the configured VPC CIDRs. These ingress rules can be further customized with extra CIDRs using `global.connectivity.network.nodePortIngressRuleCidrBlocks`.
+- Change default NodePort security group ingress rules from allowing `0.0.0.0/0` to now **only allow** the configured VPC CIDRs. These ingress rules can be further customized with extra CIDRs using `global.connectivity.network.nodePortIngressRuleCidrBlocks`.
 
 ### Added
 
-- Add `global.connectivity.network.nodePortIngressRuleCidrBlocks` value to allow to configure the CIDRs in the NodePort security group ingress rules.
+- Add `global.connectivity.network.nodePortIngressRuleCidrBlocks` value to allow configuring the CIDRs in the NodePort security group ingress rules.
 
 ## [3.7.0] - 2025-08-25
 
