@@ -537,6 +537,19 @@
                                         }
                                     }
                                 },
+                                "annotations": {
+                                    "type": "object",
+                                    "title": "Annotations",
+                                    "description": "These annotations are added to all Kubernetes resources defining this node pool.",
+                                    "additionalProperties": false,
+                                    "patternProperties": {
+                                        "^([a-zA-Z0-9/\\.-]{1,253}/)?[a-zA-Z0-9/\\._-]{1,63}$": {
+                                            "type": "string",
+                                            "title": "Annotation",
+                                            "minLength": 1
+                                        }
+                                    }
+                                },
                                 "availabilityZones": {
                                     "type": "array",
                                     "title": "Availability zones",
@@ -558,6 +571,12 @@
                                             "minimum": 30
                                         }
                                     }
+                                },
+                                "cgroupsv1": {
+                                    "type": "boolean",
+                                    "title": "Cgroups v1",
+                                    "description": "Flag that indicates if cgroups v1 should be used.",
+                                    "default": false
                                 },
                                 "customNodeLabels": {
                                     "type": "array",
@@ -614,6 +633,21 @@
                                 "instanceWarmup": {
                                     "type": "integer",
                                     "title": "Time interval, in seconds, between node replacement."
+                                },
+                                "labels": {
+                                    "type": "object",
+                                    "title": "Labels",
+                                    "description": "These labels are added to all Kubernetes resources defining this node pool.",
+                                    "additionalProperties": false,
+                                    "patternProperties": {
+                                        "^[a-zA-Z0-9/\\._-]+$": {
+                                            "type": "string",
+                                            "title": "Label",
+                                            "maxLength": 63,
+                                            "minLength": 0,
+                                            "pattern": "^[a-zA-Z0-9/\\._-]*$"
+                                        }
+                                    }
                                 },
                                 "libVolumeSizeGB": {
                                     "type": "integer",
