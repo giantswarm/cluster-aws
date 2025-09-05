@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.6.2] - 2025-09-05
 
+## [3.6.2] - 2025-09-05
+
 ### Fixed
 
 - Add `cluster` chart nodepool fields to the schema.
@@ -1669,6 +1671,7 @@ yq eval --inplace '
 ## [0.1.0] - 2022-02-25
 
 [Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.6.2...HEAD
+[3.6.2]: https://github.com/giantswarm/cluster-aws/compare/v3.6.2...v3.6.2
 [3.6.2]: https://github.com/giantswarm/cluster-aws/compare/v3.6.1...v3.6.2
 [3.6.1]: https://github.com/giantswarm/cluster-aws/compare/v3.6.0...v3.6.1
 [3.6.0]: https://github.com/giantswarm/cluster-aws/compare/v3.5.0...v3.6.0
