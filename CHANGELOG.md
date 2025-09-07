@@ -9,8 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.6.2] - 2025-09-05
 
-## [3.6.2] - 2025-09-05
-
 ### Fixed
 
 - Add `cluster` chart nodepool fields to the schema.
