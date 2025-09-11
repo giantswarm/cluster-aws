@@ -572,12 +572,6 @@
                                         }
                                     }
                                 },
-                                "cgroupsv1": {
-                                    "type": "boolean",
-                                    "title": "Cgroups v1",
-                                    "description": "Flag that indicates if cgroups v1 should be used.",
-                                    "default": false
-                                },
                                 "customNodeLabels": {
                                     "type": "array",
                                     "title": "Custom node labels",
