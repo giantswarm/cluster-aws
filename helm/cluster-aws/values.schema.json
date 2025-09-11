@@ -785,6 +785,9 @@
                         "k8sDnsNodeCache": {
                             "enable": true
                         },
+                        "karpenter": {
+                            "enable": true
+                        },
                         "metricsServer": {
                             "enable": true
                         },
@@ -1303,6 +1306,12 @@
                             "type": "object",
                             "title": "k8s-dns-node-cache",
                             "description": "Configuration of k8s-dns-node-cache. For all available values see https://github.com/giantswarm/k8s-dns-node-cache-app."
+                        },
+                        "karpenter": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "karpenter-bundle",
+                            "description": "Configuration of karpenter-bundle. For all available values see https://github.com/giantswarm/karpenter-bundle."
                         },
                         "metricsServer": {
                             "$ref": "#/$defs/app",
