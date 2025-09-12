@@ -22,9 +22,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
-  kubeConfig:
-    secretRef:
-      name: {{ $.Values.global.managementCluster }}-kubeconfig
+  serviceAccountName: automation
   interval: 5m
   install:
     remediation:
