@@ -124,11 +124,7 @@ https://irsa.{{ include "resource.default.name" $ }}.{{ required "global.connect
 {{- end }}
 
 {{- define "awsContainerImageRegistry" -}}
-{{- if hasPrefix "cn-" (include "aws-region" $ ) -}}
-giantswarm-registry.cn-shanghai.cr.aliyuncs.com
-{{- else -}}
 gsoci.azurecr.io
-{{- end }}
 {{- end }}
 
 {{- define "awsNoProxyList" }}
