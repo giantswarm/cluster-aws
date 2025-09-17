@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Add `cluster` chart nodepool fields to the schema.
+- Remove `minItems` schema requirement for `global.connectivity.network.vpcCidrs` since there is a default VPC CIDR
 
 ## [4.0.1] - 2025-09-02
 
