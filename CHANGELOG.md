@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The container registry passed as value to default apps is set to `gsoci.azurecr.io`, regardless of the cluster region. The mirroring feature of `containerd` will make sure the right registry is used.
+- Use HelmReleases to install `karpenter` and `karpenter-crossplane-resources` charts.
 
 ## [5.0.0] - 2025-09-12
 

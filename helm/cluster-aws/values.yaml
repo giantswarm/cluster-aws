@@ -36,6 +36,8 @@ cluster:
         enable: true
       k8sDnsNodeCache:
         enable: true
+      karpenter:
+        enable: true
       metricsServer:
         enable: true
       netExporter:
@@ -294,6 +296,7 @@ global:
     irsaServiceMonitors: {}
     k8sAuditMetrics: {}
     k8sDnsNodeCache: {}
+    karpenter: {}
     metricsServer: {}
     netExporter: {}
     networkPolicies: {}
