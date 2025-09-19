@@ -732,9 +732,6 @@
             "default": {
                 "providerIntegration": {
                     "apps": {
-                        "capiNodeLabeler": {
-                            "enable": true
-                        },
                         "certExporter": {
                             "enable": true
                         },
@@ -1195,12 +1192,6 @@
                             "type": "object",
                             "title": "AWS Pod Identity Webhook",
                             "description": "Configuration of aws-pod-identity-webhook. For all available values see https://github.com/giantswarm/aws-pod-identity-webhook."
-                        },
-                        "capiNodeLabeler": {
-                            "$ref": "#/$defs/app",
-                            "type": "object",
-                            "title": "capi-node-labeler",
-                            "description": "Configuration of capi-node-labeler. For all available values see https://github.com/giantswarm/capi-node-labeler."
                         },
                         "certExporter": {
                             "$ref": "#/$defs/app",
