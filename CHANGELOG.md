@@ -7,13 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Chart: Update `cluster` to v4.0.1.
+- The container registry passed as value to default apps is set to `gsoci.azurecr.io`, regardless of the cluster region. The mirroring feature of `containerd` will make sure the right registry is used.
+
 ### Removed
 
 - Removed `capi-node-labeler` app. From now on, the worker nodes won't have the `node-role.kubernetes.io/worker` or `node.kubernetes.io/worker` labels.
-
-### Changed
-
-- The container registry passed as value to default apps is set to `gsoci.azurecr.io`, regardless of the cluster region. The mirroring feature of `containerd` will make sure the right registry is used.
 
 ## [5.0.0] - 2025-09-12
 
