@@ -70,7 +70,7 @@ spec:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
   interval: 5m
-  timeout: 15m # We need a bigger timeout because it could take a while for CloudFront to become available
+  timeout: 15m # We need a bigger timeout because it could take a while for IRSA (via CloudFront) to become available
   install:
     createNamespace: true
     remediation:
