@@ -6,7 +6,7 @@ additionalLabels:
   giantswarm.io/managed-by: {{ .Release.Name | quote }}
   giantswarm.io/service-type: managed
 settings:
-  clusterEndpoint: {{ printf "%s.%s.%s" "http://api" (include "resource.default.name" $) .Values.global.connectivity.baseDomain }}
+  clusterEndpoint: {{ printf "%s.%s.%s" "http://api" (include "resource.default.name" $) (required "global.connectivity.baseDomain is required" .Values.global.connectivity.baseDomain) }}
   clusterName: {{ include "resource.default.name" $ }}
   interruptionQueue: {{ include "resource.default.name" $ }}-karpenter
 controller:
