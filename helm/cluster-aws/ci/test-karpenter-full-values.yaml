@@ -47,6 +47,7 @@ global:
       rootVolumeSizeGB: 8
       subnetTags:
         - giantswarm.io/else: "something"
+      terminationGracePeriod: 30m
   providerSpecific:
     region: "eu-west-1"
   release:

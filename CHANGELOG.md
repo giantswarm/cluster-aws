@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add standard tags to IRSA infrastructure.
+- Expose value to configure `terminationGracePeriod` in the karpenter node pools.
 
 ## [5.0.0] - 2025-09-12
 

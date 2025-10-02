@@ -484,6 +484,16 @@
                                             "$ref": "#/$defs/awsResourceTagValue"
                                         }
                                     }
+                                },
+                                "terminationGracePeriod": {
+                                    "type": "string",
+                                    "title": "Termination Grace Period",
+                                    "description": "The amount of time a Node can be draining before Karpenter forcibly cleans up the node. Pods blocking eviction like PDBs and do-not-disrupt will be respected during draining until the terminationGracePeriod is reached, where those pods will be forcibly deleted.",
+                                    "examples": [
+                                        "48h"
+                                    ],
+                                    "default": "30m",
+                                    "pattern": "^([0-9]+(s|m|h))+$"
                                 }
                             }
                         }
