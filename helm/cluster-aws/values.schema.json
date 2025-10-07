@@ -1299,6 +1299,12 @@
                             "title": "k8s-dns-node-cache",
                             "description": "Configuration of k8s-dns-node-cache. For all available values see https://github.com/giantswarm/k8s-dns-node-cache-app."
                         },
+                        "karpenter": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "karpenter",
+                            "description": "Configuration of karpenter. For all available values see https://github.com/giantswarm/karpenter-app."
+                        },
                         "metricsServer": {
                             "$ref": "#/$defs/app",
                             "type": "object",

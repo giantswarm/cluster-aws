@@ -1,0 +1,97 @@
+{{/* Default Helm values for the app */}}
+{{/* See schema for the appropriate app version here https://github.com/giantswarm/karpenter-app/blob/main/helm/karpenter/values.schema.json */}}
+{{- define "defaultkarpenterHelmValues" }}
+additionalLabels:
+  application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | default "phoenix" | quote }}
+  giantswarm.io/managed-by: {{ .Release.Name | quote }}
+  giantswarm.io/service-type: managed
+settings:
+  clusterEndpoint: {{ printf "%s.%s.%s" "http://api" (include "resource.default.name" $) (required "global.connectivity.baseDomain is required" .Values.global.connectivity.baseDomain) }}
+  clusterName: {{ include "resource.default.name" $ }}
+  interruptionQueue: {{ include "resource.default.name" $ }}-karpenter
+controller:
+  env:
+    - name: AWS_REGION
+      value: {{ include "aws-region" $ }}
+    - name: AWS_ROLE_ARN
+      value: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-karpenter
+    - name: AWS_WEB_IDENTITY_TOKEN_FILE
+      value: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
+  extraVolumeMounts:
+    - name: aws-iam-token
+      mountPath: /var/run/secrets/eks.amazonaws.com/serviceaccount/
+      readOnly: true
+  image:
+    repository: {{ include "awsContainerImageRegistry" . }}/giantswarm/karpenter-controller
+dnsPolicy: Default
+extraVolumes:
+  - name: aws-iam-token
+    projected:
+      sources:
+        - serviceAccountToken:
+            audience: {{ include "awsApiServerApiAudiences" $ | trim }}
+            expirationSeconds: 86400
+            path: token
+nodeSelector:
+  node-role.kubernetes.io/control-plane: ""
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-karpenter
+tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Exists"
+    effect: "NoSchedule"
+{{- end }}
+{{- if include "hasKarpenterNodePool" . }}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: {{ include "resource.default.name" $ }}-karpenter
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
+  labels:
+    cluster-apps-operator.giantswarm.io/watching: ""
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  suspend: false
+  releaseName: karpenter
+  targetNamespace: karpenter
+  storageNamespace: karpenter
+  chart:
+    spec:
+      chart: karpenter
+      {{- $_ := set $ "appName" "karpenter" }}
+      version: {{ include "cluster.app.version" $ }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+  kubeConfig:
+    secretRef:
+      name: {{ include "resource.default.name" $ }}-kubeconfig
+  interval: 5m
+  timeout: 15m # We need a bigger timeout because it could take a while for IRSA (via CloudFront) to become available
+  install:
+    createNamespace: true
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  {{- $karpenterHelmValues := (include "defaultkarpenterHelmValues" .) | fromYaml -}}
+  {{- $customkarpenterHelmValues := $.Values.global.apps.karpenter.values -}}
+  {{- if $customkarpenterHelmValues }}
+  {{- $karpenterHelmValues = merge (deepCopy $customkarpenterHelmValues) $karpenterHelmValues -}}
+  {{- end }}
+  {{- if $karpenterHelmValues }}
+  values: {{- $karpenterHelmValues | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if $.Values.global.apps.karpenter.extraConfigs }}
+    {{- range $config := $.Values.global.apps.karpenter.extraConfigs }}
+    - kind: {{ $config.kind }}
+      name: {{ $config.name }}
+      valuesKey: values
+      optional: {{ $config.optional | default false  }}
+    {{- end }}
+  {{- end }}
+{{- end }}

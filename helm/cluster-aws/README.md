@@ -188,6 +188,13 @@ Configuration of apps that are part of the cluster.
 | `global.apps.k8sDnsNodeCache.extraConfigs[*].name` | **Name** - Name of the config map or secret. The object must exist in the same namespace as the cluster App.|**Type:** `[string]`<br/>|
 | `global.apps.k8sDnsNodeCache.extraConfigs[*].priority` | **Priority**|**Type:** `[integer]`<br/>**Default:** `25`|
 | `global.apps.k8sDnsNodeCache.values` | **Config map** - Helm Values to be passed to the app as user config.|**Type:** `[object]`<br/>|
+| `global.apps.karpenter` | **App resource** - Configuration of a default app that is part of the cluster and is deployed as an App resource.|**Type:** `[object]`<br/>|
+| `global.apps.karpenter.extraConfigs` | **Extra config maps or secrets** - Extra config maps or secrets that will be used to customize to the app. The desired values must be under configmap or secret key 'values'. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.|**Type:** `[array]`<br/>|
+| `global.apps.karpenter.extraConfigs[*]` | **Config map or secret**|**Type:** `[object]`<br/>|
+| `global.apps.karpenter.extraConfigs[*].kind` | **Kind** - Specifies whether the resource is a config map or a secret.|**Type:** `[string]`<br/>|
+| `global.apps.karpenter.extraConfigs[*].name` | **Name** - Name of the config map or secret. The object must exist in the same namespace as the cluster App.|**Type:** `[string]`<br/>|
+| `global.apps.karpenter.extraConfigs[*].priority` | **Priority**|**Type:** `[integer]`<br/>**Default:** `25`|
+| `global.apps.karpenter.values` | **Config map** - Helm Values to be passed to the app as user config.|**Type:** `[object]`<br/>|
 | `global.apps.metricsServer` | **App resource** - Configuration of a default app that is part of the cluster and is deployed as an App resource.|**Type:** `[object]`<br/>|
 | `global.apps.metricsServer.extraConfigs` | **Extra config maps or secrets** - Extra config maps or secrets that will be used to customize to the app. The desired values must be under configmap or secret key 'values'. The values are merged in the order given, with the later values overwriting earlier, and then inline values overwriting those. Resources must be in the same namespace as the cluster.|**Type:** `[array]`<br/>|
 | `global.apps.metricsServer.extraConfigs[*]` | **Config map or secret**|**Type:** `[object]`<br/>|

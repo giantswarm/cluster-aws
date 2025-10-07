@@ -291,6 +291,7 @@ global:
     irsaServiceMonitors: {}
     k8sAuditMetrics: {}
     k8sDnsNodeCache: {}
+    karpenter: {}
     metricsServer: {}
     netExporter: {}
     networkPolicies: {}
