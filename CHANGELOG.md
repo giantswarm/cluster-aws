@@ -9,8 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Chart: Update `cluster` to v4.0.1.
+- Chart: Update `cluster` to v4.0.2.
 - The container registry passed as value to default apps is set to `gsoci.azurecr.io`, regardless of the cluster region. The mirroring feature of `containerd` will make sure the right registry is used.
+- Switch to HelmReleases to install `karpenter` and `karpenter-crossplane-resources` charts.
+- Bump flux `HelmReleases` api version to v2.
 
 ### Removed
 
@@ -19,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add standard tags to IRSA infrastructure.
+- Expose value to configure `terminationGracePeriod` in the karpenter node pools.
 
 ## [5.0.0] - 2025-09-12
 

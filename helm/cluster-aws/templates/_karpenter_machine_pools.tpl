@@ -149,6 +149,9 @@ spec:
           {{- end }}
         {{- end }}
         {{- end }}
+        {{- with $value.terminationGracePeriod }}
+        terminationGracePeriod: {{ . }}
+        {{- end }}
 ---
 {{ end }}
 {{ end }}
