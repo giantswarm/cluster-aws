@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.1.0] - 2025-10-08
+
 ### Added
 
 - Expose value to configure `terminationGracePeriod` in the karpenter node pools.
@@ -1712,7 +1714,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v5.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v5.1.0...HEAD
+[5.1.0]: https://github.com/giantswarm/cluster-aws/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/giantswarm/cluster-aws/compare/v4.0.2...v5.0.0
 [4.0.2]: https://github.com/giantswarm/cluster-aws/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/giantswarm/cluster-aws/compare/v4.0.0...v4.0.1
