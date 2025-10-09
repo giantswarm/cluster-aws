@@ -576,7 +576,6 @@
                                         "heartbeatTimeoutSeconds": {
                                             "type": "number",
                                             "title": "Heartbeat timeout for ASG lifecycle hook",
-                                            "default": 1800,
                                             "maximum": 7200,
                                             "minimum": 30
                                         }
