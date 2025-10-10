@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.2.0] - 2025-10-10
+
 ### Changed
 
 - Reduce heartbeat timeout for ASG lifecycle hooks to from 30 minutes to 3 minutes since aws-node-termination-handler-app (NTH) can now send heartbeats
@@ -1718,7 +1720,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v5.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v5.2.0...HEAD
+[5.2.0]: https://github.com/giantswarm/cluster-aws/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/giantswarm/cluster-aws/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/giantswarm/cluster-aws/compare/v4.0.2...v5.0.0
 [4.0.2]: https://github.com/giantswarm/cluster-aws/compare/v4.0.1...v4.0.2
