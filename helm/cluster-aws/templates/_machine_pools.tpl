@@ -112,12 +112,11 @@ spec:
   - defaultResult: CONTINUE
 
     {{/*
-        The default is a high enough heartbeat timeout because aws-node-termination-handler (shortened to "NTH" here)
-        doesn't send heartbeats (https://github.com/aws/aws-node-termination-handler/issues/493),
-        but low enough so that if the controller is down, instances can still terminate within
-        a reasonable time.
+        Since aws-node-termination-handler-app (shortened to "NTH" here) was improved to send
+        heartbeats, this can be a low value. If NTH is down or cannot send heartbeats, this allows
+        instances to be terminated in a reasonable time - for example during cluster deletion.
     */}}
-    heartbeatTimeout: "{{ ($value.awsNodeTerminationHandler).heartbeatTimeoutSeconds | default 1800 }}s"
+    heartbeatTimeout: "{{ ($value.awsNodeTerminationHandler).heartbeatTimeoutSeconds | default 180 }}s"
 
     lifecycleTransition: autoscaling:EC2_INSTANCE_TERMINATING
     name: aws-node-termination-handler
