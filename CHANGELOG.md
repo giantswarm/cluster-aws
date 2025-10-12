@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Switch to HelmReleases to install `karpenter` and `karpenter-crossplane-resources` charts.
 - Bump flux `HelmReleases` api version to v2.
 - Reduce heartbeat timeout for ASG lifecycle hooks to from 30 minutes to 3 minutes since aws-node-termination-handler-app (NTH) can now send heartbeats
+- Configure the following `startupTaints` for karpenter `NodePools`:
+  - `node.cluster.x-k8s.io/uninitialized:NoSchedule`
+  - `node.cilium.io/agent-not-ready:NoSchedule`
+  - `ebs.csi.aws.com/agent-not-ready:NoExecute`
 
 ### Removed
 
