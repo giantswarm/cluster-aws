@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Configure the following `startupTaints` to help `karpenter` ignore pending `Pods` due to these taints that will be removed after the node starts, avoiding unnecessary instance provisioning:
+  - `node.cluster.x-k8s.io/uninitialized:NoSchedule`
+  - `node.cilium.io/agent-not-ready:NoSchedule`
+  - `ebs.csi.aws.com/agent-not-ready:NoExecute`
+
 ## [5.2.0] - 2025-10-10
 
 ### Changed
