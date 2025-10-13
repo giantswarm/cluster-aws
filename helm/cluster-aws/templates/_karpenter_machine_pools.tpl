@@ -136,8 +136,14 @@ spec:
           - linux
         {{- end }}
         startupTaints:
-        - effect: NoExecute
+        - effect: NoSchedule
+          key: node.cluster.x-k8s.io/uninitialized
+          value: "true"
+        - effect: NoSchedule
           key: node.cilium.io/agent-not-ready
+          value: "true"
+        - effect: NoExecute
+          key: ebs.csi.aws.com/agent-not-ready
           value: "true"
         {{- with $value.customNodeTaints }}
         taints:
