@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.3.0] - 2025-10-13
+
 ### Changed
 
 - Configure the following `startupTaints` to help `karpenter` ignore pending `Pods` due to these taints that will be removed after the node starts, avoiding unnecessary instance provisioning:
@@ -1727,7 +1729,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v5.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v5.3.0...HEAD
+[5.3.0]: https://github.com/giantswarm/cluster-aws/compare/v5.2.0...v5.3.0
 [5.2.0]: https://github.com/giantswarm/cluster-aws/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/giantswarm/cluster-aws/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/giantswarm/cluster-aws/compare/v4.0.2...v5.0.0
