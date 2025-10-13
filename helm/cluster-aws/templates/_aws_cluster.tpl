@@ -162,7 +162,10 @@ spec:
           {{- end }}
         {{ end }}
       {{- end }}
-    {{- $allCidrs := concat $vpcCidrs ($.Values.global.connectivity.network.nodePortIngressRuleCidrBlocks | default list) }}
+    {{- $allCidrs := concat $vpcCidrs ($.Values.global.connectivity.network.nodePortIngressRuleCidrBlocks | default (list)) }}
+    {{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+    {{- $allCidrs = concat $allCidrs ($.Values.global.connectivity.network.pods.cidrBlocks | default (list)) }}
+    {{- end }}
     {{- $seen := dict }}
     nodePortIngressRuleCidrBlocks:
     {{- range $cidr := $allCidrs }}
