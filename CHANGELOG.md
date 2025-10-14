@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Chart: Update `cluster` to v4.1.0.
+- Chart: Update `cluster` to v4.2.0.
 - The container registry passed as value to default apps is set to `gsoci.azurecr.io`, regardless of the cluster region. The mirroring feature of `containerd` will make sure the right registry is used.
 - Switch to HelmReleases to install `karpenter` and `karpenter-crossplane-resources` charts.
 - Bump flux `HelmReleases` api version to v2.
