@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `node.cluster.x-k8s.io/uninitialized:NoSchedule`
   - `node.cilium.io/agent-not-ready:NoSchedule`
   - `ebs.csi.aws.com/agent-not-ready:NoExecute`
+- Include `cilium` ENI mode pod CIDRs in the NodePort Services security group ingress rules.
 
 ### Removed
 
