@@ -1,0 +1,32 @@
+global:
+  release:
+    version: 29.1.0
+  metadata:
+    name: test-wc-multiple-vpc-cidrs
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+    cilium:
+      ipamMode: eni
+    network:
+      nodePortIngressRuleCidrBlocks:
+        - 10.4.0.0/16
+        - 10.5.0.0/16
+      pods:
+        cidrBlocks:
+          - 10.10.0.0/16
+      vpcCidrs:
+        - 10.1.0.0/16
+        - 10.2.0.0/16
+        - 10.3.0.0/16
+        - 10.4.0.0/16
+  providerSpecific:
+    region: "eu-west-1"
+  managementCluster: test
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

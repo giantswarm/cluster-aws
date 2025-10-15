@@ -7,12 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.0.0] - 2025-10-15
+
 ### Changed
 
-- Chart: Update `cluster` to v4.0.2.
+- Chart: Update `cluster` to v4.2.0.
 - The container registry passed as value to default apps is set to `gsoci.azurecr.io`, regardless of the cluster region. The mirroring feature of `containerd` will make sure the right registry is used.
 - Switch to HelmReleases to install `karpenter` and `karpenter-crossplane-resources` charts.
 - Bump flux `HelmReleases` api version to v2.
+- Reduce heartbeat timeout for ASG lifecycle hooks to from 30 minutes to 3 minutes since aws-node-termination-handler-app (NTH) can now send heartbeats
+- Configure the following `startupTaints` to help `karpenter` ignore pending `Pods` due to these taints that will be removed after the node starts, avoiding unnecessary instance provisioning:
+  - `node.cluster.x-k8s.io/uninitialized:NoSchedule`
+  - `node.cilium.io/agent-not-ready:NoSchedule`
+  - `ebs.csi.aws.com/agent-not-ready:NoExecute`
+- Include `cilium` ENI mode pod CIDRs in the NodePort Services security group ingress rules.
 
 ### Removed
 
@@ -1725,7 +1733,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v5.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/giantswarm/cluster-aws/compare/v5.0.0...v6.0.0
 [5.0.0]: https://github.com/giantswarm/cluster-aws/compare/v4.0.2...v5.0.0
 [4.0.2]: https://github.com/giantswarm/cluster-aws/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/giantswarm/cluster-aws/compare/v4.0.0...v4.0.1

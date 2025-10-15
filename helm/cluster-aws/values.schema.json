@@ -576,7 +576,6 @@
                                         "heartbeatTimeoutSeconds": {
                                             "type": "number",
                                             "title": "Heartbeat timeout for ASG lifecycle hook",
-                                            "default": 1800,
                                             "maximum": 7200,
                                             "minimum": 30
                                         }
@@ -706,6 +705,42 @@
                                         "maxPrice": {
                                             "type": "number",
                                             "title": "Maximum price to pay per instance per hour, in USD."
+                                        }
+                                    }
+                                },
+                                "strategy": {
+                                    "type": "object",
+                                    "title": "Update strategy",
+                                    "description": "Strategy to use when updating the machines.",
+                                    "properties": {
+                                        "rollingUpdate": {
+                                            "type": "object",
+                                            "title": "Rolling update strategy",
+                                            "description": "Rolling update config params.",
+                                            "properties": {
+                                                "deletePolicy": {
+                                                    "type": "string",
+                                                    "title": "Delete policy",
+                                                    "description": "DeletePolicy defines the policy used by the MachineDeployment to identify nodes to delete when downscaling. When no value is supplied, the default DeletePolicy of MachineSet is used.",
+                                                    "enum": [
+                                                        "Random",
+                                                        "Newest",
+                                                        "Oldest"
+                                                    ]
+                                                },
+                                                "maxSurge": {
+                                                    "type": "string",
+                                                    "title": "Max surge",
+                                                    "description": "The maximum number of machines that can be scheduled above the desired number of machines. Value can be an absolute number (ex: 5) or a percentage of desired machines (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 1.",
+                                                    "default": "1"
+                                                },
+                                                "maxUnavailable": {
+                                                    "type": "string",
+                                                    "title": "Max unavailable",
+                                                    "description": "The maximum number of machines that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired machines (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 0.",
+                                                    "default": "0"
+                                                }
+                                            }
                                         }
                                     }
                                 },
@@ -1402,6 +1437,37 @@
                             ],
                             "additionalProperties": false,
                             "properties": {
+                                "cdi": {
+                                    "type": "object",
+                                    "title": "Container Device Interface (CDI)",
+                                    "description": "Configuration of CDI support in containerd.",
+                                    "required": [
+                                        "enabled"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean",
+                                            "title": "Enabled",
+                                            "description": "Enabling this will configure containerd to support Container Device Interface (CDI) specification.",
+                                            "default": false
+                                        },
+                                        "specDirs": {
+                                            "type": "array",
+                                            "title": "CDI spec directories",
+                                            "description": "List of directories to search for CDI spec files.",
+                                            "items": {
+                                                "type": "string",
+                                                "title": "CDI spec directory",
+                                                "description": "Directory to search for CDI spec files."
+                                            },
+                                            "default": [
+                                                "/etc/cdi",
+                                                "/var/run/cdi"
+                                            ]
+                                        }
+                                    }
+                                },
                                 "containerRegistries": {
                                     "type": "object",
                                     "title": "Container registries",
