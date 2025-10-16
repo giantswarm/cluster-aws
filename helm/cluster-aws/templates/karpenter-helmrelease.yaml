@@ -112,7 +112,7 @@ spec:
   storageNamespace: karpenter-taint
   chart:
     spec:
-      chart: karpenter-taint
+      chart: capa-karpenter-taint-remover
       {{- $_ := set $ "appName" "capa-karpenter-taint-remover" }}
       version: {{ include "cluster.app.version" $ }}
       sourceRef:
