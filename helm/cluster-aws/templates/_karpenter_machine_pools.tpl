@@ -156,7 +156,7 @@ spec:
         {{- end }}
         {{- end }}
         {{- with $value.terminationGracePeriod }}
-        terminationGracePeriod: {{ . }}
+        terminationGracePeriod: {{ . | default "30m" }}
         {{- end }}
 ---
 {{ end }}
