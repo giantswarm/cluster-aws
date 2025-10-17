@@ -94,4 +94,40 @@ spec:
       optional: {{ $config.optional | default false  }}
     {{- end }}
   {{- end }}
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: {{ include "resource.default.name" $ }}-karpenter-taint
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
+  labels:
+    cluster-apps-operator.giantswarm.io/watching: ""
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  suspend: false
+  releaseName: karpenter-taint
+  targetNamespace: karpenter
+  storageNamespace: karpenter
+  chart:
+    spec:
+      chart: capa-karpenter-taint-remover
+      {{- $_ := set $ "appName" "capa-karpenter-taint-remover" }}
+      version: {{ include "cluster.app.version" $ }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+  kubeConfig:
+    secretRef:
+      name: {{ include "resource.default.name" $ }}-kubeconfig
+  interval: 5m
+  timeout: 15m # We need a bigger timeout because it could take a while for IRSA (via CloudFront) to become available
+  install:
+    createNamespace: true
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      retries: -1
 {{- end }}
