@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.1.0] - 2025-10-17
+
 ### Added
 
 - Add `capa-karpenter-taint-remover` to handle CAPA - Karpenter taint race condition.
@@ -1741,7 +1743,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v6.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v6.1.0...HEAD
+[6.1.0]: https://github.com/giantswarm/cluster-aws/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/giantswarm/cluster-aws/compare/v5.0.0...v6.0.0
 [5.0.0]: https://github.com/giantswarm/cluster-aws/compare/v4.0.2...v5.0.0
 [4.0.2]: https://github.com/giantswarm/cluster-aws/compare/v4.0.1...v4.0.2
