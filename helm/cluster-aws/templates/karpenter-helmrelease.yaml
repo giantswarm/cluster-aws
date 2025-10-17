@@ -109,7 +109,7 @@ spec:
   suspend: false
   releaseName: karpenter-taint
   targetNamespace: karpenter
-  storageNamespace: karpenter-taint
+  storageNamespace: karpenter
   chart:
     spec:
       chart: capa-karpenter-taint-remover
