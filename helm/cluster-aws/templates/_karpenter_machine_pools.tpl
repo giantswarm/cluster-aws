@@ -67,7 +67,7 @@ spec:
         {{- end }}
   nodePool:
     disruption:
-      consolidateAfter: {{ $value.consolidateAfter | default "3m" }}
+      consolidateAfter: {{ $value.consolidateAfter | default "6h" }}
       {{- with $value.consolidationPolicy }}
       consolidationPolicy: {{ . }}
       {{- end }}
