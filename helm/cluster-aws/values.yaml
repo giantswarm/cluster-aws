@@ -43,6 +43,8 @@ cluster:
         enable: true
       nodeExporter:
         enable: true
+      nodeProblemDetector:
+        enable: true
       observabilityBundle:
         enable: true
       observabilityPolicies:
@@ -382,6 +384,9 @@ global:
     libVolumeSizeGB: 40
     logVolumeSizeGB: 15
     machineHealthCheck:
+      diskFullContainerdTimeout: ""
+      diskFullKubeletTimeout: ""
+      diskFullVarLogTimeout: ""
       enabled: true
       maxUnhealthy: 40%
       nodeStartupTimeout: 8m0s
