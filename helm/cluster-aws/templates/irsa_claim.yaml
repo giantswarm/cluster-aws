@@ -17,6 +17,6 @@ spec:
   region: {{ include "aws-region" . }}
   tags:
     giantswarm.io/cluster: {{ include "resource.default.name" $ }}
-    giantswarm.io/installation: {{ .Values.global.managementCluster }}
+    giantswarm.io/installation: {{ required "global.managementCluster is required. The values from the 'cluster-app-installation-values' ConfigMap in the default namespace should be passed when deploying this chart" .Values.global.managementCluster }}
     {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
 {{- end}}

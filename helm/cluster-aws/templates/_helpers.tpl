@@ -53,7 +53,7 @@ giantswarm.io/prevent-deletion: "true"
 {{- end -}}
 
 {{- define "noProxyList" -}}
-127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.global.connectivity.network.vpcCidr }},{{ join "," $.Values.global.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.global.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.global.connectivity.baseDomain }},elb.amazonaws.com,{{ $.Values.global.connectivity.proxy.noProxy }}
+127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.global.connectivity.network.vpcCidr }},{{ join "," $.Values.global.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.global.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain is required. The values from the 'cluster-app-installation-values' ConfigMap in the default namespace should be passed when deploying this chart" $.Values.global.connectivity.baseDomain }},elb.amazonaws.com,{{ $.Values.global.connectivity.proxy.noProxy }}
 {{- end -}}
 
 {{- define "controlPlanePostKubeadmCommands" -}}
@@ -119,7 +119,7 @@ sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}
 {{- if hasPrefix "cn-" (include "aws-region" .) -}}
 https://s3.{{include "aws-region" .}}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{include "resource.default.name" $}}-oidc-pod-identity-v3
 {{- else -}}
-https://irsa.{{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}
+https://irsa.{{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain is required. The values from the 'cluster-app-installation-values' ConfigMap in the default namespace should be passed when deploying this chart" .Values.global.connectivity.baseDomain }}
 {{- end }}
 {{- end }}
 

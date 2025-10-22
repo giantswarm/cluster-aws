@@ -1,5 +1,5 @@
 {{- define "aws-cluster" }}
-{{- if and (regexMatch "\\.internal$" (required "global.connectivity.baseDomain is required" .Values.global.connectivity.baseDomain)) (eq (required "global.connectivity.dns.mode required" .Values.global.connectivity.dns.mode) "public") }}
+{{- if and (regexMatch "\\.internal$" (required "global.connectivity.baseDomain is required. The values from the 'cluster-app-installation-values' ConfigMap in the default namespace should be passed when deploying this chart" .Values.global.connectivity.baseDomain)) (eq (required "global.connectivity.dns.mode required" .Values.global.connectivity.dns.mode) "public") }}
 {{- fail "global.connectivity.dns.mode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
 {{- end }}
 {{- $region := include "aws-region" . }}
@@ -44,7 +44,7 @@ metadata:
 spec:
   additionalTags:
     giantswarm.io/cluster: {{ include "resource.default.name" $ }}
-    giantswarm.io/installation: {{ .Values.global.managementCluster }}
+    giantswarm.io/installation: {{ required "global.managementCluster is required. The values from the 'cluster-app-installation-values' ConfigMap in the default namespace should be passed when deploying this chart" .Values.global.managementCluster }}
     {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
   bastion:
     enabled: false
