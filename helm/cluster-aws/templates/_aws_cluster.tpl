@@ -1,5 +1,5 @@
 {{- define "aws-cluster" }}
-{{- if and (regexMatch "\\.internal$" (required "global.connectivity.baseDomain is required. The values from the 'cluster-app-installation-values' ConfigMap in the default namespace should be passed when deploying this chart" .Values.global.connectivity.baseDomain)) (eq (required "global.connectivity.dns.mode required" .Values.global.connectivity.dns.mode) "public") }}
+{{- if and (regexMatch "\\.internal$" .Values.global.connectivity.baseDomain) (eq (required "global.connectivity.dns.mode required" .Values.global.connectivity.dns.mode) "public") }}
 {{- fail "global.connectivity.dns.mode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
 {{- end }}
 {{- $region := include "aws-region" . }}
@@ -44,7 +44,7 @@ metadata:
 spec:
   additionalTags:
     giantswarm.io/cluster: {{ include "resource.default.name" $ }}
-    giantswarm.io/installation: {{ required "global.managementCluster is required. The values from the 'cluster-app-installation-values' ConfigMap in the default namespace should be passed when deploying this chart" .Values.global.managementCluster }}
+    giantswarm.io/installation: {{ .Values.global.managementCluster }}
     {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
   bastion:
     enabled: false
@@ -65,7 +65,7 @@ spec:
       cidrBlocks: {{- toYaml ((concat .Values.global.controlPlane.loadBalancerIngressAllowCidrBlocks (list "95.179.153.65/32" "185.102.95.187/32")) | uniq) | nindent 6 }}
     {{- end }}
   network:
-    {{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+    {{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
     additionalControlPlaneIngressRules:
       - description: "Allow traffic from pods to control plane nodes for access of applications to Kubernetes API"
         protocol: "-1" # all
@@ -73,43 +73,43 @@ spec:
         toPort: -1
 
         # We could also use `sourceSecurityGroupIds` here, but the ID of the "<cluster>-pods" security group isn't known yet
-        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+        cidrBlocks: {{ .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
     additionalNodeIngressRules:
       - description: "Allow traffic from Pods to the Cilium Relay port running on the nodes"
         protocol: "tcp"
         fromPort: 4244
         toPort: 4244
-        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+        cidrBlocks: {{ .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
       - description: "Allow traffic from Pods to Chart Operator running on the nodes"
         protocol: "tcp"
         fromPort: 8000
         toPort: 8000
-        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+        cidrBlocks: {{ .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
       - description: "Allow traffic from Pods to EBS CSI Controller running on the nodes"
         protocol: "tcp"
         fromPort: 8610
         toPort: 8610
-        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+        cidrBlocks: {{ .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
       - description: "Allow traffic from Pods to Cilium Operator and Envoy running on the nodes"
         protocol: "tcp"
         fromPort: 9963
         toPort: 9964
-        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+        cidrBlocks: {{ .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
       - description: "Allow traffic from Pods to the Kubelet API running on the nodes"
         protocol: "tcp"
         fromPort: 10250
         toPort: 10250
-        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+        cidrBlocks: {{ .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
       - description: "Allow traffic from Pods to Node Exporter running on the nodes"
         protocol: "tcp"
         fromPort: 10300
         toPort: 10300
-        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+        cidrBlocks: {{ .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
       - description: "Allow traffic from Pods to Kubernetes Resource Count Exporter running on the nodes"
         protocol: "tcp"
         fromPort: 10999
         toPort: 10999
-        cidrBlocks: {{ required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
+        cidrBlocks: {{ .Values.global.connectivity.network.pods.cidrBlocks | toYaml | nindent 10 }}
     {{- end }}
     cni:
       cniIngressRules:
@@ -139,10 +139,10 @@ spec:
       {{- if .Values.global.connectivity.network.internetGatewayId }}
       internetGatewayId: {{ .Values.global.connectivity.network.internetGatewayId }}
       {{- end }}
-      {{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+      {{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
       secondaryCidrBlocks:
         # Managed by Cilium in ENI mode
-        {{- if not (required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks | first | regexMatch "/(1[6-9]|2[0-8])$") }}
+        {{- if not (.Values.global.connectivity.network.pods.cidrBlocks | first | regexMatch "/(1[6-9]|2[0-8])$") }}
           {{ fail (printf "You have set `global.connectivity.cilium.ipamMode=eni`, but the pod CIDR %s is not supported as AWS VPC CIDR (see https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html: /16 to /28 sizes are supported). Please change `global.connectivity.network.pods.cidrBlocks` to a valid value (see https://github.com/giantswarm/cluster-aws/tree/main/helm/cluster-aws#connectivity)." (.Values.global.connectivity.network.pods.cidrBlocks | first | quote)) }}
         {{- end }}
         - ipv4CidrBlock: {{ .Values.global.connectivity.network.pods.cidrBlocks | first | quote }}
@@ -163,7 +163,7 @@ spec:
         {{ end }}
       {{- end }}
     {{- $allCidrs := concat $vpcCidrs ($.Values.global.connectivity.network.nodePortIngressRuleCidrBlocks | default (list)) }}
-    {{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+    {{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
     {{- $allCidrs = concat $allCidrs ($.Values.global.connectivity.network.pods.cidrBlocks | default (list)) }}
     {{- end }}
     {{- $seen := dict }}
@@ -230,7 +230,7 @@ spec:
     {{- end }}
     {{- end }}
 
-    {{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+    {{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
     {{- range $j, $subnet := .Values.global.connectivity.eniModePodSubnets }}
     {{- range $i, $cidr := $subnet.cidrBlocks }}
     - id: "{{ include "resource.default.name" $ }}-subnet-secondary-{{ if eq (len $cidr.availabilityZone) 1 }}{{ include "aws-region" $ }}{{ end }}{{ $cidr.availabilityZone }}"

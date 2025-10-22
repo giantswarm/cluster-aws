@@ -11,12 +11,12 @@ spec:
   name: {{ include "resource.default.name" $ }}
   bucketName: {{ include "aws-account-id" . }}-g8s-{{ include "resource.default.name" $ }}-oidc-pod-identity-v3
   {{- if not (hasPrefix "cn-" (include "aws-region" .)) }}
-  domain: {{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}
+  domain: {{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}
   {{- end }}
   providerConfigRef: {{ include "resource.default.name" $ }}
   region: {{ include "aws-region" . }}
   tags:
     giantswarm.io/cluster: {{ include "resource.default.name" $ }}
-    giantswarm.io/installation: {{ required "global.managementCluster is required. The values from the 'cluster-app-installation-values' ConfigMap in the default namespace should be passed when deploying this chart" .Values.global.managementCluster }}
+    giantswarm.io/installation: {{ .Values.global.managementCluster }}
     {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
 {{- end}}
