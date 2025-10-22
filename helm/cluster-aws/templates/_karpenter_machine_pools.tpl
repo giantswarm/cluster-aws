@@ -22,7 +22,7 @@ spec:
     - deviceName: /dev/xvda
       rootVolume: true
       ebs:
-        volumeSize: {{ $value.rootVolumeSizeGB | default 8 }}Gi
+        volumeSize: {{ $value.rootVolumeSizeGB | default 15 }}Gi
         volumeType: gp3
         deleteOnTermination: true
     - deviceName: /dev/xvdd
@@ -67,7 +67,7 @@ spec:
         {{- end }}
   nodePool:
     disruption:
-      consolidateAfter: {{ $value.consolidateAfter | default "3m" }}
+      consolidateAfter: {{ $value.consolidateAfter | default "6h" }}
       {{- with $value.consolidationPolicy }}
       consolidationPolicy: {{ . }}
       {{- end }}
@@ -155,9 +155,7 @@ spec:
           {{- end }}
         {{- end }}
         {{- end }}
-        {{- with $value.terminationGracePeriod }}
-        terminationGracePeriod: {{ . | default "30m" }}
-        {{- end }}
+        terminationGracePeriod: {{ $value.terminationGracePeriod | default "30m" }}
 ---
 {{ end }}
 {{ end }}
