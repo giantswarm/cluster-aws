@@ -1,0 +1,22 @@
+global:
+  release:
+    version: 29.1.0
+  metadata:
+    name: node-problem-detector-used
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+  controlPlane:
+    machineHealthCheck:
+      enabled: true
+      diskFullVarLogTimeout: "1337m"
+  providerSpecific:
+    region: "eu-west-1"
+  managementCluster: test
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

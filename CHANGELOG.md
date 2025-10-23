@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add node-problem-detector-app, disabled by default
+
 ### Changed
 
 - Change the default root disk size for Karpenter node pools. Karpenter will choose the cheapest instances, and certain instances, like `g6f.xlarge` come with some drivers that require a larger disk.

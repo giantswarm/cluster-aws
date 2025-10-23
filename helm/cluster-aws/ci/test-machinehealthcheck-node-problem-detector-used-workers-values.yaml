@@ -1,0 +1,25 @@
+global:
+  release:
+    version: 29.1.0
+  metadata:
+    name: node-problem-detector-used
+    organization: test
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+  nodePools:
+    pool0:
+      maxSize: 3
+      minSize: 3
+      machineHealthCheck:
+        enabled: true
+        diskFullContainerdTimeout: "1337m"
+  providerSpecific:
+    region: "eu-west-1"
+  managementCluster: test
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true
