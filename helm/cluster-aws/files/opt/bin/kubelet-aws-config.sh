@@ -6,7 +6,7 @@ err_report() {
 }
 trap 'err_report ${LINENO}' ERR
 
-{{- if ne (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+{{- if ne .Values.global.connectivity.cilium.ipamMode "eni" }}
 
 echo "Skipping setting --max-pods based on instance type because Cilium ENI mode is not used and thus no such restrictions apply."
 exit 0

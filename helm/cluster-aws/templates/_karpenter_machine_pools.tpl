@@ -7,7 +7,7 @@ metadata:
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
-    {{- if (required "global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers is required" $.Values.global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers) }}
+    {{- if $.Values.global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers }}
     alpha.aws.giantswarm.io/reduced-instance-permissions-workers: "true"
     {{- end }}
     app.kubernetes.io/version: {{ $.Chart.Version | quote }}
@@ -39,7 +39,7 @@ spec:
         deleteOnTermination: true
     instanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
     metadataOptions:
-      {{- if eq (required "global.connectivity.cilium.ipamMode is required" $.Values.global.connectivity.cilium.ipamMode) "eni" }}
+      {{- if eq $.Values.global.connectivity.cilium.ipamMode "eni" }}
       httpPutResponseHopLimit: 2
       {{- else }}
       httpPutResponseHopLimit: 3

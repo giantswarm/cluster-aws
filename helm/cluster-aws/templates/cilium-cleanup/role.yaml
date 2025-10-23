@@ -1,4 +1,4 @@
-{{- if eq (required "global.connectivity.cilium.ipamMode is required" .Values.global.connectivity.cilium.ipamMode) "eni" }}
+{{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:

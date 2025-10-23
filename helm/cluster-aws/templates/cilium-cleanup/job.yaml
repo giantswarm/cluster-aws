@@ -1,4 +1,4 @@
-{{- if eq (required "global.connectivity.cilium.ipamMode is required" .Values.global.connectivity.cilium.ipamMode) "eni" }}
+{{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
 #
 # When working in eni mode and ENIs need to be deleted (e.g. on cluster deletion), Cilium first needs to detach
 # the ENIs from the EC2 instance, and then delete them.

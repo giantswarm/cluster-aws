@@ -1,6 +1,7 @@
 global:
   release:
     version: 29.1.0
+  managementCluster: test
   metadata:
     name: test-wc-minimal
     organization: test

@@ -40,7 +40,7 @@ instanceMetadataOptions:
 {{- if $.Values.global.providerSpecific.instanceMetadataOptions.httpPutResponseHopLimit }}
   httpPutResponseHopLimit: {{ $.Values.global.providerSpecific.instanceMetadataOptions.httpPutResponseHopLimit }}
 {{- else }}
-{{- if eq (required "global.connectivity.cilium.ipamMode is required" .Values.global.connectivity.cilium.ipamMode) "eni" }}
+{{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
   httpPutResponseHopLimit: 2
 {{- else }}
   httpPutResponseHopLimit: 3

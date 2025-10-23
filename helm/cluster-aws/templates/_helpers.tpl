@@ -32,7 +32,7 @@ app: {{ include "name" . | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
 cluster.x-k8s.io/cluster-name: {{ include "resource.default.name" . | quote }}
 giantswarm.io/cluster: {{ include "resource.default.name" . | quote }}
-giantswarm.io/organization: {{ required "You must provide an existing organization name in .global.metadata.organization" .Values.global.metadata.organization | quote }}
+giantswarm.io/organization: {{ .Values.global.metadata.organization | quote }}
 cluster.x-k8s.io/watch-filter: capi
 {{- end -}}
 
@@ -119,7 +119,7 @@ sts.amazonaws.com{{ if hasPrefix "cn-" (include "aws-region" .) }}.cn{{ end }}
 {{- if hasPrefix "cn-" (include "aws-region" .) -}}
 https://s3.{{include "aws-region" .}}.amazonaws.com.cn/{{ include "aws-account-id" .}}-g8s-{{include "resource.default.name" $}}-oidc-pod-identity-v3
 {{- else -}}
-https://irsa.{{ include "resource.default.name" $ }}.{{ required "global.connectivity.baseDomain value is required" .Values.global.connectivity.baseDomain }}
+https://irsa.{{ include "resource.default.name" $ }}.{{ .Values.global.connectivity.baseDomain }}
 {{- end }}
 {{- end }}
 
