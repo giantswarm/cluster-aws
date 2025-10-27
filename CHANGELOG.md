@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add Crossplane IAM Roles, policies and instance profiles for the worker nodes. Instead of having an IAM Role per node pool, now we'll use the same for all node pools. *This change will roll the worker nodes*.
+
 ### Changed
 
 - Tidy up dependencies on `azs-getter`.

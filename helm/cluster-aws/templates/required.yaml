@@ -3,4 +3,3 @@
 {{- $_ := required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode }}
 {{- $_ := required "global.connectivity.network.pods.cidrBlocks is required" .Values.global.connectivity.network.pods.cidrBlocks }}
 {{- $_ := required "You must provide an existing organization name in .global.metadata.organization" .Values.global.metadata.organization }}
-{{- $_ := required "global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers is required" $.Values.global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers }}
