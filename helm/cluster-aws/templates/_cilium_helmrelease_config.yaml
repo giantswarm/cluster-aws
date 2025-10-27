@@ -4,7 +4,7 @@
 provider: capa
 image:
   registry: {{ include "awsContainerImageRegistry" $ }}
-{{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" }}
+{{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
 # https://docs.cilium.io/en/v1.14/network/concepts/routing/#id5
 ipam:
   mode: eni
@@ -33,7 +33,7 @@ cniCustomConf:
 extraEnv:
   - name: CNI_CONF_NAME
     value: "21-cilium.conflist"
-{{- else if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "kubernetes" }}
+{{- else if eq .Values.global.connectivity.cilium.ipamMode "kubernetes" }}
 {{- /* Use default from `cluster` chart */}}
 {{- end }}
 
