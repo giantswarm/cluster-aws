@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.3.0] - 2025-10-24
+
 ### Changed
 
 - Make `global.baseDomain` and `global.managementCluster` required values. These values will be passed to the chart when deploying it from the `cluster-app-installation-values` ConfigMap in the default namespace.
 - Extract required values to its own central file to avoid repeating the `required` keyword and error messages. This is normally done automatically by a Kyverno policy.
 - Change the default root disk size for Karpenter node pools. Karpenter will choose the cheapest instances, and certain instances, like `g6f.xlarge` come with some drivers that require a larger disk.
+- Chart: Update `cluster` to v4.3.0.
 
 ## [6.2.0] - 2025-10-21
 
@@ -1756,7 +1759,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v6.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v6.3.0...HEAD
+[6.3.0]: https://github.com/giantswarm/cluster-aws/compare/v6.2.0...v6.3.0
 [6.2.0]: https://github.com/giantswarm/cluster-aws/compare/v6.1.0...v6.2.0
 [6.1.0]: https://github.com/giantswarm/cluster-aws/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/giantswarm/cluster-aws/compare/v5.0.0...v6.0.0
