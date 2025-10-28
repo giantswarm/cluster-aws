@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add node-problem-detector-app, disabled by default.
 
+### Changed
+
+- Tidy up dependencies on `azs-getter`.
+
 ## [6.3.0] - 2025-10-24
 
 ### Changed
