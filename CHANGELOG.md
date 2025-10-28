@@ -16,13 +16,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Tidy up dependencies on `azs-getter`.
+- Make `global.baseDomain` and `global.managementCluster` required values. These values will be passed to the chart when deploying it from the `cluster-app-installation-values` ConfigMap in the default namespace.
+- Extract required values to its own central file to avoid repeating the `required` keyword and error messages. This is normally done automatically by a Kyverno policy.
 
 ## [6.3.0] - 2025-10-24
 
 ### Changed
 
-- Make `global.baseDomain` and `global.managementCluster` required values. These values will be passed to the chart when deploying it from the `cluster-app-installation-values` ConfigMap in the default namespace.
-- Extract required values to its own central file to avoid repeating the `required` keyword and error messages. This is normally done automatically by a Kyverno policy.
 - Change the default root disk size for Karpenter node pools. Karpenter will choose the cheapest instances, and certain instances, like `g6f.xlarge` come with some drivers that require a larger disk.
 - Chart: Update `cluster` to v4.3.0.
 
