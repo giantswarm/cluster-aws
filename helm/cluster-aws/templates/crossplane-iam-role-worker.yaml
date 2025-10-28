@@ -15,7 +15,7 @@ spec:
           {
             "Effect": "Allow",
             "Principal": {
-              "Service": "ec2.amazonaws.com"
+              "Service": "ec2.amazonaws.com{{- if hasPrefix "cn-" .Values.awsRegion }}.cn{{- end }}"
             },
             "Action": "sts:AssumeRole"
           }
