@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add node-problem-detector-app, disabled by default.
+
 ### Changed
 
 - Tidy up dependencies on `azs-getter`.
