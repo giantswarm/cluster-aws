@@ -298,6 +298,7 @@ global:
     netExporter: {}
     networkPolicies: {}
     nodeExporter: {}
+    nodeProblemDetector: {}
     observabilityBundle: {}
     observabilityPolicies: {}
     prometheusBlackboxExporter: {}

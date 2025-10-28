@@ -213,7 +213,7 @@
                 "maxUnhealthy": {
                     "type": "string",
                     "title": "Maximum unhealthy nodes",
-                    "description": "Remediation (= machine deletion) is only performed if at most `maxUnhealthy` machines are unhealthy.",
+                    "description": "Defaults to 40% for control plane nodes and 20% for worker nodes.",
                     "examples": [
                         "40%"
                     ]
@@ -1451,6 +1451,12 @@
                             "type": "object",
                             "title": "node-exporter",
                             "description": "Configuration of node-exporter. For all available values see https://github.com/giantswarm/node-exporter-app."
+                        },
+                        "nodeProblemDetector": {
+                            "$ref": "#/$defs/helmRelease",
+                            "type": "object",
+                            "title": "node-problem-detector",
+                            "description": "Configuration of node-problem-detector-app. For all available values see https://github.com/giantswarm/node-problem-detector-app."
                         },
                         "observabilityBundle": {
                             "$ref": "#/$defs/app",
