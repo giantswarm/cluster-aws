@@ -1,4 +1,4 @@
-{{- if eq (required "global.connectivity.cilium.ipamMode is required"  .Values.global.connectivity.cilium.ipamMode) "eni" -}}
+{{- if eq .Values.global.connectivity.cilium.ipamMode "eni" -}}
 # https://docs.cilium.io/en/latest/network/concepts/ipam/eni/#node-configuration
 #
 # For ENI mode, this ensures the Cilium-created network interfaces are not managed, so that they

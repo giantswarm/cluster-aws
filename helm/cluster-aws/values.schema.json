@@ -1284,6 +1284,7 @@
             "title": "Global",
             "description": "Properties that are available to all charts and subcharts.",
             "required": [
+                "managementCluster",
                 "metadata",
                 "release"
             ],
@@ -1727,6 +1728,9 @@
                 "connectivity": {
                     "type": "object",
                     "title": "Connectivity",
+                    "required": [
+                        "baseDomain"
+                    ],
                     "additionalProperties": false,
                     "properties": {
                         "availabilityZoneUsageLimit": {
