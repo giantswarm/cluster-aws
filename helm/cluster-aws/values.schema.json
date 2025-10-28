@@ -213,10 +213,10 @@
                 "maxUnhealthy": {
                     "type": "string",
                     "title": "Maximum unhealthy nodes",
+                    "description": "Remediation (= machine deletion) is only performed if at most `maxUnhealthy` machines are unhealthy.",
                     "examples": [
                         "40%"
-                    ],
-                    "default": "40%"
+                    ]
                 },
                 "nodeStartupTimeout": {
                     "type": "string",
