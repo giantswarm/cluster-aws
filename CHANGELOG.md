@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add node-problem-detector-app, disabled by default
+- Add node-problem-detector-app, disabled by default.
 
 ## [6.3.0] - 2025-10-24
 
