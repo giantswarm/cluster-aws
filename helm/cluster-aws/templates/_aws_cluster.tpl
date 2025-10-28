@@ -255,7 +255,7 @@ spec:
     {{- end }}
   sshKeyName: ssh-key
   s3Bucket:
-    controlPlaneIAMInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
+    controlPlaneIAMInstanceProfile: {{ include "resource.default.name" $ }}-control-plane
     name: {{ include "aws-region" . }}-capa-{{ include "resource.default.name" $ }}
     nodesIAMInstanceProfiles:
     - {{ include "resource.default.name" $ }}-worker

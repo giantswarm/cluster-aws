@@ -15,7 +15,7 @@ spec:
           {
             "Effect": "Allow",
             "Principal": {
-              "Service": "ec2.amazonaws.com{{- if hasPrefix "cn-" .Values.awsRegion }}.cn{{- end }}"
+              "Service": "ec2.amazonaws.com{{- if hasPrefix "cn-" (include "aws-region" .) }}.cn{{- end }}"
             },
             "Action": "sts:AssumeRole"
           }
@@ -86,23 +86,6 @@ spec:
     name: {{ include "resource.default.name" $ }}
 ---
 apiVersion: iam.aws.upbound.io/v1beta1
-kind: InstanceProfile
-metadata:
-  name: {{ include "resource.default.name" $ }}-worker
-  labels:
-    {{- include "labels.common" $ | nindent 4 }}
-    app.kubernetes.io/version: {{ .Chart.Version | quote }}
-spec:
-  forProvider:
-    tags:
-      managed-by: "cluster-aws"
-      giantswarm.io/cluster: {{ include "resource.default.name" $ }}
-      giantswarm.io/installation: {{ .Values.global.managementCluster }}
-      {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
-  providerConfigRef:
-    name: {{ include "resource.default.name" $ }}
----
-apiVersion: iam.aws.upbound.io/v1beta1
 kind: RolePolicyAttachment
 metadata:
   name: {{ include "resource.default.name" $ }}-worker
@@ -113,7 +96,25 @@ spec:
   forProvider:
     roleRef:
       name: {{ include "resource.default.name" $ }}-worker
-    instanceProfileRef:
+    policyArnRef:
       name: {{ include "resource.default.name" $ }}-worker
+  providerConfigRef:
+    name: {{ include "resource.default.name" $ }}
+---
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: InstanceProfile
+metadata:
+  name: {{ include "resource.default.name" $ }}-worker
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
+spec:
+  forProvider:
+    role: {{ include "resource.default.name" $ }}-worker
+    tags:
+      managed-by: "cluster-aws"
+      giantswarm.io/cluster: {{ include "resource.default.name" $ }}
+      giantswarm.io/installation: {{ .Values.global.managementCluster }}
+      {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
   providerConfigRef:
     name: {{ include "resource.default.name" $ }}
