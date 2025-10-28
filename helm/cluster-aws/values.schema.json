@@ -168,6 +168,86 @@
                 }
             }
         },
+        "machineHealthCheck": {
+            "type": "object",
+            "title": "Machine health check",
+            "required": [
+                "enabled"
+            ],
+            "properties": {
+                "diskFullContainerdTimeout": {
+                    "type": "string",
+                    "title": "DiskFullContainerd timeout",
+                    "description": "Determines how long a machine health check should wait for a node with condition DiskFullContainerd=True before considering a machine unhealthy. Use an empty value to not consider this condition.",
+                    "examples": [
+                        "10m",
+                        "100s"
+                    ],
+                    "default": ""
+                },
+                "diskFullKubeletTimeout": {
+                    "type": "string",
+                    "title": "DiskFullKubelet timeout",
+                    "description": "Determines how long a machine health check should wait for a node with condition DiskFullKubelet=True before considering a machine unhealthy. Use an empty value to not consider this condition.",
+                    "examples": [
+                        "10m",
+                        "100s"
+                    ],
+                    "default": ""
+                },
+                "diskFullVarLogTimeout": {
+                    "type": "string",
+                    "title": "DiskFullVarLog timeout",
+                    "description": "Determines how long a machine health check should wait for a node with condition DiskFullVarLog=True before considering a machine unhealthy. Use an empty value to not consider this condition.",
+                    "examples": [
+                        "10m",
+                        "100s"
+                    ],
+                    "default": ""
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "title": "Enable",
+                    "default": true
+                },
+                "maxUnhealthy": {
+                    "type": "string",
+                    "title": "Maximum unhealthy nodes",
+                    "description": "Defaults to 40% for control plane nodes and 20% for worker nodes.",
+                    "examples": [
+                        "40%"
+                    ]
+                },
+                "nodeStartupTimeout": {
+                    "type": "string",
+                    "title": "Node startup timeout",
+                    "description": "Determines how long a machine health check should wait for a node to join the cluster, before considering a machine unhealthy.",
+                    "examples": [
+                        "10m",
+                        "100s"
+                    ],
+                    "default": "8m0s"
+                },
+                "unhealthyNotReadyTimeout": {
+                    "type": "string",
+                    "title": "Timeout for ready",
+                    "description": "If a node is not in condition 'Ready' after this timeout, it will be considered unhealthy.",
+                    "examples": [
+                        "300s"
+                    ],
+                    "default": "10m0s"
+                },
+                "unhealthyUnknownTimeout": {
+                    "type": "string",
+                    "title": "Timeout for unknown condition",
+                    "description": "If a node is in 'Unknown' condition after this timeout, it will be considered unhealthy.",
+                    "examples": [
+                        "300s"
+                    ],
+                    "default": "10m0s"
+                }
+            }
+        },
         "machinePool": {
             "type": "object",
             "title": "Node pool",
@@ -664,6 +744,10 @@
                                     "description": "Size of the volume mounted at `/var/log` on the worker nodes.",
                                     "default": 30
                                 },
+                                "machineHealthCheck": {
+                                    "$ref": "#/$defs/machineHealthCheck",
+                                    "title": "Machine health check"
+                                },
                                 "maxHealthyPercentage": {
                                     "type": "integer",
                                     "title": "Maximum percentage of instances that can be in service when replacing instances.",
@@ -832,6 +916,9 @@
                             "enable": true
                         },
                         "nodeExporter": {
+                            "enable": true
+                        },
+                        "nodeProblemDetector": {
                             "enable": true
                         },
                         "observabilityBundle": {
@@ -1364,6 +1451,12 @@
                             "type": "object",
                             "title": "node-exporter",
                             "description": "Configuration of node-exporter. For all available values see https://github.com/giantswarm/node-exporter-app."
+                        },
+                        "nodeProblemDetector": {
+                            "$ref": "#/$defs/helmRelease",
+                            "type": "object",
+                            "title": "node-problem-detector",
+                            "description": "Configuration of node-problem-detector-app. For all available values see https://github.com/giantswarm/node-problem-detector-app."
                         },
                         "observabilityBundle": {
                             "$ref": "#/$defs/app",
@@ -2164,52 +2257,8 @@
                             "default": 15
                         },
                         "machineHealthCheck": {
-                            "type": "object",
-                            "title": "Machine health check",
-                            "additionalProperties": false,
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean",
-                                    "title": "Enable",
-                                    "default": true
-                                },
-                                "maxUnhealthy": {
-                                    "type": "string",
-                                    "title": "Maximum unhealthy nodes",
-                                    "examples": [
-                                        "40%"
-                                    ],
-                                    "default": "40%"
-                                },
-                                "nodeStartupTimeout": {
-                                    "type": "string",
-                                    "title": "Node startup timeout",
-                                    "description": "Determines how long a machine health check should wait for a node to join the cluster, before considering a machine unhealthy.",
-                                    "examples": [
-                                        "10m",
-                                        "100s"
-                                    ],
-                                    "default": "8m0s"
-                                },
-                                "unhealthyNotReadyTimeout": {
-                                    "type": "string",
-                                    "title": "Timeout for ready",
-                                    "description": "If a node is not in condition 'Ready' after this timeout, it will be considered unhealthy.",
-                                    "examples": [
-                                        "300s"
-                                    ],
-                                    "default": "10m0s"
-                                },
-                                "unhealthyUnknownTimeout": {
-                                    "type": "string",
-                                    "title": "Timeout for unknown condition",
-                                    "description": "If a node is in 'Unknown' condition after this timeout, it will be considered unhealthy.",
-                                    "examples": [
-                                        "300s"
-                                    ],
-                                    "default": "10m0s"
-                                }
-                            }
+                            "$ref": "#/$defs/machineHealthCheck",
+                            "title": "Machine health check"
                         },
                         "oidc": {
                             "type": "object",
