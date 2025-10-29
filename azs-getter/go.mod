@@ -1,8 +1,6 @@
 module github.com/giantswarm/azs-getter
 
-go 1.23
-
-toolchain go1.24.3
+go 1.25.3
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.39.4
