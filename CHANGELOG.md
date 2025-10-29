@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add node-problem-detector-app, disabled by default.
-- Add Crossplane IAM Roles, policies and instance profiles for the worker nodes. Instead of having an IAM Role per node pool, now we'll use the same for all node pools. *This change will roll the worker nodes*.
+- Add Crossplane IAM Roles, policies and instance profiles for worker and control plane nodes. Instead of having an IAM Role per node pool, now we'll use the same for all node pools. *This change will roll the nodes*.
 
 ### Changed
 
