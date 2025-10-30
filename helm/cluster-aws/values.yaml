@@ -406,6 +406,5 @@ global:
       httpTokens: required
     irsaCrossplane: true
     nodeTerminationHandlerEnabled: true
-    reducedInstanceProfileIamPermissionsForWorkers: true
   release: {}
 internal: {}

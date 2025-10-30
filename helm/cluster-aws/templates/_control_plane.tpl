@@ -31,7 +31,7 @@ nonRootVolumes:
 rootVolume:
   size: {{ .Values.global.controlPlane.rootVolumeSizeGB }}
   type: gp3
-iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
+iamInstanceProfile: {{ include "resource.default.name" $ }}-control-plane
 {{- if .Values.global.controlPlane.additionalSecurityGroups }}
 additionalSecurityGroups:
 {{- toYaml .Values.global.controlPlane.additionalSecurityGroups | nindent 2 }}

@@ -7,9 +7,6 @@ metadata:
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
-    {{- if $.Values.global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers }}
-    alpha.aws.giantswarm.io/reduced-instance-permissions-workers: "true"
-    {{- end }}
     app.kubernetes.io/version: {{ $.Chart.Version | quote }}
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
@@ -38,6 +35,7 @@ spec:
         volumeType: gp3
         deleteOnTermination: true
     instanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
+    instanceProfile: {{ include "resource.default.name" $ }}-worker
     metadataOptions:
       {{- if eq $.Values.global.connectivity.cilium.ipamMode "eni" }}
       httpPutResponseHopLimit: 2

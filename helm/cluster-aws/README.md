@@ -32,7 +32,6 @@ Properties within the `.global.providerSpecific` object
 | `global.providerSpecific.irsaCrossplane` | **Use Crossplane to provision IRSA infrastructure** - Defaults to true. Crossplane will adopt all the resources created by IRSA Operator. If set to false, the IRSA Operator will take over the infrastructure again.|**Type:** `[boolean]`<br/>**Default:** `true`|
 | `global.providerSpecific.nodePoolAmi` | **Amazon machine image (AMI) for node pools** - If specified, this image will be used to provision EC2 instances for node pools.|**Type:** `[string]`<br/>|
 | `global.providerSpecific.nodeTerminationHandlerEnabled` | **Use the AWS Node Termination Handler app** - Defaults to true. Whether or not to enable the Auto Scaling Groups lifecycle hooks and use the node-termination-handler app (NTH) to manage the termination of EC2 instances.|**Type:** `[boolean]`<br/>**Default:** `true`|
-| `global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers` | **Use reduced IAM permissions on worker nodes instance profile** - Defaults to true. If something breaks, this can temporarily be disabled in order to bring certain IAM permissions (e.g. EC2) back for the worker nodes' IAM instance profile. Applications must use [IRSA](https://docs.giantswarm.io/tutorials/access-management/iam-roles-for-service-accounts/) to authenticate with the AWS API instead of falling back to the instance profile.|**Type:** `[boolean]`<br/>**Default:** `true`|
 | `global.providerSpecific.region` | **Region**|**Type:** `[string]`<br/>|
 
 ### Apps
