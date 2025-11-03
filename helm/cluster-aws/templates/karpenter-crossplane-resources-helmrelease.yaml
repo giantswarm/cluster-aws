@@ -30,6 +30,8 @@ spec:
   upgrade:
     remediation:
       retries: -1
+  values:
+    workersIamRole: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-worker
   valuesFrom:
     - kind: ConfigMap
       name: {{ include "resource.default.name" $ }}-crossplane-config
