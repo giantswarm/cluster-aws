@@ -34,7 +34,6 @@ spec:
         volumeSize: {{ $value.logVolumeSizeGB | default 30}}Gi
         volumeType: gp3
         deleteOnTermination: true
-    instanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
     instanceProfile: {{ include "resource.default.name" $ }}-worker
     metadataOptions:
       {{- if eq $.Values.global.connectivity.cilium.ipamMode "eni" }}
