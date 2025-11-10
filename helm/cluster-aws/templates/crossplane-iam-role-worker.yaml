@@ -25,7 +25,7 @@ spec:
       managed-by: "cluster-aws"
       giantswarm.io/cluster: {{ include "resource.default.name" $ }}
       giantswarm.io/installation: {{ .Values.global.managementCluster }}
-      {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
+      {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 6 }}{{- end}}
   providerConfigRef:
     name: {{ include "resource.default.name" $ }}
 ---
@@ -115,6 +115,6 @@ spec:
       managed-by: "cluster-aws"
       giantswarm.io/cluster: {{ include "resource.default.name" $ }}
       giantswarm.io/installation: {{ .Values.global.managementCluster }}
-      {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 4 }}{{- end}}
+      {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 6 }}{{- end}}
   providerConfigRef:
     name: {{ include "resource.default.name" $ }}
