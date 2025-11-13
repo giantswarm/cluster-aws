@@ -7,9 +7,6 @@ metadata:
   labels:
     giantswarm.io/machine-pool: {{ include "resource.default.name" $ }}-{{ $name }}
     {{- include "labels.common" $ | nindent 4 }}
-    {{- if $.Values.global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers }}
-    alpha.aws.giantswarm.io/reduced-instance-permissions-workers: "true"
-    {{- end }}
     {{- if eq $.Values.global.connectivity.cilium.ipamMode "eni" }}
     alpha.aws.giantswarm.io/ipam-mode: "eni"
     {{- end }}
@@ -50,7 +47,7 @@ spec:
     {{- else }}
     {{- include "imageLookupParameters" $ | nindent 4 }}
     {{- end }}
-    iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
+    iamInstanceProfile: {{ include "resource.default.name" $ }}-worker
     instanceType: {{ $value.instanceType | default "r6i.xlarge" }}
     rootVolume:
       size: {{ $value.rootVolumeSizeGB | default 8 }}

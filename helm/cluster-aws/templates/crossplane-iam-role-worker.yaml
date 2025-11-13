@@ -1,0 +1,121 @@
+---
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: Role
+metadata:
+  name: {{ include "resource.default.name" $ }}-worker
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
+spec:
+  forProvider:
+    assumeRolePolicy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "ec2.amazonaws.com{{- if hasPrefix "cn-" (include "aws-region" .) }}.cn{{- end }}"
+            },
+            "Action": "sts:AssumeRole"
+          }
+        ]
+      }
+    tags:
+      managed-by: "cluster-aws"
+      giantswarm.io/cluster: {{ include "resource.default.name" $ }}
+      giantswarm.io/installation: {{ .Values.global.managementCluster }}
+      {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 6 }}{{- end}}
+  providerConfigRef:
+    name: {{ include "resource.default.name" $ }}
+---
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: RolePolicy
+metadata:
+  name: {{ include "resource.default.name" $ }}-worker
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
+spec:
+  forProvider:
+    roleRef:
+      name: {{ include "resource.default.name" $ }}-worker
+    policy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+        {{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
+          {
+            "Action": [
+              "ec2:AssignPrivateIpAddresses",
+              "ec2:AttachNetworkInterface",
+              "ec2:CreateNetworkInterface",
+              "ec2:CreateTags",
+              "ec2:DeleteNetworkInterface",
+              "ec2:DescribeInstanceTypes",
+              "ec2:DescribeNetworkInterfaces",
+              "ec2:DescribeRouteTables",
+              "ec2:DescribeSecurityGroups",
+              "ec2:DescribeSubnets",
+              "ec2:DescribeTags",
+              "ec2:DescribeVpcs",
+              "ec2:ModifyNetworkInterfaceAttribute",
+              "ec2:UnassignPrivateIpAddresses"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+          },
+        {{- end }}
+          {
+            "Action": [
+              "ec2:DescribeInstances",
+              "ec2:DescribeRegions",
+              "ecr:BatchCheckLayerAvailability",
+              "ecr:BatchGetImage",
+              "ecr:DescribeRepositories",
+              "ecr:GetAuthorizationToken",
+              "ecr:GetDownloadUrlForLayer",
+              "ecr:GetRepositoryPolicy",
+              "ecr:ListImages"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+          }
+        ]
+      }
+  providerConfigRef:
+    name: {{ include "resource.default.name" $ }}
+---
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: RolePolicyAttachment
+metadata:
+  name: {{ include "resource.default.name" $ }}-worker
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
+spec:
+  forProvider:
+    roleRef:
+      name: {{ include "resource.default.name" $ }}-worker
+    policyArnRef:
+      name: {{ include "resource.default.name" $ }}-worker
+  providerConfigRef:
+    name: {{ include "resource.default.name" $ }}
+---
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: InstanceProfile
+metadata:
+  name: {{ include "resource.default.name" $ }}-worker
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+    app.kubernetes.io/version: {{ .Chart.Version | quote }}
+spec:
+  forProvider:
+    role: {{ include "resource.default.name" $ }}-worker
+    tags:
+      managed-by: "cluster-aws"
+      giantswarm.io/cluster: {{ include "resource.default.name" $ }}
+      giantswarm.io/installation: {{ .Values.global.managementCluster }}
+      {{- if .Values.global.providerSpecific.additionalResourceTags -}}{{- toYaml .Values.global.providerSpecific.additionalResourceTags | nindent 6 }}{{- end}}
+  providerConfigRef:
+    name: {{ include "resource.default.name" $ }}
