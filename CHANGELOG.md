@@ -14,12 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - autoscaling:TerminateInstanceInAutoScalingGroup
 - Removed `global.providerSpecific.reducedInstanceProfileIamPermissionsForWorkers` value, as that's the default behavior now. It cannot be overridden anymore.
 
-
 ### Added
 
 - *This change will roll the nodes* Add Crossplane IAM Roles, policies and instance profiles for worker and control plane nodes. Instead of having an IAM Role per node pool, now we'll use the same for all node pools.
-  
- 
+- Add the `priority-classes` default app, enabled by default. This app provides standardised `PriorityClass` resources like `giantswarm-critical` and `giantswarm-high`, which should replace the previous inconsistent per-app priority classes.
+
+### Changed
+
+- Chart: Update `cluster` to v4.5.1.
 
 ## [6.4.0] - 2025-10-28
 
