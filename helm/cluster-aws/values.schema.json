@@ -260,6 +260,8 @@
                             ],
                             "properties": {
                                 "type": {
+                                    "type": "string",
+                                    "title": "Node pool type",
                                     "const": "karpenter"
                                 }
                             }
@@ -271,10 +273,7 @@
                                     "type": "string",
                                     "title": "Node pool type",
                                     "description": "Controller that will manage the node pool. Only used to enable karpenter node pools.",
-                                    "enum": [
-                                        "machinepool",
-                                        "karpenter"
-                                    ]
+                                    "const": "karpenter"
                                 },
                                 "additionalSecurityGroups": {
                                     "type": "array",
@@ -605,11 +604,8 @@
                                 "type": {
                                     "type": "string",
                                     "title": "Node pool type",
-                                    "description": "Controller that will manage the node pool. Only used to enable karpenter node pools.",
-                                    "enum": [
-                                        "machinepool",
-                                        "karpenter"
-                                    ]
+                                    "description": "Controller that will manage the node pool. Only used to enable karpenter node pools. Defaults to `machinepool` if not set.",
+                                    "const": "machinepool"
                                 },
                                 "additionalSecurityGroups": {
                                     "type": "array",
