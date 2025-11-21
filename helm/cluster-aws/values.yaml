@@ -395,7 +395,10 @@ global:
       nodeStartupTimeout: 8m0s
       unhealthyNotReadyTimeout: 10m0s
       unhealthyUnknownTimeout: 10m0s
-    oidc: {}
+    oidc:
+      structuredAuthentication:
+        enabled: false
+        issuers: []
     rootVolumeSizeGB: 8
   metadata:
     preventDeletion: false

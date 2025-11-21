@@ -2295,6 +2295,201 @@
                                 "usernameClaim": {
                                     "type": "string",
                                     "title": "Username claim"
+                                },
+                                "structuredAuthentication": {
+                                    "type": "object",
+                                    "title": "Structured authentication",
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean",
+                                            "title": "Enable structured authentication",
+                                            "default": false
+                                        },
+                                        "issuers": {
+                                            "type": "array",
+                                            "title": "Issuers",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "caPem": {
+                                                        "type": "string",
+                                                        "title": "Certificate authority",
+                                                        "description": "Identity provider's CA certificate in PEM format."
+                                                    },
+                                                    "clientId": {
+                                                        "type": "string",
+                                                        "title": "Client ID"
+                                                    },
+                                                    "groupsClaim": {
+                                                        "type": "string",
+                                                        "title": "Groups claim"
+                                                    },
+                                                    "groupsPrefix": {
+                                                        "type": "string",
+                                                        "title": "Groups prefix"
+                                                    },
+                                                    "issuerUrl": {
+                                                        "type": "string",
+                                                        "title": "Issuer URL",
+                                                        "description": "Exact issuer URL that will be included in identity tokens."
+                                                    },
+                                                    "usernameClaim": {
+                                                        "type": "string",
+                                                        "title": "Username claim"
+                                                    },
+                                                    "usernamePrefix": {
+                                                        "type": "string",
+                                                        "title": "Username prefix"
+                                                    },
+                                                    "discoveryUrl": {
+                                                        "type": "string",
+                                                        "title": "Discovery URL",
+                                                        "description": "Overrides the URL used to fetch discovery information."
+                                                    },
+                                                    "audiences": {
+                                                        "type": "array",
+                                                        "title": "Audiences",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "audienceMatchPolicy": {
+                                                        "type": "string",
+                                                        "title": "Audience match policy",
+                                                        "enum": ["MatchAny"]
+                                                    },
+                                                    "claimValidationRules": {
+                                                        "type": "array",
+                                                        "title": "Claim validation rules",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "claim": {
+                                                                    "type": "string",
+                                                                    "title": "Claim"
+                                                                },
+                                                                "requiredValue": {
+                                                                    "type": "string",
+                                                                    "title": "Required value"
+                                                                },
+                                                                "expression": {
+                                                                    "type": "string",
+                                                                    "title": "CEL expression"
+                                                                },
+                                                                "message": {
+                                                                    "type": "string",
+                                                                    "title": "Validation message"
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "requiredClaims": {
+                                                        "type": "array",
+                                                        "title": "Required claims (Legacy)",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "claim": {
+                                                                    "type": "string",
+                                                                    "title": "Claim"
+                                                                },
+                                                                "requiredValue": {
+                                                                    "type": "string",
+                                                                    "title": "Required value"
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "claimMappings": {
+                                                        "type": "object",
+                                                        "title": "Claim mappings",
+                                                        "properties": {
+                                                            "username": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "expression": {
+                                                                        "type": "string",
+                                                                        "title": "CEL expression"
+                                                                    },
+                                                                    "claim": {
+                                                                        "type": "string",
+                                                                        "title": "Claim"
+                                                                    },
+                                                                    "prefix": {
+                                                                        "type": "string",
+                                                                        "title": "Prefix"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "groups": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "expression": {
+                                                                        "type": "string",
+                                                                        "title": "CEL expression"
+                                                                    },
+                                                                    "claim": {
+                                                                        "type": "string",
+                                                                        "title": "Claim"
+                                                                    },
+                                                                    "prefix": {
+                                                                        "type": "string",
+                                                                        "title": "Prefix"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "uid": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "expression": {
+                                                                        "type": "string",
+                                                                        "title": "CEL expression"
+                                                                    },
+                                                                    "claim": {
+                                                                        "type": "string",
+                                                                        "title": "Claim"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "extra": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "object",
+                                                                    "properties": {
+                                                                        "key": {
+                                                                            "type": "string",
+                                                                            "title": "Key"
+                                                                        },
+                                                                        "valueExpression": {
+                                                                            "type": "string",
+                                                                            "title": "Value expression"
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "userValidationRules": {
+                                                        "type": "array",
+                                                        "title": "User validation rules",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "expression": {
+                                                                    "type": "string",
+                                                                    "title": "CEL expression"
+                                                                },
+                                                                "message": {
+                                                                    "type": "string",
+                                                                    "title": "Validation message"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         },
