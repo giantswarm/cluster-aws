@@ -49,6 +49,9 @@ spec:
     - tags:
         sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
         sigs.k8s.io/cluster-api-provider-aws/role: node
+    - tags:
+        sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
+        sigs.k8s.io/cluster-api-provider-aws/role: lb
     {{- if $value.additionalSecurityGroups }}
     {{- range $value.additionalSecurityGroups }}
     - id: {{ .id | quote }}
