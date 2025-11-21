@@ -398,7 +398,6 @@ global:
     oidc:
       structuredAuthentication:
         enabled: false
-        issuers: []
     rootVolumeSizeGB: 8
   metadata:
     preventDeletion: false
