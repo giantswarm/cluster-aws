@@ -419,6 +419,51 @@ Properties within the `.global.controlPlane` object
 | `global.controlPlane.oidc.clientId` | **Client ID**|**Type:** `[string]`<br/>|
 | `global.controlPlane.oidc.groupsClaim` | **Groups claim**|**Type:** `[string]`<br/>|
 | `global.controlPlane.oidc.issuerUrl` | **Issuer URL** - Exact issuer URL that will be included in identity tokens.|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication` | **Structured authentication**|**Type:** `[object]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.enabled` | **Enable structured authentication**|**Type:** `[boolean]`<br/>**Default:** `false`|
+| `global.controlPlane.oidc.structuredAuthentication.issuers` | **Issuers**|**Type:** `[array]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*]` |**None**|**Type:** `[object]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].audienceMatchPolicy` | **Audience match policy**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].audiences` | **Audiences**|**Type:** `[array]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].audiences[*]` |**None**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].caPem` | **Certificate authority** - Identity provider's CA certificate in PEM format.|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings` | **Claim mappings**|**Type:** `[object]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.extra` | **Extra attributes**|**Type:** `[array]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.extra[*]` |**None**|**Type:** `[object]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.extra[*].key` | **Key**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.extra[*].valueExpression` | **Value expression**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.groups` | **Groups mapping**|**Type:** `[object]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.groups.claim` | **Claim**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.groups.expression` | **CEL expression**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.groups.prefix` | **Prefix**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.uid` | **UID mapping**|**Type:** `[object]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.uid.claim` | **Claim**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.uid.expression` | **CEL expression**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.username` | **Username mapping**|**Type:** `[object]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.username.claim` | **Claim**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.username.expression` | **CEL expression**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimMappings.username.prefix` | **Prefix**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimValidationRules` | **Claim validation rules**|**Type:** `[array]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimValidationRules[*]` |**None**|**Type:** `[object]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimValidationRules[*].claim` | **Claim**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimValidationRules[*].expression` | **CEL expression**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimValidationRules[*].message` | **Validation message**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].claimValidationRules[*].requiredValue` | **Required value**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].clientId` | **Client ID**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].discoveryUrl` | **Discovery URL** - Overrides the URL used to fetch discovery information.|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].groupsClaim` | **Groups claim**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].groupsPrefix` | **Groups prefix**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].issuerUrl` | **Issuer URL** - Exact issuer URL that will be included in identity tokens.|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].requiredClaims` | **Required claims (Legacy)**|**Type:** `[array]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].requiredClaims[*]` |**None**|**Type:** `[object]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].requiredClaims[*].claim` | **Claim**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].requiredClaims[*].requiredValue` | **Required value**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].userValidationRules` | **User validation rules**|**Type:** `[array]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].userValidationRules[*]` |**None**|**Type:** `[object]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].userValidationRules[*].expression` | **CEL expression**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].userValidationRules[*].message` | **Validation message**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].usernameClaim` | **Username claim**|**Type:** `[string]`<br/>|
+| `global.controlPlane.oidc.structuredAuthentication.issuers[*].usernamePrefix` | **Username prefix**|**Type:** `[string]`<br/>|
 | `global.controlPlane.oidc.usernameClaim` | **Username claim**|**Type:** `[string]`<br/>|
 | `global.controlPlane.rootVolumeSizeGB` | **Root volume size (GB)**|**Type:** `[integer]`<br/>**Default:** `8`|
 | `global.controlPlane.subnetTags` | **Subnet tags** - Tags to select AWS resources for the control plane by.|**Type:** `[array]`<br/>|
