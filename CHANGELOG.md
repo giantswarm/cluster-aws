@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- *This change will roll the nodes on Karpenter node pools* Attach the `lb` Security Group to Karpenter nodes.
+
 ## [5.3.0] - 2025-10-13
 
 ### Changed
