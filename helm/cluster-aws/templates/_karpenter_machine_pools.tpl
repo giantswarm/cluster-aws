@@ -51,6 +51,8 @@ spec:
     - id: {{ .id | quote }}
     {{- end }}
     {{- end }}
+    tags:
+      Name: {{ include "resource.default.name" $ }}-{{ $name }}
     subnetSelectorTerms:
     - tags:
         sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
