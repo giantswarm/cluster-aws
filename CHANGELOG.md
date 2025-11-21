@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - *This change will roll the nodes* Add Crossplane IAM Roles, policies and instance profiles for worker and control plane nodes. Instead of having an IAM Role per node pool, now we'll use the same for all node pools.
 - Add the `priority-classes` default app, enabled by default. This app provides standardised `PriorityClass` resources like `giantswarm-critical` and `giantswarm-high`, which should replace the previous inconsistent per-app priority classes.
+- *This change will roll the nodes on Karpenter node pools* Attach the `lb` Security Group to Karpenter nodes.
+- *This change will roll the nodes on Karpenter node pools* Name instance on AWS after the nodepool name.
 
 ### Changed
 
