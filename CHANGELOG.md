@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- *This change will roll the nodes on Karpenter node pools* Attach the `lb` Security Group to Karpenter nodes.
+- *This change will roll the nodes on Karpenter node pools* Name instance on AWS after the nodepool name.
+
 ## [6.2.0] - 2025-10-21
 
 ### Changed
