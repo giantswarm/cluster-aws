@@ -531,6 +531,15 @@ z1d.xlarge) max_pods=$(((4-$reserved_eni)*(15-1))) ;;
 	;;
 esac
 
+# max pods can't be greater than the number of available IPs in nodeCidrMaskSize
+node_cidr_mask_size="{{ .Values.global.connectivity.network.pods.nodeCidrMaskSize }}"
+if [[ -n "$node_cidr_mask_size" ]]; then
+	available_ips=$((2 ** (32 - node_cidr_mask_size) - 2))
+	if (($max_pods > $available_ips)); then
+		max_pods=$available_ips
+	fi
+fi
+
 # We don't want to have more than 110 pods on a node even it would be possible by IPs
 if (($max_pods > 110)); then
 	max_pods=110
