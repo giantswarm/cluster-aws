@@ -6,12 +6,10 @@ err_report() {
 }
 trap 'err_report ${LINENO}' ERR
 
-{{- if ne .Values.global.connectivity.cilium.ipamMode "eni" }}
+# kubelet default
+max_pods=110
 
-echo "Skipping setting --max-pods based on instance type because Cilium ENI mode is not used and thus no such restrictions apply."
-exit 0
-
-{{- else }}
+{{- if .Values.global.connectivity.cilium.ipamMode "eni" }}
 
 imds_token="$(curl -fsS -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 900")" \
 	|| { echo "ERROR: Failed to get IMDSv2 token from EC2 metadata service"; exit 1; }
@@ -531,6 +529,8 @@ z1d.xlarge) max_pods=$(((4-$reserved_eni)*(15-1))) ;;
 	;;
 esac
 
+{{- end }}
+
 # max pods can't be greater than the number of available IPs in nodeCidrMaskSize
 node_cidr_mask_size="{{ .Values.global.connectivity.network.pods.nodeCidrMaskSize }}"
 if [[ -n "$node_cidr_mask_size" ]]; then
@@ -552,5 +552,3 @@ cat > /tmp/kubeletconfiguration1awsconfig+json.yaml <<EOF
   value: ${max_pods}
 EOF
 mv /tmp/kubeletconfiguration1awsconfig+json.yaml /etc/kubernetes/patches/kubeletconfiguration1awsconfig+json.yaml
-
-{{- end }}
