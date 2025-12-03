@@ -9,7 +9,7 @@ trap 'err_report ${LINENO}' ERR
 # kubelet default
 max_pods=110
 
-{{- if .Values.global.connectivity.cilium.ipamMode "eni" }}
+{{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
 
 imds_token="$(curl -fsS -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 900")" \
 	|| { echo "ERROR: Failed to get IMDSv2 token from EC2 metadata service"; exit 1; }
