@@ -532,7 +532,7 @@ esac
 {{- end }}
 
 # max pods can't be greater than the number of available IPs in nodeCidrMaskSize
-node_cidr_mask_size="{{ .Values.global.connectivity.network.pods.nodeCidrMaskSize }}"
+node_cidr_mask_size="{{ required "global.connectivity.network.pods.nodeCidrMaskSize is required" .Values.global.connectivity.network.pods.nodeCidrMaskSize }}"
 if [[ -n "$node_cidr_mask_size" ]]; then
 	available_ips=$((2 ** (32 - node_cidr_mask_size) - 2))
 	if (($max_pods > $available_ips)); then
