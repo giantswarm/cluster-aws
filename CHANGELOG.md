@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add the `priority-classes` default app, enabled by default. This app provides standardised `PriorityClass` resources like `giantswarm-critical` and `giantswarm-high`, which should replace the previous inconsistent per-app priority classes.
 - *This change will roll the nodes on Karpenter node pools* Attach the `lb` Security Group to Karpenter nodes.
 - *This change will roll the nodes on Karpenter node pools* Name instance on AWS after the nodepool name.
+- *This change will roll the control plane nodes* Add `preKubeadmCommand` to wait for the API server load balancer DNS to be resolvable before running kubeadm on control plane nodes. This prevents kubeadm from failing when the ELB DNS record hasn't propagated yet.
 
 ### Changed
 
