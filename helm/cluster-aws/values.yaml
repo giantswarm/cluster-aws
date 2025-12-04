@@ -84,6 +84,8 @@ cluster:
             serviceAccountIssuers:
               - templateName: awsIrsaServiceAccountIssuer
         files: []
+        preKubeadmCommands:
+          - bash -c 'set -euxo pipefail && CFG=/etc/kubeadm.yml && test -f "$CFG" || { echo "ERROR - Kubeadm config not found at $CFG" >&2; exit 1; } && ELB_HOST=$(awk "/^controlPlaneEndpoint/ {print \$2}" "$CFG" | cut -d":" -f1) && test -n "$ELB_HOST" || { echo "ERROR - Could not extract controlPlaneEndpoint from $CFG" >&2; exit 1; } && echo "Waiting for ELB to be ready - ${ELB_HOST}" && for i in $(seq 1 60); do getent hosts "$ELB_HOST" >/dev/null 2>&1 || { echo "DNS not yet resolvable (${i}/60), sleeping 5s..."; sleep 5; continue; }; echo "DNS resolved for ${ELB_HOST}"; curl -sk --connect-timeout 5 https://${ELB_HOST}:443 >/dev/null 2>&1 && { echo "Successfully connected to ${ELB_HOST}:443 - ELB is ready!"; exit 0; } || echo "Cannot connect to ${ELB_HOST}:443 yet (${i}/60), sleeping 5s..."; sleep 5; done && { echo "ERROR - ELB not ready after 5 minutes - ${ELB_HOST}" >&2; exit 1; }'
         ignition:
           containerLinuxConfig:
             additionalConfig:
