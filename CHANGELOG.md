@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Chart: Update `cluster` to v5.0.0.
 - Reduce redundant parts of JSON schema for Karpenter vs. MachinePool types of node pools
+- Adjust node max pods based on the `nodeCidrMaskSize`
 
 ### Fixed
 
