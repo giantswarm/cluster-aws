@@ -100,7 +100,7 @@ spec:
   refreshPreferences:
     instanceWarmup: {{ $value.instanceWarmup | default 600 }}
     minHealthyPercentage: {{ $value.minHealthyPercentage | default 90 }}
-    maxHealthyPercentage: {{ $value.maxHealthyPercentage }}
+    maxHealthyPercentage: {{ $value.maxHealthyPercentage | default 100 }}
   ignition:
     storageType: ClusterObjectStore # store user data in S3 bucket
     version: "3.4"
