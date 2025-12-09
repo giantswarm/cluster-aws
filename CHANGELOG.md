@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Add missing documentation for node pools (health checks were not listed)
+- Ensure defaulting `maxHealthyPercentage` since Helm does not use the default from the schema
 
 ## [6.4.0] - 2025-10-28
 
