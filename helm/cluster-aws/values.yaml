@@ -83,7 +83,14 @@ cluster:
               templateName: awsApiServerApiAudiences
             serviceAccountIssuers:
               - templateName: awsIrsaServiceAccountIssuer
-        files: []
+        files:
+          - contentFrom:
+              secret:
+                key: wait-elb-dns.sh
+                name: provider-specific-files-5
+                prependClusterNameAsPrefix: true
+            path: /opt/bin/wait-elb-dns.sh
+            permissions: "0755"
         ignition:
           containerLinuxConfig:
             additionalConfig:
@@ -149,7 +156,7 @@ cluster:
                     enabled: true
                     name: var-log.mount
         preKubeadmCommands:
-          - set -euxo pipefail && ELB_HOST=$(awk '/^controlPlaneEndpoint:/ {print $2}' /etc/kubeadm.yml | cut -d":" -f1 || true) && if [ -n "${ELB_HOST:-}" ]; then echo "Waiting for ELB DNS to be resolvable - ${ELB_HOST}"; for i in $(seq 1 60); do if getent hosts "$ELB_HOST" >/dev/null 2>&1; then echo "DNS resolved for ${ELB_HOST} - proceeding with kubeadm"; break; fi; if [ $i -eq 60 ]; then echo "ERROR - ELB DNS not resolvable after 5 minutes - ${ELB_HOST}" >&2; exit 1; fi; echo "DNS not yet resolvable (${i}/60), sleeping 5s..."; sleep 5; done; else echo "No controlPlaneEndpoint found; likely a join node. Skipping DNS wait."; fi
+          - /opt/bin/wait-elb-dns.sh
       resources:
         infrastructureMachineTemplate:
           group: infrastructure.cluster.x-k8s.io
@@ -164,21 +171,21 @@ cluster:
         - contentFrom:
             secret:
               key: kubelet-aws-config.sh
-              name: provider-specific-files-4
+              name: provider-specific-files-5
               prependClusterNameAsPrefix: true
           path: /opt/bin/kubelet-aws-config.sh
           permissions: "0755"
         - contentFrom:
             secret:
               key: kubelet-aws-config.service
-              name: provider-specific-files-4
+              name: provider-specific-files-5
               prependClusterNameAsPrefix: true
           path: /etc/systemd/system/kubelet-aws-config.service
           permissions: "0644"
         - contentFrom:
             secret:
               key: 99-unmanaged-devices.network
-              name: provider-specific-files-4
+              name: provider-specific-files-5
               prependClusterNameAsPrefix: true
           path: /etc/systemd/network/99-unmanaged-devices.network
           permissions: "0644"
