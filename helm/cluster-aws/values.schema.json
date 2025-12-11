@@ -978,7 +978,19 @@
                                     ]
                                 }
                             },
-                            "files": [],
+                            "files": [
+                                {
+                                    "contentFrom": {
+                                        "secret": {
+                                            "key": "wait-elb-dns.sh",
+                                            "name": "provider-specific-files-5",
+                                            "prependClusterNameAsPrefix": true
+                                        }
+                                    },
+                                    "path": "/opt/bin/wait-elb-dns.sh",
+                                    "permissions": "0755"
+                                }
+                            ],
                             "ignition": {
                                 "containerLinuxConfig": {
                                     "additionalConfig": {
@@ -1079,7 +1091,10 @@
                                         }
                                     }
                                 }
-                            }
+                            },
+                            "preKubeadmCommands": [
+                                "/opt/bin/wait-elb-dns.sh"
+                            ]
                         },
                         "resources": {
                             "infrastructureMachineTemplate": {
@@ -1100,7 +1115,7 @@
                                 "contentFrom": {
                                     "secret": {
                                         "key": "kubelet-aws-config.sh",
-                                        "name": "provider-specific-files-4",
+                                        "name": "provider-specific-files-5",
                                         "prependClusterNameAsPrefix": true
                                     }
                                 },
@@ -1111,7 +1126,7 @@
                                 "contentFrom": {
                                     "secret": {
                                         "key": "kubelet-aws-config.service",
-                                        "name": "provider-specific-files-4",
+                                        "name": "provider-specific-files-5",
                                         "prependClusterNameAsPrefix": true
                                     }
                                 },
@@ -1122,7 +1137,7 @@
                                 "contentFrom": {
                                     "secret": {
                                         "key": "99-unmanaged-devices.network",
-                                        "name": "provider-specific-files-4",
+                                        "name": "provider-specific-files-5",
                                         "prependClusterNameAsPrefix": true
                                     }
                                 },

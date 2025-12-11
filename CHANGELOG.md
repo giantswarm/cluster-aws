@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- *This change will roll the control plane nodes* Add `preKubeadmCommand` to wait for the API server load balancer DNS to be resolvable before running kubeadm on control plane nodes. This prevents kubeadm from failing when the ELB DNS record hasn't propagated yet.
+
 ## [7.1.0] - 2025-12-10
 
 ### Changed
