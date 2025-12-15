@@ -211,6 +211,8 @@ spec:
       cidrBlock: "{{ $cidr.cidr }}"
       availabilityZone: "{{ $az }}"
       isPublic: {{ $subnet.isPublic | default false }}
+      {{- $addNodesRoleTag := and (not (hasKey ($subnet.tags | default dict) "giantswarm.io/role")) (not ($subnet.isPublic | default false)) }}
+      {{- if or $subnet.tags $addNodesRoleTag $cidr.tags }}
       tags:
         {{- if $subnet.tags }}
         {{- toYaml $subnet.tags | nindent 8 }}
@@ -220,12 +222,13 @@ spec:
         When set to "nodes", it marks this subnet as available for worker nodes.
         This helps distinguish between private subnets used for nodes vs pods.
         */}}
-        {{- if and (not (hasKey ($subnet.tags | default dict) "giantswarm.io/role")) (not ($subnet.isPublic | default false)) }}
+        {{- if $addNodesRoleTag }}
         giantswarm.io/role: "nodes"
         {{- end }}
         {{- if $cidr.tags }}
         {{- toYaml $cidr.tags | nindent 8 }}
         {{- end }}
+      {{- end }}
     {{- end }}
     {{- end }}
     {{- end }}

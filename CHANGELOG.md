@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Ensure `AWSCluster.spec.network.subnets.tags` is not rendered as `null`
+
 ## [7.2.0] - 2025-12-15
 
 ### Added
