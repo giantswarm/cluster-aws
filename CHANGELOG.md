@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.2.0] - 2025-12-15
+
 ### Added
 
 - *This change will roll the control plane nodes* Add `preKubeadmCommand` to wait for the API server load balancer DNS to be resolvable before running kubeadm on control plane nodes. This prevents kubeadm from failing when the ELB DNS record hasn't propagated yet.
@@ -1806,7 +1808,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.2.0...HEAD
+[7.2.0]: https://github.com/giantswarm/cluster-aws/compare/v7.1.0...v7.2.0
 [7.1.0]: https://github.com/giantswarm/cluster-aws/compare/v7.0.0...v7.1.0
 [7.0.0]: https://github.com/giantswarm/cluster-aws/compare/v6.4.0...v7.0.0
 [6.4.0]: https://github.com/giantswarm/cluster-aws/compare/v6.3.0...v6.4.0
