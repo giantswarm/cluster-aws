@@ -9,7 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add `kubernetes.io/cluster/$clusterName: "owned"` and `sigs.k8s.io/cluster-api-provider-aws/cluster/$clusterName: "owned"` tags to the `IRSAClaim` CR so that resources created by Crossplane contain the expected tags. This also allows to find the S3 buckets that need to be deleted when removing a cluster. 
+- Add `kubernetes.io/cluster/$clusterName: "owned"` and `sigs.k8s.io/cluster-api-provider-aws/cluster/$clusterName: "owned"` tags to the `IRSAClaim` CR so that resources created by Crossplane contain the expected tags. This also allows to find the S3 buckets that need to be deleted when removing a cluster.
+
+## [7.2.2] - 2025-12-17
+
+### Changed
+
+- Chart: Update `cluster` to v5.1.1.
+
+## [7.2.1] - 2025-12-17
+
+### Fixed
+
+- Ensure `AWSCluster.spec.network.subnets.tags` is not rendered as `null`
 
 ## [7.2.0] - 2025-12-15
 
@@ -1812,7 +1824,9 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.2.2...HEAD
+[7.2.2]: https://github.com/giantswarm/cluster-aws/compare/v7.2.1...v7.2.2
+[7.2.1]: https://github.com/giantswarm/cluster-aws/compare/v7.2.0...v7.2.1
 [7.2.0]: https://github.com/giantswarm/cluster-aws/compare/v7.1.0...v7.2.0
 [7.1.0]: https://github.com/giantswarm/cluster-aws/compare/v7.0.0...v7.1.0
 [7.0.0]: https://github.com/giantswarm/cluster-aws/compare/v6.4.0...v7.0.0
