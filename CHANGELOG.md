@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.4.0] - 2026-01-13
+
 ### Added
 
 - *This change will roll the nodes on Karpenter node pools* Attach the `lb` Security Group to Karpenter nodes.
@@ -1734,7 +1736,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v5.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v5.4.0...HEAD
+[5.4.0]: https://github.com/giantswarm/cluster-aws/compare/v5.3.0...v5.4.0
 [5.3.0]: https://github.com/giantswarm/cluster-aws/compare/v5.2.0...v5.3.0
 [5.2.0]: https://github.com/giantswarm/cluster-aws/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/giantswarm/cluster-aws/compare/v5.0.0...v5.1.0
