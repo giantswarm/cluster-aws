@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove `RolePolicyAttachment` crossplane custom resources as they are not needed when using `Role` and `RolePolicy`.
+
 ## [7.2.3] - 2026-01-14
 
 ### Added

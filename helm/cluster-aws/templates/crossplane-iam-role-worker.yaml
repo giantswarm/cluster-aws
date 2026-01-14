@@ -87,22 +87,6 @@ spec:
     name: {{ include "resource.default.name" $ }}
 ---
 apiVersion: iam.aws.upbound.io/v1beta1
-kind: RolePolicyAttachment
-metadata:
-  name: {{ include "resource.default.name" $ }}-worker
-  labels:
-    {{- include "labels.common" $ | nindent 4 }}
-    app.kubernetes.io/version: {{ .Chart.Version | quote }}
-spec:
-  forProvider:
-    roleRef:
-      name: {{ include "resource.default.name" $ }}-worker
-    policyArnRef:
-      name: {{ include "resource.default.name" $ }}-worker
-  providerConfigRef:
-    name: {{ include "resource.default.name" $ }}
----
-apiVersion: iam.aws.upbound.io/v1beta1
 kind: InstanceProfile
 metadata:
   name: {{ include "resource.default.name" $ }}-worker
