@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.4.2] - 2026-01-14
+
 ### Added
 
 - Add `kubernetes.io/cluster/$clusterName: "owned"` and `sigs.k8s.io/cluster-api-provider-aws/cluster/$clusterName: "owned"` tags to the `IRSAClaim` CR so that resources created by Crossplane contain the expected tags. This also allows to find the S3 buckets that need to be deleted when removing a cluster.
@@ -1785,7 +1787,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v6.4.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v6.4.2...HEAD
+[6.4.2]: https://github.com/giantswarm/cluster-aws/compare/v6.4.1...v6.4.2
 [6.4.1]: https://github.com/giantswarm/cluster-aws/compare/v6.4.0...v6.4.1
 [6.4.0]: https://github.com/giantswarm/cluster-aws/compare/v6.3.0...v6.4.0
 [6.3.0]: https://github.com/giantswarm/cluster-aws/compare/v6.2.0...v6.3.0
