@@ -87,12 +87,13 @@ spec:
   values: {{- $karpenterHelmValues | toYaml | nindent 4 }}
   {{- end }}
   {{- if $.Values.global.apps.karpenter.extraConfigs }}
-    {{- range $config := $.Values.global.apps.karpenter.extraConfigs }}
-    - kind: {{ $config.kind }}
-      name: {{ $config.name }}
-      valuesKey: values
-      optional: {{ $config.optional | default false  }}
-    {{- end }}
+  valuesFrom:
+  {{- range $config := $.Values.global.apps.karpenter.extraConfigs }}
+  - kind: {{ $config.kind }}
+    name: {{ $config.name }}
+    valuesKey: values
+    optional: {{ $config.optional | default false }}
+  {{- end }}
   {{- end }}
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
