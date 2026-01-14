@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `kubernetes.io/cluster/$clusterName: "owned"` and `sigs.k8s.io/cluster-api-provider-aws/cluster/$clusterName: "owned"` tags to the `IRSAClaim` CR so that resources created by Crossplane contain the expected tags. This also allows to find the S3 buckets that need to be deleted when removing a cluster.
 
+### Fixed
+
+- Fix Karpenter NodePool subnet filtering: when users define custom `subnetTags`, the default `giantswarm.io/role: "nodes"` filter is no longer applied, allowing full control over subnet selection. The cluster ownership tag (`sigs.k8s.io/cluster-api-provider-aws/cluster/<cluster-name>: owned`) is still enforced for security.
+- Fix Karpenter HelmRelease: add missing `valuesFrom` parent field for `extraConfigs`, enabling customers to use custom ConfigMaps and Secrets for Karpenter configuration.
+
 ## [7.2.2] - 2025-12-17
 
 ### Changed
