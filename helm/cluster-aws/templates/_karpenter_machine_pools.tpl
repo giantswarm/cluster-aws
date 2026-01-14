@@ -59,8 +59,9 @@ spec:
     subnetSelectorTerms:
     - tags:
         sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
+        {{- if not $value.subnetTags }}
         giantswarm.io/role: "nodes"
-        {{- if $value.subnetTags }}
+        {{- else }}
         {{- range $value.subnetTags }}
         {{- range $key, $val := . }}
         {{ $key | quote }}: {{ $val | quote }}
