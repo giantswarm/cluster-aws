@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.2.4] - 2026-01-15
+
 ### Fixed
 
 - Fix Karpenter schema definition: changed from `app` schema to `helmRelease` schema to correctly reflect that Karpenter is deployed as a HelmRelease resource. This fixes incorrect field definitions in `extraConfigs` (capitalized enum values `ConfigMap`/`Secret` and `optional` field instead of `priority`).
@@ -1835,7 +1837,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.2.3...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.2.4...HEAD
+[7.2.4]: https://github.com/giantswarm/cluster-aws/compare/v7.2.3...v7.2.4
 [7.2.3]: https://github.com/giantswarm/cluster-aws/compare/v7.2.2...v7.2.3
 [7.2.2]: https://github.com/giantswarm/cluster-aws/compare/v7.2.1...v7.2.2
 [7.2.1]: https://github.com/giantswarm/cluster-aws/compare/v7.2.0...v7.2.1
