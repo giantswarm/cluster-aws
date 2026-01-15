@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix Karpenter schema: Use `helmRelease` schema instead of `app` schema. This corrects the `extraConfigs[].kind` field to accept `ConfigMap` and `Secret` (capitalized), and replaces the `priority` field with `optional` field, matching the HelmRelease resource structure.
+
 ## [6.4.2] - 2026-01-14
 
 ### Added
