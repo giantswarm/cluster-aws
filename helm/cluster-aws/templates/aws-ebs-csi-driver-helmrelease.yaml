@@ -26,10 +26,9 @@ metadata:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" . | nindent 4 }}
 spec:
-  suspend: false # It can be unsuspended by the post-install/post-upgrade hook. Useful if we need to populate some fields later on.
-  releaseName: aws-ebs-csi-driver-bundle
-  targetNamespace: kube-system
-  storageNamespace: kube-system
+  releaseName: {{ include "resource.default.name" $ }}-aws-ebs-csi-driver-bundle
+  targetNamespace: {{ $.Release.Namespace | quote }}
+  storageNamespace: {{ $.Release.Namespace | quote }}
   chart:
     spec:
       chart: aws-ebs-csi-driver-bundle
@@ -41,9 +40,7 @@ spec:
   dependsOn:
       - name: {{ include "resource.default.name" $ }}-cloud-provider-aws
         namespace: {{ $.Release.Namespace }}
-  kubeConfig:
-    secretRef:
-      name: {{ include "resource.default.name" $ }}-kubeconfig
+  serviceAccountName: automation
   interval: 5m
   install:
     remediation:
