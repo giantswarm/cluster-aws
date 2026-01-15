@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.4.3] - 2026-01-15
+
 ### Fixed
 
 - Fix Karpenter schema: Use `helmRelease` schema instead of `app` schema. This corrects the `extraConfigs[].kind` field to accept `ConfigMap` and `Secret` (capitalized), and replaces the `priority` field with `optional` field, matching the HelmRelease resource structure.
@@ -1791,7 +1793,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v6.4.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v6.4.3...HEAD
+[6.4.3]: https://github.com/giantswarm/cluster-aws/compare/v6.4.2...v6.4.3
 [6.4.2]: https://github.com/giantswarm/cluster-aws/compare/v6.4.1...v6.4.2
 [6.4.1]: https://github.com/giantswarm/cluster-aws/compare/v6.4.0...v6.4.1
 [6.4.0]: https://github.com/giantswarm/cluster-aws/compare/v6.3.0...v6.4.0
