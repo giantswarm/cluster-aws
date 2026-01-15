@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix Karpenter schema definition: changed from `app` schema to `helmRelease` schema to correctly reflect that Karpenter is deployed as a HelmRelease resource. This fixes incorrect field definitions in `extraConfigs` (capitalized enum values `ConfigMap`/`Secret` and `optional` field instead of `priority`).
+
 ## [7.2.3] - 2026-01-14
 
 ### Added
