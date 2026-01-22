@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Install the `aws-ebs-csi-driver-bundle` that contains the `aws-ebs-csi-driver` app, together with the crossplane resources to manage the AWS IAM Roles required by the app.
 - Install the `karpenter-bundle` that contains the `karpenter` app, together with the crossplane custom resources to manage the AWS resources required by `karpenter`.
+- Use `cluster` chart values for Karpenter kubelet `systemReserved` and `kubeReserved` configuration instead of hardcoded values.
 
 ## [7.2.5] - 2026-01-22
 
