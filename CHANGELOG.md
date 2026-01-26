@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Install the `aws-ebs-csi-driver-bundle` that contains the `aws-ebs-csi-driver` app, together with the crossplane resources to manage the AWS IAM Roles required by the app.
 
+### Fixed
+
+- Install node-termination-handler bundle even if falling back to default node pools. No workers could come up without NTH, so `nodePools: {}` (= use default node pools) did not create a working cluster.
+
 ## [7.2.5] - 2026-01-22
 
 ### Changed
