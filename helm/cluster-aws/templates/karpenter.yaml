@@ -5,6 +5,9 @@ additionalLabels:
   application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | default "phoenix" | quote }}
   giantswarm.io/managed-by: {{ .Release.Name | quote }}
   giantswarm.io/service-type: managed
+clusterID: {{ include "resource.default.name" $ }}
+region: {{ include "aws-region" $ }}
+workersIamRole: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-worker
 settings:
   clusterEndpoint: {{ printf "%s.%s.%s" "http://api" (include "resource.default.name" $) .Values.global.connectivity.baseDomain }}
   clusterName: {{ include "resource.default.name" $ }}
