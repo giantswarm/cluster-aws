@@ -163,7 +163,12 @@ Formula: min(110, 2^(32 - nodeCidrMaskSize) - 2)
 */}}
 {{- define "maxPodsAbsolute" -}}
 {{- $nodeCidrMaskSize := .Values.global.connectivity.network.pods.nodeCidrMaskSize | int }}
-{{- $availableIps := sub (pow 2 (sub 32 $nodeCidrMaskSize)) 2 | int }}
+{{- $exponent := sub 32 $nodeCidrMaskSize | int }}
+{{- $result := 1 }}
+{{- range $i := until $exponent }}
+  {{- $result = mul $result 2 }}
+{{- end }}
+{{- $availableIps := sub $result 2 | int }}
 {{- $maxPods := 110 }}
 {{- if lt $availableIps $maxPods }}
   {{- $maxPods = $availableIps }}
