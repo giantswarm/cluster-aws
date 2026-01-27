@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Configure kubelet `maxPods`, `systemReserved` and `kubeReserved` settings for Karpenter nodepools
+
 ### Changed
 
 - Install the `aws-ebs-csi-driver-bundle` that contains the `aws-ebs-csi-driver` app, together with the crossplane resources to manage the AWS IAM Roles required by the app.

@@ -155,3 +155,18 @@ giantswarm.io/cluster: {{ include "resource.default.name" $ }}
   {{- end }}
 {{- end }}
 {{- end }}
+
+{{/*
+Calculate the absolute maximum number of pods per node based on podCidr and nodeMaskSize.
+This is the maximum allowed by IP address space, capped at 110 pods.
+Formula: min(110, 2^(32 - nodeCidrMaskSize) - 2)
+*/}}
+{{- define "maxPodsAbsolute" -}}
+{{- $nodeCidrMaskSize := .Values.global.connectivity.network.pods.nodeCidrMaskSize | int }}
+{{- $availableIps := sub (pow 2 (sub 32 $nodeCidrMaskSize)) 2 | int }}
+{{- $maxPods := 110 }}
+{{- if lt $availableIps $maxPods }}
+  {{- $maxPods = $availableIps }}
+{{- end }}
+{{- $maxPods }}
+{{- end }}

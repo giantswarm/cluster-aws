@@ -35,6 +35,19 @@ spec:
         volumeType: gp3
         deleteOnTermination: true
     instanceProfile: {{ include "resource.default.name" $ }}-worker
+    kubelet:
+      {{- with (include "cluster.internal.advancedConfiguration.kubelet.kubeReserved" .) }}
+      kubeReserved:
+        cpu: {{ .cpu }}
+        memory: {{ .memory }}
+        ephemeral-storage: {{ .ephemeralStorage }}
+      {{- end }}
+      {{- with (include "cluster.internal.advancedConfiguration.kubelet.systemReserved" .) }}
+      systemReserved:
+        cpu: {{ .cpu }}
+        memory: {{ .memory }}
+      {{- end }}
+      maxPods: {{ include "maxPodsAbsolute" . }}
     metadataOptions:
       {{- if eq $.Values.global.connectivity.cilium.ipamMode "eni" }}
       httpPutResponseHopLimit: 2
