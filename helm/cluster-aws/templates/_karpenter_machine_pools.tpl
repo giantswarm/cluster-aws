@@ -47,7 +47,7 @@ spec:
         cpu: {{ .cpu }}
         memory: {{ .memory }}
       {{- end }}
-      maxPods: {{ include "maxPodsAbsolute" $. }}
+      maxPods: {{ include "maxPodsAbsolute" $ }}
     metadataOptions:
       {{- if eq $.Values.global.connectivity.cilium.ipamMode "eni" }}
       httpPutResponseHopLimit: 2

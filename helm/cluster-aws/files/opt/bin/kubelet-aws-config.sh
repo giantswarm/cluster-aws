@@ -533,7 +533,7 @@ esac
 
 # max pods can't be greater than the number of available IPs in nodeCidrMaskSize
 # This is calculated using the maxPodsAbsolute helper from _helpers.tpl
-max_pods_absolute={{ include "maxPodsAbsolute" $. }}
+max_pods_absolute={{ include "maxPodsAbsolute" . }}
 if (($max_pods > $max_pods_absolute)); then
 	max_pods=$max_pods_absolute
 fi
