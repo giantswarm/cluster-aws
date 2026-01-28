@@ -1,0 +1,34 @@
+global:
+  managementCluster: test
+  metadata:
+    name: test-karpenter-sys-reserved
+    organization: test
+  connectivity:
+    baseDomain: example.com
+  nodePools:
+    pool1:
+      type: karpenter
+      requirements:
+        - key: kubernetes.io/os
+          operator: In
+          values:
+            - linux
+  providerSpecific:
+    region: "eu-west-1"
+  release:
+    version: 29.1.0
+
+cluster:
+  internal:
+    advancedConfiguration:
+      kubelet:
+        systemReserved:
+          cpu: 500m
+          memory: 512Mi
+        kubeReserved:
+          cpu: 700m
+          memory: 2048Mi
+          ephemeralStorage: 2048Mi
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true
