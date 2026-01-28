@@ -5,6 +5,9 @@ additionalLabels:
   application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | default "phoenix" | quote }}
   giantswarm.io/managed-by: {{ .Release.Name | quote }}
   giantswarm.io/service-type: managed
+clusterID: {{ include "resource.default.name" $ }}
+region: {{ include "aws-region" $ }}
+workersIamRole: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-worker
 settings:
   clusterEndpoint: {{ printf "%s.%s.%s" "http://api" (include "resource.default.name" $) .Values.global.connectivity.baseDomain }}
   clusterName: {{ include "resource.default.name" $ }}
@@ -46,7 +49,7 @@ tolerations:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: {{ include "resource.default.name" $ }}-karpenter
+  name: {{ include "resource.default.name" $ }}-karpenter-bundle
   namespace: {{ $.Release.Namespace }}
   annotations:
     cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
@@ -54,25 +57,21 @@ metadata:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" . | nindent 4 }}
 spec:
-  suspend: false
-  releaseName: karpenter
-  targetNamespace: karpenter
-  storageNamespace: karpenter
+  releaseName: {{ include "resource.default.name" $ }}-karpenter-bundle
+  targetNamespace: {{ $.Release.Namespace | quote }}
+  storageNamespace: {{ $.Release.Namespace | quote }}
   chart:
     spec:
-      chart: karpenter
+      chart: karpenter-bundle
       {{- $_ := set $ "appName" "karpenter" }}
       version: {{ include "cluster.app.version" $ }}
       sourceRef:
         kind: HelmRepository
         name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
-  kubeConfig:
-    secretRef:
-      name: {{ include "resource.default.name" $ }}-kubeconfig
+  serviceAccountName: automation
   interval: 5m
   timeout: 15m # We need a bigger timeout because it could take a while for IRSA (via CloudFront) to become available
   install:
-    createNamespace: true
     remediation:
       retries: -1
   upgrade:
@@ -107,7 +106,6 @@ metadata:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" . | nindent 4 }}
 spec:
-  suspend: false
   releaseName: karpenter-taint-remover
   targetNamespace: karpenter
   storageNamespace: karpenter
@@ -123,7 +121,6 @@ spec:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
   interval: 5m
-  timeout: 15m # We need a bigger timeout because it could take a while for IRSA (via CloudFront) to become available
   install:
     createNamespace: true
     remediation:
