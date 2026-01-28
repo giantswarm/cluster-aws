@@ -43,6 +43,7 @@ spec:
         cpu: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.kubeReserved.cpu }}
         memory: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.kubeReserved.memory }}
         ephemeral-storage: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.kubeReserved.ephemeralStorage }}
+      maxPods: {{ include "maxPodsAbsolute" $ }}
     metadataOptions:
       {{- if eq $.Values.global.connectivity.cilium.ipamMode "eni" }}
       httpPutResponseHopLimit: 2
