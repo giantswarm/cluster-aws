@@ -36,13 +36,13 @@ spec:
         deleteOnTermination: true
     instanceProfile: {{ include "resource.default.name" $ }}-worker
     kubelet:
-      {{- with (include "cluster.internal.advancedConfiguration.kubelet.kubeReserved" .) }}
+      {{- with ((include "cluster.internal.advancedConfiguration.kubelet.kubeReserved" $.Values.cluster) | fromYaml) }}
       kubeReserved:
         cpu: {{ .cpu }}
         memory: {{ .memory }}
         ephemeral-storage: {{ .ephemeralStorage }}
       {{- end }}
-      {{- with (include "cluster.internal.advancedConfiguration.kubelet.systemReserved" .) }}
+      {{- with ((include "cluster.internal.advancedConfiguration.kubelet.systemReserved" $.Values.cluster) | fromYaml) }}
       systemReserved:
         cpu: {{ .cpu }}
         memory: {{ .memory }}
