@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Install the `aws-ebs-csi-driver-bundle` that contains the `aws-ebs-csi-driver` app, together with the crossplane resources to manage the AWS IAM Roles required by the app.
 - Install the `karpenter-bundle` that contains the `karpenter` app, together with the crossplane custom resources to manage the AWS resources required by `karpenter`.
+- Always install the `karpenter-bundle`, regardless of whether karpenter node pools are configured. This is useful when deleting karpenter node pools, because otherwise the karpenter app was being removed and karpenter did not have time to clean up the node pools.
 
 ## [7.2.5] - 2026-01-22
 
