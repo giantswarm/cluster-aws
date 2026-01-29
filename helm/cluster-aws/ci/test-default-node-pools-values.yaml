@@ -1,0 +1,18 @@
+global:
+  release:
+    version: 34.0.0
+  managementCluster: test
+  metadata:
+    name: test-wc-minimal
+    organization: test
+  connectivity:
+    baseDomain: example.com
+  nodePools: {}
+  providerSpecific:
+    region: "eu-west-1"
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

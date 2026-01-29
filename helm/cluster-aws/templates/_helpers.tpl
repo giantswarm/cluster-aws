@@ -139,7 +139,7 @@ giantswarm.io/cluster: {{ include "resource.default.name" $ }}
 {{- end -}}
 
 {{- define "hasKarpenterNodePool" -}}
-{{- range $name, $value := .Values.global.nodePools }}
+{{- range $name, $value := .Values.global.nodePools | default (.Values.cluster).providerIntegration.workers.defaultNodePools | default (.Values.providerIntegration).workers.defaultNodePools }}
   {{- if eq $value.type "karpenter" }}
     {{- print "true" -}}
     {{- break -}}
@@ -148,7 +148,7 @@ giantswarm.io/cluster: {{ include "resource.default.name" $ }}
 {{- end }}
 
 {{- define "hasAWSMachinePools" -}}
-{{- range $name, $value := .Values.global.nodePools }}
+{{- range $name, $value := .Values.global.nodePools | default (.Values.cluster).providerIntegration.workers.defaultNodePools | default (.Values.providerIntegration).workers.defaultNodePools }}
   {{- if ne $value.type "karpenter" }}
     {{- print "true" -}}
     {{- break -}}
