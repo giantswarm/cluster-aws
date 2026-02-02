@@ -1836,6 +1836,23 @@
                             "type": "object",
                             "title": "DNS",
                             "properties": {
+                                "delegationRoleARN": {
+                                    "type": "string",
+                                    "title": "Delegation AWS IAM Role",
+                                    "description": "AWS IAM Role to use when taking care of creating the DNS delegation between the cluster hosted zone and its parent hosted zone. It needs to have permissions to manage the parent hosted zone.",
+                                    "examples": [
+                                        "arn:aws:iam::123456789012:role/DNSDelegationRole"
+                                    ],
+                                    "pattern": "^arn:(aws|aws-cn|aws-us-gov):iam::\\d{12}:role\\/.+$"
+                                },
+                                "hostedZoneName": {
+                                    "type": "string",
+                                    "title": "Hosted Zone name",
+                                    "description": "Name of the hosted zone to create for this cluster.",
+                                    "examples": [
+                                        "my-cluster.example.com"
+                                    ]
+                                },
                                 "resolverRulesOwnerAccount": {
                                     "type": "string",
                                     "title": "Resolver rules owner",
@@ -1849,6 +1866,11 @@
                                         }
                                     ]
                                 }
+                            },
+                            "dependentRequired": {
+                                "hostedZoneName": [
+                                    "delegationRoleARN"
+                                ]
                             }
                         },
                         "eniModePodSubnets": {

@@ -23,6 +23,12 @@ metadata:
     {{end}}
     aws.cluster.x-k8s.io/external-resource-gc: "true"
     aws.cluster.x-k8s.io/external-resource-tasks-gc: "load-balancer,security-group"
+    {{- if .Values.global.connectivity.dns.hostedZoneName }}
+    giantswarm.io/dns-hosted-zone-name: "{{ .Values.global.connectivity.dns.hostedZoneName }}"
+    {{- end }}
+    {{- if .Values.global.connectivity.dns.delegationRoleARN }}
+    aws.giantswarm.io/dns-delegation-role-arn: "{{ .Values.global.connectivity.dns.delegationRoleARN }}"
+    {{- end }}
     aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.global.connectivity.vpcEndpointMode }}"
     network-topology.giantswarm.io/mode: "{{ .Values.global.connectivity.topology.mode }}"
     {{- if .Values.global.connectivity.topology.transitGatewayId }}

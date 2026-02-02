@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add JSON schema validation patterns for `global.providerSpecific.awsAccountId`.
 - Add JSON schema validation patterns for `global.controlPlane.instanceType` and node pool `instanceType`.
 - Add JSON schema `maxLength: 20` constraint for `global.metadata.name`, aligning with the constraint enforced by [our kyverno policies](https://github.com/giantswarm/kyverno-policies-ux/blob/main/policies/ux/cluster-names.yaml).
+- Allow to configure the name of the hosted zone to use for the workload cluster by setting `global.connectivity.dns.hostedZoneName`.
+- Allow to configure the AWS IAM Role to use when managing the DNS delegation for the hosted zone by setting `global.connectivity.dns.delegationRoleARN`.
 
 ### Changed
 
