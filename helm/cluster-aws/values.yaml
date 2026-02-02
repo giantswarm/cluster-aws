@@ -348,6 +348,8 @@ global:
     selinux:
       mode: permissive
   connectivity:
+    certManager:
+      useDnsChalleneges: false
     availabilityZoneUsageLimit: 3
     cilium:
       ipamMode: kubernetes
