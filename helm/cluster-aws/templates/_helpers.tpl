@@ -176,7 +176,7 @@ Formula: min(110, 2^(32 - nodeCidrMaskSize) - 2)
 {{- $maxPods }}
 
 {{- define "useCertManagerDnsChallenges" -}}
-{{ if or (eq .Values.global.connectivity.vpcMode "private") (.Values.global.connectiviy.certManager.useDnsChallenges) }}
+{{ if or (eq .Values.global.connectivity.vpcMode "private") (.Values.global.connectivity.certManager.useDnsChallenges) }}
 {{- print "true" }}
 {{- else }}
 {{- print "false" }}
