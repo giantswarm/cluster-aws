@@ -1,7 +1,7 @@
 global:
   managementCluster: test
   metadata:
-    name: test-karpenter-sys-reserved
+    name: test-krpntr-sys-rsv
     organization: test
   connectivity:
     baseDomain: example.com
