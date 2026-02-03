@@ -7,10 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add JSON schema validation patterns for `global.providerSpecific.region`.
+- Add JSON schema validation patterns for `global.providerSpecific.awsAccountId`.
+- Add JSON schema validation patterns for `global.controlPlane.instanceType` and node pool `instanceType`.
+- Add JSON schema `maxLength: 20` constraint for `global.metadata.name`, aligning with the constraint enforced by [our kyverno policies](https://github.com/giantswarm/kyverno-policies-ux/blob/main/policies/ux/cluster-names.yaml).
+
 ### Changed
 
 - Install the `aws-ebs-csi-driver-bundle` that contains the `aws-ebs-csi-driver` app, together with the crossplane resources to manage the AWS IAM Roles required by the app.
 - Install the `karpenter-bundle` that contains the `karpenter` app, together with the crossplane custom resources to manage the AWS resources required by `karpenter`.
+- Make `global.providerSpecific.region` a required value.
 - Use `cluster` chart values for Karpenter kubelet `systemReserved` and `kubeReserved` configuration instead of hardcoded values.
 - Set correct `maxPods` value for karpenter node pools, based on the configured `nodeCidrMaskSize`, but capped at 110 pods.
 
