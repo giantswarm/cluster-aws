@@ -10,7 +10,7 @@ metadata:
     {{- if eq $.Values.global.connectivity.cilium.ipamMode "eni" }}
     alpha.aws.giantswarm.io/ipam-mode: "eni"
     {{- end }}
-    app.kubernetes.io/version: {{ $.Chart.Version | quote }}
+    app.kubernetes.io/version: {{ $.Chart.AppVersion | quote }}
   name: {{ include "resource.default.name" $ }}-{{ $name }}
   namespace: {{ $.Release.Namespace }}
 spec:

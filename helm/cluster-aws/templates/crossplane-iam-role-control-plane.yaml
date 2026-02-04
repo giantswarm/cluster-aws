@@ -5,7 +5,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-control-plane
   labels:
     {{- include "labels.common" $ | nindent 4 }}
-    app.kubernetes.io/version: {{ .Chart.Version | quote }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 spec:
   forProvider:
     assumeRolePolicy: |
@@ -176,7 +176,7 @@ metadata:
   name: {{ include "resource.default.name" $ }}-control-plane
   labels:
     {{- include "labels.common" $ | nindent 4 }}
-    app.kubernetes.io/version: {{ .Chart.Version | quote }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 spec:
   forProvider:
     role: {{ include "resource.default.name" $ }}-control-plane
