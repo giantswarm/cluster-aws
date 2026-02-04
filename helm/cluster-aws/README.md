@@ -22,7 +22,7 @@ Properties within the `.global.providerSpecific` object
 | `global.providerSpecific.additionalResourceTags` | **Additional resource tags** - Additional tags to add to AWS resources created by the cluster.|**Type:** `object`<br/>|
 | `global.providerSpecific.additionalResourceTags.*` | **Tag value**|**Type:** `string`<br/>**Value pattern:** `^[ a-zA-Z0-9\._:/=+-@]+$`<br/>|
 | `global.providerSpecific.ami` | **Amazon machine image (AMI)** - If specified, this image will be used to provision EC2 instances.|**Type:** `string`<br/>|
-| `global.providerSpecific.awsAccountId` | **AWS Account ID** - Only used when rendering the chart template locally, you shouldn't use this value. Used to calculate the IRSA service account issuer when using the China region.|**Type:** `string`<br/>|
+| `global.providerSpecific.awsAccountId` | **AWS Account ID** - Only used when rendering the chart template locally, you shouldn't use this value. Used to calculate the IRSA service account issuer when using the China region.|**Type:** `string`<br/>**Value pattern:** `^[0-9]{12}$`<br/>|
 | `global.providerSpecific.awsClusterRoleIdentityName` | **Cluster role identity name** - Name of an AWSClusterRoleIdentity object. Learn more at https://docs.giantswarm.io/getting-started/cloud-provider-accounts/cluster-api/aws/#configure-the-awsclusterroleidentity .|**Type:** `string`<br/>**Value pattern:** `^[-a-zA-Z0-9_\.]{1,63}$`<br/>**Default:** `"default"`|
 | `global.providerSpecific.controlPlaneAmi` | **Amazon machine image (AMI) for control plane** - If specified, this image will be used to provision EC2 instances for the control plane.|**Type:** `string`<br/>|
 | `global.providerSpecific.flatcarAwsAccount` | **AWS account owning Flatcar image** - AWS account ID owning the Flatcar Container Linux AMI.|**Type:** `string`<br/>**Default:** `"706635527432"`|
@@ -32,7 +32,7 @@ Properties within the `.global.providerSpecific` object
 | `global.providerSpecific.irsaCrossplane` | **Use Crossplane to provision IRSA infrastructure** - Defaults to true. Crossplane will adopt all the resources created by IRSA Operator. If set to false, the IRSA Operator will take over the infrastructure again.|**Type:** `boolean`<br/>**Default:** `true`|
 | `global.providerSpecific.nodePoolAmi` | **Amazon machine image (AMI) for node pools** - If specified, this image will be used to provision EC2 instances for node pools.|**Type:** `string`<br/>|
 | `global.providerSpecific.nodeTerminationHandlerEnabled` | **Use the AWS Node Termination Handler app** - Defaults to true. Whether or not to enable the Auto Scaling Groups lifecycle hooks and use the node-termination-handler app (NTH) to manage the termination of EC2 instances.|**Type:** `boolean`<br/>**Default:** `true`|
-| `global.providerSpecific.region` | **Region**|**Type:** `string`<br/>|
+| `global.providerSpecific.region` | **AWS Region**|**Type:** `string`<br/>**Value pattern:** `^[a-z]{2}(-[a-z]+)+-[0-9]+$`<br/>|
 
 ### Apps
 Properties within the `.global.apps` object
@@ -407,7 +407,7 @@ Properties within the `.global.controlPlane` object
 | `global.controlPlane.apiMode` | **API mode** - Whether the Kubernetes API server load balancer should be reachable from the internet (public) or internal only (private).|**Type:** `string`<br/>**Allowed values:** `public`, `private`<br/>**Default:** `"public"`|
 | `global.controlPlane.apiServerPort` | **API server port** - The API server Load Balancer port. This option sets the Spec.ClusterNetwork.APIServerPort field on the Cluster CR. In CAPI this field isn't used currently. It is instead used in providers. In CAPA this sets only the public facing port of the Load Balancer. In CAPZ both the public facing and the destination port are set to this value. CAPV and CAPVCD do not use it.|**Type:** `integer`<br/>**Default:** `443`|
 | `global.controlPlane.etcdVolumeSizeGB` | **Etcd volume size (GB)**|**Type:** `integer`<br/>**Default:** `50`|
-| `global.controlPlane.instanceType` | **EC2 instance type**|**Type:** `string`<br/>**Default:** `"r6i.xlarge"`|
+| `global.controlPlane.instanceType` | **EC2 instance type**|**Type:** `string`<br/>**Value pattern:** `^[a-z][a-z0-9]*\.[a-z0-9]+$`<br/>**Default:** `"r6i.xlarge"`|
 | `global.controlPlane.libVolumeSizeGB` | **Lib volume size (GB)** - Size of the volume mounted at `/var/lib` on the control plane nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`.|**Type:** `integer`<br/>**Default:** `40`|
 | `global.controlPlane.loadBalancerIngressAllowCidrBlocks` | **Load balancer allow list** - IPv4 address ranges that are allowed to connect to the control plane load balancer, in CIDR notation. When setting this field, remember to add the Management cluster Nat Gateway IPs provided by Giant Swarm so that the cluster can still be managed. These Nat Gateway IPs can be found in the Management Cluster AWSCluster '.status.networkStatus.natGatewaysIPs' field.|**Type:** `array`<br/>|
 | `global.controlPlane.loadBalancerIngressAllowCidrBlocks[*]` | **Address range**|**Type:** `string`<br/>|
@@ -560,7 +560,7 @@ Node pools of the cluster. If not specified, this defaults to the value of `clus
 | `global.nodePools.PATTERN[option#2].customNodeTaints[*].effect` | **Effect**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>**Allowed values:** `NoSchedule`, `PreferNoSchedule`, `NoExecute`<br/>|
 | `global.nodePools.PATTERN[option#2].customNodeTaints[*].key` | **Key**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>|
 | `global.nodePools.PATTERN[option#2].customNodeTaints[*].value` | **Value**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>|
-| `global.nodePools.PATTERN[option#2].instanceType` | **EC2 instance type**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>|
+| `global.nodePools.PATTERN[option#2].instanceType` | **EC2 instance type**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>**Value pattern:** `^[a-z][a-z0-9]*\.[a-z0-9]+$`<br/>|
 | `global.nodePools.PATTERN[option#2].instanceTypeOverrides` | **Instance type overrides** - Ordered list of instance types to be used for the machine pool. The first instance type that is available in the region will be used. Read more in our docs https://docs.giantswarm.io/advanced/cluster-management/node-pools-capi/|**Type:** `array`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>**Default:** `[]`|
 | `global.nodePools.PATTERN[option#2].instanceTypeOverrides[*]` | **EC2 instance type**|**Type:** `string`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>|
 | `global.nodePools.PATTERN[option#2].instanceWarmup` | **Time interval, in seconds, between node replacement.**|**Type:** `integer`<br/>**Key pattern:**<br/>`PATTERN`=`^[a-z0-9][-a-z0-9]{3,18}[a-z0-9]$`<br/>|
