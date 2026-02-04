@@ -23,6 +23,7 @@ metadata:
     {{end}}
     aws.cluster.x-k8s.io/external-resource-gc: "true"
     aws.cluster.x-k8s.io/external-resource-tasks-gc: "load-balancer,security-group"
+    giantswarm.io/base-domain: "{{ .Values.global.connectivity.baseDomain }}"
     {{- if .Values.global.connectivity.dns.hostedZoneName }}
     giantswarm.io/dns-hosted-zone-name: "{{ .Values.global.connectivity.dns.hostedZoneName }}"
     {{- end }}

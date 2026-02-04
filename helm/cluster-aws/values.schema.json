@@ -1841,9 +1841,10 @@
                                     "title": "DNS Delegation AWSClusterRoleIdentity",
                                     "description": "AWSClusterRoleIdentity to use when taking care of creating the DNS delegation between the cluster hosted zone and its parent hosted zone. It needs to have permissions to manage the parent hosted zone.",
                                     "examples": [
-                                        "arn:aws:iam::123456789012:role/DNSDelegationRole"
-                                    ],
-                                    "pattern": "^arn:(aws|aws-cn|aws-us-gov):iam::\\d{12}:role\\/.+$"
+                                        "default",
+                                        "production",
+                                        "development"
+                                    ]
                                 },
                                 "hostedZoneName": {
                                     "type": "string",
