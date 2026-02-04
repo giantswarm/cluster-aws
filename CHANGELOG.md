@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set correct `maxPods` value for karpenter node pools, based on the configured `nodeCidrMaskSize`, but capped at 110 pods.
 - Always install the `karpenter-bundle`, regardless of whether karpenter node pools are configured. This is useful when deleting karpenter node pools, because otherwise the karpenter app was being removed and karpenter did not have time to clean up the node pools.
 
+### Fixed
+
+- Install node-termination-handler bundle even if falling back to default node pools. No workers could come up without NTH, so `nodePools: {}` (= use default node pools) did not create a working cluster.
+
 ## [7.2.5] - 2026-01-22
 
 ### Changed
