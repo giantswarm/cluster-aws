@@ -532,15 +532,10 @@ esac
 {{- end }}
 
 # max pods can't be greater than the number of available IPs in nodeCidrMaskSize
-node_cidr_mask_size="{{ required "global.connectivity.network.pods.nodeCidrMaskSize is required" .Values.global.connectivity.network.pods.nodeCidrMaskSize }}"
-available_ips=$((2 ** (32 - node_cidr_mask_size) - 2))
-if (($max_pods > $available_ips)); then
-	max_pods=$available_ips
-fi
-
-# We don't want to have more than 110 pods on a node even it would be possible by IPs
-if (($max_pods > 110)); then
-	max_pods=110
+# This is calculated using the maxPodsAbsolute helper from _helpers.tpl
+max_pods_absolute={{ include "maxPodsAbsolute" . }}
+if (($max_pods > $max_pods_absolute)); then
+	max_pods=$max_pods_absolute
 fi
 
 # Use a unique suffix so this can't accidentaly use the same patch filenames as the `cluster` chart.
