@@ -26,8 +26,8 @@ metadata:
     {{- if .Values.global.connectivity.dns.hostedZoneName }}
     giantswarm.io/dns-hosted-zone-name: "{{ .Values.global.connectivity.dns.hostedZoneName }}"
     {{- end }}
-    {{- if .Values.global.connectivity.dns.delegationRoleARN }}
-    aws.giantswarm.io/dns-delegation-role-arn: "{{ .Values.global.connectivity.dns.delegationRoleARN }}"
+    {{- if .Values.global.connectivity.dns.delegationIdentityName }}
+    aws.giantswarm.io/dns-delegation-identity: "{{ .Values.global.connectivity.dns.delegationIdentityName }}"
     {{- end }}
     aws.giantswarm.io/vpc-endpoint-mode: "{{ .Values.global.connectivity.vpcEndpointMode }}"
     network-topology.giantswarm.io/mode: "{{ .Values.global.connectivity.topology.mode }}"

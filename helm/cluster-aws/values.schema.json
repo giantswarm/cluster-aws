@@ -1836,10 +1836,10 @@
                             "type": "object",
                             "title": "DNS",
                             "properties": {
-                                "delegationRoleARN": {
+                                "delegationIdentityName": {
                                     "type": "string",
-                                    "title": "Delegation AWS IAM Role",
-                                    "description": "AWS IAM Role to use when taking care of creating the DNS delegation between the cluster hosted zone and its parent hosted zone. It needs to have permissions to manage the parent hosted zone.",
+                                    "title": "DNS Delegation AWSClusterRoleIdentity",
+                                    "description": "AWSClusterRoleIdentity to use when taking care of creating the DNS delegation between the cluster hosted zone and its parent hosted zone. It needs to have permissions to manage the parent hosted zone.",
                                     "examples": [
                                         "arn:aws:iam::123456789012:role/DNSDelegationRole"
                                     ],
@@ -1869,7 +1869,7 @@
                             },
                             "dependentRequired": {
                                 "hostedZoneName": [
-                                    "delegationRoleARN"
+                                    "delegationIdentityName"
                                 ]
                             }
                         },
