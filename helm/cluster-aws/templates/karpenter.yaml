@@ -45,7 +45,6 @@ tolerations:
     operator: "Exists"
     effect: "NoSchedule"
 {{- end }}
-{{- if include "hasKarpenterNodePool" . }}
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -128,4 +127,3 @@ spec:
   upgrade:
     remediation:
       retries: -1
-{{- end }}
