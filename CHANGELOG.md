@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add `appVersion` field to `Chart.yaml`.
 - Add JSON schema validation patterns for `global.providerSpecific.region`.
 - Add JSON schema validation patterns for `global.providerSpecific.awsAccountId`.
 - Add JSON schema validation patterns for `global.controlPlane.instanceType` and node pool `instanceType`.
