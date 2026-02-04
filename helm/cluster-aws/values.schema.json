@@ -697,7 +697,8 @@
                                 },
                                 "instanceType": {
                                     "type": "string",
-                                    "title": "EC2 instance type"
+                                    "title": "EC2 instance type",
+                                    "pattern": "^[a-z][a-z0-9]*\\.[a-z0-9]+$"
                                 },
                                 "instanceTypeOverrides": {
                                     "type": "array",
@@ -2297,7 +2298,8 @@
                         "instanceType": {
                             "type": "string",
                             "title": "EC2 instance type",
-                            "default": "r6i.xlarge"
+                            "default": "r6i.xlarge",
+                            "pattern": "^[a-z][a-z0-9]*\\.[a-z0-9]+$"
                         },
                         "libVolumeSizeGB": {
                             "type": "integer",
@@ -2644,7 +2646,8 @@
                         "name": {
                             "type": "string",
                             "title": "Cluster name",
-                            "description": "Unique identifier, cannot be changed after creation."
+                            "description": "Unique identifier, cannot be changed after creation.",
+                            "maxLength": 20
                         },
                         "organization": {
                             "type": "string",
@@ -2720,7 +2723,8 @@
                         "awsAccountId": {
                             "type": "string",
                             "title": "AWS Account ID",
-                            "description": "Only used when rendering the chart template locally, you shouldn't use this value. Used to calculate the IRSA service account issuer when using the China region."
+                            "description": "Only used when rendering the chart template locally, you shouldn't use this value. Used to calculate the IRSA service account issuer when using the China region.",
+                            "pattern": "^[0-9]{12}$"
                         },
                         "awsClusterRoleIdentityName": {
                             "type": "string",
@@ -2787,7 +2791,8 @@
                         },
                         "region": {
                             "type": "string",
-                            "title": "Region"
+                            "title": "AWS Region",
+                            "pattern": "^[a-z]{2}(-[a-z]+)+-[0-9]+$"
                         }
                     }
                 },

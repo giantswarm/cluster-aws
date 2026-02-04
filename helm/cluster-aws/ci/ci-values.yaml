@@ -16,7 +16,7 @@ global:
         - m5.xlarge
   providerSpecific:
     region: "eu-west-1"
-    awsAccountId: "1234567890"
+    awsAccountId: "123456789012"
   components:
     containerd:
       containerRegistries:

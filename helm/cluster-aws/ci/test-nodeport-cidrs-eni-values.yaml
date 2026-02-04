@@ -2,7 +2,7 @@ global:
   release:
     version: 29.1.0
   metadata:
-    name: test-wc-multiple-vpc-cidrs
+    name: test-nodeport-eni
     organization: test
     servicePriority: lowest
   connectivity:
