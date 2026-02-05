@@ -1814,6 +1814,19 @@
                             "type": "string",
                             "title": "Base DNS domain"
                         },
+                        "certManager": {
+                            "type": "object",
+                            "title": "CertManager",
+                            "description": "Configuration of CertManager.",
+                            "properties": {
+                                "useDnsChallenges": {
+                                    "type": "boolean",
+                                    "title": "Use DNS Challenges",
+                                    "description": "Set to true to enable DNS challenges in the default ClusterIssuer and install all necessary IAM roles.",
+                                    "default": false
+                                }
+                            }
+                        },
                         "cilium": {
                             "type": "object",
                             "title": "Cilium",
