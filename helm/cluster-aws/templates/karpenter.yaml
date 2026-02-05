@@ -37,6 +37,11 @@ extraVolumes:
             path: token
 nodeSelector:
   node-role.kubernetes.io/control-plane: ""
+podLogs:
+  enabled: true
+  tenant: "giantswarm"
+serviceMonitor:
+  enabled: true
 serviceAccount:
   annotations:
     eks.amazonaws.com/role-arn: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-karpenter
