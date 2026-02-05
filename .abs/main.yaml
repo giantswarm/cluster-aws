@@ -1,5 +1,6 @@
 chart-dir: helm/cluster-aws
 replace-chart-version-with-git: true
+replace-app-version-with-git: true
 ct-config: .abs/ct.yaml
 generate-metadata: true
 catalog-base-url: https://giantswarm.github.io/cluster-catalog/
