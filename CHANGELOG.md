@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.3.0] - 2026-02-04
+
 ### Added
 
 - Add JSON schema validation patterns for `global.providerSpecific.region`.
@@ -1866,7 +1868,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.2.5...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.3.0...HEAD
+[7.3.0]: https://github.com/giantswarm/cluster-aws/compare/v7.2.5...v7.3.0
 [7.2.5]: https://github.com/giantswarm/cluster-aws/compare/v7.2.4...v7.2.5
 [7.2.4]: https://github.com/giantswarm/cluster-aws/compare/v7.2.3...v7.2.4
 [7.2.3]: https://github.com/giantswarm/cluster-aws/compare/v7.2.2...v7.2.3
