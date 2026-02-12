@@ -31,19 +31,5 @@ cniCustomConf:
 extraEnv:
   - name: CNI_CONF_NAME
     value: "21-cilium.conflist"
-{{- else if eq .Values.global.connectivity.cilium.ipamMode "kubernetes" }}
-{{- /* Use default from `cluster` chart */}}
 {{- end }}
-
-hubble:
-  relay:
-    tolerations:
-      - key: "node.cluster.x-k8s.io/uninitialized"
-        operator: "Exists"
-        effect: "NoSchedule"
-  ui:
-    tolerations:
-      - key: "node.cluster.x-k8s.io/uninitialized"
-        operator: "Exists"
-        effect: "NoSchedule"
 {{- end }}
