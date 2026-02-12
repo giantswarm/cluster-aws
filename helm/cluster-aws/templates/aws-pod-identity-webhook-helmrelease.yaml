@@ -1,0 +1,61 @@
+{{- define "awsPodIdentityWebhookValuesDefault" }}
+  aws:
+    tokenAudience: {{ include "awsApiServerApiAudiences" $ | trim  }}
+    region: {{ include "aws-region" $ | trim }}
+{{- end }}
+{{- $awsPodIdentityWebhookValues := (include "awsPodIdentityWebhookValuesDefault" $ ) | fromYaml -}}
+{{- $customAwsPodIdentityWebhookValues := .Values.global.apps.awsPodIdentityWebhook.values -}}
+{{- if $customAwsPodIdentityWebhookValues -}}
+{{- $awsPodIdentityWebhookValues = mergeOverwrite $awsPodIdentityWebhookValues (deepCopy $customAwsPodIdentityWebhookValues) -}}
+{{- end -}}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: {{ include "resource.default.name" . }}-aws-pod-identity-webhook
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
+  labels:
+    cluster-apps-operator.giantswarm.io/watching: ""
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  {{- $_ := set $ "appName" "aws-pod-identity-webhook" }}
+  releaseName: aws-pod-identity-webhook
+  targetNamespace: kube-system
+  storageNamespace: kube-system
+  chart:
+    spec:
+      chart: aws-pod-identity-webhook
+      version: {{ include "cluster.app.version" $ }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+  dependsOn:
+    - name: {{ include "resource.default.name" . }}-cert-manager
+      namespace: {{ .Release.Namespace }}
+  kubeConfig:
+    secretRef:
+      name: {{ include "resource.default.name" . }}-kubeconfig
+  interval: 5m
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  {{- if $awsPodIdentityWebhookValues }}
+  values: {{- $awsPodIdentityWebhookValues | toYaml | nindent 4 }}
+  {{- end }}
+  valuesFrom:
+  - kind: ConfigMap
+    name: {{ include "resource.default.name" . }}-cluster-values
+    valuesKey: values
+    optional: false
+  {{- if .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
+  {{- range .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
+  - kind: {{ .kind }}
+    name: {{ .name }}
+    valuesKey: values
+    optional: {{ .optional | default false }}
+  {{- end }}
+  {{- end }}

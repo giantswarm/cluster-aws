@@ -31,6 +31,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `global.connectivity.certManager.createIamRole` toggle (default `true`) to let customers opt out of provisioning the cert-manager IAM role via crossplane and bring their own role.
 
+### Changed
+
+- Migrate default apps from App CRs to Flux HelmRelease CRs.
+
 ## [8.7.0] - 2026-06-18
 
 ### Changed

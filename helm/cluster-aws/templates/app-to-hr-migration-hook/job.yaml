@@ -1,0 +1,157 @@
+{{/*
+Pre-upgrade hook to safely migrate AWS-specific default apps from App CRs to HelmReleases.
+
+This Job removes chart-operator finalizers from Chart CRs and deletes them,
+so that when Helm deletes the App CRs during the upgrade, chart-operator
+does NOT uninstall the corresponding Helm releases in the workload cluster.
+Flux then adopts the existing releases via the new HelmRelease CRs.
+
+In-cluster apps (inCluster: true) have their Chart CRs on the MC in the
+giantswarm namespace. We access them using the MC kubeconfig from the
+$MC_NAME-kubeconfig secret. Sub-apps of in-cluster bundles are discovered
+dynamically via the meta.helm.sh/release-name annotation, and their Chart
+CRs on the WC are cleaned up via the WC kubeconfig.
+
+Normal WC apps have their Chart CRs on the WC, accessed via the WC kubeconfig.
+
+Note: The cluster subchart has its own migration hook for generic apps.
+This hook handles only AWS-specific apps.
+*/}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "resource.default.name" $ }}-migrate-aws-apps
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+  annotations:
+    helm.sh/hook: pre-upgrade
+    helm.sh/hook-weight: "-5"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+spec:
+  backoffLimit: 3
+  ttlSecondsAfterFinished: 300
+  template:
+    metadata:
+      labels:
+        {{- include "labels.common" $ | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "resource.default.name" $ }}-migrate-aws-apps
+      restartPolicy: Never
+      containers:
+      - name: kubectl
+        image: gsoci.azurecr.io/giantswarm/kubectl:{{ .Values.cluster.providerIntegration.kubernetesVersion }}
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+          capabilities:
+            drop:
+            - ALL
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 256Mi
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -eu
+          CLUSTER_NAME="{{ include "resource.default.name" $ }}"
+          MC_NAME="{{ .Values.global.managementCluster }}"
+          NAMESPACE="{{ $.Release.Namespace }}"
+          CHART_NAMESPACE="giantswarm"
+
+          # Fetch MC kubeconfig (for in-cluster app Chart CRs on the MC)
+          echo "Fetching MC kubeconfig for $MC_NAME"
+          kubectl get secret -n "$NAMESPACE" "${MC_NAME}-kubeconfig" \
+            -o jsonpath='{.data.value}' | base64 -d > /tmp/mc-kubeconfig
+
+          MC="--kubeconfig /tmp/mc-kubeconfig"
+
+          # Fetch WC kubeconfig (for normal WC app Chart CRs and sub-app Chart CRs)
+          echo "Fetching WC kubeconfig for $CLUSTER_NAME"
+          kubectl get secret -n "$NAMESPACE" "${CLUSTER_NAME}-kubeconfig" \
+            -o jsonpath='{.data.value}' | base64 -d > /tmp/wc-kubeconfig
+
+          WC="--kubeconfig /tmp/wc-kubeconfig"
+
+          # Helper: remove finalizers and delete a Chart CR
+          cleanup_chart() {
+            local target="$1"  # "--kubeconfig <path>"
+            local chart_name="$2"
+            local location="$3" # "MC" or "WC", for logging
+
+            if ! kubectl $target get chart "$chart_name" -n "$CHART_NAMESPACE" > /dev/null 2>&1; then
+              echo "  Chart CR $chart_name not found on $location, skipping"
+              return
+            fi
+
+            echo "  Removing finalizers from Chart CR $chart_name on $location"
+            kubectl $target patch chart "$chart_name" -n "$CHART_NAMESPACE" --type=json \
+              -p='[{"op": "remove", "path": "/metadata/finalizers"}]' 2>/dev/null || \
+              echo "  No finalizers to remove or already deleted"
+
+            echo "  Deleting Chart CR $chart_name on $location"
+            kubectl $target delete chart "$chart_name" -n "$CHART_NAMESPACE" --ignore-not-found=true
+          }
+
+          # --- In-cluster apps (Chart CRs on MC) ---
+          # These apps are installed in the MC. They may contain sub-App CRs
+          # whose Chart CRs live on the WC.
+          IN_CLUSTER_APPS="
+            aws-nth-bundle
+            cert-manager-crossplane-resources
+            cilium-crossplane-resources
+          "
+
+          for APP_SUFFIX in $IN_CLUSTER_APPS; do
+            APP_SUFFIX=$(echo "$APP_SUFFIX" | tr -d '[:space:]')
+            [ -z "$APP_SUFFIX" ] && continue
+
+            MC_CHART_NAME="${CLUSTER_NAME}-${APP_SUFFIX}"
+            echo "Processing in-cluster app: $MC_CHART_NAME"
+
+            # Clean up the in-cluster app's own Chart CR on MC
+            cleanup_chart "$MC" "$MC_CHART_NAME" "MC"
+
+            # Discover sub-apps installed by this in-cluster app.
+            # Sub-App CRs have annotation meta.helm.sh/release-name pointing
+            # to the parent App CR name.
+            echo "  Discovering sub-apps of $MC_CHART_NAME"
+            SUB_APPS=$(kubectl get apps.application.giantswarm.io -n "$NAMESPACE" \
+              -o jsonpath='{range .items[*]}{.metadata.annotations.meta\.helm\.sh/release-name}={.metadata.name}{"\n"}{end}' 2>/dev/null \
+              | grep "^${MC_CHART_NAME}=" | cut -d= -f2) || true
+
+            for SUB_APP in $SUB_APPS; do
+              [ -z "$SUB_APP" ] && continue
+              # Strip cluster prefix to get Chart CR name on WC
+              WC_CHART_NAME="${SUB_APP#${CLUSTER_NAME}-}"
+              echo "  Processing sub-app: $SUB_APP -> Chart CR $WC_CHART_NAME on WC"
+              cleanup_chart "$WC" "$WC_CHART_NAME" "WC"
+            done
+          done
+
+          # --- Normal WC apps (Chart CRs on WC) ---
+          # Chart CR name = app name (cluster prefix stripped by app-operator)
+          NORMAL_WC_APPS="
+            aws-pod-identity-webhook
+            aws-ebs-csi-driver-smons
+            irsa-servicemonitors
+          "
+
+          for APP in $NORMAL_WC_APPS; do
+            APP=$(echo "$APP" | tr -d '[:space:]')
+            [ -z "$APP" ] && continue
+
+            echo "Processing normal WC app: $APP"
+            cleanup_chart "$WC" "$APP" "WC"
+          done
+
+          echo "AWS migration hook completed successfully"
