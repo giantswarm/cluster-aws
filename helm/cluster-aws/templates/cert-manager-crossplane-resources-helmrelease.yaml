@@ -28,38 +28,48 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ $truncatedResourceName | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 ---
-apiVersion: application.giantswarm.io/v1alpha1
-kind: App
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
 metadata:
   labels:
-    app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ $truncatedResourceName | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
-  catalog: {{ include "cluster.app.catalog" $ }}
-  name: cert-manager-crossplane-resources
-  version: {{ include "cluster.app.version" $ }}
+  releaseName: {{ $truncatedResourceName }}
+  targetNamespace: {{ $.Release.Namespace }}
+  storageNamespace: {{ $.Release.Namespace }}
+  chart:
+    spec:
+      chart: cert-manager-crossplane-resources
+      version: {{ include "cluster.app.version" $ }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+  serviceAccountName: automation
+  interval: 5m
   install:
-    timeout: "10m"
+    timeout: 10m
+    remediation:
+      retries: -1
   upgrade:
-    timeout: "10m"
-  kubeConfig:
-    inCluster: true # in management cluster context
-  namespace: {{ $.Release.Namespace | quote }}
-  extraConfigs:
+    timeout: 10m
+    remediation:
+      retries: -1
+  valuesFrom:
     # See above
-    - kind: configMap
+    - kind: ConfigMap
       name: {{ $truncatedResourceName | quote }}
-      namespace: {{ $.Release.Namespace | quote }}
+      valuesKey: values
+      optional: false
     # Created by aws-crossplane-cluster-config-operator once the cluster gets provisioned
-    - kind: configMap
+    - kind: ConfigMap
       name: {{ printf "%s-crossplane-config" (include "resource.default.name" $) | quote }}
-      namespace: {{ $.Release.Namespace | quote }}
+      valuesKey: values
+      optional: false
 {{- end }}
 {{- end }}
