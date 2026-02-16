@@ -15,7 +15,6 @@ rules:
   verbs: ["get"]
   resourceNames:
   - {{ include "resource.default.name" $ }}-kubeconfig
-  - {{ .Values.global.managementCluster }}-kubeconfig
 - apiGroups: ["application.giantswarm.io"]
   resources: ["apps"]
   verbs: ["get", "list", "patch", "delete"]

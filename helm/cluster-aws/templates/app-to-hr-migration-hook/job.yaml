@@ -66,8 +66,9 @@ spec:
           CHART_NAMESPACE="giantswarm"
 
           # Fetch MC kubeconfig (for in-cluster app Chart CRs on the MC)
+          # The MC kubeconfig secret is always in the org-giantswarm namespace.
           echo "Fetching MC kubeconfig for $MC_NAME"
-          kubectl get secret -n "$NAMESPACE" "${MC_NAME}-kubeconfig" \
+          kubectl get secret -n "org-giantswarm" "${MC_NAME}-kubeconfig" \
             -o jsonpath='{.data.value}' | base64 -d > /tmp/mc-kubeconfig
 
           MC="--kubeconfig /tmp/mc-kubeconfig"
