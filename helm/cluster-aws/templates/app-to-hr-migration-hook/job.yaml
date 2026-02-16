@@ -56,7 +56,7 @@ spec:
             memory: 64Mi
           limits:
             cpu: 100m
-            memory: 256Mi
+            memory: 512Mi
         command:
         - /bin/sh
         - -c
@@ -138,25 +138,42 @@ spec:
             irsa-servicemonitors
           "
 
+          # Helper: run cleanup_wc_chart in batches to avoid OOM
+          BATCH_MAX=6
+          batch_cleanup_wc_charts() {
+            local count=0
+            for chart_name in "$@"; do
+              chart_name=$(echo "$chart_name" | tr -d '[:space:]')
+              [ -z "$chart_name" ] && continue
+              cleanup_wc_chart "$chart_name" &
+              count=$((count + 1))
+              if [ $count -ge $BATCH_MAX ]; then
+                wait || true
+                count=0
+              fi
+            done
+            wait || true
+          }
+
           # ============================================================
           # Phase 1: Pause all App CRs and clean up WC Chart CRs
           # ============================================================
-          # All operations are parallelized to complete within
-          # chart-operator's 5-minute Helm timeout.
+          # Operations are batched-parallel to complete within
+          # chart-operator's 5-minute Helm timeout without OOM.
 
-          # 1a. Pause non-bundle App CRs (parallel)
+          # 1a. Pause non-bundle App CRs
           echo "Phase 1a: Pausing non-bundle App CRs"
           for APP_CR in $NON_BUNDLE_APPS; do
             APP_CR=$(echo "$APP_CR" | tr -d '[:space:]')
             [ -z "$APP_CR" ] && continue
             kubectl annotate apps.application.giantswarm.io "$APP_CR" -n "$NAMESPACE" \
-              "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null &
+              "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null || true
           done
-          wait || true
 
-          # 1b. Discover bundle sub-App CRs and pause them (parallel)
+          # 1b. Discover bundle sub-App CRs and pause them
           echo "Phase 1b: Discovering and pausing bundle sub-App CRs"
           ALL_SUB_APPS=""
+          SUB_APP_WC_CHARTS=""
           for BUNDLE in $BUNDLE_APPS; do
             BUNDLE=$(echo "$BUNDLE" | tr -d '[:space:]')
             [ -z "$BUNDLE" ] && continue
@@ -169,35 +186,23 @@ spec:
             for SUB_APP in $SUB_APPS; do
               [ -z "$SUB_APP" ] && continue
               ALL_SUB_APPS="$ALL_SUB_APPS $SUB_APP"
+              SUB_APP_WC_CHARTS="$SUB_APP_WC_CHARTS ${SUB_APP#${CLUSTER_NAME}-}"
               kubectl annotate apps.application.giantswarm.io "$SUB_APP" -n "$NAMESPACE" \
-                "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null &
+                "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null || true
             done
           done
-          wait || true
 
-          # 1c. Clean up ALL WC Chart CRs in parallel (sub-apps + non-bundle)
+          # 1c. Clean up ALL WC Chart CRs (batched parallel)
           echo "Phase 1c: Cleaning up WC Chart CRs"
-          for SUB_APP in $ALL_SUB_APPS; do
-            SUB_APP=$(echo "$SUB_APP" | tr -d '[:space:]')
-            [ -z "$SUB_APP" ] && continue
-            WC_CHART_NAME="${SUB_APP#${CLUSTER_NAME}-}"
-            cleanup_wc_chart "$WC_CHART_NAME" &
-          done
-          for CHART in $NON_BUNDLE_WC_CHARTS; do
-            CHART=$(echo "$CHART" | tr -d '[:space:]')
-            [ -z "$CHART" ] && continue
-            cleanup_wc_chart "$CHART" &
-          done
-          wait || true
+          batch_cleanup_wc_charts $SUB_APP_WC_CHARTS $NON_BUNDLE_WC_CHARTS
 
-          # 1d. Delete non-bundle App CRs and sub-App CRs (parallel)
+          # 1d. Delete non-bundle App CRs and sub-App CRs
           echo "Phase 1d: Deleting App CRs"
           for APP_CR in $NON_BUNDLE_APPS $ALL_SUB_APPS; do
             APP_CR=$(echo "$APP_CR" | tr -d '[:space:]')
             [ -z "$APP_CR" ] && continue
-            delete_app "$APP_CR" &
+            delete_app "$APP_CR"
           done
-          wait || true
 
           # ============================================================
           # Phase 2: MC cleanup via operator cascade
