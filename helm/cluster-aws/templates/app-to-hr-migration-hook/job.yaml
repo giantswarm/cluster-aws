@@ -147,11 +147,9 @@ spec:
           for APP_CR in $NON_BUNDLE_APPS; do
             APP_CR=$(echo "$APP_CR" | tr -d '[:space:]')
             [ -z "$APP_CR" ] && continue
-            if kubectl get apps.application.giantswarm.io "$APP_CR" -n "$NAMESPACE" > /dev/null 2>&1; then
-              echo "  Pausing App CR $APP_CR"
-              kubectl annotate apps.application.giantswarm.io "$APP_CR" -n "$NAMESPACE" \
-                "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null || true
-            fi
+            echo "  Pausing App CR $APP_CR"
+            kubectl annotate apps.application.giantswarm.io "$APP_CR" -n "$NAMESPACE" \
+              "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null || true
           done
 
           # 1b. Discover bundle sub-App CRs, pause them, clean up their WC Chart CRs
@@ -180,13 +178,14 @@ spec:
             done
           done
 
-          # 1c. Clean up WC Chart CRs for non-bundle apps
+          # 1c. Clean up WC Chart CRs for non-bundle apps (parallel)
           echo "Phase 1c: Cleaning up WC Chart CRs for non-bundle apps"
           for CHART in $NON_BUNDLE_WC_CHARTS; do
             CHART=$(echo "$CHART" | tr -d '[:space:]')
             [ -z "$CHART" ] && continue
-            cleanup_wc_chart "$CHART"
+            cleanup_wc_chart "$CHART" &
           done
+          wait || true
 
           # 1d. Delete non-bundle App CRs and sub-App CRs
           echo "Phase 1d: Deleting non-bundle App CRs"
