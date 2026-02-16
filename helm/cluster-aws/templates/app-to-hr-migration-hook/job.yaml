@@ -61,17 +61,8 @@ spec:
         - |
           set -eu
           CLUSTER_NAME="{{ include "resource.default.name" $ }}"
-          MC_NAME="{{ .Values.global.managementCluster }}"
           NAMESPACE="{{ $.Release.Namespace }}"
           CHART_NAMESPACE="giantswarm"
-
-          # Fetch MC kubeconfig (for in-cluster app Chart CRs on the MC)
-          # The MC kubeconfig secret is always in the org-giantswarm namespace.
-          echo "Fetching MC kubeconfig for $MC_NAME"
-          kubectl get secret -n "org-giantswarm" "${MC_NAME}-kubeconfig" \
-            -o jsonpath='{.data.value}' | base64 -d > /tmp/mc-kubeconfig
-
-          MC="--kubeconfig /tmp/mc-kubeconfig"
 
           # Fetch WC kubeconfig (for normal WC app Chart CRs and sub-app Chart CRs)
           echo "Fetching WC kubeconfig for $CLUSTER_NAME"
@@ -151,9 +142,10 @@ spec:
 
           # --- Phase 2: Clean up Chart CRs ---
 
-          # --- In-cluster apps (Chart CRs on MC) ---
-          # These apps are installed in the MC. They may contain sub-App CRs
-          # whose Chart CRs live on the WC.
+          # --- In-cluster apps (Chart CRs on MC + sub-app Chart CRs on WC) ---
+          # Bundle apps (aws-nth-bundle, etc.) have their own Chart CRs on the MC
+          # and sub-App CRs whose Chart CRs live on the WC.
+          # We clean up both. MC access uses in-cluster SA (no kubeconfig needed).
           IN_CLUSTER_APPS="
             aws-nth-bundle
             cert-manager-crossplane-resources
@@ -167,8 +159,8 @@ spec:
             MC_CHART_NAME="${CLUSTER_NAME}-${APP_SUFFIX}"
             echo "Processing in-cluster app: $MC_CHART_NAME"
 
-            # Clean up the in-cluster app's own Chart CR on MC
-            cleanup_chart "$MC" "$MC_CHART_NAME" "MC"
+            # Clean up the in-cluster app's own Chart CR on MC (uses in-cluster access)
+            cleanup_chart "" "$MC_CHART_NAME" "MC"
 
             # Discover sub-apps installed by this in-cluster app.
             # Sub-App CRs have annotation meta.helm.sh/release-name pointing
