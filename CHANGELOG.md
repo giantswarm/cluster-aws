@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Migrate AWS-specific default apps from App CRs to Flux HelmRelease CRs (`aws-nth-bundle`, `aws-pod-identity-webhook`, `aws-ebs-csi-driver-servicemonitors`, `irsa-servicemonitors`, `cert-manager-crossplane-resources`, `cilium-crossplane-resources`).
 - Add pre-upgrade migration hook Job to safely remove Chart CR finalizers and delete Chart CRs before the upgrade, preventing chart-operator from uninstalling existing Helm releases during the transition.
+- Use `operatorkit.giantswarm.io/paused` annotation in migration hooks to prevent race conditions with chart-operator (re-adding finalizers) and app-operator (recreating Chart CRs).
 
 ## [7.3.0] - 2026-02-04
 
