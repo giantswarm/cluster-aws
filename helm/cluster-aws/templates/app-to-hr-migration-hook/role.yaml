@@ -18,4 +18,4 @@ rules:
   - {{ .Values.global.managementCluster }}-kubeconfig
 - apiGroups: ["application.giantswarm.io"]
   resources: ["apps"]
-  verbs: ["get", "list"]
+  verbs: ["get", "list", "patch", "delete"]
