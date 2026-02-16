@@ -1,18 +1,15 @@
 {{/*
 Pre-upgrade hook to safely migrate AWS-specific default apps from App CRs to HelmReleases.
 
-This Job removes chart-operator finalizers from Chart CRs and deletes them,
-so that when Helm deletes the App CRs during the upgrade, chart-operator
-does NOT uninstall the corresponding Helm releases in the workload cluster.
-Flux then adopts the existing releases via the new HelmRelease CRs.
+Uses operatorkit's paused annotation to prevent race conditions with both
+app-operator and chart-operator during the migration:
 
-In-cluster apps (inCluster: true) have their Chart CRs on the MC in the
-giantswarm namespace. We access them using the MC kubeconfig from the
-$MC_NAME-kubeconfig secret. Sub-apps of in-cluster bundles are discovered
-dynamically via the meta.helm.sh/release-name annotation, and their Chart
-CRs on the WC are cleaned up via the WC kubeconfig.
+Phase 1: Pause all App CRs (prevents app-operator from recreating Chart CRs)
+Phase 2: Pause + remove finalizers + delete Chart CRs (prevents chart-operator
+         from re-adding finalizers or uninstalling Helm releases)
+Phase 3: Remove finalizers + delete App CRs
 
-Normal WC apps have their Chart CRs on the WC, accessed via the WC kubeconfig.
+Flux then adopts the existing Helm releases via the new HelmRelease CRs.
 
 Note: The cluster subchart has its own migration hook for generic apps.
 This hook handles only AWS-specific apps.
@@ -102,7 +99,9 @@ spec:
             kubectl delete apps.application.giantswarm.io "$app_name" -n "$NAMESPACE" --ignore-not-found=true
           }
 
-          # Helper: remove finalizers and delete a Chart CR
+          # Helper: pause, remove finalizers, and delete a Chart CR.
+          # The paused annotation prevents chart-operator from re-adding
+          # its finalizer (race condition) and from uninstalling the Helm release.
           cleanup_chart() {
             local target="$1"  # "--kubeconfig <path>"
             local chart_name="$2"
@@ -113,6 +112,11 @@ spec:
               return
             fi
 
+            echo "  Pausing chart-operator reconciliation for $chart_name on $location"
+            kubectl $target annotate chart "$chart_name" -n "$CHART_NAMESPACE" \
+              "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null || \
+              echo "  Failed to pause, continuing anyway"
+
             echo "  Removing finalizers from Chart CR $chart_name on $location"
             kubectl $target patch chart "$chart_name" -n "$CHART_NAMESPACE" --type=json \
               -p='[{"op": "remove", "path": "/metadata/finalizers"}]' 2>/dev/null || \
@@ -121,6 +125,30 @@ spec:
             echo "  Deleting Chart CR $chart_name on $location"
             kubectl $target delete chart "$chart_name" -n "$CHART_NAMESPACE" --ignore-not-found=true
           }
+
+          # --- Phase 1: Pause all App CRs ---
+          # Prevents app-operator from reconciling and recreating Chart CRs
+          # during cleanup. Uses operatorkit's paused annotation.
+          ALL_APPS="
+            ${CLUSTER_NAME}-aws-nth-bundle
+            ${CLUSTER_NAME}-cert-manager-crossplane-resources
+            ${CLUSTER_NAME}-cilium-crossplane-resources
+            ${CLUSTER_NAME}-aws-pod-identity-webhook
+            ${CLUSTER_NAME}-aws-ebs-csi-driver-smons
+            ${CLUSTER_NAME}-irsa-servicemonitors
+          "
+          echo "Phase 1: Pausing all App CRs to prevent app-operator reconciliation"
+          for APP_CR in $ALL_APPS; do
+            APP_CR=$(echo "$APP_CR" | tr -d '[:space:]')
+            [ -z "$APP_CR" ] && continue
+            if kubectl get apps.application.giantswarm.io "$APP_CR" -n "$NAMESPACE" > /dev/null 2>&1; then
+              echo "  Pausing App CR $APP_CR"
+              kubectl annotate apps.application.giantswarm.io "$APP_CR" -n "$NAMESPACE" \
+                "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null || true
+            fi
+          done
+
+          # --- Phase 2: Clean up Chart CRs ---
 
           # --- In-cluster apps (Chart CRs on MC) ---
           # These apps are installed in the MC. They may contain sub-App CRs
@@ -174,19 +202,10 @@ spec:
             cleanup_chart "$WC" "$APP" "WC"
           done
 
-          # --- Delete App CRs to prevent race condition ---
-          # app-operator could reconcile and recreate Chart CRs between
-          # the Chart CR cleanup above and the Helm upgrade completing.
-          # Deleting the App CRs eliminates this race.
-          echo "Deleting App CRs to prevent recreation of Chart CRs"
-          ALL_APPS="
-            ${CLUSTER_NAME}-aws-nth-bundle
-            ${CLUSTER_NAME}-cert-manager-crossplane-resources
-            ${CLUSTER_NAME}-cilium-crossplane-resources
-            ${CLUSTER_NAME}-aws-pod-identity-webhook
-            ${CLUSTER_NAME}-aws-ebs-csi-driver-smons
-            ${CLUSTER_NAME}-irsa-servicemonitors
-          "
+          # --- Phase 3: Delete App CRs ---
+          # App CRs were already paused in Phase 1, so app-operator won't
+          # interfere. Removing finalizers and deleting completes the cleanup.
+          echo "Phase 3: Deleting App CRs"
           for APP_CR in $ALL_APPS; do
             APP_CR=$(echo "$APP_CR" | tr -d '[:space:]')
             [ -z "$APP_CR" ] && continue
