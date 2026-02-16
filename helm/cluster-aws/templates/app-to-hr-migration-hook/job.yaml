@@ -139,21 +139,23 @@ spec:
           "
 
           # ============================================================
-          # Phase 1: WC Charts clean up
+          # Phase 1: Pause all App CRs and clean up WC Chart CRs
           # ============================================================
+          # All operations are parallelized to complete within
+          # chart-operator's 5-minute Helm timeout.
 
-          # 1a. Pause non-bundle App CRs
+          # 1a. Pause non-bundle App CRs (parallel)
           echo "Phase 1a: Pausing non-bundle App CRs"
           for APP_CR in $NON_BUNDLE_APPS; do
             APP_CR=$(echo "$APP_CR" | tr -d '[:space:]')
             [ -z "$APP_CR" ] && continue
-            echo "  Pausing App CR $APP_CR"
             kubectl annotate apps.application.giantswarm.io "$APP_CR" -n "$NAMESPACE" \
-              "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null || true
+              "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null &
           done
+          wait || true
 
-          # 1b. Discover bundle sub-App CRs, pause them, clean up their WC Chart CRs
-          echo "Phase 1b: Discovering and cleaning up bundle sub-App CRs"
+          # 1b. Discover bundle sub-App CRs and pause them (parallel)
+          echo "Phase 1b: Discovering and pausing bundle sub-App CRs"
           ALL_SUB_APPS=""
           for BUNDLE in $BUNDLE_APPS; do
             BUNDLE=$(echo "$BUNDLE" | tr -d '[:space:]')
@@ -167,19 +169,20 @@ spec:
             for SUB_APP in $SUB_APPS; do
               [ -z "$SUB_APP" ] && continue
               ALL_SUB_APPS="$ALL_SUB_APPS $SUB_APP"
-
-              echo "  Pausing sub-App CR $SUB_APP"
               kubectl annotate apps.application.giantswarm.io "$SUB_APP" -n "$NAMESPACE" \
-                "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null || true
-
-              WC_CHART_NAME="${SUB_APP#${CLUSTER_NAME}-}"
-              echo "  Cleaning up Chart CR $WC_CHART_NAME on WC"
-              cleanup_wc_chart "$WC_CHART_NAME"
+                "operatorkit.giantswarm.io/paused=true" --overwrite 2>/dev/null &
             done
           done
+          wait || true
 
-          # 1c. Clean up WC Chart CRs for non-bundle apps (parallel)
-          echo "Phase 1c: Cleaning up WC Chart CRs for non-bundle apps"
+          # 1c. Clean up ALL WC Chart CRs in parallel (sub-apps + non-bundle)
+          echo "Phase 1c: Cleaning up WC Chart CRs"
+          for SUB_APP in $ALL_SUB_APPS; do
+            SUB_APP=$(echo "$SUB_APP" | tr -d '[:space:]')
+            [ -z "$SUB_APP" ] && continue
+            WC_CHART_NAME="${SUB_APP#${CLUSTER_NAME}-}"
+            cleanup_wc_chart "$WC_CHART_NAME" &
+          done
           for CHART in $NON_BUNDLE_WC_CHARTS; do
             CHART=$(echo "$CHART" | tr -d '[:space:]')
             [ -z "$CHART" ] && continue
@@ -187,19 +190,14 @@ spec:
           done
           wait || true
 
-          # 1d. Delete non-bundle App CRs and sub-App CRs
-          echo "Phase 1d: Deleting non-bundle App CRs"
-          for APP_CR in $NON_BUNDLE_APPS; do
+          # 1d. Delete non-bundle App CRs and sub-App CRs (parallel)
+          echo "Phase 1d: Deleting App CRs"
+          for APP_CR in $NON_BUNDLE_APPS $ALL_SUB_APPS; do
             APP_CR=$(echo "$APP_CR" | tr -d '[:space:]')
             [ -z "$APP_CR" ] && continue
-            delete_app "$APP_CR"
+            delete_app "$APP_CR" &
           done
-          echo "Deleting bundle sub-App CRs"
-          for SUB_APP in $ALL_SUB_APPS; do
-            SUB_APP=$(echo "$SUB_APP" | tr -d '[:space:]')
-            [ -z "$SUB_APP" ] && continue
-            delete_app "$SUB_APP"
-          done
+          wait || true
 
           # ============================================================
           # Phase 2: MC cleanup via operator cascade
@@ -213,11 +211,8 @@ spec:
             BUNDLE=$(echo "$BUNDLE" | tr -d '[:space:]')
             [ -z "$BUNDLE" ] && continue
             BUNDLE_APP="${CLUSTER_NAME}-${BUNDLE}"
-            if kubectl get apps.application.giantswarm.io "$BUNDLE_APP" -n "$NAMESPACE" > /dev/null 2>&1; then
-              echo "  Deleting bundle App CR $BUNDLE_APP"
-              kubectl delete apps.application.giantswarm.io "$BUNDLE_APP" -n "$NAMESPACE" \
-                --ignore-not-found=true --wait=false
-            fi
+            kubectl delete apps.application.giantswarm.io "$BUNDLE_APP" -n "$NAMESPACE" \
+              --ignore-not-found=true --wait=false 2>/dev/null || true
           done
 
           echo "AWS migration hook completed successfully"
