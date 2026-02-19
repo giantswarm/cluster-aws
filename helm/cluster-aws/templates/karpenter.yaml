@@ -45,6 +45,24 @@ tolerations:
     operator: "Exists"
     effect: "NoSchedule"
 {{- end }}
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: {{ include "resource.default.name" $ }}-karpenter-bundle
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
+  labels:
+    cluster-apps-operator.giantswarm.io/watching: ""
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  {{- $_ := set $ "appName" "karpenter" }}
+  url: oci://gsoci.azurecr.io/charts/giantswarm/karpenter-bundle
+  ref:
+    tag: "{{ include "cluster.app.version" $ }}"
+  interval: 1h
+  timeout: 60s
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -59,14 +77,9 @@ spec:
   releaseName: {{ include "resource.default.name" $ }}-karpenter-bundle
   targetNamespace: {{ $.Release.Namespace | quote }}
   storageNamespace: {{ $.Release.Namespace | quote }}
-  chart:
-    spec:
-      chart: karpenter-bundle
-      {{- $_ := set $ "appName" "karpenter" }}
-      version: {{ include "cluster.app.version" $ }}
-      sourceRef:
-        kind: HelmRepository
-        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+  chartRef:
+    kind: OCIRepository
+    name: {{ include "resource.default.name" $ }}-karpenter-bundle
   serviceAccountName: automation
   interval: 5m
   timeout: 15m # We need a bigger timeout because it could take a while for IRSA (via CloudFront) to become available
@@ -94,6 +107,24 @@ spec:
   {{- end }}
   {{- end }}
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: {{ include "resource.default.name" $ }}-karpenter-taint-remover
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
+  labels:
+    cluster-apps-operator.giantswarm.io/watching: ""
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  {{- $_ := set $ "appName" "karpenter-taint-remover" }}
+  url: oci://gsoci.azurecr.io/charts/giantswarm/capa-karpenter-taint-remover
+  ref:
+    tag: "{{ include "cluster.app.version" $ }}"
+  interval: 1h
+  timeout: 60s
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -108,14 +139,9 @@ spec:
   releaseName: karpenter-taint-remover
   targetNamespace: karpenter
   storageNamespace: karpenter
-  chart:
-    spec:
-      chart: capa-karpenter-taint-remover
-      {{- $_ := set $ "appName" "karpenter-taint-remover" }}
-      version: {{ include "cluster.app.version" $ }}
-      sourceRef:
-        kind: HelmRepository
-        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+  chartRef:
+    kind: OCIRepository
+    name: {{ include "resource.default.name" $ }}-karpenter-taint-remover
   kubeConfig:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig

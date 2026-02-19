@@ -32,6 +32,20 @@ metadata:
   name: {{ $truncatedResourceName | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ $truncatedResourceName | quote }}
+  namespace: {{ $.Release.Namespace | quote }}
+spec:
+  url: oci://gsoci.azurecr.io/charts/giantswarm/cert-manager-crossplane-resources
+  ref:
+    tag: "{{ include "cluster.app.version" $ }}"
+  interval: 1h
+  timeout: 60s
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -43,13 +57,9 @@ spec:
   releaseName: {{ $truncatedResourceName }}
   targetNamespace: {{ $.Release.Namespace }}
   storageNamespace: {{ $.Release.Namespace }}
-  chart:
-    spec:
-      chart: cert-manager-crossplane-resources
-      version: {{ include "cluster.app.version" $ }}
-      sourceRef:
-        kind: HelmRepository
-        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+  chartRef:
+    kind: OCIRepository
+    name: {{ $truncatedResourceName }}
   serviceAccountName: automation
   interval: 5m
   install:
