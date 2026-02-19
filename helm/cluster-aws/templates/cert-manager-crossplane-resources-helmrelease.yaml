@@ -28,38 +28,58 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ $truncatedResourceName | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 ---
-apiVersion: application.giantswarm.io/v1alpha1
-kind: App
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
 metadata:
   labels:
-    app-operator.giantswarm.io/version: 0.0.0
     {{- include "labels.common" $ | nindent 4 }}
   name: {{ $truncatedResourceName | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
-  catalog: {{ include "cluster.app.catalog" $ }}
-  name: cert-manager-crossplane-resources
-  version: {{ include "cluster.app.version" $ }}
-  install:
-    timeout: "10m"
-  upgrade:
-    timeout: "10m"
-  kubeConfig:
-    inCluster: true # in management cluster context
+  url: oci://gsoci.azurecr.io/charts/giantswarm/cert-manager-crossplane-resources
+  ref:
+    tag: "{{ include "cluster.app.version" $ }}"
+  interval: 1h
+  timeout: 60s
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  labels:
+    {{- include "labels.common" $ | nindent 4 }}
+  name: {{ $truncatedResourceName | quote }}
   namespace: {{ $.Release.Namespace | quote }}
-  extraConfigs:
+spec:
+  releaseName: {{ $truncatedResourceName }}
+  targetNamespace: {{ $.Release.Namespace }}
+  storageNamespace: {{ $.Release.Namespace }}
+  chartRef:
+    kind: OCIRepository
+    name: {{ $truncatedResourceName }}
+  serviceAccountName: automation
+  interval: 5m
+  install:
+    timeout: 10m
+    remediation:
+      retries: -1
+  upgrade:
+    timeout: 10m
+    remediation:
+      retries: -1
+  valuesFrom:
     # See above
-    - kind: configMap
+    - kind: ConfigMap
       name: {{ $truncatedResourceName | quote }}
-      namespace: {{ $.Release.Namespace | quote }}
+      valuesKey: values
+      optional: false
     # Created by aws-crossplane-cluster-config-operator once the cluster gets provisioned
-    - kind: configMap
+    - kind: ConfigMap
       name: {{ printf "%s-crossplane-config" (include "resource.default.name" $) | quote }}
-      namespace: {{ $.Release.Namespace | quote }}
+      valuesKey: values
+      optional: false
 {{- end }}
 {{- end }}

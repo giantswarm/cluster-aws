@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Migrate default apps from App CRs to Flux HelmRelease CRs via a pre-upgrade hook in the `cluster` subchart. The hook uses label selectors to discover all cluster apps dynamically, eliminating hardcoded app lists.
+- Remove AWS-specific migration hook (handled by the unified hook in the `cluster` subchart).
+- Bump `cluster` subchart to include the migration hook with parallelized operations for performance.
+- Switch all HelmReleases from shared HelmRepository to per-app OCIRepository (`oci://gsoci.azurecr.io/charts/giantswarm/{chartName}`). Each HelmRelease now has a dedicated OCIRepository, eliminating shared HelmRepository coupling and missing-repo issues for bundle charts.
+- Remove shared HelmRepository resources (`default`, `default-test`, `cluster`, `cluster-test`) from the `cluster` subchart, as they are no longer referenced.
+
+### Fixed
+
+- Fix Helm release name collision for `inCluster` bundle apps (`observability-bundle`, `security-bundle`) by prefixing `releaseName` with the cluster name. Without this, multiple clusters in the same org namespace would fight over a single Helm release, causing an infinite reconciliation loop.
+
 ## [7.3.0] - 2026-02-04
 
 ### Added

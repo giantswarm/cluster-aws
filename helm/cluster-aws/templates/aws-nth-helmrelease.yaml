@@ -43,54 +43,66 @@ global:
 {{- end }}
 {{- if and (include "hasAWSMachinePools" .) .Values.global.providerSpecific.nodeTerminationHandlerEnabled }}
 ---
-apiVersion: v1
-data:
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: {{ include "resource.default.name" $ }}-aws-nth-bundle
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
+  labels:
+    cluster-apps-operator.giantswarm.io/watching: ""
+    {{- include "labels.common" $ | nindent 4 }}
+spec:
+  {{- $_ := set $ "appName" "aws-nth-bundle" }}
+  url: oci://gsoci.azurecr.io/charts/giantswarm/aws-nth-bundle
+  ref:
+    tag: "{{ include "cluster.app.version" $ }}"
+  interval: 1h
+  timeout: 60s
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: {{ include "resource.default.name" $ }}-aws-nth-bundle
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
+  labels:
+    cluster-apps-operator.giantswarm.io/watching: ""
+    {{- include "labels.common" $ | nindent 4 }}
+spec:
+  releaseName: {{ include "resource.default.name" $ }}-aws-nth-bundle
+  targetNamespace: {{ $.Release.Namespace }}
+  storageNamespace: {{ $.Release.Namespace }}
+  chartRef:
+    kind: OCIRepository
+    name: {{ include "resource.default.name" $ }}-aws-nth-bundle
+  serviceAccountName: automation
+  interval: 5m
+  install:
+    timeout: 10m
+    remediation:
+      retries: -1
+  upgrade:
+    timeout: 10m
+    remediation:
+      retries: -1
   {{- $awsNodeTerminationHandlerHelmValues := (include "defaultAwsNodeTerminationHandlerHelmValues" .) | fromYaml -}}
   {{- $customAwsNodeTerminationHandlerHelmValues := $.Values.global.apps.awsNodeTerminationHandler.values -}}
   {{- if $customAwsNodeTerminationHandlerHelmValues }}
   {{- $awsNodeTerminationHandlerHelmValues = merge (deepCopy $customAwsNodeTerminationHandlerHelmValues) $awsNodeTerminationHandlerHelmValues -}}
   {{- end }}
-  values: | {{- $awsNodeTerminationHandlerHelmValues | toYaml | nindent 4 }}
-kind: ConfigMap
-metadata:
-  labels:
-    app-operator.giantswarm.io/version: 0.0.0
-    {{- include "labels.common" $ | nindent 4 }}
-  name: {{ printf "%s-aws-nth-bundle-user-values" (include "resource.default.name" $) | quote }}
-  namespace: {{ $.Release.Namespace | quote }}
----
-apiVersion: application.giantswarm.io/v1alpha1
-kind: App
-metadata:
-  labels:
-    app-operator.giantswarm.io/version: 0.0.0
-    {{- include "labels.common" $ | nindent 4 }}
-  name: {{ printf "%s-aws-nth-bundle" (include "resource.default.name" $) | quote }}
-  namespace: {{ $.Release.Namespace | quote }}
-spec:
-  catalog: {{ include "cluster.app.catalog" $ | quote }}
-  install:
-    timeout: "10m"
-  upgrade:
-    timeout: "10m"
-  kubeConfig:
-    inCluster: true # in management cluster context
-  name: aws-nth-bundle
-  namespace: {{ $.Release.Namespace | quote }}
-  {{- $_ := set $ "appName" "aws-nth-bundle" }}
-  {{- $appVersion := include "cluster.app.version" $ }}
-  version: {{ $appVersion }}
-  extraConfigs:
-    # See above
-    - kind: configMap
-      name: {{ printf "%s-aws-nth-bundle-user-values" (include "resource.default.name" $) | quote }}
-      namespace: {{ $.Release.Namespace | quote }}
-    {{- if .Values.global.apps.awsNodeTerminationHandler.extraConfigs }}
-    {{- range .Values.global.apps.awsNodeTerminationHandler.extraConfigs }}
-    - kind: {{ .kind }}
-      name: {{ .name }}
-      namespace: {{ .namespace | default $.Release.Namespace }}
-      priority: {{ .priority }}
+  {{- if $awsNodeTerminationHandlerHelmValues }}
+  values: {{- $awsNodeTerminationHandlerHelmValues | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if .Values.global.apps.awsNodeTerminationHandler.extraConfigs }}
+  valuesFrom:
+    {{- range $config := .Values.global.apps.awsNodeTerminationHandler.extraConfigs }}
+    - kind: {{ $config.kind }}
+      name: {{ $config.name }}
+      valuesKey: values
+      optional: {{ $config.optional | default false }}
     {{- end }}
-    {{- end }}
+  {{- end }}
 {{- end }}
