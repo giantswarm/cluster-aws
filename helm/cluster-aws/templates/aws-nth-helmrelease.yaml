@@ -43,7 +43,7 @@ global:
 {{- end }}
 {{- if and (include "hasAWSMachinePools" .) .Values.global.providerSpecific.nodeTerminationHandlerEnabled }}
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
   name: {{ include "resource.default.name" $ }}-aws-nth-bundle

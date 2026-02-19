@@ -32,7 +32,7 @@ metadata:
   name: {{ $truncatedResourceName | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
   labels:
