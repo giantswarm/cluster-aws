@@ -13,6 +13,24 @@ global:
   podSecurityStandards:
     enforced: {{ .Values.global.podSecurityStandards.enforced }}
 {{- end }}
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: {{ include "resource.default.name" $ }}-cloud-provider-aws
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
+  labels:
+    cluster-apps-operator.giantswarm.io/watching: ""
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  {{- $_ := set $ "appName" "cloud-provider-aws" }}
+  url: oci://gsoci.azurecr.io/charts/giantswarm/aws-cloud-controller-manager-app
+  ref:
+    tag: "{{ include "cluster.app.version" $ }}"
+  interval: 1h
+  timeout: 60s
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -28,14 +46,9 @@ spec:
   releaseName: aws-cloud-controller-manager
   targetNamespace: kube-system
   storageNamespace: kube-system
-  chart:
-    spec:
-      chart: aws-cloud-controller-manager-app
-      {{- $_ := set $ "appName" "cloud-provider-aws" }}
-      version: {{ include "cluster.app.version" $ }}
-      sourceRef:
-        kind: HelmRepository
-        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+  chartRef:
+    kind: OCIRepository
+    name: {{ include "resource.default.name" $ }}-cloud-provider-aws
   dependsOn:
       - name: {{ include "resource.default.name" $ }}-vertical-pod-autoscaler-crd
         namespace: {{ $.Release.Namespace }}
