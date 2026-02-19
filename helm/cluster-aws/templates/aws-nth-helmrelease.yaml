@@ -43,24 +43,6 @@ global:
 {{- end }}
 {{- if and (include "hasAWSMachinePools" .) .Values.global.providerSpecific.nodeTerminationHandlerEnabled }}
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
-metadata:
-  name: {{ include "resource.default.name" $ }}-aws-nth-bundle
-  namespace: {{ $.Release.Namespace }}
-  annotations:
-    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
-  labels:
-    cluster-apps-operator.giantswarm.io/watching: ""
-    {{- include "labels.common" $ | nindent 4 }}
-spec:
-  {{- $_ := set $ "appName" "aws-nth-bundle" }}
-  url: oci://gsoci.azurecr.io/charts/giantswarm/aws-nth-bundle
-  ref:
-    tag: "{{ include "cluster.app.version" $ }}"
-  interval: 1h
-  timeout: 60s
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -75,9 +57,14 @@ spec:
   releaseName: {{ include "resource.default.name" $ }}-aws-nth-bundle
   targetNamespace: {{ $.Release.Namespace }}
   storageNamespace: {{ $.Release.Namespace }}
-  chartRef:
-    kind: OCIRepository
-    name: {{ include "resource.default.name" $ }}-aws-nth-bundle
+  chart:
+    spec:
+      chart: aws-nth-bundle
+      {{- $_ := set $ "appName" "aws-nth-bundle" }}
+      version: {{ include "cluster.app.version" $ }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
   serviceAccountName: automation
   interval: 5m
   install:

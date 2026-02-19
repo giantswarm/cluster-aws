@@ -11,21 +11,6 @@ metadata:
   name: {{ printf "%s-cilium-crossplane-resources" (include "resource.default.name" $) | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
-metadata:
-  labels:
-    {{- include "labels.common" $ | nindent 4 }}
-  name: {{ printf "%s-cilium-crossplane-resources" (include "resource.default.name" $) | quote }}
-  namespace: {{ $.Release.Namespace | quote }}
-spec:
-  {{- $_ := set $ "appName" "cilium-crossplane-resources" }}
-  url: oci://gsoci.azurecr.io/charts/giantswarm/cilium-crossplane-resources
-  ref:
-    tag: "{{ include "cluster.app.version" $ }}"
-  interval: 1h
-  timeout: 60s
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -34,12 +19,17 @@ metadata:
   name: {{ printf "%s-cilium-crossplane-resources" (include "resource.default.name" $) | quote }}
   namespace: {{ $.Release.Namespace | quote }}
 spec:
+  {{- $_ := set $ "appName" "cilium-crossplane-resources" }}
   releaseName: {{ printf "%s-cilium-crossplane-resources" (include "resource.default.name" $) }}
   targetNamespace: {{ $.Release.Namespace }}
   storageNamespace: {{ $.Release.Namespace }}
-  chartRef:
-    kind: OCIRepository
-    name: {{ printf "%s-cilium-crossplane-resources" (include "resource.default.name" $) }}
+  chart:
+    spec:
+      chart: cilium-crossplane-resources
+      version: {{ include "cluster.app.version" $ }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
   serviceAccountName: automation
   interval: 5m
   install:
