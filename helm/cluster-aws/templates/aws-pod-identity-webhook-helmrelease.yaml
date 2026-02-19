@@ -8,6 +8,24 @@
 {{- if $customAwsPodIdentityWebhookValues -}}
 {{- $awsPodIdentityWebhookValues = mergeOverwrite $awsPodIdentityWebhookValues (deepCopy $customAwsPodIdentityWebhookValues) -}}
 {{- end -}}
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: {{ include "resource.default.name" . }}-aws-pod-identity-webhook
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    cluster.giantswarm.io/description: "{{ .Values.global.metadata.description }}"
+  labels:
+    cluster-apps-operator.giantswarm.io/watching: ""
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  {{- $_ := set $ "appName" "aws-pod-identity-webhook" }}
+  url: oci://gsoci.azurecr.io/charts/giantswarm/aws-pod-identity-webhook
+  ref:
+    tag: "{{ include "cluster.app.version" $ }}"
+  interval: 1h
+  timeout: 60s
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -19,17 +37,12 @@ metadata:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" . | nindent 4 }}
 spec:
-  {{- $_ := set $ "appName" "aws-pod-identity-webhook" }}
   releaseName: aws-pod-identity-webhook
   targetNamespace: kube-system
   storageNamespace: kube-system
-  chart:
-    spec:
-      chart: aws-pod-identity-webhook
-      version: {{ include "cluster.app.version" $ }}
-      sourceRef:
-        kind: HelmRepository
-        name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
+  chartRef:
+    kind: OCIRepository
+    name: {{ include "resource.default.name" . }}-aws-pod-identity-webhook
   dependsOn:
     - name: {{ include "resource.default.name" . }}-cert-manager
       namespace: {{ .Release.Namespace }}
