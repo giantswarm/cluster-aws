@@ -56,7 +56,7 @@ tolerations:
     operator: "Exists"
     effect: "NoSchedule"
 {{- end }}
-apiVersion: source.toolkit.fluxcd.io/v1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
   name: {{ include "resource.default.name" $ }}-karpenter-bundle
@@ -120,7 +120,7 @@ spec:
   {{- end }}
   {{- end }}
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
   name: {{ include "resource.default.name" $ }}-karpenter-taint-remover
