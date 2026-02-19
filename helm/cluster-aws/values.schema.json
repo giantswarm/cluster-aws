@@ -1849,6 +1849,24 @@
                             "type": "object",
                             "title": "DNS",
                             "properties": {
+                                "delegationIdentityName": {
+                                    "type": "string",
+                                    "title": "DNS Delegation AWSClusterRoleIdentity",
+                                    "description": "AWSClusterRoleIdentity to use when taking care of creating the DNS delegation between the cluster hosted zone and its parent hosted zone. It needs to have permissions to manage the parent hosted zone.",
+                                    "examples": [
+                                        "default",
+                                        "production",
+                                        "development"
+                                    ]
+                                },
+                                "hostedZoneName": {
+                                    "type": "string",
+                                    "title": "Hosted Zone name",
+                                    "description": "Name of the hosted zone to create for this cluster.",
+                                    "examples": [
+                                        "my-cluster.example.com"
+                                    ]
+                                },
                                 "resolverRulesOwnerAccount": {
                                     "type": "string",
                                     "title": "Resolver rules owner",
@@ -1862,6 +1880,11 @@
                                         }
                                     ]
                                 }
+                            },
+                            "dependentRequired": {
+                                "hostedZoneName": [
+                                    "delegationIdentityName"
+                                ]
                             }
                         },
                         "eniModePodSubnets": {
