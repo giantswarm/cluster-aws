@@ -54,7 +54,7 @@ spec:
       - name: {{ include "resource.default.name" $ }}-vertical-pod-autoscaler-crd
         namespace: {{ $.Release.Namespace }}
   serviceAccountName: automation
-  interval: 5m
+  interval: 2m
   install:
     remediation:
       retries: -1
