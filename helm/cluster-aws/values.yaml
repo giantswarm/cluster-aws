@@ -222,7 +222,7 @@ cluster:
       machineHealthCheckResourceEnabled: true
       machinePoolResourcesEnabled: true
       nodePoolKind: MachinePool
-    useReleases: false
+    useReleases: true
     workers:
       defaultNodePools:
         def00:
