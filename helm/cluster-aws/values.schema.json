@@ -1501,7 +1501,7 @@
                             "description": "Configuration of prometheus-blackbox-exporter. For all available values see https://github.com/giantswarm/prometheus-blackbox-exporter-app."
                         },
                         "rbacBootstrap": {
-                            "$ref": "#/$defs/app",
+                            "$ref": "#/$defs/helmRelease",
                             "type": "object",
                             "title": "rbac-bootstrap",
                             "description": "Configuration of rbac-bootstrap. For all available values see https://github.com/giantswarm/rbac-bootstrap-app."
