@@ -82,13 +82,15 @@ spec:
   interval: 5m
   timeout: 15m
   install:
-    timeout: 10m
+    timeout: 15m
     remediation:
       retries: -1
+      remediateLastFailure: false
   upgrade:
-    timeout: 10m
+    timeout: 15m
     remediation:
       retries: -1
+      remediateLastFailure: false
   {{- $awsNodeTerminationHandlerHelmValues := (include "defaultAwsNodeTerminationHandlerHelmValues" .) | fromYaml -}}
   {{- $customAwsNodeTerminationHandlerHelmValues := $.Values.global.apps.awsNodeTerminationHandler.values -}}
   {{- if $customAwsNodeTerminationHandlerHelmValues }}
