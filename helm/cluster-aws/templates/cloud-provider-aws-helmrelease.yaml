@@ -28,7 +28,7 @@ spec:
   url: oci://gsoci.azurecr.io/charts/giantswarm/aws-cloud-controller-manager-app
   ref:
     tag: "{{ include "cluster.app.version" $ }}"
-  interval: 1h
+  interval: 24h
   timeout: 60s
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
