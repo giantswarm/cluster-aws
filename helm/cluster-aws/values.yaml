@@ -53,6 +53,8 @@ cluster:
         enable: true
       prometheusBlackboxExporter:
         enable: true
+      rbacBootstrap:
+        enable: true
       securityBundle:
         configTemplateName: awsSecurityBundleHelmValues
         enable: true
@@ -314,6 +316,7 @@ global:
     observabilityPolicies: {}
     priorityClasses: {}
     prometheusBlackboxExporter: {}
+    rbacBootstrap: {}
     securityBundle: {}
     teleportKubeAgent: {}
     verticalPodAutoscaler: {}
