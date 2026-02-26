@@ -91,6 +91,8 @@ spec:
     remediation:
       retries: -1
       remediateLastFailure: false
+  driftDetection:
+    mode: enabled
   {{- $awsNodeTerminationHandlerHelmValues := (include "defaultAwsNodeTerminationHandlerHelmValues" .) | fromYaml -}}
   {{- $customAwsNodeTerminationHandlerHelmValues := $.Values.global.apps.awsNodeTerminationHandler.values -}}
   {{- if $customAwsNodeTerminationHandlerHelmValues }}
