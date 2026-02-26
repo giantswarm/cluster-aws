@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Values: Use container registries from `cluster` chart.
-- Chart: Update `cluster` to v5.2.0.
+- Chart: Update `cluster` to v5.3.0.
 - Apps: Enable `rbac-bootstrap` as a default HelmRelease app.
 
 ## [7.3.0] - 2026-02-04
