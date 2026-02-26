@@ -1,9 +1,9 @@
 dependencies:
 - name: cluster
   repository: https://giantswarm.github.io/cluster-test-catalog
-  version: 5.1.2-7e59365b4f651206f2ba328cb7ceb2c625172421
+  version: 5.1.2-ea61b089cc8dfd78056fa1e9fc76f2bae06f8e6b
 - name: cluster-shared
   repository: https://giantswarm.github.io/cluster-catalog
   version: 0.7.1
-digest: sha256:d55661a2b1b989c6b25c2a2a38076c60110f6aae757db1eb5ba0326420392608
-generated: "2026-02-26T07:59:38.289316809Z"
+digest: sha256:bbc9b558c205a7927d1bf64cb76e100eef33e02503d370717b400a6e0d8a42dd
+generated: "2026-02-26T09:09:21.24513705Z"
