@@ -348,7 +348,7 @@ global:
   connectivity:
     availabilityZoneUsageLimit: 3
     certManager:
-      useDnsChallenges: false
+      useDnsChallenges: true
     cilium:
       ipamMode: kubernetes
     dns: {}
