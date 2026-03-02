@@ -74,7 +74,7 @@ spec:
         kind: HelmRepository
         name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
   serviceAccountName: automation
-  interval: 5m
+  interval: 1m
   timeout: 15m # We need a bigger timeout because it could take a while for IRSA (via CloudFront) to become available
   install:
     remediation:
@@ -82,6 +82,8 @@ spec:
   upgrade:
     remediation:
       retries: -1
+  driftDetection:
+    mode: enabled
   {{- $karpenterHelmValues := (include "defaultkarpenterHelmValues" .) | fromYaml -}}
   {{- $customkarpenterHelmValues := $.Values.global.apps.karpenter.values -}}
   {{- if $customkarpenterHelmValues }}
