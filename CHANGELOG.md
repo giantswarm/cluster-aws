@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Values: Use container registries from `cluster` chart.
 - Karpenter: Provide proxy configuration.
+- AWS EBS CSI Driver & Karpenter: Reduce interval and enable drift detection.\
+  This is required to have the bundles re-create the according apps after they get deleted due to renaming during upgrade.
 
 ## [7.3.0] - 2026-02-04
 

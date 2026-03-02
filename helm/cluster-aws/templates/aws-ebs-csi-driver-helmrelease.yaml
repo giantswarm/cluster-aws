@@ -41,13 +41,15 @@ spec:
       - name: {{ include "resource.default.name" $ }}-cloud-provider-aws
         namespace: {{ $.Release.Namespace }}
   serviceAccountName: automation
-  interval: 5m
+  interval: 1m
   install:
     remediation:
       retries: -1
   upgrade:
     remediation:
       retries: -1
+  driftDetection:
+    mode: enabled
   {{- $awsEbsCsiDriverHelmValues := (include "defaultAwsEbsCsiDriverHelmValues" .) | fromYaml -}}
   {{- $customAwsEbsCsiDriverHelmValues := $.Values.global.apps.awsEbsCsiDriver.values -}}
   {{- if $customAwsEbsCsiDriverHelmValues }}
