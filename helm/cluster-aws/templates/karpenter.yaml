@@ -1,6 +1,12 @@
 {{/* Default Helm values for the app */}}
 {{/* See schema for the appropriate app version here https://github.com/giantswarm/karpenter-app/blob/main/helm/karpenter/values.schema.json */}}
 {{- define "defaultkarpenterHelmValues" }}
+{{- if (.Values.global.connectivity.proxy).enabled }}
+proxy:
+  noProxy: "{{ include "cluster.connectivity.proxy.noProxy" (dict "global" $.Values.global "providerIntegration" $.Values.cluster.providerIntegration) }}"
+  http: {{ .Values.global.connectivity.proxy.httpProxy | quote }}
+  https: {{ .Values.global.connectivity.proxy.httpsProxy | quote }}
+{{- end }}
 additionalLabels:
   application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | default "phoenix" | quote }}
   giantswarm.io/managed-by: {{ .Release.Name | quote }}
@@ -73,7 +79,7 @@ spec:
         kind: HelmRepository
         name: {{ include "resource.default.name" $ }}-{{ include "cluster.app.catalog" $ }}
   serviceAccountName: automation
-  interval: 5m
+  interval: 1m
   timeout: 15m # We need a bigger timeout because it could take a while for IRSA (via CloudFront) to become available
   install:
     remediation:
@@ -81,6 +87,8 @@ spec:
   upgrade:
     remediation:
       retries: -1
+  driftDetection:
+    mode: enabled
   {{- $karpenterHelmValues := (include "defaultkarpenterHelmValues" .) | fromYaml -}}
   {{- $customkarpenterHelmValues := $.Values.global.apps.karpenter.values -}}
   {{- if $customkarpenterHelmValues }}
