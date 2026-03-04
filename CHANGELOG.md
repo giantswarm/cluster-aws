@@ -7,12 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Enable scraping metrics and logs from the karpenter app.
+
+### Changed
+
+- Enable cert-manager DNS challenges by default.
+
+## [7.5.0] - 2026-03-02
+
+### Changed
+
+- Chart: Update `cluster` to v5.3.0.
+- Apps: Enable `rbac-bootstrap` as a default HelmRelease app.
+
+## [7.4.0] - 2026-03-02
+
 ### Changed
 
 - Values: Use container registries from `cluster` chart.
-- Chart: Update `cluster` to v5.3.0.
-- Apps: Enable `rbac-bootstrap` as a default HelmRelease app.
-- Enable cert-manager DNS challenges by default.
+- Karpenter: Provide proxy configuration.
+- AWS EBS CSI Driver & Karpenter: Reduce interval and enable drift detection.\
+  This is required to have the bundles re-create the according apps after they get deleted due to renaming during upgrade.
 
 ## [7.3.0] - 2026-02-04
 
@@ -1876,7 +1893,9 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.5.0...HEAD
+[7.5.0]: https://github.com/giantswarm/cluster-aws/compare/v7.4.0...v7.5.0
+[7.4.0]: https://github.com/giantswarm/cluster-aws/compare/v7.3.0...v7.4.0
 [7.3.0]: https://github.com/giantswarm/cluster-aws/compare/v7.2.5...v7.3.0
 [7.2.5]: https://github.com/giantswarm/cluster-aws/compare/v7.2.4...v7.2.5
 [7.2.4]: https://github.com/giantswarm/cluster-aws/compare/v7.2.3...v7.2.4
