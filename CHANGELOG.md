@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add `appVersion` field to `Chart.yaml`.
 - Enable scraping metrics and logs from the karpenter app.
 - Allow to configure the name of the hosted zone to use for the workload cluster by setting `global.connectivity.dns.hostedZoneName`.
 - Allow to configure the AWS IAM Role to use when managing the DNS delegation for the hosted zone by setting `global.connectivity.dns.delegationIdentityName`.
@@ -56,6 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Install node-termination-handler bundle even if falling back to default node pools. No workers could come up without NTH, so `nodePools: {}` (= use default node pools) did not create a working cluster.
+- Use `.Chart.AppVersion` instead of `.Chart.Version` for `app.kubernetes.io/version` labels.
 
 ## [7.2.5] - 2026-01-22
 
