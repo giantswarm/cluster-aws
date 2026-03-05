@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Enable cert-manager DNS challenges by default.
+- Chart: Update `cluster` to v5.3.1.
 
 ## [7.5.0] - 2026-03-02
 
