@@ -1818,7 +1818,7 @@
                                     "type": "boolean",
                                     "title": "Use DNS Challenges",
                                     "description": "Set to true to enable DNS challenges in the default ClusterIssuer and install all necessary IAM roles.",
-                                    "default": false
+                                    "default": true
                                 }
                             }
                         },
