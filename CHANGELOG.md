@@ -9,6 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Enable scraping metrics and logs from the karpenter app.
+
+### Changed
+
+- Enable cert-manager DNS challenges by default.
+- Chart: Update `cluster` to v5.3.1.
+
+## [7.5.0] - 2026-03-02
+
+### Changed
+
+- Chart: Update `cluster` to v5.3.0.
+- Apps: Enable `rbac-bootstrap` as a default HelmRelease app.
+
+## [7.4.0] - 2026-03-02
+
+### Changed
+
+- Values: Use container registries from `cluster` chart.
+- Karpenter: Provide proxy configuration.
+- AWS EBS CSI Driver & Karpenter: Reduce interval and enable drift detection.\
+  This is required to have the bundles re-create the according apps after they get deleted due to renaming during upgrade.
+
+## [7.3.0] - 2026-02-04
+
+### Added
+
 - Add JSON schema validation patterns for `global.providerSpecific.region`.
 - Add JSON schema validation patterns for `global.providerSpecific.awsAccountId`.
 - Add JSON schema validation patterns for `global.controlPlane.instanceType` and node pool `instanceType`.
@@ -21,10 +48,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Install the `aws-ebs-csi-driver-bundle` that contains the `aws-ebs-csi-driver` app, together with the crossplane resources to manage the AWS IAM Roles required by the app.
 - Install the `karpenter-bundle` that contains the `karpenter` app, together with the crossplane custom resources to manage the AWS resources required by `karpenter`.
-- Make `global.providerSpecific.region` a required value.
 - Use `cluster` chart values for Karpenter kubelet `systemReserved` and `kubeReserved` configuration instead of hardcoded values.
 - Set correct `maxPods` value for karpenter node pools, based on the configured `nodeCidrMaskSize`, but capped at 110 pods.
 - Always install the `karpenter-bundle`, regardless of whether karpenter node pools are configured. This is useful when deleting karpenter node pools, because otherwise the karpenter app was being removed and karpenter did not have time to clean up the node pools.
+- Allow CertManager to use DNS challenges on non-private clusters.
+
+### Fixed
+
+- Install node-termination-handler bundle even if falling back to default node pools. No workers could come up without NTH, so `nodePools: {}` (= use default node pools) did not create a working cluster.
 
 ## [7.2.5] - 2026-01-22
 
@@ -1866,7 +1897,10 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.2.5...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.5.0...HEAD
+[7.5.0]: https://github.com/giantswarm/cluster-aws/compare/v7.4.0...v7.5.0
+[7.4.0]: https://github.com/giantswarm/cluster-aws/compare/v7.3.0...v7.4.0
+[7.3.0]: https://github.com/giantswarm/cluster-aws/compare/v7.2.5...v7.3.0
 [7.2.5]: https://github.com/giantswarm/cluster-aws/compare/v7.2.4...v7.2.5
 [7.2.4]: https://github.com/giantswarm/cluster-aws/compare/v7.2.3...v7.2.4
 [7.2.3]: https://github.com/giantswarm/cluster-aws/compare/v7.2.2...v7.2.3

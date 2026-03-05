@@ -139,7 +139,7 @@ giantswarm.io/cluster: {{ include "resource.default.name" $ }}
 {{- end -}}
 
 {{- define "hasKarpenterNodePool" -}}
-{{- range $name, $value := .Values.global.nodePools }}
+{{- range $name, $value := .Values.global.nodePools | default (.Values.cluster).providerIntegration.workers.defaultNodePools | default (.Values.providerIntegration).workers.defaultNodePools }}
   {{- if eq $value.type "karpenter" }}
     {{- print "true" -}}
     {{- break -}}
@@ -148,7 +148,7 @@ giantswarm.io/cluster: {{ include "resource.default.name" $ }}
 {{- end }}
 
 {{- define "hasAWSMachinePools" -}}
-{{- range $name, $value := .Values.global.nodePools }}
+{{- range $name, $value := .Values.global.nodePools | default (.Values.cluster).providerIntegration.workers.defaultNodePools | default (.Values.providerIntegration).workers.defaultNodePools }}
   {{- if ne $value.type "karpenter" }}
     {{- print "true" -}}
     {{- break -}}
@@ -174,4 +174,12 @@ Formula: min(110, 2^(32 - nodeCidrMaskSize) - 2)
   {{- $maxPods = $availableIps }}
 {{- end }}
 {{- $maxPods }}
+{{- end }}
+
+{{- define "useCertManagerDnsChallenges" -}}
+{{ if or (eq .Values.global.connectivity.vpcMode "private") (.Values.global.connectivity.certManager.useDnsChallenges) }}
+{{- print "true" }}
+{{- else }}
+{{- print "false" }}
+{{- end }}
 {{- end }}

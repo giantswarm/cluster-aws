@@ -930,6 +930,9 @@
                         "prometheusBlackboxExporter": {
                             "enable": true
                         },
+                        "rbacBootstrap": {
+                            "enable": true
+                        },
                         "securityBundle": {
                             "configTemplateName": "awsSecurityBundleHelmValues",
                             "enable": true
@@ -1497,6 +1500,12 @@
                             "title": "prometheus-blackbox-exporter",
                             "description": "Configuration of prometheus-blackbox-exporter. For all available values see https://github.com/giantswarm/prometheus-blackbox-exporter-app."
                         },
+                        "rbacBootstrap": {
+                            "$ref": "#/$defs/helmRelease",
+                            "type": "object",
+                            "title": "rbac-bootstrap",
+                            "description": "Configuration of rbac-bootstrap. For all available values see https://github.com/giantswarm/rbac-bootstrap-app."
+                        },
                         "securityBundle": {
                             "$ref": "#/$defs/app",
                             "type": "object",
@@ -1650,21 +1659,7 @@
                                             }
                                         }
                                     },
-                                    "default": {
-                                        "docker.io": [
-                                            {
-                                                "endpoint": "registry-1.docker.io"
-                                            },
-                                            {
-                                                "endpoint": "giantswarm.azurecr.io"
-                                            }
-                                        ],
-                                        "gsoci.azurecr.io": [
-                                            {
-                                                "endpoint": "gsoci.azurecr.io"
-                                            }
-                                        ]
-                                    }
+                                    "default": {}
                                 },
                                 "debug": {
                                     "type": "object",
@@ -1813,6 +1808,19 @@
                         "baseDomain": {
                             "type": "string",
                             "title": "Base DNS domain"
+                        },
+                        "certManager": {
+                            "type": "object",
+                            "title": "CertManager",
+                            "description": "Configuration of CertManager.",
+                            "properties": {
+                                "useDnsChallenges": {
+                                    "type": "boolean",
+                                    "title": "Use DNS Challenges",
+                                    "description": "Set to true to enable DNS challenges in the default ClusterIssuer and install all necessary IAM roles.",
+                                    "default": true
+                                }
+                            }
                         },
                         "cilium": {
                             "type": "object",
