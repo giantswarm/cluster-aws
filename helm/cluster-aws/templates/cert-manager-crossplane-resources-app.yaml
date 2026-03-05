@@ -1,4 +1,4 @@
-{{ if eq .Values.global.connectivity.vpcMode "private" }}
+{{ if (include "useCertManagerDnsChallenges" $ | eq "true") }}
 {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
 {{- /* Check if app is in Release CR */}}
 {{- if include "cluster.app.in-release" $ | eq "true" }}

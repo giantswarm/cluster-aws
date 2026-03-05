@@ -2,7 +2,7 @@
 {{/* https://github.com/giantswarm/cert-manager-app/blob/main/helm/cert-manager/values.yaml*/}}
 {{- define "awsCertManagerHelmValues" }}
 {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
-{{- if and (eq .Values.global.connectivity.vpcMode "private") (include "cluster.app.in-release" $ | eq "true") }}
+{{- if and (include "useCertManagerDnsChallenges" $ | eq "true") (include "cluster.app.in-release" $ | eq "true") }}
 dns01RecursiveNameserversOnly: true
 ingressShim:
   defaultIssuerName: letsencrypt-giantswarm
