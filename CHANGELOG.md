@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enable cert-manager DNS challenges by default.
 - Chart: Update `cluster` to v5.3.1.
 
+### Changed
+
+- Reduced default karpenter consolidation from 6 hours to 1 hour.
+
 ## [7.5.0] - 2026-03-02
 
 ### Changed
