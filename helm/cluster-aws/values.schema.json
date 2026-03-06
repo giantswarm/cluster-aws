@@ -55,7 +55,7 @@
             "minLength": 0,
             "pattern": "^[ a-zA-Z0-9\\._:/=+-@]+$"
         },
-        "consolidationBudget": {
+        "disruptionBudget": {
             "type": "object",
             "title": "Budget",
             "properties": {
@@ -305,14 +305,14 @@
                                     ],
                                     "pattern": "^(([0-9]+(s|m|h))+|Never)$"
                                 },
-                                "consolidationBudgets": {
+                                "disruptionBudgets": {
                                     "type": "array",
                                     "title": "Disruption budgets",
                                     "description": "Budgets control the speed Karpenter can scale down nodes. Karpenter will respect the minimum of the currently active budgets, and will round up when considering percentages. Duration and Schedule must be set together.",
                                     "items": {
-                                        "$ref": "#/$defs/consolidationBudget",
+                                        "$ref": "#/$defs/disruptionBudget",
                                         "type": "object",
-                                        "title": "Karpenter consolidation budget"
+                                        "title": "Karpenter disruption budget"
                                     },
                                     "default": [
                                         {

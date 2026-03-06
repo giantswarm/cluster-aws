@@ -12,7 +12,7 @@ global:
         - id: sg-12345
       consolidateAfter: 5m
       consolidationPolicy: WhenEmptyOrUnderutilized
-      consolidationBudgets:
+      disruptionBudgets:
         - nodes: "20%"
         - schedule: "0 9 * * mon-fri"
           duration: "8h"

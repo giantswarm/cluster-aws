@@ -83,7 +83,7 @@ spec:
       {{- with $value.consolidationPolicy }}
       consolidationPolicy: {{ . }}
       {{- end }}
-      {{- with $value.consolidationBudgets }}
+      {{- with $value.disruptionBudgets }}
       budgets:
       {{- toYaml . | nindent 8 }}
       {{- end }}
