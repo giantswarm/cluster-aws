@@ -80,7 +80,7 @@ metadata:
   labels:
     cluster.x-k8s.io/role: control-plane
     {{- include "labels.common" $ | nindent 4 }}
-    app.kubernetes.io/version: {{ .Chart.Version | quote }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
   name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
   namespace: {{ $.Release.Namespace }}
 spec:
