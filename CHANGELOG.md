@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.6.0] - 2026-03-05
+
 ### Added
 
 - Add `appVersion` field to `Chart.yaml`.
@@ -1903,7 +1905,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.5.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.6.0...HEAD
+[7.6.0]: https://github.com/giantswarm/cluster-aws/compare/v7.5.0...v7.6.0
 [7.5.0]: https://github.com/giantswarm/cluster-aws/compare/v7.4.0...v7.5.0
 [7.4.0]: https://github.com/giantswarm/cluster-aws/compare/v7.3.0...v7.4.0
 [7.3.0]: https://github.com/giantswarm/cluster-aws/compare/v7.2.5...v7.3.0
