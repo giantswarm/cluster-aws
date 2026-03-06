@@ -320,6 +320,16 @@
                                         }
                                     ]
                                 },
+                                "consolidationBudgets": {
+                                    "type": "array",
+                                    "title": "Disruption budgets (deprecated)",
+                                    "description": "Deprecated: Use disruptionBudgets instead.",
+                                    "items": {
+                                        "$ref": "#/$defs/disruptionBudget",
+                                        "type": "object",
+                                        "title": "Karpenter disruption budget"
+                                    }
+                                },
                                 "consolidationPolicy": {
                                     "type": "string",
                                     "title": "Consolidation policy",
