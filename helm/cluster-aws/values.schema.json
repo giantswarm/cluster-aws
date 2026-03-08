@@ -1178,7 +1178,9 @@
                         "bastionResourceEnabled": false,
                         "cleanupHelmReleaseResourcesEnabled": true,
                         "clusterResourceEnabled": true,
-                        "controlPlaneResourceEnabled": true,
+                        "controlPlaneResource": {
+                            "enabled": true
+                        },
                         "helmRepositoryResourcesEnabled": true,
                         "infrastructureCluster": {
                             "group": "infrastructure.cluster.x-k8s.io",

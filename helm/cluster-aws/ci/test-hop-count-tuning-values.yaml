@@ -3,7 +3,7 @@ global:
     version: 31.0.0
   metadata:
     name: test-hop-tuning
-    organization: test
+    organization: giantswarm
     servicePriority: lowest
   connectivity:
     baseDomain: example.com

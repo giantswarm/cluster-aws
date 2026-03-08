@@ -2,7 +2,7 @@ global:
   managementCluster: test
   metadata:
     name: test-karpenter
-    organization: test
+    organization: giantswarm
   connectivity:
     baseDomain: example.com
   nodePools:
