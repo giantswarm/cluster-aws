@@ -23,9 +23,15 @@ metadata:
     {{end}}
     aws.cluster.x-k8s.io/external-resource-gc: "true"
     aws.cluster.x-k8s.io/external-resource-tasks-gc: "load-balancer,security-group"
-    giantswarm.io/base-domain: "{{ .Values.global.connectivity.baseDomain }}"
+    network.giantswarm.io/base-domain: "{{ .Values.global.connectivity.baseDomain }}"
     {{- if .Values.global.connectivity.dns.hostedZoneName }}
-    giantswarm.io/dns-hosted-zone-name: "{{ .Values.global.connectivity.dns.hostedZoneName }}"
+    network.giantswarm.io/dns-hosted-zone-name: "{{ .Values.global.connectivity.dns.hostedZoneName }}"
+    {{- end }}
+    {{- if .Values.global.connectivity.dns.wildcardCnameTarget }}
+    {{- if regexMatch "\\." .Values.global.connectivity.dns.wildcardCnameTarget }}
+    {{- fail "global.connectivity.dns.wildcardCnameTarget must be a single word - no FQDNs are allowed" }}
+    {{- end }}
+    network.giantswarm.io/wildcard-cname-target: "{{ .Values.global.connectivity.dns.wildcardCnameTarget }}"
     {{- end }}
     {{- if .Values.global.connectivity.dns.delegationIdentityName }}
     aws.giantswarm.io/dns-delegation-identity: "{{ .Values.global.connectivity.dns.delegationIdentityName }}"
