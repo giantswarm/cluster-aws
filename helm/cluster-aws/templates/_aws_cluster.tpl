@@ -28,6 +28,9 @@ metadata:
     network.giantswarm.io/dns-hosted-zone-name: "{{ .Values.global.connectivity.dns.hostedZoneName }}"
     {{- end }}
     {{- if .Values.global.connectivity.dns.wildcardCnameTarget }}
+    {{- if regexMatch "\\." .Values.global.connectivity.dns.wildcardCnameTarget }}
+    {{- fail "global.connectivity.dns.wildcardCnameTarget must be a single word - no FQDNs are allowed" }}
+    {{- end }}
     network.giantswarm.io/wildcard-cname-target: "{{ .Values.global.connectivity.dns.wildcardCnameTarget }}"
     {{- end }}
     {{- if .Values.global.connectivity.dns.delegationIdentityName }}
