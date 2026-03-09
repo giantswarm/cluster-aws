@@ -1874,6 +1874,14 @@
                                             "const": ""
                                         }
                                     ]
+                                },
+                                "wildcardCnameTarget": {
+                                    "type": "string",
+                                    "title": "Wildcard CNAME Target",
+                                    "description": "Override the wildcard CNAME record value (default: ingress.clusterBaseDomain)",
+                                    "examples": [
+                                        "gateway"
+                                    ]
                                 }
                             },
                             "dependentRequired": {
