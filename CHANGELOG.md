@@ -9,12 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [8.0.0] - 2026-03-11
 
-## [7.6.1] - 2026-03-11
-
 ### Changed
 
-- Set `appName` before `catalog` lookup in `aws-nth-app` template to ensure correct catalog resolution from Release CR.
 - Chart: Update `cluster` to v6.0.0.
+
+## [7.6.1] - 2026-03-11
+
+### Fixed
+
+- Set `appName` before `catalog` lookup in `aws-nth-app` template to ensure correct catalog resolution from Release CR.
 
 ## [7.6.0] - 2026-03-05
 
