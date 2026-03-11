@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.6.1] - 2026-03-11
+
 ### Fixed
 
 - Set `appName` before `catalog` lookup in `aws-nth-app` template to ensure correct catalog resolution from Release CR.
@@ -1910,7 +1912,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.6.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.6.1...HEAD
+[7.6.1]: https://github.com/giantswarm/cluster-aws/compare/v7.6.0...v7.6.1
 [7.6.0]: https://github.com/giantswarm/cluster-aws/compare/v7.5.0...v7.6.0
 [7.5.0]: https://github.com/giantswarm/cluster-aws/compare/v7.4.0...v7.5.0
 [7.4.0]: https://github.com/giantswarm/cluster-aws/compare/v7.3.0...v7.4.0
