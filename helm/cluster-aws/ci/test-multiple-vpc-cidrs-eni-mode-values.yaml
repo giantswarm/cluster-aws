@@ -4,7 +4,7 @@ global:
   managementCluster: test
   metadata:
     name: test-multi-vpc-eni
-    organization: "test"
+    organization: "giantswarm"
   connectivity:
     baseDomain: example.com
     cilium:
