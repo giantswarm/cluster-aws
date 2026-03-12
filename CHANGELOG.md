@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Apps: Add Cluster Autoscaler Crossplane Resources.
+
 ## [8.0.0] - 2026-03-11
 
 ### Changed
