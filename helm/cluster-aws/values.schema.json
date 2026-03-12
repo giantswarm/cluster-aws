@@ -55,7 +55,38 @@
             "minLength": 0,
             "pattern": "^[ a-zA-Z0-9\\._:/=+-@]+$"
         },
-        "consolidationBudget": {
+        "customNodeTaints": {
+            "type": "array",
+            "title": "Custom node taints",
+            "items": {
+                "type": "object",
+                "required": [
+                    "effect",
+                    "key"
+                ],
+                "properties": {
+                    "effect": {
+                        "type": "string",
+                        "title": "Effect",
+                        "enum": [
+                            "NoSchedule",
+                            "PreferNoSchedule",
+                            "NoExecute"
+                        ]
+                    },
+                    "key": {
+                        "type": "string",
+                        "title": "Key"
+                    },
+                    "value": {
+                        "type": "string",
+                        "title": "Value"
+                    }
+                }
+            },
+            "default": []
+        },
+        "disruptionBudget": {
             "type": "object",
             "title": "Budget",
             "properties": {
@@ -92,37 +123,6 @@
                     "pattern": "^(@(annually|yearly|monthly|weekly|daily|midnight|hourly))|((.+)\\s(.+)\\s(.+)\\s(.+)\\s(.+))$"
                 }
             }
-        },
-        "customNodeTaints": {
-            "type": "array",
-            "title": "Custom node taints",
-            "items": {
-                "type": "object",
-                "required": [
-                    "effect",
-                    "key"
-                ],
-                "properties": {
-                    "effect": {
-                        "type": "string",
-                        "title": "Effect",
-                        "enum": [
-                            "NoSchedule",
-                            "PreferNoSchedule",
-                            "NoExecute"
-                        ]
-                    },
-                    "key": {
-                        "type": "string",
-                        "title": "Key"
-                    },
-                    "value": {
-                        "type": "string",
-                        "title": "Value"
-                    }
-                }
-            },
-            "default": []
         },
         "helmRelease": {
             "type": "object",
@@ -307,18 +307,13 @@
                                 },
                                 "consolidationBudgets": {
                                     "type": "array",
-                                    "title": "Disruption budgets",
-                                    "description": "Budgets control the speed Karpenter can scale down nodes. Karpenter will respect the minimum of the currently active budgets, and will round up when considering percentages. Duration and Schedule must be set together.",
+                                    "title": "Disruption budgets (deprecated)",
+                                    "description": "Deprecated: Use disruptionBudgets instead.",
                                     "items": {
-                                        "$ref": "#/$defs/consolidationBudget",
+                                        "$ref": "#/$defs/disruptionBudget",
                                         "type": "object",
-                                        "title": "Karpenter consolidation budget"
-                                    },
-                                    "default": [
-                                        {
-                                            "nodes": "10%"
-                                        }
-                                    ]
+                                        "title": "Karpenter disruption budget"
+                                    }
                                 },
                                 "consolidationPolicy": {
                                     "type": "string",
@@ -367,6 +362,21 @@
                                             }
                                         }
                                     }
+                                },
+                                "disruptionBudgets": {
+                                    "type": "array",
+                                    "title": "Disruption budgets",
+                                    "description": "Budgets control the speed Karpenter can scale down nodes. Karpenter will respect the minimum of the currently active budgets, and will round up when considering percentages. Duration and Schedule must be set together.",
+                                    "items": {
+                                        "$ref": "#/$defs/disruptionBudget",
+                                        "type": "object",
+                                        "title": "Karpenter disruption budget"
+                                    },
+                                    "default": [
+                                        {
+                                            "nodes": "10%"
+                                        }
+                                    ]
                                 },
                                 "expireAfter": {
                                     "type": "string",
