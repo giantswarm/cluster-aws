@@ -6,7 +6,7 @@ aws:
   batchChangeInterval: null
 serviceAccount:
   annotations:
-    eks.amazonaws.com/role-arn: "{{ .Values.global.metadata.name }}-Route53Manager-Role"
+    eks.amazonaws.com/role-arn: "{{ .Values.global.metadata.name }}-external-dns"
 extraArgs:
 - "--aws-batch-change-interval=10s"
 {{- end }}
