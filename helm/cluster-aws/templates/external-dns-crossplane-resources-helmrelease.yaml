@@ -38,10 +38,8 @@ spec:
     timeout: 10m
     remediation:
       retries: -1
-  valuesFrom:
-    # Created by aws-crossplane-cluster-config-operator once the cluster gets provisioned
-    - kind: ConfigMap
-      name: {{ printf "%s-crossplane-config" (include "resource.default.name" $) | quote }}
-      valuesKey: values
-      optional: false
+  values:
+    clusterName: {{ include "resource.default.name" $ }}
+    accountID: "{{ include "aws-account-id" $ }}"
+    baseDomain: {{ .Values.global.connectivity.baseDomain }}
 {{- end }}
