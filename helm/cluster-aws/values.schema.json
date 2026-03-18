@@ -869,6 +869,9 @@
                             "configTemplateName": "awsClusterAutoscalerHelmValues",
                             "enable": true
                         },
+                        "clusterAutoscalerCrossplaneResources": {
+                            "enable": true
+                        },
                         "coreDns": {
                             "configTemplateName": "awsCorednsHelmValues",
                             "enable": true
@@ -1386,6 +1389,12 @@
                             "type": "object",
                             "title": "cluster-autoscaler",
                             "description": "Configuration of cluster-autoscaler. For all available values see https://github.com/giantswarm/cluster-autoscaler-app."
+                        },
+                        "clusterAutoscalerCrossplaneResources": {
+                            "$ref": "#/$defs/helmRelease",
+                            "type": "object",
+                            "title": "cluster-autoscaler-crossplane-resources",
+                            "description": "Configuration of cluster-autoscaler-crossplane-resources. For all available values see https://github.com/giantswarm/cluster-autoscaler-crossplane-resources."
                         },
                         "coreDns": {
                             "$ref": "#/$defs/helmRelease",
