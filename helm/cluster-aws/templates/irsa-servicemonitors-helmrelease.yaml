@@ -46,12 +46,8 @@ spec:
   upgrade:
     remediation:
       retries: -1
-  valuesFrom:
-  - kind: ConfigMap
-    name: {{ include "resource.default.name" . }}-cluster-values
-    valuesKey: values
-    optional: false
   {{- if .Values.global.apps.irsaServiceMonitors.extraConfigs }}
+  valuesFrom:
   {{- range .Values.global.apps.irsaServiceMonitors.extraConfigs }}
   - kind: {{ .kind }}
     name: {{ .name }}
