@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Migrate default apps from App CRs to Flux HelmRelease CRs.
+- Remove `cluster-values` ConfigMap references from `irsa-servicemonitors`, `aws-ebs-csi-driver-servicemonitors`, and `aws-pod-identity-webhook` HelmReleases. Pass `provider: capa` explicitly to `aws-pod-identity-webhook`.
 
 ## [8.7.0] - 2026-06-18
 

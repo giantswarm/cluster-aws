@@ -2,6 +2,7 @@
   aws:
     tokenAudience: {{ include "awsApiServerApiAudiences" $ | trim  }}
     region: {{ include "aws-region" $ | trim }}
+  provider: capa
 {{- end }}
 {{- $awsPodIdentityWebhookValues := (include "awsPodIdentityWebhookValuesDefault" $ ) | fromYaml -}}
 {{- $customAwsPodIdentityWebhookValues := .Values.global.apps.awsPodIdentityWebhook.values -}}
@@ -59,12 +60,8 @@ spec:
   {{- if $awsPodIdentityWebhookValues }}
   values: {{- $awsPodIdentityWebhookValues | toYaml | nindent 4 }}
   {{- end }}
-  valuesFrom:
-  - kind: ConfigMap
-    name: {{ include "resource.default.name" . }}-cluster-values
-    valuesKey: values
-    optional: false
   {{- if .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
+  valuesFrom:
   {{- range .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
   - kind: {{ .kind }}
     name: {{ .name }}
