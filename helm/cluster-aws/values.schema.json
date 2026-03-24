@@ -872,6 +872,9 @@
                         "clusterAutoscalerCrossplaneResources": {
                             "enable": true
                         },
+                        "clusterProbes": {
+                            "enable": true
+                        },
                         "coreDns": {
                             "configTemplateName": "awsCorednsHelmValues",
                             "enable": true
