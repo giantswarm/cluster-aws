@@ -872,6 +872,9 @@
                         "clusterAutoscalerCrossplaneResources": {
                             "enable": true
                         },
+                        "clusterProbes": {
+                            "enable": false
+                        },
                         "coreDns": {
                             "configTemplateName": "awsCorednsHelmValues",
                             "enable": true
@@ -1395,6 +1398,12 @@
                             "type": "object",
                             "title": "cluster-autoscaler-crossplane-resources",
                             "description": "Configuration of cluster-autoscaler-crossplane-resources. For all available values see https://github.com/giantswarm/cluster-autoscaler-crossplane-resources."
+                        },
+                        "clusterProbes": {
+                            "$ref": "#/$defs/helmRelease",
+                            "type": "object",
+                            "title": "cluster-probes",
+                            "description": "Configuration of cluster-probes. ServiceMonitor for blackbox exporter to probe the workload cluster API server endpoint from the management cluster."
                         },
                         "coreDns": {
                             "$ref": "#/$defs/helmRelease",
