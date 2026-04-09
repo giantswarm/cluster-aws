@@ -237,7 +237,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Expose new `machinepool` values to configure the karpenter node pools:
     - `consolidateAfter`
-    - `disruptionBudgets`
+    - `consolidationBudgets`
     - `consolidationPolicy`
 
 ### Removed
