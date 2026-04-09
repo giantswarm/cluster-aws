@@ -809,16 +809,6 @@
                                             "title": "Rolling update strategy",
                                             "description": "Rolling update config params.",
                                             "properties": {
-                                                "deletePolicy": {
-                                                    "type": "string",
-                                                    "title": "Delete policy",
-                                                    "description": "DeletePolicy defines the policy used by the MachineDeployment to identify nodes to delete when downscaling. When no value is supplied, the default DeletePolicy of MachineSet is used.",
-                                                    "enum": [
-                                                        "Random",
-                                                        "Newest",
-                                                        "Oldest"
-                                                    ]
-                                                },
                                                 "maxSurge": {
                                                     "type": "string",
                                                     "title": "Max surge",
@@ -889,6 +879,12 @@
                             "configTemplateName": "awsClusterAutoscalerHelmValues",
                             "enable": true
                         },
+                        "clusterAutoscalerCrossplaneResources": {
+                            "enable": true
+                        },
+                        "clusterProbes": {
+                            "enable": false
+                        },
                         "coreDns": {
                             "configTemplateName": "awsCorednsHelmValues",
                             "enable": true
@@ -911,6 +907,9 @@
                         },
                         "k8sDnsNodeCache": {
                             "enable": true
+                        },
+                        "kamajiEtcd": {
+                            "enable": false
                         },
                         "metricsServer": {
                             "enable": true
@@ -1188,7 +1187,9 @@
                         "bastionResourceEnabled": false,
                         "cleanupHelmReleaseResourcesEnabled": true,
                         "clusterResourceEnabled": true,
-                        "controlPlaneResourceEnabled": true,
+                        "controlPlaneResource": {
+                            "enabled": true
+                        },
                         "helmRepositoryResourcesEnabled": true,
                         "infrastructureCluster": {
                             "group": "infrastructure.cluster.x-k8s.io",
@@ -1402,6 +1403,18 @@
                             "title": "cluster-autoscaler",
                             "description": "Configuration of cluster-autoscaler. For all available values see https://github.com/giantswarm/cluster-autoscaler-app."
                         },
+                        "clusterAutoscalerCrossplaneResources": {
+                            "$ref": "#/$defs/helmRelease",
+                            "type": "object",
+                            "title": "cluster-autoscaler-crossplane-resources",
+                            "description": "Configuration of cluster-autoscaler-crossplane-resources. For all available values see https://github.com/giantswarm/cluster-autoscaler-crossplane-resources."
+                        },
+                        "clusterProbes": {
+                            "$ref": "#/$defs/helmRelease",
+                            "type": "object",
+                            "title": "cluster-probes",
+                            "description": "Configuration of cluster-probes. ServiceMonitor for blackbox exporter to probe the workload cluster API server endpoint from the management cluster."
+                        },
                         "coreDns": {
                             "$ref": "#/$defs/helmRelease",
                             "type": "object",
@@ -1449,6 +1462,12 @@
                             "type": "object",
                             "title": "k8s-dns-node-cache",
                             "description": "Configuration of k8s-dns-node-cache. For all available values see https://github.com/giantswarm/k8s-dns-node-cache-app."
+                        },
+                        "kamajiEtcd": {
+                            "$ref": "#/$defs/app",
+                            "type": "object",
+                            "title": "kamaji-etcd",
+                            "description": "Configuration of kamaji-etcd. For all available values see https://github.com/giantswarm/kamaji-etcd-app."
                         },
                         "karpenter": {
                             "$ref": "#/$defs/helmRelease",
@@ -1883,6 +1902,14 @@
                                         {
                                             "const": ""
                                         }
+                                    ]
+                                },
+                                "wildcardCnameTarget": {
+                                    "type": "string",
+                                    "title": "Wildcard CNAME Target",
+                                    "description": "Override the wildcard CNAME record value. If no value is passed defaults to \"ingress\". Only subdomains from the cluster DNS zone are valid.",
+                                    "examples": [
+                                        "gateway"
                                     ]
                                 }
                             },

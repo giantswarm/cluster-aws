@@ -18,6 +18,10 @@ cluster:
       clusterAutoscaler:
         configTemplateName: awsClusterAutoscalerHelmValues
         enable: true
+      clusterAutoscalerCrossplaneResources:
+        enable: true
+      clusterProbes:
+        enable: false
       coreDns:
         configTemplateName: awsCorednsHelmValues
         enable: true
@@ -34,6 +38,8 @@ cluster:
         enable: true
       k8sDnsNodeCache:
         enable: true
+      kamajiEtcd:
+        enable: false
       metricsServer:
         enable: true
       netExporter:
@@ -209,7 +215,8 @@ cluster:
       bastionResourceEnabled: false
       cleanupHelmReleaseResourcesEnabled: true
       clusterResourceEnabled: true
-      controlPlaneResourceEnabled: true
+      controlPlaneResource:
+        enabled: true
       helmRepositoryResourcesEnabled: true
       infrastructureCluster:
         group: infrastructure.cluster.x-k8s.io
@@ -298,6 +305,8 @@ global:
     ciliumCrossplaneResources: {}
     ciliumServiceMonitors: {}
     clusterAutoscaler: {}
+    clusterAutoscalerCrossplaneResources: {}
+    clusterProbes: {}
     coreDns: {}
     coreDnsExtensions: {}
     etcdDefrag: {}
@@ -306,6 +315,7 @@ global:
     irsaServiceMonitors: {}
     k8sAuditMetrics: {}
     k8sDnsNodeCache: {}
+    kamajiEtcd: {}
     karpenter: {}
     metricsServer: {}
     netExporter: {}

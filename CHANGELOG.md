@@ -7,13 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Chart: Update `cluster` to v6.3.0.
+
+## [8.1.0] - 2026-03-19
+
+### Changed
+
+- Chart: Update `cluster` to v6.1.0.
+
+## [8.0.0] - 2026-03-11
+
+### Changed
+
+- Chart: Update `cluster` to v6.0.0.
+
+## [7.6.1] - 2026-03-11
+
+### Fixed
+
+- Set `appName` before `catalog` lookup in `aws-nth-app` template to ensure correct catalog resolution from Release CR.
+
+## [7.6.0] - 2026-03-05
+
 ### Added
 
 - Add `appVersion` field to `Chart.yaml`.
 - Enable scraping metrics and logs from the karpenter app.
 - Allow to configure the name of the hosted zone to use for the workload cluster by setting `global.connectivity.dns.hostedZoneName`.
 - Allow to configure the AWS IAM Role to use when managing the DNS delegation for the hosted zone by setting `global.connectivity.dns.delegationIdentityName`.
-- Added new annotation `giantswarm.io/base-domain` with the base domain value used for the workload cluster.
+- Added new annotation `network.giantswarm.io/base-domain` with the base domain value used for the workload cluster.
+- Add support for `network.giantswarm.io/wildcard-cname-target` annotation on `AWSCluster` via `global.connectivity.dns.wildcardCnameTarget`.
 
 ### Changed
 
@@ -1904,7 +1929,11 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.5.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.1.0...HEAD
+[8.1.0]: https://github.com/giantswarm/cluster-aws/compare/v8.0.0...v8.1.0
+[8.0.0]: https://github.com/giantswarm/cluster-aws/compare/v7.6.1...v8.0.0
+[7.6.1]: https://github.com/giantswarm/cluster-aws/compare/v7.6.0...v7.6.1
+[7.6.0]: https://github.com/giantswarm/cluster-aws/compare/v7.5.0...v7.6.0
 [7.5.0]: https://github.com/giantswarm/cluster-aws/compare/v7.4.0...v7.5.0
 [7.4.0]: https://github.com/giantswarm/cluster-aws/compare/v7.3.0...v7.4.0
 [7.3.0]: https://github.com/giantswarm/cluster-aws/compare/v7.2.5...v7.3.0
