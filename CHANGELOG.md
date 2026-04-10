@@ -7,12 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [7.6.1] - 2026-03-11
+### Removed
+
+- Chart: Remove unused `cluster-shared` library chart dependency.
+
+## [8.2.0] - 2026-04-09
 
 ### Changed
 
-- Set `appName` before `catalog` lookup in `aws-nth-app` template to ensure correct catalog resolution from Release CR.
+- Chart: Update `cluster` to v6.3.0.
+
+## [8.1.0] - 2026-03-19
+
+### Changed
+
+- Chart: Update `cluster` to v6.1.0.
+
+## [8.0.0] - 2026-03-11
+
+### Changed
+
 - Chart: Update `cluster` to v6.0.0.
+
+## [7.6.1] - 2026-03-11
+
+### Fixed
+
+- Set `appName` before `catalog` lookup in `aws-nth-app` template to ensure correct catalog resolution from Release CR.
 
 ## [7.6.0] - 2026-03-05
 
@@ -1913,7 +1934,10 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.6.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.2.0...HEAD
+[8.2.0]: https://github.com/giantswarm/cluster-aws/compare/v8.1.0...v8.2.0
+[8.1.0]: https://github.com/giantswarm/cluster-aws/compare/v8.0.0...v8.1.0
+[8.0.0]: https://github.com/giantswarm/cluster-aws/compare/v7.6.1...v8.0.0
 [7.6.1]: https://github.com/giantswarm/cluster-aws/compare/v7.6.0...v7.6.1
 [7.6.0]: https://github.com/giantswarm/cluster-aws/compare/v7.5.0...v7.6.0
 [7.5.0]: https://github.com/giantswarm/cluster-aws/compare/v7.4.0...v7.5.0

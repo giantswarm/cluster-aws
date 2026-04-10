@@ -18,6 +18,10 @@ cluster:
       clusterAutoscaler:
         configTemplateName: awsClusterAutoscalerHelmValues
         enable: true
+      clusterAutoscalerCrossplaneResources:
+        enable: true
+      clusterProbes:
+        enable: false
       coreDns:
         configTemplateName: awsCorednsHelmValues
         enable: true
@@ -301,6 +305,8 @@ global:
     ciliumCrossplaneResources: {}
     ciliumServiceMonitors: {}
     clusterAutoscaler: {}
+    clusterAutoscalerCrossplaneResources: {}
+    clusterProbes: {}
     coreDns: {}
     coreDnsExtensions: {}
     etcdDefrag: {}
