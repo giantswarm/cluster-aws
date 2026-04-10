@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Rename `consolidationBudgets` to `disruptionBudgets` in Karpenter node pool configuration. The old name is still accepted for backwards compatibility.
 - Enable cert-manager DNS challenges by default.
 - Chart: Update `cluster` to v5.3.1.
 
