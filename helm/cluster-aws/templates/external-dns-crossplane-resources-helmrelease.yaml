@@ -42,4 +42,7 @@ spec:
     clusterName: {{ include "resource.default.name" $ }}
     accountID: "{{ include "aws-account-id" $ }}"
     baseDomain: {{ .Values.global.connectivity.baseDomain }}
+    oidcDomain: {{ include "aws-oidc-domain" $ | quote }}
+    oidcDomains:
+      - {{ include "aws-oidc-domain" $ | quote }}
 {{- end }}
