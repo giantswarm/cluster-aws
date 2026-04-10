@@ -45,4 +45,6 @@ spec:
     oidcDomain: {{ include "aws-oidc-domain" $ | quote }}
     oidcDomains:
       - {{ include "aws-oidc-domain" $ | quote }}
+    awsPartition: {{ include "aws-partition" $ | trim | quote }}
+    awsRegion: {{ include "aws-region" $ | trim | quote }}
 {{- end }}
