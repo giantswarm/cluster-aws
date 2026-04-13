@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `external-dns-crossplane-resources` HelmRelease to manage Route53 records via Crossplane, injecting `clusterName`, `accountID`, `baseDomain`, `oidcDomain`, and `oidcDomains`.
+
+### Changed
+
+- Fix `external-dns` IAM role ARN annotation to use `{name}-external-dns` instead of `{name}-Route53Manager-Role`.
+- Extract `aws-oidc-domain` Helm helper (China-aware) and use it in `cert-manager-crossplane-resources` and `external-dns-crossplane-resources` templates.
+
 ### Removed
 
 - Chart: Remove unused `cluster-shared` library chart dependency.

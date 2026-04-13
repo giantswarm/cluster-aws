@@ -6,7 +6,12 @@ aws:
   batchChangeInterval: null
 serviceAccount:
   annotations:
+{{- $crossplaneApp := merge (dict "appName" "external-dns-crossplane-resources") $ }}
+{{- if include "cluster.app.in-release" $crossplaneApp | eq "true" }}
+    eks.amazonaws.com/role-arn: "{{ .Values.global.metadata.name }}-external-dns"
+{{- else }}
     eks.amazonaws.com/role-arn: "{{ .Values.global.metadata.name }}-Route53Manager-Role"
+{{- end }}
 extraArgs:
 - "--aws-batch-change-interval=10s"
 {{- end }}
