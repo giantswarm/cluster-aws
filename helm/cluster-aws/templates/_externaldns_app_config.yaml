@@ -6,8 +6,8 @@ aws:
   batchChangeInterval: null
 serviceAccount:
   annotations:
-{{- $_ := set $ "appName" "external-dns-crossplane-resources" }}
-{{- if include "cluster.app.in-release" $ | eq "true" }}
+{{- $crossplaneApp := merge (dict "appName" "external-dns-crossplane-resources") $ }}
+{{- if include "cluster.app.in-release" $crossplaneApp | eq "true" }}
     eks.amazonaws.com/role-arn: "{{ .Values.global.metadata.name }}-external-dns"
 {{- else }}
     eks.amazonaws.com/role-arn: "{{ .Values.global.metadata.name }}-Route53Manager-Role"

@@ -1,5 +1,5 @@
-{{- $_ := set $ "appName" "external-dns-crossplane-resources" }}
-{{- if include "cluster.app.in-release" $ | eq "true" }}
+{{- $crossplaneApp := merge (dict "appName" "external-dns-crossplane-resources") $ }}
+{{- if include "cluster.app.in-release" $crossplaneApp | eq "true" }}
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
