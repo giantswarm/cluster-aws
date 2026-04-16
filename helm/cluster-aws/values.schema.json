@@ -902,6 +902,10 @@
                             "configTemplateName": "awsExternalDnsHelmValues",
                             "enable": true
                         },
+                        "externalDnsCrossplaneResources": {
+                            "configTemplateName": "awsExternalDnsCrossplaneResourcesHelmValues",
+                            "enable": true
+                        },
                         "k8sAuditMetrics": {
                             "enable": true
                         },
@@ -1440,6 +1444,12 @@
                             "type": "object",
                             "title": "external-dns",
                             "description": "Configuration of external-dns. For all available values see https://github.com/giantswarm/external-dns-app."
+                        },
+                        "externalDnsCrossplaneResources": {
+                            "$ref": "#/$defs/helmRelease",
+                            "type": "object",
+                            "title": "external-dns-crossplane-resources",
+                            "description": "Configuration of external-dns-crossplane-resources. For all available values see https://github.com/giantswarm/external-dns-crossplane-resources."
                         },
                         "irsaServiceMonitors": {
                             "$ref": "#/$defs/app",

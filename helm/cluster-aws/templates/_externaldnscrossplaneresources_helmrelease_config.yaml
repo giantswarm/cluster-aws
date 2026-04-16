@@ -1,0 +1,13 @@
+{{/* AWS-specific coredns Helm values*/}}
+{{/* https://github.com/giantswarm/external-dns-crossplane-resources/blob/main/helm/external-dns-crossplane-resources/values.yaml */}}
+{{- define "awsExternalDnsCrossplaneResourcesHelmValues" }}
+clusterName: {{ include "resource.default.name" $ }}
+accountID: "{{ include "aws-account-id" $ }}"
+baseDomain: {{ .Values.global.connectivity.baseDomain }}
+oidcDomain: {{ include "aws-oidc-domain" $ | quote }}
+oidcDomains:
+  - {{ include "aws-oidc-domain" $ | quote }}
+awsPartition: {{ include "aws-partition" $ | trim | quote }}
+awsRegion: {{ include "aws-region" $ | trim | quote }}
+{{- end }}
+{{- end }}
