@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix `external-dns` IAM role ARN annotation to use `{name}-external-dns` instead of `{name}-Route53Manager-Role`.
 - Extract `aws-oidc-domain` Helm helper (China-aware) and use it in `cert-manager-crossplane-resources` and `external-dns-crossplane-resources` templates.
+- Chart: Update `cluster` to v6.4.0.
 
 ### Removed
 
