@@ -34,6 +34,9 @@ cluster:
       externalDns:
         configTemplateName: awsExternalDnsHelmValues
         enable: true
+      externalDnsCrossplaneResources:
+        configTemplateName: awsExternalDnsCrossplaneResourcesHelmValues
+        enable: true
       k8sAuditMetrics:
         enable: true
       k8sDnsNodeCache:
@@ -312,6 +315,7 @@ global:
     etcdDefrag: {}
     etcdKubernetesResourcesCountExporter: {}
     externalDns: {}
+    externalDnsCrossplaneResources: {}
     irsaServiceMonitors: {}
     k8sAuditMetrics: {}
     k8sDnsNodeCache: {}
