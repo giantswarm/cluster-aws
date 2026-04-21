@@ -11,6 +11,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Make `karpenter-taint-remover` HelmRelease depend on `vertical-pod-autoscaler-crd` to ensure VPA CRDs are installed before deploying `karpenter-taint-remover`.
 
+## [8.3.0] - 2026-04-16
+
+### Added
+
+- Add `external-dns-crossplane-resources` HelmRelease to manage Route53 records via Crossplane, injecting `clusterName`, `accountID`, `baseDomain`, `oidcDomain`, and `oidcDomains`.
+
+### Changed
+
+- Fix `external-dns` IAM role ARN annotation to use `{name}-external-dns` instead of `{name}-Route53Manager-Role`.
+- Extract `aws-oidc-domain` Helm helper (China-aware) and use it in `cert-manager-crossplane-resources` and `external-dns-crossplane-resources` templates.
+- Chart: Update `cluster` to v6.4.0.
+
+### Removed
+
+- Chart: Remove unused `cluster-shared` library chart dependency.
+
+## [8.2.0] - 2026-04-09
+
+### Changed
+
+- Chart: Update `cluster` to v6.3.0.
+
 ## [8.1.0] - 2026-03-19
 
 ### Changed
@@ -42,6 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Rename `consolidationBudgets` to `disruptionBudgets` in Karpenter node pool configuration. The old name is still accepted for backwards compatibility.
 - Enable cert-manager DNS challenges by default.
 - Chart: Update `cluster` to v5.3.1.
 
@@ -1928,7 +1951,9 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.3.0...HEAD
+[8.3.0]: https://github.com/giantswarm/cluster-aws/compare/v8.2.0...v8.3.0
+[8.2.0]: https://github.com/giantswarm/cluster-aws/compare/v8.1.0...v8.2.0
 [8.1.0]: https://github.com/giantswarm/cluster-aws/compare/v8.0.0...v8.1.0
 [8.0.0]: https://github.com/giantswarm/cluster-aws/compare/v7.6.1...v8.0.0
 [7.6.1]: https://github.com/giantswarm/cluster-aws/compare/v7.6.0...v7.6.1
