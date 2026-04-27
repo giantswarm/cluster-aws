@@ -91,6 +91,9 @@ spec:
   chartRef:
     kind: OCIRepository
     name: {{ include "resource.default.name" $ }}-karpenter-bundle
+  dependsOn:
+    - name: {{ include "resource.default.name" . }}-alloy-podlogs-crds
+      namespace: {{ .Release.Namespace }}
   serviceAccountName: automation
   interval: 1m
   timeout: 15m # We need a bigger timeout because it could take a while for IRSA (via CloudFront) to become available
