@@ -404,7 +404,10 @@
                                     "description": "These limits constrains the maximum amount of resources that the NodePool can consume",
                                     "properties": {
                                         "cpu": {
-                                            "type": "string",
+                                            "type": [
+                                                "number",
+                                                "string"
+                                            ],
                                             "description": "CPU limits are described with a DecimalSI value",
                                             "default": "1000"
                                         },
