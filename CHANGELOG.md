@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Migrate default apps from App CRs to Flux HelmRelease CRs.
 - Remove `cluster-values` ConfigMap references from `irsa-servicemonitors`, `aws-ebs-csi-driver-servicemonitors`, and `aws-pod-identity-webhook` HelmReleases. Pass `provider: capa` explicitly to `aws-pod-identity-webhook`.
+- Bump the `cluster` subchart to pull in the migration hook fix that handles bundle sub-Apps the same way as non-bundle Apps, preventing intermittent helm uninstalls during multi-cluster migrations.
 
 ## [8.7.0] - 2026-06-18
 
