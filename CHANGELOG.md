@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove `cluster-values` ConfigMap references from `irsa-servicemonitors`, `aws-ebs-csi-driver-servicemonitors`, and `aws-pod-identity-webhook` HelmReleases. Pass `provider: capa` explicitly to `aws-pod-identity-webhook`.
 - Bump the `cluster` subchart to pull in the migration hook fix that handles bundle sub-Apps the same way as non-bundle Apps, preventing intermittent helm uninstalls during multi-cluster migrations.
 - Bump the `cluster` subchart again to pull in the reordered migration hook (pause everything → strip every finalizer → delete), closing the race that allowed `app-operator` to trigger `chart-operator` helm-uninstall on WC sub-app Chart CRs under concurrent-migration load.
+- Bump the `cluster` subchart once more to pull in forensic instrumentation: the migration hook keeps its pod after success (drops `hook-succeeded`), waits 30s after pausing for operatorkit to observe the annotation (Phase A.5), re-checks for resurrected resources after deletion (Phase C.5), and dumps WC events at the end. This is meant to give us a definitive answer about the residual race that lost observability-bundle sub-apps on 1/5 clusters in Round 35.
 
 ## [8.7.0] - 2026-06-18
 
