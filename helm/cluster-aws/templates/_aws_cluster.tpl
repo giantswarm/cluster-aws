@@ -1,3 +1,24 @@
+{{- define "cluster-aws.subnetTags" }}
+{{- $addNodesRoleTag := and (not (hasKey (.subnet.tags | default dict) "giantswarm.io/role")) (not (.subnet.isPublic | default false)) }}
+{{- if or .subnet.tags $addNodesRoleTag (.cidr).tags }}
+tags:
+  {{- if .subnet.tags }}
+  {{- toYaml .subnet.tags | nindent 2 }}
+  {{- end }}
+  {{- /*
+  giantswarm.io/role tag is used to identify networks for node provisioning.
+  When set to "nodes", it marks this subnet as available for worker nodes.
+  This helps distinguish between private subnets used for nodes vs pods.
+  */}}
+  {{- if $addNodesRoleTag }}
+  giantswarm.io/role: "nodes"
+  {{- end }}
+  {{- if (.cidr).tags }}
+  {{- toYaml .cidr.tags | nindent 2 }}
+  {{- end }}
+{{- end }}
+{{ end }}
+
 {{- define "aws-cluster" }}
 {{- if and (regexMatch "\\.internal$" .Values.global.connectivity.baseDomain) (eq (required "global.connectivity.dns.mode required" .Values.global.connectivity.dns.mode) "public") }}
 {{- fail "global.connectivity.dns.mode=public cannot be combined with a '*.internal' baseDomain since reserved-as-private TLDs are not propagated to public DNS servers and therefore crucial DNS records such as api.<baseDomain> cannot be looked up" }}
@@ -198,6 +219,7 @@ spec:
       {{- if $subnet.natGatewayId }}
       natGatewayId: {{ $subnet.natGatewayId }}
       {{- end }}
+      {{- include "cluster-aws.subnetTags" (dict "subnet" $subnet "cidr" nil) | nindent 6 }}
     {{- else }}
     {{- range $i, $cidr := $subnet.cidrBlocks -}}
     {{- /*
@@ -224,24 +246,7 @@ spec:
       cidrBlock: "{{ $cidr.cidr }}"
       availabilityZone: "{{ $az }}"
       isPublic: {{ $subnet.isPublic | default false }}
-      {{- $addNodesRoleTag := and (not (hasKey ($subnet.tags | default dict) "giantswarm.io/role")) (not ($subnet.isPublic | default false)) }}
-      {{- if or $subnet.tags $addNodesRoleTag $cidr.tags }}
-      tags:
-        {{- if $subnet.tags }}
-        {{- toYaml $subnet.tags | nindent 8 }}
-        {{- end }}
-        {{- /*
-        giantswarm.io/role tag is used to identify networks for node provisioning.
-        When set to "nodes", it marks this subnet as available for worker nodes.
-        This helps distinguish between private subnets used for nodes vs pods.
-        */}}
-        {{- if $addNodesRoleTag }}
-        giantswarm.io/role: "nodes"
-        {{- end }}
-        {{- if $cidr.tags }}
-        {{- toYaml $cidr.tags | nindent 8 }}
-        {{- end }}
-      {{- end }}
+      {{- include "cluster-aws.subnetTags" (dict "subnet" $subnet "cidr" $cidr) | nindent 6 }}
     {{- end }}
     {{- end }}
     {{- end }}
