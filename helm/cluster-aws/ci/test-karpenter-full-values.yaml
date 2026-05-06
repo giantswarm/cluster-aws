@@ -48,6 +48,9 @@ global:
       subnetTags:
         - giantswarm.io/else: "something"
       terminationGracePeriod: 30m
+      limits:
+        cpu: 1000
+        memory: 1000Gi
   providerSpecific:
     region: "eu-west-1"
   release:
