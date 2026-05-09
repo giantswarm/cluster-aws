@@ -45,7 +45,7 @@ spec:
     ami:
       id: {{ . | quote }}
     {{- else }}
-    {{- include "imageLookupParameters" $ | nindent 4 }}
+    {{- include "imageLookupParameters" (merge (dict "architecture" ($value.architecture | default "x86_64")) $) | nindent 4 }}
     {{- end }}
     iamInstanceProfile: {{ include "resource.default.name" $ }}-worker
     instanceType: {{ $value.instanceType | default "r6i.xlarge" }}

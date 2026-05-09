@@ -649,6 +649,16 @@
                                         }
                                     }
                                 },
+                                "architecture": {
+                                    "type": "string",
+                                    "title": "CPU architecture",
+                                    "description": "Target CPU architecture for the node pool. Selects the matching CAPI Flatcar AMI: x86_64 nodes use the unsuffixed AMI name, arm64 nodes use the AMI with `arm64-` infix. The instance type must match (e.g. m7g.xlarge / t4g.medium for arm64, m5.xlarge / t3.medium for x86_64). For arm64 pools, also add a `kubernetes.io/arch=arm64:NoSchedule` taint via `customNodeTaints` so amd64-only workloads don't land here.",
+                                    "enum": [
+                                        "x86_64",
+                                        "arm64"
+                                    ],
+                                    "default": "x86_64"
+                                },
                                 "availabilityZones": {
                                     "type": "array",
                                     "title": "Availability zones",
