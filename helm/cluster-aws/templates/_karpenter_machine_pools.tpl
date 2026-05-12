@@ -22,7 +22,7 @@ spec:
     - deviceName: /dev/xvda
       rootVolume: true
       ebs:
-        volumeSize: {{ $value.rootVolumeSizeGB | default 15 }}Gi
+        volumeSize: {{ $value.rootVolumeSizeGB | default 15 | max 15 }}Gi
         volumeType: gp3
         deleteOnTermination: true
     - deviceName: /dev/xvdd

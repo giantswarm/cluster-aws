@@ -53,7 +53,7 @@ spec:
     iamInstanceProfile: nodes-{{ $name }}-{{ include "resource.default.name" $ }}
     instanceType: {{ $value.instanceType | default "r6i.xlarge" }}
     rootVolume:
-      size: {{ $value.rootVolumeSizeGB | default 8 }}
+      size: {{ $value.rootVolumeSizeGB | default 15 | max 15 }}
       type: gp3
     nonRootVolumes:
     - deviceName: /dev/xvdd

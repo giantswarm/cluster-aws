@@ -393,7 +393,7 @@ global:
       unhealthyNotReadyTimeout: 10m0s
       unhealthyUnknownTimeout: 10m0s
     oidc: {}
-    rootVolumeSizeGB: 8
+    rootVolumeSizeGB: 15
   metadata:
     preventDeletion: false
     servicePriority: highest
