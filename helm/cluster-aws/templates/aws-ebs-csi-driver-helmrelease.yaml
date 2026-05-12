@@ -59,9 +59,11 @@ spec:
   install:
     remediation:
       retries: -1
+      remediateLastFailure: false
   upgrade:
     remediation:
       retries: -1
+      remediateLastFailure: false
   driftDetection:
     mode: enabled
   {{- $awsEbsCsiDriverHelmValues := (include "defaultAwsEbsCsiDriverHelmValues" .) | fromYaml -}}

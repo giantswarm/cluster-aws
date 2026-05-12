@@ -100,9 +100,11 @@ spec:
   install:
     remediation:
       retries: -1
+      remediateLastFailure: false
   upgrade:
     remediation:
       retries: -1
+      remediateLastFailure: false
   driftDetection:
     mode: enabled
   {{- $karpenterHelmValues := (include "defaultkarpenterHelmValues" .) | fromYaml -}}
@@ -158,6 +160,9 @@ spec:
   chartRef:
     kind: OCIRepository
     name: {{ include "resource.default.name" $ }}-karpenter-taint-remover
+  dependsOn:
+    - name: {{ include "resource.default.name" . }}-alloy-podlogs-crds
+      namespace: {{ .Release.Namespace }}
   kubeConfig:
     secretRef:
       name: {{ include "resource.default.name" $ }}-kubeconfig
@@ -166,6 +171,8 @@ spec:
     createNamespace: true
     remediation:
       retries: -1
+      remediateLastFailure: false
   upgrade:
     remediation:
       retries: -1
+      remediateLastFailure: false

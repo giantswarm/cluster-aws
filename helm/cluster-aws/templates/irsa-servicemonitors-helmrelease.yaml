@@ -43,9 +43,11 @@ spec:
   install:
     remediation:
       retries: -1
+      remediateLastFailure: false
   upgrade:
     remediation:
       retries: -1
+      remediateLastFailure: false
   {{- if .Values.global.apps.irsaServiceMonitors.extraConfigs }}
   valuesFrom:
   {{- range .Values.global.apps.irsaServiceMonitors.extraConfigs }}

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- HelmReleases: add `remediation.remediateLastFailure: false` to install and upgrade blocks of every HR templated by this chart, so Flux helm-controller skips rollback/uninstall on failure and re-attempts the upgrade on its next reconcile interval. Avoids the wedge that occurs when adopting chart-operator-installed v1 releases.
 - Migrate default apps from App CRs to Flux HelmRelease CRs.
 - Remove `cluster-values` ConfigMap references from `irsa-servicemonitors`, `aws-ebs-csi-driver-servicemonitors`, and `aws-pod-identity-webhook` HelmReleases. Pass `provider: capa` explicitly to `aws-pod-identity-webhook`.
 - Bump the `cluster` subchart to pull in the migration hook fix that handles bundle sub-Apps the same way as non-bundle Apps, preventing intermittent helm uninstalls during multi-cluster migrations.
