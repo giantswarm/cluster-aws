@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support newer Flatcar versions which require a larger root volume size. For ease of migration, enforce at least 15 GB even if a smaller, explicit size is specified in chart values.
 
+## [7.7.0] - 2026-05-12
+
+Version skipped. Not usable due to pipeline issues.
+
 ## [7.6.1] - 2026-03-11
 
 ### Fixed
