@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.8.0] - 2026-05-12
+
 ### Changed
 
 - Support newer Flatcar versions which require a larger root volume size. For ease of migration, enforce at least 15 GB even if a smaller, explicit size is specified in chart values.
@@ -1672,7 +1674,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.7.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v3.8.0...HEAD
+[3.8.0]: https://github.com/giantswarm/cluster-aws/compare/v3.7.0...v3.8.0
 [3.7.0]: https://github.com/giantswarm/cluster-aws/compare/v3.6.1...v3.7.0
 [3.6.1]: https://github.com/giantswarm/cluster-aws/compare/v3.6.0...v3.6.1
 [3.6.0]: https://github.com/giantswarm/cluster-aws/compare/v3.5.0...v3.6.0
