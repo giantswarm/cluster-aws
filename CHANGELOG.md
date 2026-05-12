@@ -33,7 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Add `kyverno` to `dependsOn` of the `aws-ebs-csi-driver-bundle` HelmRelease. The bundle's sub-app `aws-ebs-csi-driver` chart contains a `PolicyException` resource whose apply triggers Kyverno's validating webhook; without this dep the bundle's upgrade can race the kyverno admission-controller's own rolling restart.
 - Migrate default apps from App CRs to Flux HelmRelease CRs.
 - Remove `cluster-values` ConfigMap references from `irsa-servicemonitors`, `aws-ebs-csi-driver-servicemonitors`, and `aws-pod-identity-webhook` HelmReleases. Pass `provider: capa` explicitly to `aws-pod-identity-webhook`.
 - Bump the `cluster` subchart to pull in the migration hook fix that handles bundle sub-Apps the same way as non-bundle Apps, preventing intermittent helm uninstalls during multi-cluster migrations.
