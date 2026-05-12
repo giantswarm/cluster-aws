@@ -29,7 +29,7 @@ nonRootVolumes:
   size: {{ .Values.global.controlPlane.logVolumeSizeGB }}
   type: gp3
 rootVolume:
-  size: {{ .Values.global.controlPlane.rootVolumeSizeGB }}
+  size: {{ .Values.global.controlPlane.rootVolumeSizeGB | max 15 }}
   type: gp3
 iamInstanceProfile: control-plane-{{ include "resource.default.name" $ }}
 {{- if .Values.global.controlPlane.additionalSecurityGroups }}
