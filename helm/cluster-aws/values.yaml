@@ -423,7 +423,7 @@ global:
     oidc:
       structuredAuthentication:
         enabled: false
-    rootVolumeSizeGB: 8
+    rootVolumeSizeGB: 15
   metadata:
     preventDeletion: false
     servicePriority: highest

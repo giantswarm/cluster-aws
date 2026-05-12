@@ -563,7 +563,8 @@
                                 "rootVolumeSizeGB": {
                                     "type": "integer",
                                     "title": "Root volume size (GB)",
-                                    "default": 8
+                                    "description": "A certain minimum may be enforced depending on OS requirements.",
+                                    "default": 15
                                 },
                                 "subnetTags": {
                                     "type": "array",
@@ -784,7 +785,8 @@
                                 "rootVolumeSizeGB": {
                                     "type": "integer",
                                     "title": "Root volume size (GB)",
-                                    "default": 8
+                                    "description": "A certain minimum may be enforced depending on OS requirements.",
+                                    "default": 15
                                 },
                                 "spotInstances": {
                                     "type": "object",
@@ -2674,7 +2676,8 @@
                         "rootVolumeSizeGB": {
                             "type": "integer",
                             "title": "Root volume size (GB)",
-                            "default": 8
+                            "description": "A certain minimum may be enforced depending on OS requirements.",
+                            "default": 15
                         },
                         "subnetTags": {
                             "type": "array",

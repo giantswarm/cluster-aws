@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Apply tags to subnets if they're defined by ID. Clusters that were migrated from Vintage to CAPA have the subnet IDs defined in the values, and we previously didn't render tags for them, so tags did not get reconciled.
 
+### Changed
+
+- Support newer Flatcar versions which require a larger root volume size. For ease of migration, enforce at least 15 GB even if a smaller, explicit size is specified in chart values.
+
 ### Fixed
 
 - Allow numbers in Karpenter pool CPU limit (`global.nodePools.*.limits.cpu`).
