@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.4.0] - 2026-05-12
+
 ### Added
 
 - Apply tags to subnets if they're defined by ID. Clusters that were migrated from Vintage to CAPA have the subnet IDs defined in the values, and we previously didn't render tags for them, so tags did not get reconciled.
@@ -1959,7 +1961,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.4.0...HEAD
+[8.4.0]: https://github.com/giantswarm/cluster-aws/compare/v8.3.0...v8.4.0
 [8.3.0]: https://github.com/giantswarm/cluster-aws/compare/v8.2.0...v8.3.0
 [8.2.0]: https://github.com/giantswarm/cluster-aws/compare/v8.1.0...v8.2.0
 [8.1.0]: https://github.com/giantswarm/cluster-aws/compare/v8.0.0...v8.1.0
