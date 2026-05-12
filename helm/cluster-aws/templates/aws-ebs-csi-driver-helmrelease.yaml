@@ -53,8 +53,6 @@ spec:
   dependsOn:
       - name: {{ include "resource.default.name" $ }}-vertical-pod-autoscaler-crd
         namespace: {{ $.Release.Namespace }}
-      - name: {{ include "resource.default.name" $ }}-kyverno
-        namespace: {{ $.Release.Namespace }}
   serviceAccountName: automation
   interval: 1m
   timeout: 15m
