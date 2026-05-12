@@ -59,9 +59,11 @@ spec:
   install:
     remediation:
       retries: -1
+      remediateLastFailure: false
   upgrade:
     remediation:
       retries: -1
+      remediateLastFailure: false
   {{- $awsCloudControllerManagerHelmValues := (include "defaultAwsCloudControllerManagerHelmValues" .) | fromYaml -}}
   {{- $customAwsCloudControllerManagerHelmValues := $.Values.global.apps.awsCloudControllerManager.values -}}
   {{- if $customAwsCloudControllerManagerHelmValues }}

@@ -54,9 +54,11 @@ spec:
   install:
     remediation:
       retries: -1
+      remediateLastFailure: false
   upgrade:
     remediation:
       retries: -1
+      remediateLastFailure: false
   {{- if $awsPodIdentityWebhookValues }}
   values: {{- $awsPodIdentityWebhookValues | toYaml | nindent 4 }}
   {{- end }}

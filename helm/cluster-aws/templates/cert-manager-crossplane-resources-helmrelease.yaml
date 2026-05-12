@@ -59,10 +59,12 @@ spec:
     timeout: 10m
     remediation:
       retries: -1
+      remediateLastFailure: false
   upgrade:
     timeout: 10m
     remediation:
       retries: -1
+      remediateLastFailure: false
   valuesFrom:
     # See above
     - kind: ConfigMap
