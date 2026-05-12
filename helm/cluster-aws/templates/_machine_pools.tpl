@@ -50,7 +50,7 @@ spec:
     iamInstanceProfile: {{ include "resource.default.name" $ }}-worker
     instanceType: {{ $value.instanceType | default "r6i.xlarge" }}
     rootVolume:
-      size: {{ $value.rootVolumeSizeGB | default 8 }}
+      size: {{ $value.rootVolumeSizeGB | default 15 | max 15 }}
       type: gp3
     nonRootVolumes:
     - deviceName: /dev/xvdd
