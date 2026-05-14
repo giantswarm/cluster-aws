@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `aws-ebs-csi-driver-servicemonitors` HelmRelease: pin `spec.releaseName` to the pre-migration name `aws-ebs-csi-driver-smons` so the HR adopts the existing chart-operator-installed release on the WC instead of leaving it orphaned. The chart pulled by `chartRef` is still `aws-ebs-csi-driver-servicemonitors`; only the release name reverts.
+- Bump the `cluster` subchart to pull in the migration hook fix that adds a sixth neutralization category for bundle-rendered MC HelmReleases. Round 68 confirmed that `aws-nth-bundle`'s inner HRs were being deleted as part of the bundle's Phase D uninstall, which triggered Flux helm-controller to `helm uninstall` the managed WC releases (`aws-node-termination-handler`, `<cluster>-aws-nth-crossplane-resources`) on 5/5 clusters.
 - HelmReleases: add `remediation.remediateLastFailure: false` to install and upgrade blocks of every HR templated by this chart, so Flux helm-controller skips rollback/uninstall on failure and re-attempts the upgrade on its next reconcile interval. Avoids the wedge that occurs when adopting chart-operator-installed v1 releases.
 - Migrate default apps from App CRs to Flux HelmRelease CRs.
 - Remove `cluster-values` ConfigMap references from `irsa-servicemonitors`, `aws-ebs-csi-driver-servicemonitors`, and `aws-pod-identity-webhook` HelmReleases. Pass `provider: capa` explicitly to `aws-pod-identity-webhook`.

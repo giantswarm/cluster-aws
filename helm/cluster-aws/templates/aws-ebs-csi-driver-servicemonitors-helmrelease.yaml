@@ -27,7 +27,12 @@ metadata:
     cluster-apps-operator.giantswarm.io/watching: ""
     {{- include "labels.common" . | nindent 4 }}
 spec:
-  releaseName: aws-ebs-csi-driver-servicemonitors
+  # Keep the pre-migration release name (`aws-ebs-csi-driver-smons`) so the HR
+  # adopts the existing chart-operator-installed helm release on the WC instead
+  # of leaving it orphaned and creating a parallel `aws-ebs-csi-driver-servicemonitors`
+  # release. The chart pulled by chartRef is still `aws-ebs-csi-driver-servicemonitors`
+  # — helm doesn't require the chart name and release name to match.
+  releaseName: aws-ebs-csi-driver-smons
   targetNamespace: kube-system
   storageNamespace: kube-system
   chartRef:
