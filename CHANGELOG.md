@@ -7,10 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.4.0] - 2026-05-12
+
 ### Added
 
 - Add optional `architecture` field to node pools (enum `x86_64` / `arm64`, default `x86_64`). When set to `arm64`, `imageLookupFormat` is rendered with an `arm64-` infix so the pool resolves the matching CAPI Flatcar arm64 AMI. Operators are responsible for adding the `kubernetes.io/arch=arm64:NoSchedule` taint via `customNodeTaints` on arm64 pools so amd64-only workloads don't land there. Control plane and existing x86_64 pools are unaffected.
 - Apply tags to subnets if they're defined by ID. Clusters that were migrated from Vintage to CAPA have the subnet IDs defined in the values, and we previously didn't render tags for them, so tags did not get reconciled.
+
+### Changed
+
+- Support newer Flatcar versions which require a larger root volume size. For ease of migration, enforce at least 15 GB even if a smaller, explicit size is specified in chart values.
 
 ### Fixed
 
@@ -1956,7 +1962,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.4.0...HEAD
+[8.4.0]: https://github.com/giantswarm/cluster-aws/compare/v8.3.0...v8.4.0
 [8.3.0]: https://github.com/giantswarm/cluster-aws/compare/v8.2.0...v8.3.0
 [8.2.0]: https://github.com/giantswarm/cluster-aws/compare/v8.1.0...v8.2.0
 [8.1.0]: https://github.com/giantswarm/cluster-aws/compare/v8.0.0...v8.1.0
