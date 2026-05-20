@@ -3,7 +3,7 @@ global:
     version: 29.1.0
   metadata:
     name: test-wc-minimal
-    organization: test
+    organization: giantswarm
     servicePriority: lowest
   connectivity:
     baseDomain: example.com
