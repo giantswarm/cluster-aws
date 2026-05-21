@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add optional `architecture` field to node pools (enum `x86_64` / `arm64`, default `x86_64`). When set to `arm64`, `imageLookupFormat` is rendered with an `arm64-` infix so the pool resolves the matching CAPI Flatcar arm64 AMI. Operators are responsible for adding the `kubernetes.io/arch=arm64:NoSchedule` taint via `customNodeTaints` on arm64 pools so amd64-only workloads don't land there. Control plane and existing x86_64 pools are unaffected.
 - Apply tags to subnets if they're defined by ID. Clusters that were migrated from Vintage to CAPA have the subnet IDs defined in the values, and we previously didn't render tags for them, so tags did not get reconciled.
 
 ### Changed
