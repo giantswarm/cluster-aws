@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.5.0] - 2026-05-20
+
 ### Changed
 
 - Chart: Update `cluster` to v6.5.0.
@@ -1967,7 +1969,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.4.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.5.0...HEAD
+[8.5.0]: https://github.com/giantswarm/cluster-aws/compare/v8.4.0...v8.5.0
 [8.4.0]: https://github.com/giantswarm/cluster-aws/compare/v8.3.0...v8.4.0
 [8.3.0]: https://github.com/giantswarm/cluster-aws/compare/v8.2.0...v8.3.0
 [8.2.0]: https://github.com/giantswarm/cluster-aws/compare/v8.1.0...v8.2.0
