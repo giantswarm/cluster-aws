@@ -63,6 +63,10 @@ giantswarm.io/prevent-deletion: "true"
 {{- /*
     "imageLookupParameters" named template renders YAML manifest that is used in AWSMachineTemplate and in AWSMachinePool resources.
 
+    Optional argument: pass a dict with `architecture` set to "arm64" to render
+    the arm64 image name (with an `arm64-` infix before the trailing `-gs`).
+    Without an argument, renders the x86_64 (default) image name.
+
     This template is using "cluster.os.*" named templates that are defined in the cluster chart. For more details about
     how these templates work see cluster chart docs at https://github.com/giantswarm/cluster/tree/main/helm/cluster.
 */}}
@@ -75,9 +79,13 @@ imageLookupBaseOS: "{{ include "cluster.os.version" $ }}"
 {{- $osVersion := include "cluster.os.version" $ }}
 {{- $osToolingVersion := include "cluster.os.tooling.version" $ }}
 {{- $k8sVersion := include "cluster.component.kubernetes.version" $ }}
+{{- /* arm64 AMIs use an `arm64-` infix before `-gs` because Packer's amazon-ebs builder pre-validates AMI name globally and rejects same-named AMIs across architectures. */}}
+{{- $archInfix := "" }}
+{{- if eq (.architecture | default "") "arm64" }}{{ $archInfix = "arm64-" }}{{ end }}
 {{- /* Build the OS image name. The OS images are built automatically by the CI. */}}
-{{- /* Example result: `flatcar-stable-4230.2.0-kube-1.33.2-tooling-1.26.1-gs` */}}
-imageLookupFormat: {{ $osName }}-{{$osReleaseChannel }}-{{$osVersion}}-kube-{{$k8sVersion}}-tooling-{{ $osToolingVersion }}-gs
+{{- /* Example x86_64 result: `flatcar-stable-4230.2.0-kube-1.33.2-tooling-1.26.1-gs` */}}
+{{- /* Example arm64 result:  `flatcar-stable-4230.2.0-kube-1.33.2-tooling-1.26.1-arm64-gs` */}}
+imageLookupFormat: {{ $osName }}-{{$osReleaseChannel }}-{{$osVersion}}-kube-{{$k8sVersion}}-tooling-{{ $osToolingVersion }}-{{ $archInfix }}gs
 imageLookupOrg: "{{ if hasPrefix "cn-" (include "aws-region" .) }}306934455918{{else}}706635527432{{end}}"
 {{- end }}
 
