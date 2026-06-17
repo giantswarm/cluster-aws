@@ -3,30 +3,32 @@
 {{- define "defaultAwsNodeTerminationHandlerHelmValues" }}
 awsNodeTerminationHandler:
   values:
-    awsRegion: {{ include "aws-region" $ | quote }}
+    global:
+      podSecurityStandards:
+        enforced: {{ .Values.global.podSecurityStandards.enforced }}
 
-    image:
-      registry: {{ include "awsContainerImageRegistry" $ }}
+    upstream:
+      awsRegion: {{ include "aws-region" $ | quote }}
 
-    # Allow running on control plane nodes. On deletion, CAPI will first delete the worker nodes
-    # and we still want aws-node-termination-handler, if it's even still running and the HelmRelease
-    # not deleted yet, to take care of the last workers' EC2 lifecycle hooks since they otherwise
-    # won't be completed, resulting in unnecessary waiting time before AWS can terminate the
-    # instances (see `AWSMachinePool.spec.lifecycleHooks["aws-node-termination-handler"].heartbeatTimeout`).
-    # This runs on workers by default but allows moving pods to control plane nodes. Requires
-    # queue processing mode i.e. running as `Deployment`, not `DaemonSet`.
-    affinity:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - preference:
-              matchExpressions:
-                - key: node-role.kubernetes.io/control-plane
-                  operator: DoesNotExist
-            weight: 10
-    tolerations:
-      - effect: NoSchedule
-        operator: Exists
-        key: node-role.kubernetes.io/control-plane
+      # Allow running on control plane nodes. On deletion, CAPI will first delete the worker nodes
+      # and we still want aws-node-termination-handler, if it's even still running and the HelmRelease
+      # not deleted yet, to take care of the last workers' EC2 lifecycle hooks since they otherwise
+      # won't be completed, resulting in unnecessary waiting time before AWS can terminate the
+      # instances (see `AWSMachinePool.spec.lifecycleHooks["aws-node-termination-handler"].heartbeatTimeout`).
+      # This runs on workers by default but allows moving pods to control plane nodes. Requires
+      # queue processing mode i.e. running as `Deployment`, not `DaemonSet`.
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: DoesNotExist
+              weight: 10
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+          key: node-role.kubernetes.io/control-plane
 
 clusterID: {{ include "resource.default.name" $ }}
 {{- if (.Values.global.connectivity.proxy).enabled }}
@@ -35,11 +37,6 @@ proxy:
   http: {{ .Values.global.connectivity.proxy.httpProxy | quote }}
   https: {{ .Values.global.connectivity.proxy.httpsProxy | quote }}
 {{- end }}
-global:
-  image:
-    registry: {{ include "awsContainerImageRegistry" $ }}
-  podSecurityStandards:
-    enforced: {{ .Values.global.podSecurityStandards.enforced }}
 {{- end }}
 {{- if and (include "hasAWSMachinePools" .) .Values.global.providerSpecific.nodeTerminationHandlerEnabled }}
 ---
