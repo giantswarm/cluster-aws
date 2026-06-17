@@ -3,10 +3,6 @@
 {{- define "defaultAwsNodeTerminationHandlerHelmValues" }}
 awsNodeTerminationHandler:
   values:
-    global:
-      podSecurityStandards:
-        enforced: {{ .Values.global.podSecurityStandards.enforced }}
-
     upstream:
       awsRegion: {{ include "aws-region" $ | quote }}
 
