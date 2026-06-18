@@ -17,6 +17,9 @@ spec:
   additionalTags:
     k8s.io/cluster-autoscaler/enabled: "true"
     giantswarm.io/machinepool: {{ $name }}
+    {{- if $.Values.global.providerSpecific.nodeTerminationHandlerEnabled }}
+    aws-node-termination-handler/managed: "true"
+    {{- end}}
     {{- if $.Values.global.providerSpecific.additionalNodeTags }}
     {{- toYaml $.Values.global.providerSpecific.additionalNodeTags | nindent 4 }}
     {{- end}}
