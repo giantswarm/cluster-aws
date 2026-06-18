@@ -1221,7 +1221,9 @@
                             "version": "v1beta2"
                         },
                         "machineHealthCheckResourceEnabled": true,
-                        "machinePoolResourcesEnabled": true,
+                        "machinePoolResources": {
+                            "enabled": true
+                        },
                         "nodePoolKind": "MachinePool"
                     },
                     "useReleases": true,
