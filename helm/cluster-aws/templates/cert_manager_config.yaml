@@ -3,16 +3,17 @@
 {{- define "awsCertManagerHelmValues" }}
 {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
 {{- if and (include "useCertManagerDnsChallenges" $ | eq "true") (include "cluster.app.in-release" $ | eq "true") }}
-dns01RecursiveNameserversOnly: true
-ingressShim:
-  defaultIssuerName: letsencrypt-giantswarm
-  defaultIssuerKind: ClusterIssuer
-  defaultIssuerGroup: cert-manager.io
+cert-manager:
+  dns01RecursiveNameserversOnly: true
+  ingressShim:
+    defaultIssuerName: letsencrypt-giantswarm
+    defaultIssuerKind: ClusterIssuer
+    defaultIssuerGroup: cert-manager.io
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-cert-manager
 ciliumNetworkPolicy:
   enabled: true
-serviceAccount:
-  annotations:
-    eks.amazonaws.com/role-arn: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-cert-manager
 giantSwarmClusterIssuer:
   acme:
     dns01:
