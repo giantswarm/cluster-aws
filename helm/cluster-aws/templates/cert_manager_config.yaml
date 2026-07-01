@@ -31,4 +31,3 @@ giantSwarmClusterIssuer:
     http01:
       enabled: false
 {{- end }}
-{{- end }}
