@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Migrate default apps from App CRs to Flux HelmRelease CRs.
+
 ## [8.9.1] - 2026-07-20
 
 ### Fixed
@@ -30,22 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `global.connectivity.certManager.createIamRole` toggle (default `true`) to let customers opt out of provisioning the cert-manager IAM role via crossplane and bring their own role.
-
-### Changed
-
-- `aws-ebs-csi-driver-servicemonitors` HelmRelease: pin `spec.releaseName` to the pre-migration name `aws-ebs-csi-driver-smons` so the HR adopts the existing chart-operator-installed release on the WC instead of leaving it orphaned. The chart pulled by `chartRef` is still `aws-ebs-csi-driver-servicemonitors`; only the release name reverts.
-- Bump the `cluster` subchart to pull in the migration hook fix that adds a sixth neutralization category for bundle-rendered MC HelmReleases. Round 68 confirmed that `aws-nth-bundle`'s inner HRs were being deleted as part of the bundle's Phase D uninstall, which triggered Flux helm-controller to `helm uninstall` the managed WC releases (`aws-node-termination-handler`, `<cluster>-aws-nth-crossplane-resources`) on 5/5 clusters.
-- HelmReleases: add `remediation.remediateLastFailure: false` to install and upgrade blocks of every HR templated by this chart, so Flux helm-controller skips rollback/uninstall on failure and re-attempts the upgrade on its next reconcile interval. Avoids the wedge that occurs when adopting chart-operator-installed v1 releases.
-- Migrate default apps from App CRs to Flux HelmRelease CRs.
-- Remove `cluster-values` ConfigMap references from `irsa-servicemonitors`, `aws-ebs-csi-driver-servicemonitors`, and `aws-pod-identity-webhook` HelmReleases. Pass `provider: capa` explicitly to `aws-pod-identity-webhook`.
-- Bump the `cluster` subchart to pull in the migration hook fix that handles bundle sub-Apps the same way as non-bundle Apps, preventing intermittent helm uninstalls during multi-cluster migrations.
-- Bump the `cluster` subchart again to pull in the reordered migration hook (pause everything → strip every finalizer → delete), closing the race that allowed `app-operator` to trigger `chart-operator` helm-uninstall on WC sub-app Chart CRs under concurrent-migration load.
-- Bump the `cluster` subchart once more to pull in forensic instrumentation: the migration hook keeps its pod after success (drops `hook-succeeded`), waits 30s after pausing for operatorkit to observe the annotation (Phase A.5), re-checks for resurrected resources after deletion (Phase C.5), and dumps WC events at the end. This is meant to give us a definitive answer about the residual race that lost observability-bundle sub-apps on 1/5 clusters in Round 35.
-- Bump the `cluster` subchart again to add Phase 0b — scale `chart-operator` on the WC down to 0 *before* any WC Chart CR is touched. Forensic data from rounds 34/35/37 (same exact set of 10 bundle sub-apps lost on a single random cluster, never any non-bundle default app) ruled out our earlier theories and points at chart-operator-WC processing a stale-cache deletion event. Removing the actor before issuing deletes eliminates the only remaining viable mechanism. Flux's HelmRelease for chart-operator restores it after the migration completes.
-- Bump the `cluster` subchart again to wrap migration hook kubectl invocations in a retry helper (`kubectl_retry`). Round 39 showed Phase 0b alone is insufficient because transient `Unauthorized` API errors during concurrent load cause the hook to exit early; helm marks the upgrade failed and chart-operator retries, and between attempts chart-operator-WC's deployment gets restored to `replicas: 1`. Retrying transient errors inside the hook prevents the storm so Phase 0b only needs to hold for one full hook execution.
-- Bump the `cluster` subchart again to drop the 300s blocking wait at the end of the migration hook's Phase D. With `chart-operator` on the WC scaled to 0 (Phase 0b), the operator-driven bundle App CR cascade is safe to run in the background; the previous blocking wait could exceed helm's default 5-minute hook timeout and trigger a retry storm even when no application was actually being uninstalled.
-- Bump the `cluster` subchart again to add Phase 0a — the migration hook now patches the cluster's own App CR `spec.upgrade.timeout` to `15m` before doing any other work. The default helm-upgrade timeout enforced by `chart-operator-MC` is 5 minutes; under fresh-state 5-cluster concurrent migration load (the realistic production scenario for fleet-wide GitOps release bumps), kubectl client-side throttling and MC API auth/throttle pushback push the hook's Phase A→C work past 5m, helm marks the upgrade failed, and the cycle repeats. Patching the App CR from inside the hook only affects FUTURE retries (chart-operator-MC re-reads spec.upgrade.timeout at the start of each helm upgrade), so the very first attempt may still time out — but Phase 0b's chart-operator-WC scale-down ensures that wasted attempt cannot uninstall anything. The retry then runs with 15m and converges. This makes the fix self-installing for any customer cluster regardless of how their App CR was authored.
-- Bump the `cluster` subchart again to fix the actual sub-app uninstall race, identified via continuous chart-operator-WC log capture during Round 44. The graceful-drain hypothesis was REFUTED — chart-operator-WC was idle at SIGTERM time, "All workers finished" within microseconds of "Shutdown signal received", zero `helm uninstall` calls in 374 reconcile-update events. The actual race is on the MC: the cluster-aws upgrade renders a new HelmRelease for each bundle on the MC, Flux helm-controller takeOwnership-adopts the existing OLD bundle helm release and runs `helm upgrade`, the new bundle chart's manifest items include sub-app HelmReleases which Flux then installs and adopts on the WC; meanwhile the OLD Phase D's bundle App CR deletion triggers chart-operator-MC to run `helm uninstall` on the bundle helm release, helm uninstall DELETEs every manifest item — including the sub-app HRs Flux just installed — and helm-controller's HR-deletion handler then runs `helm uninstall` on each WC sub-app release. The fix: never let chart-operator-MC's uninstall path fire. The new hook pauses bundle App CRs + bundle Chart CRs on MC in Phase A, strips their finalizers in Phase B, and deletes them instantly in Phase D. Bundle helm releases on MC stay alive for Flux to adopt cleanly — eliminating the manifest-deletion path that was the root cause of every sub-app uninstall observed across Rounds 42-44.
 
 ## [8.7.0] - 2026-06-18
 

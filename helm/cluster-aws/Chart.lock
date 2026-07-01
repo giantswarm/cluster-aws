@@ -1,6 +1,6 @@
 dependencies:
 - name: cluster
   repository: https://giantswarm.github.io/cluster-test-catalog
-  version: 6.7.1-dev.migrate-app--elmreleases.2026-07-01.11-20-35.h46cc26f
-digest: sha256:c286e157d51a49b581c3b2fb789b10d4715ea534c4d102116205b00d2fee9b89
-generated: "2026-07-01T11:40:08.132649333Z"
+  version: 6.8.1-dev.migrate-app--elmreleases.2026-07-23.12-52-53.h4b5e63f
+digest: sha256:53bb01439ab5aa16c1cc74e6f345105cbead20c75989686c9a8ec6c3661c3c9f
+generated: "2026-07-23T12:56:01.457275172Z"
