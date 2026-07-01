@@ -17,5 +17,5 @@ restrictions:
     - capa
 dependencies:
   - name: cluster
-    version: "6.7.1-dev.migrate-app--elmreleases.2026-07-01.11-20-35.h46cc26f"
+    version: "6.7.1-dev.migrate-app--elmreleases.2026-07-01.12-36-24.h7384d3c"
     repository: https://giantswarm.github.io/cluster-test-catalog
