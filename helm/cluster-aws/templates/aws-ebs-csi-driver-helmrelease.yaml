@@ -51,6 +51,8 @@ spec:
     kind: OCIRepository
     name: {{ include "resource.default.name" $ }}-aws-ebs-csi-driver-bundle
   dependsOn:
+      - name: {{ include "resource.default.name" $ }}-kyverno-crds
+        namespace: {{ $.Release.Namespace }}
       - name: {{ include "resource.default.name" $ }}-vertical-pod-autoscaler-crd
         namespace: {{ $.Release.Namespace }}
   serviceAccountName: automation

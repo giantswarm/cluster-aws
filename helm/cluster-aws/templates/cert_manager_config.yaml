@@ -15,18 +15,11 @@ cert-manager:
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-cert-manager
-  giantSwarmClusterIssuer:
-    acme:
-      dns01:
-        route53:
-          enabled: true
-          region: {{ include "aws-region" . }}
-      http01:
-        enabled: false
 {{- else }}
 serviceAccount:
   annotations:
     eks.amazonaws.com/role-arn: arn:{{ include "aws-partition" $ }}:iam::{{ include "aws-account-id" $ }}:role/{{ include "resource.default.name" $ }}-cert-manager
+{{- end }}
 giantSwarmClusterIssuer:
   acme:
     dns01:
@@ -35,6 +28,5 @@ giantSwarmClusterIssuer:
         region: {{ include "aws-region" . }}
     http01:
       enabled: false
-{{- end }}
 {{- end }}
 {{- end }}
