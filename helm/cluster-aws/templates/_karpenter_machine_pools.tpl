@@ -13,7 +13,7 @@ metadata:
 spec:
   ec2NodeClass:
     amiSelectorTerms:
-      - name: flatcar-stable-{{ include "cluster.os.version" $ }}-kube-{{ include "cluster.component.kubernetes.version" $ }}-tooling-{{ include "cluster.os.tooling.version" $ }}-gs
+      - name: {{ include "karpenterImageName" (merge (dict "architecture" ($value.architecture | default "x86_64")) $) | trim }}
         owner: {{ if hasPrefix "cn-" (include "aws-region" $) }}"306934455918"{{else}}"706635527432"{{end}}
     blockDeviceMappings:
     - deviceName: /dev/xvda
@@ -141,7 +141,7 @@ spec:
         - key: kubernetes.io/arch
           operator: In
           values:
-          - amd64
+          - {{ include "getArchitecture" (merge (dict "architecture" ($value.architecture | default "x86_64")) $) }}
         - key: kubernetes.io/os
           operator: In
           values:
