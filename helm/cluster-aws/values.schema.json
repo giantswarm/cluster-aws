@@ -1866,6 +1866,12 @@
                             "title": "CertManager",
                             "description": "Configuration of CertManager.",
                             "properties": {
+                                "createIamRole": {
+                                    "type": "boolean",
+                                    "title": "Create cert-manager IAM role",
+                                    "description": "Set to false to opt out of provisioning the cert-manager IAM role via crossplane and bring your own role (with the conventional name `<clusterName>-cert-manager`).",
+                                    "default": true
+                                },
                                 "useDnsChallenges": {
                                     "type": "boolean",
                                     "title": "Use DNS Challenges",
