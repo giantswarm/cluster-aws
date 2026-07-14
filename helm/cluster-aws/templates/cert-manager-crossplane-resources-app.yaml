@@ -1,4 +1,4 @@
-{{ if (include "useCertManagerDnsChallenges" $ | eq "true") }}
+{{ if and (include "useCertManagerDnsChallenges" $ | eq "true") $.Values.global.connectivity.certManager.createIamRole }}
 {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
 {{- /* Check if app is in Release CR */}}
 {{- if include "cluster.app.in-release" $ | eq "true" }}
