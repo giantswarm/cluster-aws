@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.7.3] - 2026-07-14
+
 ### Added
 
 - Add `global.connectivity.certManager.createIamRole` toggle (default `true`) to let customers opt out of provisioning the cert-manager IAM role via crossplane and bring their own role.
@@ -1933,7 +1935,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.7.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v7.7.3...HEAD
+[7.7.3]: https://github.com/giantswarm/cluster-aws/compare/v7.7.2...v7.7.3
 [7.7.2]: https://github.com/giantswarm/cluster-aws/compare/v7.7.1...v7.7.2
 [7.7.1]: https://github.com/giantswarm/cluster-aws/compare/v7.6.1...v7.7.1
 [7.6.1]: https://github.com/giantswarm/cluster-aws/compare/v7.6.0...v7.6.1
