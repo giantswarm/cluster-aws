@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `global.connectivity.certManager.createIamRole` toggle (default `true`) to let customers opt out of provisioning the cert-manager IAM role via crossplane and bring their own role.
+
 ## [7.7.2] - 2026-05-20
 
 ### Changed
