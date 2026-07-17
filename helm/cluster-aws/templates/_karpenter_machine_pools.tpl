@@ -13,7 +13,7 @@ metadata:
 spec:
   ec2NodeClass:
     amiSelectorTerms:
-      - name: flatcar-stable-{{ include "cluster.os.version" $ }}-kube-{{ include "cluster.component.kubernetes.version" $ }}-tooling-{{ include "cluster.os.tooling.version" $ }}-gs
+      - name: {{ include "karpenterImageName" (merge (dict "architecture" ($value.architecture | default "x86_64")) $) | trim }}
         owner: {{ if hasPrefix "cn-" (include "aws-region" $) }}"306934455918"{{else}}"706635527432"{{end}}
     blockDeviceMappings:
     - deviceName: /dev/xvda
@@ -141,7 +141,7 @@ spec:
         - key: kubernetes.io/arch
           operator: In
           values:
-          - amd64
+          - {{ include "getArchitecture" (merge (dict "architecture" ($value.architecture | default "x86_64")) $) }}
         - key: kubernetes.io/os
           operator: In
           values:
@@ -157,14 +157,21 @@ spec:
         - effect: NoExecute
           key: ebs.csi.aws.com/agent-not-ready
           value: "true"
-        {{- with $value.customNodeTaints }}
+        {{- if or (eq $value.architecture "arm64") $value.customNodeTaints }}
         taints:
+        {{- if eq $value.architecture "arm64" }}
+        - effect: NoSchedule
+          key: node.kubernetes.io/arch
+          value: arm64
+        {{- end }}
+        {{- with $value.customNodeTaints }}
         {{- range . }}
         - key: {{ .key | quote }}
           effect: {{ .effect | quote }}
           {{- if .value }}
           value: {{ .value | quote }}
           {{- end }}
+        {{- end }}
         {{- end }}
         {{- end }}
         terminationGracePeriod: {{ $value.terminationGracePeriod | default "30m" }}
