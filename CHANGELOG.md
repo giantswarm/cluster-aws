@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.9.0] - 2026-07-17
+
 ### Changed
 
 - Extend `arm64` support to Karpenter node pools.
@@ -1999,7 +2001,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.8.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.9.0...HEAD
+[8.9.0]: https://github.com/giantswarm/cluster-aws/compare/v8.8.0...v8.9.0
 [8.8.0]: https://github.com/giantswarm/cluster-aws/compare/v8.7.1...v8.8.0
 [8.7.1]: https://github.com/giantswarm/cluster-aws/compare/v8.7.0...v8.7.1
 [8.7.0]: https://github.com/giantswarm/cluster-aws/compare/v8.6.0...v8.7.0
