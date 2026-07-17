@@ -157,14 +157,21 @@ spec:
         - effect: NoExecute
           key: ebs.csi.aws.com/agent-not-ready
           value: "true"
-        {{- with $value.customNodeTaints }}
+        {{- if or (eq $value.architecture "arm64") $value.customNodeTaints }}
         taints:
+        {{- if eq $value.architecture "arm64" }}
+        - effect: NoSchedule
+          key: node.kubernetes.io/arch
+          value: arm64
+        {{- end }}
+        {{- with $value.customNodeTaints }}
         {{- range . }}
         - key: {{ .key | quote }}
           effect: {{ .effect | quote }}
           {{- if .value }}
           value: {{ .value | quote }}
           {{- end }}
+        {{- end }}
         {{- end }}
         {{- end }}
         terminationGracePeriod: {{ $value.terminationGracePeriod | default "30m" }}
