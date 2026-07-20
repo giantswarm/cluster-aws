@@ -161,7 +161,7 @@ spec:
         taints:
         {{- if eq $value.architecture "arm64" }}
         - effect: NoSchedule
-          key: node.kubernetes.io/arch
+          key: kubernetes.io/arch
           value: arm64
         {{- end }}
         {{- with $value.customNodeTaints }}
