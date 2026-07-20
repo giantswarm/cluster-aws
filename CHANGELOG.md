@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.9.1] - 2026-07-20
+
 ### Fixed
 
 - Correct taint key for ARM instances.
@@ -2005,7 +2007,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.9.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v8.9.1...HEAD
+[8.9.1]: https://github.com/giantswarm/cluster-aws/compare/v8.9.0...v8.9.1
 [8.9.0]: https://github.com/giantswarm/cluster-aws/compare/v8.8.0...v8.9.0
 [8.8.0]: https://github.com/giantswarm/cluster-aws/compare/v8.7.1...v8.8.0
 [8.7.1]: https://github.com/giantswarm/cluster-aws/compare/v8.7.0...v8.7.1
