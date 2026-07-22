@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add per-node-pool `localNvme.enabled` option to opt worker pools into local EC2 instance-store NVMe ephemeral storage for the kubelet directory. Requires a `cluster` dependency version that implements the mechanism (see the `cluster` chart's local ephemeral storage support); the field is inert until that dependency is in place.
+- Add per-node-pool `localNvme.enabled` option to opt worker pools into local EC2 instance-store NVMe ephemeral storage for the kubelet directory. Available on both standard (cluster-autoscaler) and Karpenter node pools. Requires a `cluster` dependency version that implements the mechanism (see the `cluster` chart's local ephemeral storage support); the field is inert until that dependency is in place.
 
 ## [8.9.1] - 2026-07-20
 
