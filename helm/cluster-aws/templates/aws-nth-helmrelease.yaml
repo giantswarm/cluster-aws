@@ -71,9 +71,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: {{ include "resource.default.name" $ }}-aws-nth-bundle
-  dependsOn:
-    - name: {{ include "resource.default.name" . }}-kyverno-crds
-      namespace: {{ .Release.Namespace }}
   serviceAccountName: automation
   interval: 5m
   timeout: 15m
