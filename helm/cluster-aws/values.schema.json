@@ -428,6 +428,18 @@
                                         }
                                     }
                                 },
+                                "localNvme": {
+                                    "type": "object",
+                                    "title": "Local instance-store NVMe ephemeral storage",
+                                    "description": "Use local EC2 instance-store NVMe disks (RAID0 if multiple) for the kubelet directory so pod `emptyDir` and the container runtime use fast, node-local storage instead of the EBS root/lib volume. Only takes effect on instance types that actually have instance store (e.g. the `i3en`/`i4i`/`*d` families); it is a safe no-op otherwise. Cluster-wide parameters (mount path, eviction threshold) are configured under the `cluster` chart's `internal.advancedConfiguration.workers.localEphemeralStorage`.",
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean",
+                                            "title": "Enable",
+                                            "default": false
+                                        }
+                                    }
+                                },
                                 "logVolumeSizeGB": {
                                     "type": "integer",
                                     "title": "Log volume size (GB)",
@@ -768,6 +780,18 @@
                                     "title": "Lib volume size (GB)",
                                     "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
                                     "default": 120
+                                },
+                                "localNvme": {
+                                    "type": "object",
+                                    "title": "Local instance-store NVMe ephemeral storage",
+                                    "description": "Use local EC2 instance-store NVMe disks (RAID0 if multiple) for the kubelet directory so pod `emptyDir` and the container runtime use fast, node-local storage instead of the EBS root/lib volume. Only takes effect on instance types that actually have instance store (e.g. the `i3en`/`i4i`/`*d` families); it is a safe no-op otherwise. Cluster-wide parameters (mount path, eviction threshold) are configured under the `cluster` chart's `internal.advancedConfiguration.workers.localEphemeralStorage`.",
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean",
+                                            "title": "Enable",
+                                            "default": false
+                                        }
+                                    }
                                 },
                                 "logVolumeSizeGB": {
                                     "type": "integer",
