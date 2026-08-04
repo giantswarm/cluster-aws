@@ -8,6 +8,8 @@ cluster:
       certManager:
         configTemplateName: awsCertManagerHelmValues
         enable: true
+      certManagerCrossplaneResources:
+        enable: false
       chartOperatorExtensions:
         enable: true
       cilium:
