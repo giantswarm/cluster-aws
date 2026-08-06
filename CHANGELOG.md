@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - CI: Run the full set of E2E test suites automatically on release PRs, via `.github/release-pr-body.md`. Towards https://github.com/giantswarm/roadmap/issues/4334
 
+### Removed
+
+- Stop passing `image.registry` to the cilium app ([roadmap#3264](https://github.com/giantswarm/roadmap/issues/3264)). `cilium-app` no longer has that value — the registry is part of each image's `repository` there now. The line was already a no-op: `awsContainerImageRegistry` has returned a constant `gsoci.azurecr.io` since #1433 removed its `cn-` branch, which is exactly what the cilium chart already defaults to. Rendered manifests lose only those two lines. `awsContainerImageRegistry` itself stays — coredns, cloud-provider-aws, aws-ebs-csi-driver, karpenter and cilium-cleanup still use it.
+
 ## [9.0.0] - 2026-08-04
 
 ### Changed
