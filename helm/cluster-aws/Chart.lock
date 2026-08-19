@@ -1,6 +1,6 @@
 dependencies:
 - name: cluster
-  repository: https://giantswarm.github.io/cluster-catalog
-  version: 7.0.0
-digest: sha256:b1971f0a99f42529ed3db7813ad8733bb5eb8b88b9466b13f2887b33e530f25e
-generated: "2026-08-04T14:17:21.222787397Z"
+  repository: https://giantswarm.github.io/cluster-test-catalog
+  version: 7.0.1-dev.selinux-spo-support.2026-08-20.16-16-38.h1117cb0
+digest: sha256:a6bb1b49ff98fd8aaaeebd9bb912116c2981f52045b5cabc3e9f657c5234b8fe
+generated: "2026-08-20T20:28:38.284468055+02:00"
