@@ -67,7 +67,12 @@ spec:
       Name: {{ include "resource.default.name" $ }}-{{ $name }}
     subnetSelectorTerms:
     - tags:
+        {{- /* Private clusters are still reconciled by aws-vpc-operator while CAPA has no support for fully private clusers, and the operator's tag differs */}}
+        {{- if eq $.Values.global.connectivity.vpcMode "private" }}
+        github.com/giantswarm/aws-vpc-operator/{{ include "resource.default.name" $ }}: owned
+        {{- else }}
         sigs.k8s.io/cluster-api-provider-aws/cluster/{{ include "resource.default.name" $ }}: owned
+        {{- end }}
         {{- if not $value.subnetTags }}
         giantswarm.io/role: "nodes"
         {{- else }}
