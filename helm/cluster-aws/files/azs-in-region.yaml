@@ -55,6 +55,7 @@ eu-west-2:
     - a
     - b
     - c
+    - d
 eu-west-3:
     - a
     - b
