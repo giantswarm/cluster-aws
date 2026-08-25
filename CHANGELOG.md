@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix AWS API authentication for cluster-autoscaler by using the correct IAM role name. The `-role` suffix got removed when switching over from operator-created IAM objects to [cluster-autoscaler-crossplane-resources](https://github.com/giantswarm/cluster-autoscaler-crossplane-resources).
+
 ## [10.0.0] - 2026-08-22
 
 ### Added
