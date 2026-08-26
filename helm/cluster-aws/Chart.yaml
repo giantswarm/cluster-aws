@@ -1,8 +1,8 @@
 apiVersion: v2
 name: cluster-aws
 description: A helm chart for creating Cluster API clusters with the AWS provider (CAPA).
-version: 10.0.0
-appVersion: 10.0.0
+version: 10.0.1
+appVersion: 10.0.1
 home: https://github.com/giantswarm/cluster-aws
 icon: https://s.giantswarm.io/app-icons/aws/2/dark.svg
 sources:
