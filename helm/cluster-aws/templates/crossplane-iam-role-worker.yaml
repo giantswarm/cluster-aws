@@ -69,7 +69,13 @@ spec:
           {
             "Action": [
               "ec2:DescribeInstances",
-              "ec2:DescribeRegions",
+              "ec2:DescribeRegions"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+          }{{ if .Values.global.providerSpecific.iam.ecr.permissionsEnabled }},
+          {
+            "Action": [
               "ecr:BatchCheckLayerAvailability",
               "ecr:BatchGetImage",
               "ecr:DescribeRepositories",
@@ -80,7 +86,7 @@ spec:
             ],
             "Resource": "*",
             "Effect": "Allow"
-          }
+          }{{ end }}
         ]
       }
   providerConfigRef:

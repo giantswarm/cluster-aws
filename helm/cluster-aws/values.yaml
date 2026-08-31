@@ -436,6 +436,9 @@ global:
   providerSpecific:
     awsClusterRoleIdentityName: default
     flatcarAwsAccount: "706635527432"
+    iam:
+      ecr:
+        permissionsEnabled: true
     instanceMetadataOptions:
       httpTokens: required
     irsaCrossplane: true

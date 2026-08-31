@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `global.providerSpecific.iam.ecr.permissionsEnabled` (default `true`) so clusters that never pull container images from Amazon ECR can optionally configure dropping the read-only ECR permissions from the control plane and worker node IAM roles
+
 ## [10.0.1] - 2026-08-25
 
 ### Fixed
