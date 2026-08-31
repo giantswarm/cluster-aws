@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Correct taint key for ARM instances.
+- Karpenter node pools: Select subnets by the `aws-vpc-operator` ownership tag on private clusters, since their subnets are not reconciled by CAPA.
 
 ## [8.9.0] - 2026-07-17
 
