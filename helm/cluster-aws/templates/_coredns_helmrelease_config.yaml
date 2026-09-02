@@ -4,11 +4,28 @@
 image:
   registry: {{ include "awsContainerImageRegistry" $ }}
 
+controlPlane:
+  tolerations:
+  # -- Default tolerations
+  - key: node-role.kubernetes.io/master
+    effect: NoSchedule
+    operator: Exists
+  - key: node-role.kubernetes.io/control-plane
+    effect: NoSchedule
+    operator: Exists
+  - key: node.cloudprovider.kubernetes.io/uninitialized
+    operator: Exists
+  # -- AWS specific tolerations
+  - key: ebs.csi.aws.com/agent-not-ready
+    operator: Exists
+
 tolerations:
-- key: ebs.csi.aws.com/agent-not-ready
-  operator: Exists
+  # -- Default tolerations
 - key: node.cloudprovider.kubernetes.io/uninitialized
   operator: Exists
 - key: node.cluster.x-k8s.io/uninitialized
+  operator: Exists
+  # -- AWS specific tolerations
+- key: ebs.csi.aws.com/agent-not-ready
   operator: Exists
 {{- end }}
