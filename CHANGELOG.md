@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Expose `global.components.selinux.writablePolicyStore` in the values schema, matching the `cluster` chart.
+
+### Changed
+
+- Align schema descriptions with the `cluster` chart.
+
 ### Fixed
 
 - Karpenter node pools: take overridden kubelet `evictionHard` values from `cluster` chart to ensure correct calculation of allocatable node resources.
