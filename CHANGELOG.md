@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Karpenter node pools: take overridden kubelet `evictionHard` values from `cluster` chart to ensure correct calculation of allocatable node resources.
+
 ## [10.0.1] - 2026-08-25
 
 ### Fixed

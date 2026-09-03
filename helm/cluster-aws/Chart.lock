@@ -1,6 +1,6 @@
 dependencies:
 - name: cluster
-  repository: https://giantswarm.github.io/cluster-catalog
-  version: 8.0.0
-digest: sha256:9d9915866c0e38d4ec055b3fee6ac14604f635d9ba8cb14045fc4331e58efa41
-generated: "2026-08-21T17:55:47.979209928Z"
+  repository: https://giantswarm.github.io/cluster-test-catalog
+  version: 8.0.1-dev.evictionhard-values.2026-09-03.07-11-34.h568ee43
+digest: sha256:3ae52f225e63cfa9a478193fffa6f3b62d389e4e22dd66ab83c2f338917e281d
+generated: "2026-09-03T09:20:24.195999+02:00"
