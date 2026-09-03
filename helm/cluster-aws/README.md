@@ -368,7 +368,7 @@ Advanced configuration of components that are running on all nodes.
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
 | `global.components.auditd` | **Auditd** - Enable Auditd service.|**Type:** `object`<br/>|
-| `global.components.auditd.enabled` | **Enabled** - Whether or not the Auditd service shall be enabled. When true, the Auditd service is enabled. When false, the Auditd rules service is disabled.|**Type:** `boolean`<br/>**Default:** `false`|
+| `global.components.auditd.enabled` | **Enabled** - Whether or not the Auditd service shall be enabled. When true, the Auditd service is enabled. When false, the Auditd service is disabled.|**Type:** `boolean`<br/>**Default:** `false`|
 | `global.components.containerd` | **Containerd** - Configuration of containerd.|**Type:** `object`<br/>|
 | `global.components.containerd.cdi` | **Container Device Interface (CDI)** - Configuration of CDI support in containerd.|**Type:** `object`<br/>|
 | `global.components.containerd.cdi.enabled` | **Enabled** - Enabling this will configure containerd to support Container Device Interface (CDI) specification.|**Type:** `boolean`<br/>**Default:** `false`|
@@ -388,11 +388,11 @@ Advanced configuration of components that are running on all nodes.
 | `global.components.containerd.containerRegistries.*[*].skipVerify` | **Skip TLS verify** - Skip TLS verification of the endpoint.|**Type:** `boolean`<br/>**Default:** `false`|
 | `global.components.containerd.debug` | **ContainerD debug configuration** - Debug configuration for containerd.|**Type:** `object`<br/>|
 | `global.components.containerd.debug.level` | **Debug level** - Debug level for containerd logging [trace, debug, info, warn, error, fatal, panic].|**Type:** `string`<br/>**Allowed values:** `trace`, `debug`, `info`, `warn`, `error`, `fatal`, `panic`<br/>**Default:** `"info"`|
-| `global.components.containerd.localRegistryCache` | **Local registry caches configuration** - Enable local cache via http://127.0.0.1:<PORT>.|**Type:** `object`<br/>|
-| `global.components.containerd.localRegistryCache.enabled` | **Enable local registry caches** - Flag to enable local registry cache.|**Type:** `boolean`<br/>**Default:** `false`|
-| `global.components.containerd.localRegistryCache.mirroredRegistries` | **Registries to cache locally** - A list of registries that should be cached.|**Type:** `array`<br/>**Default:** `[]`|
+| `global.components.containerd.localRegistryCache` | **Local registry cache** - Caching container registry within the cluster.|**Type:** `object`<br/>|
+| `global.components.containerd.localRegistryCache.enabled` | **Enable** - Enabling this will deploy the Zot registry service in the cluster. To make use of it as a pull-through cache, you also have to specify registries to cache images for.|**Type:** `boolean`<br/>**Default:** `false`|
+| `global.components.containerd.localRegistryCache.mirroredRegistries` | **Registries to cache** - Here you must specify each registry to cache container images for. Please also make sure to have an entry for each registry in Global > Components > Containerd > Container registries.|**Type:** `array`<br/>**Default:** `[]`|
 | `global.components.containerd.localRegistryCache.mirroredRegistries[*]` |**None**|**Type:** `string`<br/>|
-| `global.components.containerd.localRegistryCache.port` | **Local port for the registry cache** - Port for the local registry cache under: http://127.0.0.1:<PORT>.|**Type:** `integer`<br/>**Default:** `32767`|
+| `global.components.containerd.localRegistryCache.port` | **Service port** - NodePort used by the local registry service.|**Type:** `integer`<br/>**Default:** `32767`|
 | `global.components.containerd.managementClusterRegistryCache` | **Management cluster registry cache** - Caching container registry on a management cluster level.|**Type:** `object`<br/>|
 | `global.components.containerd.managementClusterRegistryCache.enabled` | **Enabled** - Enabling this will configure containerd to use management cluster's Zot registry service. To make use of it as a pull-through cache, you also have to specify registries to cache images for.|**Type:** `boolean`<br/>**Default:** `true`|
 | `global.components.containerd.managementClusterRegistryCache.mirroredRegistries` | **Registries to cache** - Here you must specify each registry to cache container images for. Please also make sure to have an entry for each registry in Global > Components > Containerd > Container registries.|**Type:** `array`<br/>**Default:** `["gsoci.azurecr.io"]`|
@@ -401,6 +401,7 @@ Advanced configuration of components that are running on all nodes.
 | `global.components.containerd.selinux.enabled` | **Enabled** - Enabling this will configure containerd to do SELinux relabeling to containers.|**Type:** `boolean`<br/>**Default:** `false`|
 | `global.components.selinux` | **SELinux** - Configuration of SELinux.|**Type:** `object`<br/>|
 | `global.components.selinux.mode` | **SELinux mode** - Configure SELinux mode: 'enforcing', 'permissive' or 'disabled'.|**Type:** `string`<br/>**Allowed values:** `enforcing`, `permissive`, `disabled`<br/>**Default:** `"permissive"`|
+| `global.components.selinux.writablePolicyStore` | **Writable SELinux policy store** - Make /var/lib/selinux writable for loading additional policies.|**Type:** `boolean`<br/>**Default:** `true`|
 
 ### Connectivity
 Properties within the `.global.connectivity` object
@@ -432,7 +433,7 @@ Properties within the `.global.connectivity` object
 | `global.connectivity.eniModePodSubnets[*].tags` | **Tags** - AWS resource tags to assign to this CIDR block.|**Type:** `object`<br/>|
 | `global.connectivity.eniModePodSubnets[*].tags.*` | **Tag value**|**Type:** `string`<br/>**Value pattern:** `^[ a-zA-Z0-9\._:/=+-@]+$`<br/>|
 | `global.connectivity.network` | **Network**|**Type:** `object`<br/>|
-| `global.connectivity.network.allowAllEgress` | **Allow all egress**|**Type:** `boolean`<br/>**Default:** `false`|
+| `global.connectivity.network.allowAllEgress` | **Allow all egress (DEPRECATED)** - This flag has been deprecated. Currently the default value is false, which means that network-policies app will get installed. Setting this flag to true means that network-policies app is not installed, and that should not be done anymore.|**Type:** `boolean`<br/>**Default:** `false`|
 | `global.connectivity.network.internetGatewayId` | **Internet Gateway ID** - ID of the Internet gateway for the VPC.|**Type:** `string`<br/>|
 | `global.connectivity.network.nodePortIngressRuleCidrBlocks` | **NodePort security group ingress rules**|**Type:** `array`<br/>|
 | `global.connectivity.network.nodePortIngressRuleCidrBlocks[*]` | **CIDR** - IPv4 address range to allow in the NodePort security group ingress rules. These will get merged with the CIDRs defined in .Values.global.connectivity.network.vpcCidrs.|**Type:** `string`<br/>**Example:** `["10.0.0.0/16"]`<br/>**Value pattern:** `^(([0-9]{1,3}\.){3}[0-9]{1,3}/(1[6-9]|2[0-8]))$`<br/>|
@@ -441,7 +442,7 @@ Properties within the `.global.connectivity` object
 | `global.connectivity.network.pods.cidrBlocks[*]` | **Pod subnet** - IPv4 address range for pods, in CIDR notation.|**Type:** `string`<br/>**Example:** `"10.244.0.0/16"`<br/>|
 | `global.connectivity.network.pods.nodeCidrMaskSize` | **Node CIDR mask size** - The size of the mask that is used for the node CIDR. The node CIDR is a sub-range of the pod CIDR and so the mask size and pod CIDR must be chosen such that there is enough space for the maximum number of nodes in the cluster.|**Type:** `integer`<br/>**Default:** `24`|
 | `global.connectivity.network.services` | **Services**|**Type:** `object`<br/>|
-| `global.connectivity.network.services.cidrBlocks` | **K8s Service subnets**|**Type:** `array`<br/>**Default:** `["172.31.0.0/16"]`|
+| `global.connectivity.network.services.cidrBlocks` | **Kubernetes Service subnets**|**Type:** `array`<br/>**Default:** `["172.31.0.0/16"]`|
 | `global.connectivity.network.services.cidrBlocks[*]` | **Service subnet** - IPv4 address range for kubernetes services, in CIDR notation.|**Type:** `string`<br/>**Example:** `"172.31.0.0/16"`<br/>|
 | `global.connectivity.network.vpcCidr` | **VPC CIDR** - IPv4 address range to assign to this cluster's VPC, in CIDR notation. **DEPRECATED**, please use `global.connectivity.network.vpcCidrs`.|**Type:** `string`<br/>|
 | `global.connectivity.network.vpcCidrs` | **VPC CIDRs**|**Type:** `array`<br/>|
@@ -451,7 +452,7 @@ Properties within the `.global.connectivity` object
 | `global.connectivity.proxy.enabled` | **Enable**|**Type:** `boolean`<br/>|
 | `global.connectivity.proxy.httpProxy` | **HTTP proxy** - To be passed to the HTTP_PROXY environment variable in all hosts.|**Type:** `string`<br/>|
 | `global.connectivity.proxy.httpsProxy` | **HTTPS proxy** - To be passed to the HTTPS_PROXY environment variable in all hosts.|**Type:** `string`<br/>|
-| `global.connectivity.proxy.noProxy` | **No proxy** - To be passed to the NO_PROXY environment variable in all hosts.|**Type:** `string`<br/>|
+| `global.connectivity.proxy.noProxy` | **No proxy** - Comma-separated addresses to be passed to the NO_PROXY environment variable in all hosts.|**Type:** `string`<br/>|
 | `global.connectivity.subnets` | **Subnets** - Subnets are created and tagged based on this definition.|**Type:** `array`<br/>**Default:** `[{"cidrBlocks":[{"cidr":"10.0.0.0/20"},{"cidr":"10.0.16.0/20"},{"cidr":"10.0.32.0/20"}],"isPublic":true},{"cidrBlocks":[{"cidr":"10.0.64.0/18"},{"cidr":"10.0.128.0/18"},{"cidr":"10.0.192.0/18"}],"isPublic":false}]`|
 | `global.connectivity.subnets[*]` | **Subnet**|**Type:** `object`<br/>|
 | `global.connectivity.subnets[*].cidrBlocks` | **Network**|**Type:** `array`<br/>|

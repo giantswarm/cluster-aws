@@ -1575,7 +1575,7 @@
                                 "enabled": {
                                     "type": "boolean",
                                     "title": "Enabled",
-                                    "description": "Whether or not the Auditd service shall be enabled. When true, the Auditd service is enabled. When false, the Auditd rules service is disabled.",
+                                    "description": "Whether or not the Auditd service shall be enabled. When true, the Auditd service is enabled. When false, the Auditd service is disabled.",
                                     "default": false
                                 }
                             }
@@ -1717,8 +1717,8 @@
                                 },
                                 "localRegistryCache": {
                                     "type": "object",
-                                    "title": "Local registry caches configuration",
-                                    "description": "Enable local cache via http://127.0.0.1:<PORT>.",
+                                    "title": "Local registry cache",
+                                    "description": "Caching container registry within the cluster.",
                                     "required": [
                                         "enabled",
                                         "port"
@@ -1727,14 +1727,14 @@
                                     "properties": {
                                         "enabled": {
                                             "type": "boolean",
-                                            "title": "Enable local registry caches",
-                                            "description": "Flag to enable local registry cache.",
+                                            "title": "Enable",
+                                            "description": "Enabling this will deploy the Zot registry service in the cluster. To make use of it as a pull-through cache, you also have to specify registries to cache images for.",
                                             "default": false
                                         },
                                         "mirroredRegistries": {
                                             "type": "array",
-                                            "title": "Registries to cache locally",
-                                            "description": "A list of registries that should be cached.",
+                                            "title": "Registries to cache",
+                                            "description": "Here you must specify each registry to cache container images for. Please also make sure to have an entry for each registry in Global > Components > Containerd > Container registries.",
                                             "items": {
                                                 "type": "string"
                                             },
@@ -1742,8 +1742,8 @@
                                         },
                                         "port": {
                                             "type": "integer",
-                                            "title": "Local port for the registry cache",
-                                            "description": "Port for the local registry cache under: http://127.0.0.1:<PORT>.",
+                                            "title": "Service port",
+                                            "description": "NodePort used by the local registry service.",
                                             "default": 32767
                                         }
                                     }
@@ -1814,6 +1814,12 @@
                                         "disabled"
                                     ],
                                     "default": "permissive"
+                                },
+                                "writablePolicyStore": {
+                                    "type": "boolean",
+                                    "title": "Writable SELinux policy store",
+                                    "description": "Make /var/lib/selinux writable for loading additional policies.",
+                                    "default": true
                                 }
                             }
                         }
@@ -2010,7 +2016,8 @@
                             "properties": {
                                 "allowAllEgress": {
                                     "type": "boolean",
-                                    "title": "Allow all egress",
+                                    "title": "Allow all egress (DEPRECATED)",
+                                    "description": "This flag has been deprecated. Currently the default value is false, which means that network-policies app will get installed. Setting this flag to true means that network-policies app is not installed, and that should not be done anymore.",
                                     "default": false
                                 },
                                 "internetGatewayId": {
@@ -2073,7 +2080,7 @@
                                     "properties": {
                                         "cidrBlocks": {
                                             "type": "array",
-                                            "title": "K8s Service subnets",
+                                            "title": "Kubernetes Service subnets",
                                             "items": {
                                                 "type": "string",
                                                 "title": "Service subnet",
@@ -2140,7 +2147,7 @@
                                 "noProxy": {
                                     "type": "string",
                                     "title": "No proxy",
-                                    "description": "To be passed to the NO_PROXY environment variable in all hosts."
+                                    "description": "Comma-separated addresses to be passed to the NO_PROXY environment variable in all hosts."
                                 }
                             }
                         },
