@@ -20,6 +20,6 @@ restrictions:
   compatibleProviders:
     - aws
 dependencies:
-  - repository: https://giantswarm.github.io/cluster-catalog
+  - repository: https://giantswarm.github.io/cluster-test-catalog
     name: cluster
-    version: 8.0.0
+    version: 8.0.1-dev.xpkim.2026-09-03.15-18-21.h23cbeed
