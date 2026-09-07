@@ -59,6 +59,7 @@ spec:
             "Resource": "*",
             "Effect": "Allow"
           },
+        {{- if .Values.global.providerSpecific.iam.ecr.permissionsEnabled }}
           {
             "Action": [
               "ecr:GetAuthorizationToken",
@@ -72,6 +73,7 @@ spec:
             "Resource": "*",
             "Effect": "Allow"
           },
+        {{- end }}
           {
             "Action": [
               "ec2:AssignPrivateIpAddresses",

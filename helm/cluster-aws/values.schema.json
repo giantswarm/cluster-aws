@@ -2821,6 +2821,28 @@
                             "description": "AWS account ID owning the Flatcar Container Linux AMI.",
                             "default": "706635527432"
                         },
+                        "iam": {
+                            "type": "object",
+                            "title": "Identity and access management",
+                            "description": "Settings for the IAM roles which the EC2 instances of the cluster assume.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "ecr": {
+                                    "type": "object",
+                                    "title": "Amazon Elastic Container Registry",
+                                    "description": "Settings for the Amazon ECR permissions on the control plane and worker node IAM roles.",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "permissionsEnabled": {
+                                            "type": "boolean",
+                                            "title": "Allow nodes to pull images from Amazon ECR",
+                                            "description": "Defaults to true. The control plane and worker node IAM roles get read-only Amazon ECR permissions. Only disable this if your clusters never pull container images from Amazon ECR, including via a registry configured in `global.components.containerd.containerRegistries` that relies on the node IAM role for authentication.",
+                                            "default": true
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         "instanceMetadataOptions": {
                             "type": "object",
                             "title": "Instance metadata options",
