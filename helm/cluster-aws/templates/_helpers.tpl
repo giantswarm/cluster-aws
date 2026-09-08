@@ -173,6 +173,19 @@ gsoci.azurecr.io
 - {{ $.Values.global.connectivity.network.vpcCidr }}
 {{- end }}
 
+{{/*
+    Provider commands to run before kubeadm on worker nodes. The cluster chart renders this template once per
+    node pool through providerIntegration.workers.kubeadmConfig.preKubeadmCommandsTemplateName, in its own
+    context: $.Values are the cluster chart values and $.nodePool holds the current node pool (name, config).
+    Do not use $.Files here, it would read the files of the cluster chart. Scripts travel through the
+    provider-specific-files Secret and the workers kubeadmConfig.files instead.
+*/}}
+{{- define "awsWorkersPreKubeadmCommands" }}
+{{- if ((($.nodePool).config).localNvme).enabled }}
+- /opt/bin/setup-local-nvme.sh
+{{- end }}
+{{- end }}
+
 {{- define "resource.default.additionalTags" -}}
 {{- if .Values.global.providerSpecific.additionalResourceTags }}
 {{ toYaml .Values.global.providerSpecific.additionalResourceTags }}

@@ -391,6 +391,18 @@
                                         }
                                     }
                                 },
+                                "localNvme": {
+                                    "type": "object",
+                                    "title": "Local instance-store NVMe storage",
+                                    "description": "Use the local instance-store NVMe disks of the instance for `/var/lib/kubelet`, where the kubelet keeps pod `emptyDir` volumes and other ephemeral pod data. Several disks are combined into one RAID 0 array. Container images stay on the EBS lib volume. Karpenter then only launches instance types with instance store (requirement `karpenter.k8s.aws/instance-local-nvme Exists`) and accounts for the `nodefs.available` eviction threshold. An instance stop/start wipes the instance store and the node must be replaced. Changing this setting rolls the nodes of the node pool once.",
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean",
+                                            "title": "Enable",
+                                            "default": false
+                                        }
+                                    }
+                                },
                                 "logVolumeSizeGB": {
                                     "type": "integer",
                                     "title": "Log volume size (GB)",
@@ -731,6 +743,18 @@
                                     "title": "Lib volume size (GB)",
                                     "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
                                     "default": 120
+                                },
+                                "localNvme": {
+                                    "type": "object",
+                                    "title": "Local instance-store NVMe storage",
+                                    "description": "Use the local instance-store NVMe disks of the instance for `/var/lib/kubelet`, where the kubelet keeps pod `emptyDir` volumes and other ephemeral pod data. Several disks are combined into one RAID 0 array. Container images stay on the EBS lib volume. Requires an instance type with instance store, for example `m6id`, `r6id`, `c6id` or `i4i`. Instances without instance store keep `/var/lib/kubelet` on the EBS lib volume. An instance stop/start wipes the instance store and the node must be replaced. Changing this setting rolls the nodes of the node pool once.",
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean",
+                                            "title": "Enable",
+                                            "default": false
+                                        }
+                                    }
                                 },
                                 "logVolumeSizeGB": {
                                     "type": "integer",
@@ -1217,7 +1241,19 @@
                             }
                         },
                         "kubeadmConfig": {
-                            "files": [],
+                            "files": [
+                                {
+                                    "contentFrom": {
+                                        "secret": {
+                                            "key": "setup-local-nvme.sh",
+                                            "name": "provider-specific-files-5",
+                                            "prependClusterNameAsPrefix": true
+                                        }
+                                    },
+                                    "path": "/opt/bin/setup-local-nvme.sh",
+                                    "permissions": "0755"
+                                }
+                            ],
                             "ignition": {
                                 "containerLinuxConfig": {
                                     "additionalConfig": {
@@ -1290,6 +1326,7 @@
                                     }
                                 }
                             },
+                            "preKubeadmCommandsTemplateName": "awsWorkersPreKubeadmCommands",
                             "taints": [
                                 {
                                     "effect": "NoExecute",

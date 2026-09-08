@@ -14,5 +14,6 @@ data:
   kubelet-aws-config.sh: {{ tpl ($.Files.Get "files/opt/bin/kubelet-aws-config.sh") $ | b64enc | quote }}
   99-unmanaged-devices.network: {{ tpl ($.Files.Get "files/etc/systemd/network/99-unmanaged-devices.network") $ | b64enc | quote }}
   wait-elb-dns.sh: {{ tpl ($.Files.Get "files/opt/bin/wait-elb-dns.sh") $ | b64enc | quote }}
+  setup-local-nvme.sh: {{ tpl ($.Files.Get "files/opt/bin/setup-local-nvme.sh") $ | b64enc | quote }}
 type: Opaque
 {{ end }}

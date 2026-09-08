@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `global.nodePools.<pool>.localNvme.enabled` to use instance-store NVMe for `/var/lib/kubelet` on worker node pools.
+
 ### Changed
 
 - Chart: Update `cluster` to v8.2.0.
