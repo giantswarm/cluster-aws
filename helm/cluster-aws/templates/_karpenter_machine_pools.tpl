@@ -36,6 +36,9 @@ spec:
         deleteOnTermination: true
     instanceProfile: {{ include "resource.default.name" $ }}-worker
     kubelet:
+      evictionHard:
+        memory.available: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.evictionHard.memoryAvailable | quote }}
+        imagefs.available: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.evictionHard.imagefsAvailable | quote }}
       systemReserved:
         cpu: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.systemReserved.cpu }}
         memory: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.systemReserved.memory }}

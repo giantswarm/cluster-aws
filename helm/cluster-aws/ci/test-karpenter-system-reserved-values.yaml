@@ -29,6 +29,9 @@ cluster:
           cpu: 700m
           memory: 2048Mi
           ephemeralStorage: 2048Mi
+        evictionHard:
+          memoryAvailable: 300Mi
+          imagefsAvailable: 20%
     ephemeralConfiguration:
       offlineTesting:
         renderWithoutReleaseResource: true
