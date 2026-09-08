@@ -362,6 +362,7 @@ global:
         enabled: false
     selinux:
       mode: permissive
+      writablePolicyStore: true
   connectivity:
     availabilityZoneUsageLimit: 3
     certManager:
