@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [10.1.0] - 2026-09-08
+
 ### Added
 
 - Add `global.providerSpecific.iam.ecr.permissionsEnabled` (default `true`) so clusters that never pull container images from Amazon ECR can optionally configure dropping the read-only ECR permissions from the control plane and worker node IAM roles
@@ -2044,7 +2046,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v10.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v10.1.0...HEAD
+[10.1.0]: https://github.com/giantswarm/cluster-aws/compare/v10.0.1...v10.1.0
 [10.0.1]: https://github.com/giantswarm/cluster-aws/compare/v10.0.0...v10.0.1
 [10.0.0]: https://github.com/giantswarm/cluster-aws/compare/v9.0.0...v10.0.0
 [9.0.0]: https://github.com/giantswarm/cluster-aws/compare/v8.9.1...v9.0.0
