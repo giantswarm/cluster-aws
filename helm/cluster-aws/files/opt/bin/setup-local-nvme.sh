@@ -4,7 +4,7 @@
 #
 # The cluster-aws chart runs this script as a pre-kubeadm command on the worker nodes of node pools that
 # set `localNvme.enabled: true` (see the `awsWorkersPreKubeadmCommands` template). It must run before
-# `kubeadm join`, which writes the kubelet configuration into /var/lib/kubelet.
+# `kubeadm join`, which writes the kubelet configuration into /var/lib/kubelet and starts the kubelet.
 #
 # - Instances without instance-store disks keep /var/lib/kubelet on the EBS lib volume. Nothing else changes.
 # - Several instance-store disks are combined into one RAID 0 array.
@@ -69,7 +69,13 @@ mkfs.xfs -f -L "${FS_LABEL}" "${device}"
 # Wait for udev to create /dev/disk/by-label/${FS_LABEL} before the mount unit refers to it.
 udevadm settle
 
-# Preserve anything that already exists in the kubelet directory (normally nothing at this point).
+# kubelet.service is enabled in the image and restarts every 10 seconds until kubeadm writes its configuration
+# into ${MOUNT_PATH}. It fails before it opens anything there, so the directory is normally still empty. Stop
+# the service anyway so that no process holds files in the old directory while it moves to the new filesystem.
+# The kubelet-start phase of `kubeadm join` starts the kubelet again after it has written the configuration.
+systemctl stop kubelet.service
+
+# Preserve anything that already exists in the kubelet directory.
 mkdir -p "${MOUNT_PATH}"
 if [ -n "$(ls -A "${MOUNT_PATH}")" ]; then
   echo "Copying existing content of ${MOUNT_PATH} to the new filesystem"
