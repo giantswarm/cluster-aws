@@ -155,6 +155,11 @@ spec:
           values:
           - linux
         {{- end }}
+        {{- /* When using instance store disk(s), require a matching instance type */}}
+        {{- if include "usesInstanceStoreForKubelet" $value }}
+        - key: karpenter.k8s.aws/instance-local-nvme
+          operator: Exists
+        {{- end }}
         startupTaints:
         - effect: NoSchedule
           key: node.cluster.x-k8s.io/uninitialized

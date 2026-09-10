@@ -1,0 +1,14 @@
+[Unit]
+Description=Instance-store filesystem for /var/lib/kubelet
+Requires=instance-store-setup.service
+After=instance-store-setup.service
+RequiresMountsFor=/var/lib
+
+[Mount]
+What=/dev/disk/by-label/kubelet-instance-store
+Where=/var/lib/kubelet
+Type=xfs
+Options=defaults,noatime
+
+[Install]
+WantedBy=local-fs.target

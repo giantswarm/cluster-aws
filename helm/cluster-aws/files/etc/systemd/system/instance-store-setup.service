@@ -1,0 +1,10 @@
+[Unit]
+Description=Prepare the instance-store disks for /var/lib/kubelet
+Before=kubeadm.service
+# The instance store survives a reboot, so the filesystem only has to be created once per instance.
+ConditionPathExists=!/dev/disk/by-label/kubelet-instance-store
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/bin/setup-instance-store.sh

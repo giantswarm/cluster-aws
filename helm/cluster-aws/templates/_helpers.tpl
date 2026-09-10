@@ -173,6 +173,58 @@ gsoci.azurecr.io
 - {{ $.Values.global.connectivity.network.vpcCidr }}
 {{- end }}
 
+{{- define "usesInstanceStoreForKubelet" -}}
+{{- if eq (.kubeletVolume | default "lib") "instanceStore" }}true{{ end }}
+{{- end -}}
+
+{{- define "awsWorkersPreKubeadmCommands" }}
+{{- if include "usesInstanceStoreForKubelet" $.nodePool.config }}
+- systemctl daemon-reload
+- systemctl enable --now var-lib-kubelet.mount
+- chmod 0750 /var/lib/kubelet
+{{- end }}
+{{- end }}
+
+{{- define "awsWorkersFiles" }}
+{{- if include "usesInstanceStoreForKubelet" $.nodePool.config }}
+- path: /opt/bin/setup-instance-store.sh
+  permissions: "0755"
+  contentFrom:
+    secret:
+      name: provider-specific-files-5
+      key: setup-instance-store.sh
+      prependClusterNameAsPrefix: true
+- path: /etc/systemd/system/instance-store-setup.service
+  permissions: "0644"
+  contentFrom:
+    secret:
+      name: provider-specific-files-5
+      key: instance-store-setup.service
+      prependClusterNameAsPrefix: true
+- path: /etc/systemd/system/var-lib-kubelet.mount
+  permissions: "0644"
+  contentFrom:
+    secret:
+      name: provider-specific-files-5
+      key: var-lib-kubelet.mount
+      prependClusterNameAsPrefix: true
+- path: /etc/systemd/system/kubelet.service.d/20-var-lib-kubelet-mount.conf
+  permissions: "0644"
+  contentFrom:
+    secret:
+      name: provider-specific-files-5
+      key: 20-var-lib-kubelet-mount.conf
+      prependClusterNameAsPrefix: true
+- path: /etc/kubernetes/patches/kubeletconfiguration2awsinstancestore+merge.yaml
+  permissions: "0644"
+  contentFrom:
+    secret:
+      name: provider-specific-files-5
+      key: kubeletconfiguration2awsinstancestore+merge.yaml
+      prependClusterNameAsPrefix: true
+{{- end }}
+{{- end }}
+
 {{- define "resource.default.additionalTags" -}}
 {{- if .Values.global.providerSpecific.additionalResourceTags }}
 {{ toYaml .Values.global.providerSpecific.additionalResourceTags }}

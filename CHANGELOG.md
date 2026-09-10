@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `global.nodePools.<pool>.kubeletVolume` to place `/var/lib/kubelet` on the instance-store disks of a node pool's nodes, so that pod `emptyDir` volumes use local disks instead of the EBS lib volume. Only the nodes of node pools that set `instanceStore` are rolled; every other node pool keeps its `KubeadmConfig` unchanged.
+
 ### Changed
 
 - Chart: Update `cluster` to v8.3.0.

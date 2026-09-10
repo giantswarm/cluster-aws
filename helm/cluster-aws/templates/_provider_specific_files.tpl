@@ -14,5 +14,10 @@ data:
   kubelet-aws-config.sh: {{ tpl ($.Files.Get "files/opt/bin/kubelet-aws-config.sh") $ | b64enc | quote }}
   99-unmanaged-devices.network: {{ tpl ($.Files.Get "files/etc/systemd/network/99-unmanaged-devices.network") $ | b64enc | quote }}
   wait-elb-dns.sh: {{ tpl ($.Files.Get "files/opt/bin/wait-elb-dns.sh") $ | b64enc | quote }}
+  setup-instance-store.sh: {{ tpl ($.Files.Get "files/opt/bin/setup-instance-store.sh") $ | b64enc | quote }}
+  instance-store-setup.service: {{ tpl ($.Files.Get "files/etc/systemd/system/instance-store-setup.service") $ | b64enc | quote }}
+  var-lib-kubelet.mount: {{ tpl ($.Files.Get "files/etc/systemd/system/var-lib-kubelet.mount") $ | b64enc | quote }}
+  20-var-lib-kubelet-mount.conf: {{ tpl ($.Files.Get "files/etc/systemd/system/kubelet.service.d/20-var-lib-kubelet-mount.conf") $ | b64enc | quote }}
+  kubeletconfiguration2awsinstancestore+merge.yaml: {{ tpl ($.Files.Get "files/etc/kubernetes/patches/kubeletconfiguration2awsinstancestore+merge.yaml") $ | b64enc | quote }}
 type: Opaque
 {{ end }}

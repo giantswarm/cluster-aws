@@ -365,10 +365,20 @@
                                     "default": "720h",
                                     "pattern": "^(([0-9]+(s|m|h))+|Never)$"
                                 },
+                                "kubeletVolume": {
+                                    "type": "string",
+                                    "title": "Kubelet volume",
+                                    "description": "Filesystem for `/var/lib/kubelet`, where the kubelet keeps pod `emptyDir` volumes and other ephemeral pod data. `lib` keeps it on the EBS lib volume (see `libVolumeSizeGB`). `instanceStore` places it on the instance-store disks of the node instead, combining several disks into one RAID0 array. Container images and the writable container layers stay on the EBS lib volume. Karpenter is told to only launch instance types that have instance store and to skip the HDD-backed `d` instance category, so that the nodes do not fail to start; see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-store-volumes.html. The kubelet eviction thresholds `nodefs.available` and `nodefs.inodesFree` are set on the node. An instance stop/start wipes the instance store; the kubelet does not start on such a node and the node must be deleted.",
+                                    "enum": [
+                                        "lib",
+                                        "instanceStore"
+                                    ],
+                                    "default": "lib"
+                                },
                                 "libVolumeSizeGB": {
                                     "type": "integer",
                                     "title": "Lib volume size (GB)",
-                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
+                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`. With `kubeletVolume: instanceStore`, `/var/lib/kubelet` moves to the instance store and this volume holds container images and writable container layers only.",
                                     "default": 120
                                 },
                                 "limits": {
@@ -711,6 +721,16 @@
                                     "type": "integer",
                                     "title": "Time interval, in seconds, between node replacement."
                                 },
+                                "kubeletVolume": {
+                                    "type": "string",
+                                    "title": "Kubelet volume",
+                                    "description": "Filesystem for `/var/lib/kubelet`, where the kubelet keeps pod `emptyDir` volumes and other ephemeral pod data. `lib` keeps it on the EBS lib volume (see `libVolumeSizeGB`). `instanceStore` places it on the instance-store disks of the node instead, combining several disks into one RAID0 array. Container images and the writable container layers stay on the EBS lib volume. Requires an `instanceType` with instance store volumes, or the nodes will fail to start. This works both for fast, NVMe-backed and slow, HDD-backed instance store volumes; see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-store-volumes.html. The kubelet eviction thresholds `nodefs.available` and `nodefs.inodesFree` are set on the node. An instance stop/start wipes the instance store; the kubelet does not start on such a node and the node must be deleted. Changing this setting rolls the nodes of the node pool once.",
+                                    "enum": [
+                                        "lib",
+                                        "instanceStore"
+                                    ],
+                                    "default": "lib"
+                                },
                                 "labels": {
                                     "type": "object",
                                     "title": "Labels",
@@ -729,7 +749,7 @@
                                 "libVolumeSizeGB": {
                                     "type": "integer",
                                     "title": "Lib volume size (GB)",
-                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
+                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`. With `kubeletVolume: instanceStore`, `/var/lib/kubelet` moves to the instance store and this volume holds container images and writable container layers only.",
                                     "default": 120
                                 },
                                 "logVolumeSizeGB": {
@@ -1290,6 +1310,7 @@
                                     }
                                 }
                             },
+                            "preKubeadmCommandsTemplateName": "awsWorkersPreKubeadmCommands",
                             "taints": [
                                 {
                                     "effect": "NoExecute",
