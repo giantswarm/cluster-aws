@@ -39,6 +39,10 @@ spec:
       evictionHard:
         memory.available: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.evictionHard.memoryAvailable | quote }}
         imagefs.available: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.evictionHard.imagefsAvailable | quote }}
+        {{- if (($value.localNvme).enabled) }}
+        {{- /* setup-local-nvme.sh mounts the instance store at /var/lib/kubelet and sets the same threshold on the node. */}}
+        nodefs.available: "10%"
+        {{- end }}
       systemReserved:
         cpu: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.systemReserved.cpu }}
         memory: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.systemReserved.memory }}
@@ -154,6 +158,10 @@ spec:
           operator: In
           values:
           - linux
+        {{- end }}
+        {{- if (($value.localNvme).enabled) }}
+        - key: karpenter.k8s.aws/instance-local-nvme
+          operator: Exists
         {{- end }}
         startupTaints:
         - effect: NoSchedule

@@ -247,7 +247,14 @@ cluster:
           minHealthyPercentage: 90
           minSize: 3
       kubeadmConfig:
-        files: []
+        files:
+          - contentFrom:
+              secret:
+                key: setup-local-nvme.sh
+                name: provider-specific-files-5
+                prependClusterNameAsPrefix: true
+            path: /opt/bin/setup-local-nvme.sh
+            permissions: "0755"
         ignition:
           containerLinuxConfig:
             additionalConfig:
@@ -293,6 +300,7 @@ cluster:
                         description: log volume
                     enabled: true
                     name: var-log.mount
+        preKubeadmCommandsTemplateName: awsWorkersPreKubeadmCommands
         taints:
           - effect: NoExecute
             key: ebs.csi.aws.com/agent-not-ready
