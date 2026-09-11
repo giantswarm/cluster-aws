@@ -28,6 +28,10 @@ global:
             - r6id
     karp0:
       type: karpenter
+    nvmekarp1:
+      type: karpenter
+      localNvme:
+        enabled: true
   providerSpecific:
     region: "eu-west-1"
   release:

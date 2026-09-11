@@ -40,7 +40,8 @@ spec:
         memory.available: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.evictionHard.memoryAvailable | quote }}
         imagefs.available: {{ $.Values.cluster.internal.advancedConfiguration.kubelet.evictionHard.imagefsAvailable | quote }}
         {{- if (($value.localNvme).enabled) }}
-        {{- /* setup-local-nvme.sh mounts the instance store at /var/lib/kubelet and sets the same threshold on the node. */}}
+        {{- /* Karpenter uses this value for its ephemeral-storage estimate only. The kubelet on the node gets the same
+             threshold from the kubeadm patch that setup-local-nvme.sh writes. Keep both in sync. */}}
         nodefs.available: "10%"
         {{- end }}
       systemReserved:
@@ -162,6 +163,11 @@ spec:
         {{- if (($value.localNvme).enabled) }}
         - key: karpenter.k8s.aws/instance-local-nvme
           operator: Exists
+        {{- /* The `d` category (d3, d3en) exposes HDDs as NVMe instance store. Keep /var/lib/kubelet off spinning disks. */}}
+        - key: karpenter.k8s.aws/instance-category
+          operator: NotIn
+          values:
+          - d
         {{- end }}
         startupTaints:
         - effect: NoSchedule

@@ -368,7 +368,7 @@
                                 "libVolumeSizeGB": {
                                     "type": "integer",
                                     "title": "Lib volume size (GB)",
-                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
+                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`. With `localNvme` enabled, `/var/lib/kubelet` moves to the instance store and this volume holds container images and writable container layers only.",
                                     "default": 120
                                 },
                                 "limits": {
@@ -394,7 +394,7 @@
                                 "localNvme": {
                                     "type": "object",
                                     "title": "Local instance-store NVMe storage",
-                                    "description": "Use the local instance-store NVMe disks of the instance for `/var/lib/kubelet`, where the kubelet keeps pod `emptyDir` volumes and other ephemeral pod data. Several disks are combined into one RAID 0 array. Container images stay on the EBS lib volume. Karpenter then only launches instance types with instance store (requirement `karpenter.k8s.aws/instance-local-nvme Exists`) and accounts for the `nodefs.available` eviction threshold. An instance stop/start wipes the instance store and the node must be replaced. Changing this setting rolls the nodes of the node pool once.",
+                                    "description": "Use the local instance-store NVMe disks of the instance for `/var/lib/kubelet`, where the kubelet keeps pod `emptyDir` volumes and other ephemeral pod data. Several disks are combined into one RAID 0 array. Container images and the writable container layers stay on the EBS lib volume (`libVolumeSizeGB`). Karpenter only launches instance types with instance store (requirement `karpenter.k8s.aws/instance-local-nvme Exists`) and excludes the HDD-backed `d` instance category. The kubelet eviction thresholds `nodefs.available: 10%` and `nodefs.inodesFree: 5%` are set on the node. Enabling this does not replace nodes that already run on an instance type with instance store; they keep `/var/lib/kubelet` on the EBS lib volume until Karpenter replaces them. An instance stop/start wipes the instance store; the kubelet does not start on such a node and the node must be deleted.",
                                     "properties": {
                                         "enabled": {
                                             "type": "boolean",
@@ -741,13 +741,13 @@
                                 "libVolumeSizeGB": {
                                     "type": "integer",
                                     "title": "Lib volume size (GB)",
-                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
+                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`. With `localNvme` enabled, `/var/lib/kubelet` moves to the instance store and this volume holds container images and writable container layers only.",
                                     "default": 120
                                 },
                                 "localNvme": {
                                     "type": "object",
                                     "title": "Local instance-store NVMe storage",
-                                    "description": "Use the local instance-store NVMe disks of the instance for `/var/lib/kubelet`, where the kubelet keeps pod `emptyDir` volumes and other ephemeral pod data. Several disks are combined into one RAID 0 array. Container images stay on the EBS lib volume. Requires an instance type with instance store, for example `m6id`, `r6id`, `c6id` or `i4i`. Instances without instance store keep `/var/lib/kubelet` on the EBS lib volume. An instance stop/start wipes the instance store and the node must be replaced. Changing this setting rolls the nodes of the node pool once.",
+                                    "description": "Use the local instance-store NVMe disks of the instance for `/var/lib/kubelet`, where the kubelet keeps pod `emptyDir` volumes and other ephemeral pod data. Several disks are combined into one RAID 0 array. Container images and the writable container layers stay on the EBS lib volume (`libVolumeSizeGB`). Use an instance type with SSD instance store, for example `m6id`, `r6id`, `c6id` or `i4i`; an instance type without instance store keeps `/var/lib/kubelet` on the EBS lib volume without an error. The kubelet eviction thresholds `nodefs.available: 10%` and `nodefs.inodesFree: 5%` are set on the node. An instance stop/start wipes the instance store; the kubelet does not start on such a node and the node must be deleted. Changing this setting rolls the nodes of the node pool once.",
                                     "properties": {
                                         "enabled": {
                                             "type": "boolean",

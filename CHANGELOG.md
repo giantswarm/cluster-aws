@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add `global.nodePools.<pool>.localNvme.enabled` to use instance-store NVMe for `/var/lib/kubelet` on worker node pools.
+- *This change will roll the worker nodes of `machinepool` node pools* Add `global.nodePools.<pool>.localNvme.enabled` to use instance-store NVMe for `/var/lib/kubelet` on worker node pools. The bootstrap script is added to every worker node; it only acts on node pools with the option enabled.
 
 ### Changed
 
