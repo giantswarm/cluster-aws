@@ -194,28 +194,28 @@ gsoci.azurecr.io
   permissions: "0755"
   contentFrom:
     secret:
-      name: provider-specific-files-5
+      name: provider-specific-files-6
       key: setup-instance-store.sh
       prependClusterNameAsPrefix: true
 - path: /etc/systemd/system/instance-store-setup.service
   permissions: "0644"
   contentFrom:
     secret:
-      name: provider-specific-files-5
+      name: provider-specific-files-6
       key: instance-store-setup.service
       prependClusterNameAsPrefix: true
 - path: /etc/systemd/system/var-lib-kubelet.mount
   permissions: "0644"
   contentFrom:
     secret:
-      name: provider-specific-files-5
+      name: provider-specific-files-6
       key: var-lib-kubelet.mount
       prependClusterNameAsPrefix: true
 - path: /etc/systemd/system/kubelet.service.d/20-var-lib-kubelet-mount.conf
   permissions: "0644"
   contentFrom:
     secret:
-      name: provider-specific-files-5
+      name: provider-specific-files-6
       key: 20-var-lib-kubelet-mount.conf
       prependClusterNameAsPrefix: true
 {{- end }}

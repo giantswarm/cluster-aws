@@ -6,12 +6,8 @@ metadata:
       You MUST bump the name suffix here and in `values.schema.json` every time one of these files
       changes its content. Automatically appending a hash of the content here doesn't work
       since we'd need to edit `values.schema.json` as well, but that file is created by humans.
-
-      But: If you add things here that don't end up in `KubeadmConfig` of any control-plane/worker
-      node, the suffix needs no change. You should then ensure elsewhere that node affected by the
-      new files get rolled.
   */}}
-  name: {{ include "resource.default.name" $ }}-provider-specific-files-5
+  name: {{ include "resource.default.name" $ }}-provider-specific-files-6
   namespace: {{ $.Release.Namespace | quote }}
 data:
   kubelet-aws-config.service: {{ tpl ($.Files.Get "files/etc/systemd/system/kubelet-aws-config.service") $ | b64enc | quote }}
