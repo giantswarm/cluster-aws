@@ -11,7 +11,7 @@ err_report() {
 }
 trap 'err_report ${LINENO}' ERR
 
-FS_LABEL="kubelet-instance-store"
+FS_LABEL="lib-kubelet" # mind 12-char maximum of XFS labels
 RAID_DEVICE="/dev/md/instancestore"
 
 # Look up NVMe instance store disks (adapted from https://github.com/awslabs/amazon-eks-ami/blob/main/templates/al2023/runtime/bin/setup-local-disks).
