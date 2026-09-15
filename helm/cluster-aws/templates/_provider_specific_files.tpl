@@ -6,6 +6,10 @@ metadata:
       You MUST bump the name suffix here and in `values.schema.json` every time one of these files
       changes its content. Automatically appending a hash of the content here doesn't work
       since we'd need to edit `values.schema.json` as well, but that file is created by humans.
+
+      But: If you add things here that don't end up in `KubeadmConfig` of any control-plane/worker
+      node, the suffix needs no change. You should then ensure elsewhere that node affected by the
+      new files get rolled.
   */}}
   name: {{ include "resource.default.name" $ }}-provider-specific-files-5
   namespace: {{ $.Release.Namespace | quote }}
@@ -18,6 +22,5 @@ data:
   instance-store-setup.service: {{ tpl ($.Files.Get "files/etc/systemd/system/instance-store-setup.service") $ | b64enc | quote }}
   var-lib-kubelet.mount: {{ tpl ($.Files.Get "files/etc/systemd/system/var-lib-kubelet.mount") $ | b64enc | quote }}
   20-var-lib-kubelet-mount.conf: {{ tpl ($.Files.Get "files/etc/systemd/system/kubelet.service.d/20-var-lib-kubelet-mount.conf") $ | b64enc | quote }}
-  kubeletconfiguration2awsinstancestore+merge.yaml: {{ tpl ($.Files.Get "files/etc/kubernetes/patches/kubeletconfiguration2awsinstancestore+merge.yaml") $ | b64enc | quote }}
 type: Opaque
 {{ end }}

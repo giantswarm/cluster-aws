@@ -182,6 +182,9 @@ gsoci.azurecr.io
 - systemctl daemon-reload
 - systemctl enable --now var-lib-kubelet.mount
 - chmod 0750 /var/lib/kubelet
+{{- if ne $.Values.global.components.selinux.mode "disabled" }}
+- restorecon -RF /var/lib/kubelet
+{{- end }}
 {{- end }}
 {{- end }}
 
@@ -214,13 +217,6 @@ gsoci.azurecr.io
     secret:
       name: provider-specific-files-5
       key: 20-var-lib-kubelet-mount.conf
-      prependClusterNameAsPrefix: true
-- path: /etc/kubernetes/patches/kubeletconfiguration2awsinstancestore+merge.yaml
-  permissions: "0644"
-  contentFrom:
-    secret:
-      name: provider-specific-files-5
-      key: kubeletconfiguration2awsinstancestore+merge.yaml
       prependClusterNameAsPrefix: true
 {{- end }}
 {{- end }}

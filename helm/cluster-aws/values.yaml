@@ -248,6 +248,7 @@ cluster:
           minSize: 3
       kubeadmConfig:
         files: []
+        filesTemplateName: awsWorkersFiles
         ignition:
           containerLinuxConfig:
             additionalConfig:

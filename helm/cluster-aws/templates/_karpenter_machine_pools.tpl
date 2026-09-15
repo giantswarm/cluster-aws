@@ -155,10 +155,20 @@ spec:
           values:
           - linux
         {{- end }}
-        {{- /* When using instance store disk(s), require a matching instance type */}}
+        {{- /*
+            Putting `/var/lib/kubelet` on the instance store needs an instance type that has one.
+            Karpenter sets `instance-local-nvme` only for instance types whose instance store is
+            NVMe-attached, which is the only kind `setup-instance-store.sh` finds. On top of that,
+            the `d` families are the NVMe-attached ones built from HDDs rather than SSDs, which
+            would defeat the point of moving the kubelet directory off the EBS volume.
+        */}}
         {{- if include "usesInstanceStoreForKubelet" $value }}
         - key: karpenter.k8s.aws/instance-local-nvme
           operator: Exists
+        - key: karpenter.k8s.aws/instance-category
+          operator: NotIn
+          values:
+          - d
         {{- end }}
         startupTaints:
         - effect: NoSchedule
