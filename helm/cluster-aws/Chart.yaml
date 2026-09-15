@@ -22,4 +22,4 @@ restrictions:
 dependencies:
   - repository: https://giantswarm.github.io/cluster-test-catalog
     name: cluster
-    version: 8.3.1-dev.merge-defau--on-settings.2026-09-15.13-48-52.h23224af
+    version: 8.3.1-dev.files-template-name-hook.2026-09-15.14-17-12.hb3f1c1b
