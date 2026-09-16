@@ -19,6 +19,14 @@ RAID_DEVICE="/dev/md/instancestore"
 # The symlinks only appear once udev has processed the devices
 udevadm settle
 
+# The instance store survives a reboot, so the filesystem only has to be created once per instance.
+mdadm --assemble --scan || true
+udevadm settle
+if [ -e "/dev/disk/by-label/${FS_LABEL}" ]; then
+  echo "Filesystem with label '${FS_LABEL}' already exists, nothing to do"
+  exit 0
+fi
+
 # udev creates several `by-id` symlinks per disk, one of them suffixed with the namespace ID, so
 # resolve them to device nodes and deduplicate
 readarray -t disks < <(find -L /dev/disk/by-id/ -xtype l \
@@ -34,14 +42,14 @@ echo "Found ${#disks[@]} instance-store disk(s): ${disks[*]}"
 if [ "${#disks[@]}" -eq 1 ]; then
   device="${disks[0]}"
 else
-  echo "Creating RAID0 array ${RAID_DEVICE} from ${#disks[@]} disks"
+  echo "Creating RAID0 array '${RAID_DEVICE}' from ${#disks[@]} disks"
   # `--homehost=any` keeps the array assemblable after a reboot even if the host name changed. Without
   # it a failed assembly would leave the label missing, and this script would reformat the disks.
   mdadm --create "${RAID_DEVICE}" --run --force --homehost=any --level=0 --raid-devices="${#disks[@]}" "${disks[@]}"
   device="${RAID_DEVICE}"
 fi
 
-echo "Creating XFS filesystem with label ${FS_LABEL} on ${device}"
+echo "Creating XFS filesystem with label '${FS_LABEL}' on '${device}'"
 mkfs.xfs -f -L "${FS_LABEL}" "${device}"
 # Wait for udev to create `/dev/disk/by-label/${FS_LABEL}`, which `var-lib-kubelet.mount` refers to
 udevadm settle

@@ -1,5 +1,9 @@
 [Unit]
 Description=Instance-store filesystem for /var/lib/kubelet
+
+# Run before `local-fs.target`
+DefaultDependencies=no
+
 Requires=instance-store-setup.service
 After=instance-store-setup.service
 RequiresMountsFor=/var/lib
@@ -11,4 +15,4 @@ Type=xfs
 Options=defaults,noatime
 
 [Install]
-WantedBy=local-fs.target
+WantedBy=local-fs-pre.target

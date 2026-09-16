@@ -1,8 +1,12 @@
 [Unit]
 Description=Prepare the instance-store disks for /var/lib/kubelet
-Before=kubeadm.service
-# The instance store survives a reboot, so the filesystem only has to be created once per instance.
-ConditionPathExists=!/dev/disk/by-label/lib-kubelet
+
+# Avoid an ordering cycle: the default orders after `local-fs.target`, but we need to run this and `var-lib-kubelet.mount` before that
+DefaultDependencies=no
+
+Conflicts=shutdown.target
+After=systemd-udevd.service
+Before=kubeadm.service shutdown.target
 
 [Service]
 Type=oneshot

@@ -1,13 +1,20 @@
+{{/*
+    The cluster name is prepended to this, either by `resource.default.name` below or by the
+    `prependClusterNameAsPrefix` field of the referencing `contentFrom.secret`.
+
+    You MUST bump the numeric name suffix here and in `values.schema.json` every time one of these files
+    changes its content. Automatically appending a hash of the content here doesn't work
+    since we'd need to edit `values.schema.json` as well, but that file is created by humans.
+*/}}
+{{- define "provider-specific-files-secret-name" -}}
+provider-specific-files-6
+{{- end }}
+
 {{- define "provider-specific-files" }}
 apiVersion: v1
 kind: Secret
 metadata:
-  {{/*
-      You MUST bump the name suffix here and in `values.schema.json` every time one of these files
-      changes its content. Automatically appending a hash of the content here doesn't work
-      since we'd need to edit `values.schema.json` as well, but that file is created by humans.
-  */}}
-  name: {{ include "resource.default.name" $ }}-provider-specific-files-6
+  name: {{ include "resource.default.name" $ }}-{{ include "provider-specific-files-secret-name" $ }}
   namespace: {{ $.Release.Namespace | quote }}
 data:
   kubelet-aws-config.service: {{ tpl ($.Files.Get "files/etc/systemd/system/kubelet-aws-config.service") $ | b64enc | quote }}
