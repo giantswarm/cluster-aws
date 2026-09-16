@@ -1,6 +1,6 @@
 dependencies:
 - name: cluster
   repository: https://giantswarm.github.io/cluster-test-catalog
-  version: 8.3.1-dev.files-template-name-hook.2026-09-15.14-17-12.hb3f1c1b
-digest: sha256:4cdbf2221d524ac85c76e229098bcf86b49aa90771fd7382f6918c0904f72681
-generated: "2026-09-15T17:27:17.108647+02:00"
+  version: 8.3.1-dev.files-template-name-hook.2026-09-16.10-45-39.h8275c8a
+digest: sha256:b2595cf0af2bc4a169fa06a2d387515480e7e8752f6a9fe3fddf1a70ea441e0b
+generated: "2026-09-16T12:49:12.784442+02:00"
