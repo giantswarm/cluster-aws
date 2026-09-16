@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `global.nodePools.<pool>.kubeletVolume` to place `/var/lib/kubelet` on the instance-store disks of a node pool's nodes, so that pod `emptyDir` volumes use local disks instead of the EBS lib volume. This rolls all nodes.
 
+## [10.3.0] - 2026-09-15
+
 ### Changed
 
 - Chart: Update `cluster` to v8.3.0.
@@ -2060,7 +2062,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v10.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v10.3.0...HEAD
+[10.3.0]: https://github.com/giantswarm/cluster-aws/compare/v10.2.0...v10.3.0
 [10.2.0]: https://github.com/giantswarm/cluster-aws/compare/v10.1.0...v10.2.0
 [10.1.0]: https://github.com/giantswarm/cluster-aws/compare/v10.0.1...v10.1.0
 [10.0.1]: https://github.com/giantswarm/cluster-aws/compare/v10.0.0...v10.0.1
