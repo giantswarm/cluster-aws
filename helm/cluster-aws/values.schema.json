@@ -365,11 +365,11 @@
                                     "default": "720h",
                                     "pattern": "^(([0-9]+(s|m|h))+|Never)$"
                                 },
+                                "kubeletVolume": {
+                                    "$ref": "#/$defs/nodePoolKubeletVolume"
+                                },
                                 "libVolumeSizeGB": {
-                                    "type": "integer",
-                                    "title": "Lib volume size (GB)",
-                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
-                                    "default": 120
+                                    "$ref": "#/$defs/nodePoolLibVolumeSizeGB"
                                 },
                                 "limits": {
                                     "type": "object",
@@ -711,6 +711,9 @@
                                     "type": "integer",
                                     "title": "Time interval, in seconds, between node replacement."
                                 },
+                                "kubeletVolume": {
+                                    "$ref": "#/$defs/nodePoolKubeletVolume"
+                                },
                                 "labels": {
                                     "type": "object",
                                     "title": "Labels",
@@ -727,10 +730,7 @@
                                     }
                                 },
                                 "libVolumeSizeGB": {
-                                    "type": "integer",
-                                    "title": "Lib volume size (GB)",
-                                    "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`s.",
-                                    "default": 120
+                                    "$ref": "#/$defs/nodePoolLibVolumeSizeGB"
                                 },
                                 "logVolumeSizeGB": {
                                     "type": "integer",
@@ -830,6 +830,22 @@
                     ]
                 }
             ]
+        },
+        "nodePoolKubeletVolume": {
+            "type": "string",
+            "title": "Kubelet volume",
+            "description": "Filesystem for `/var/lib/kubelet`, where the kubelet keeps pod `emptyDir` volumes and other ephemeral pod data. `lib` keeps it on the EBS lib volume (see `libVolumeSizeGB`). `instanceStore` places it on the instance-store disks of the node instead, combining several disks into one RAID0 array. Container images and the writable container layers stay on the EBS lib volume. Only instance types whose instance store is NVMe-attached are supported, and the slower HDD-backed `d` instance families are excluded. See https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-store-volumes.html. Karpenter node pools automatically require matching instance types. The instance store survives reboots. But an instance stop/start wipes the instance store – the kubelet does not start on such a node and the node must be deleted.",
+            "enum": [
+                "lib",
+                "instanceStore"
+            ],
+            "default": "lib"
+        },
+        "nodePoolLibVolumeSizeGB": {
+            "type": "integer",
+            "title": "Lib volume size (GB)",
+            "description": "Size of the volume mounted at `/var/lib` on the worker nodes. This disk is shared between kubelet folder `/var/lib/kubelet` and containerd folder `/var/lib/containerd`. With `kubeletVolume: instanceStore`, `/var/lib/kubelet` moves to the instance store and this volume holds container images and writable container layers only.",
+            "default": 120
         }
     },
     "type": "object",
@@ -991,7 +1007,7 @@
                                     "contentFrom": {
                                         "secret": {
                                             "key": "wait-elb-dns.sh",
-                                            "name": "provider-specific-files-5",
+                                            "name": "provider-specific-files-6",
                                             "prependClusterNameAsPrefix": true
                                         }
                                     },
@@ -1123,7 +1139,7 @@
                                 "contentFrom": {
                                     "secret": {
                                         "key": "kubelet-aws-config.sh",
-                                        "name": "provider-specific-files-5",
+                                        "name": "provider-specific-files-6",
                                         "prependClusterNameAsPrefix": true
                                     }
                                 },
@@ -1134,7 +1150,7 @@
                                 "contentFrom": {
                                     "secret": {
                                         "key": "kubelet-aws-config.service",
-                                        "name": "provider-specific-files-5",
+                                        "name": "provider-specific-files-6",
                                         "prependClusterNameAsPrefix": true
                                     }
                                 },
@@ -1145,7 +1161,7 @@
                                 "contentFrom": {
                                     "secret": {
                                         "key": "99-unmanaged-devices.network",
-                                        "name": "provider-specific-files-5",
+                                        "name": "provider-specific-files-6",
                                         "prependClusterNameAsPrefix": true
                                     }
                                 },
@@ -1218,6 +1234,7 @@
                         },
                         "kubeadmConfig": {
                             "files": [],
+                            "filesTemplateName": "awsWorkersFiles",
                             "ignition": {
                                 "containerLinuxConfig": {
                                     "additionalConfig": {
@@ -1290,6 +1307,7 @@
                                     }
                                 }
                             },
+                            "preKubeadmCommandsTemplateName": "awsWorkersPreKubeadmCommands",
                             "taints": [
                                 {
                                     "effect": "NoExecute",

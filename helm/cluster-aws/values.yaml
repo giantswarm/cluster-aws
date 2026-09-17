@@ -100,7 +100,7 @@ cluster:
           - contentFrom:
               secret:
                 key: wait-elb-dns.sh
-                name: provider-specific-files-5
+                name: provider-specific-files-6
                 prependClusterNameAsPrefix: true
             path: /opt/bin/wait-elb-dns.sh
             permissions: "0755"
@@ -184,21 +184,21 @@ cluster:
         - contentFrom:
             secret:
               key: kubelet-aws-config.sh
-              name: provider-specific-files-5
+              name: provider-specific-files-6
               prependClusterNameAsPrefix: true
           path: /opt/bin/kubelet-aws-config.sh
           permissions: "0755"
         - contentFrom:
             secret:
               key: kubelet-aws-config.service
-              name: provider-specific-files-5
+              name: provider-specific-files-6
               prependClusterNameAsPrefix: true
           path: /etc/systemd/system/kubelet-aws-config.service
           permissions: "0644"
         - contentFrom:
             secret:
               key: 99-unmanaged-devices.network
-              name: provider-specific-files-5
+              name: provider-specific-files-6
               prependClusterNameAsPrefix: true
           path: /etc/systemd/network/99-unmanaged-devices.network
           permissions: "0644"
@@ -248,6 +248,7 @@ cluster:
           minSize: 3
       kubeadmConfig:
         files: []
+        filesTemplateName: awsWorkersFiles
         ignition:
           containerLinuxConfig:
             additionalConfig:
@@ -293,6 +294,7 @@ cluster:
                         description: log volume
                     enabled: true
                     name: var-log.mount
+        preKubeadmCommandsTemplateName: awsWorkersPreKubeadmCommands
         taints:
           - effect: NoExecute
             key: ebs.csi.aws.com/agent-not-ready

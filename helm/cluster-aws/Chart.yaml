@@ -20,6 +20,6 @@ restrictions:
   compatibleProviders:
     - aws
 dependencies:
-  - repository: https://giantswarm.github.io/cluster-catalog
+  - repository: https://giantswarm.github.io/cluster-test-catalog
     name: cluster
-    version: 8.3.0
+    version: 8.3.1-dev.files-template-name-hook.2026-09-16.10-45-39.h8275c8a
