@@ -1,0 +1,13 @@
+# Selects which NVIDIA driver Flatcar builds on nodes that have a GPU.
+#
+# /usr/lib/nvidia/bin/setup-nvidia sources the shipped defaults from
+# /usr/share/flatcar/nvidia-metadata and then this file, so anything set here
+# wins. Flatcar 4593 (the series used by Giant Swarm releases 33.x-35.x)
+# packages both 535.274.02 (its default) and 570.195.03.
+#
+# 570 is required by the DRA driver for NVIDIA GPUs from v0.4.0 onward: on 535
+# its kubelet-plugin init container loops forever because it runs
+# `nvidia-smi --version`, which 535's nvidia-smi rejects with
+# "Option --version is not recognized". Driver 535 also lacks the NVML symbol
+# nvmlDeviceGetAddressingMode that the v25.12.0-era driver called unconditionally.
+NVIDIA_DRIVER_VERSION=570.195.03
