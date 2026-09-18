@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump NVIDIA driver to **570.195.03** instead of Flatcar's default 535.274.02. The DRA driver for NVIDIA GPUs requires 570 from v0.4.0 onward. Delivered through `cluster.providerIntegration.workers.kubeadmConfig.files`.
+
 ## [10.3.0] - 2026-09-15
 
 ### Changed
