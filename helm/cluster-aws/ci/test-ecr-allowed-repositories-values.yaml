@@ -1,0 +1,32 @@
+global:
+  release:
+    version: 29.1.0
+  metadata:
+    name: test-wc-minimal
+    organization: giantswarm
+    servicePriority: lowest
+  connectivity:
+    baseDomain: example.com
+  providerSpecific:
+    iam:
+      ecr:
+        allowedRepositories:
+          my-app:
+            enabled: true
+          team-a/*:
+            enabled: true
+          arn:aws:ecr:us-east-1:999988887777:repository/shared/base-images:
+            enabled: true
+          decommissioned-app:
+            enabled: false
+    region: "eu-west-1"
+  managementCluster: test
+
+internal:
+  awsPartition: aws
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true

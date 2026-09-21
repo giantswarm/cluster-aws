@@ -78,6 +78,22 @@
                 }
             }
         },
+        "ecrAllowedRepository": {
+            "type": "object",
+            "title": "Allowed Amazon ECR repository",
+            "description": "Settings for one Amazon ECR repository which the control plane and worker node IAM roles may pull from.",
+            "required": [
+                "enabled"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "title": "Enabled",
+                    "description": "Whether the control plane and worker node IAM roles may pull from this repository. Set this to false to keep the entry but exclude the repository from the IAM policies."
+                }
+            }
+        },
         "helmRelease": {
             "type": "object",
             "title": "App",
@@ -2840,10 +2856,22 @@
                                     "description": "Settings for the Amazon ECR permissions on the control plane and worker node IAM roles.",
                                     "additionalProperties": false,
                                     "properties": {
+                                        "allowedRepositories": {
+                                            "type": "object",
+                                            "title": "Allowed Amazon ECR repositories",
+                                            "description": "Restricts which Amazon ECR repositories the control plane and worker node IAM roles may pull from. Each key is either a repository name such as `my-app`, for which the ARN is built from the cluster's own AWS partition, region, and account ID, or a full repository ARN such as `arn:aws:ecr:eu-west-1:123456789012:repository/my-app` to allow a repository in another AWS account or region. Wildcards are supported, for example `team-a/*`. If this is left empty, which is the default, all repositories are allowed. If entries exist but none of them has `enabled` set to true, the IAM roles get no Amazon ECR permissions at all. Setting `global.providerSpecific.iam.ecr.permissionsEnabled` to false takes precedence and drops the Amazon ECR permissions regardless of what is configured here. Pulling from a repository in another AWS account additionally requires that account to grant access in the repository policy. This setting does not affect Amazon ECR Public (`public.ecr.aws`), for which no permissions are granted.",
+                                            "additionalProperties": false,
+                                            "patternProperties": {
+                                                "^(arn:aws[^:]*:ecr:([-a-z0-9]+|\\*):([0-9]{12}|\\*):repository/)?(\\*|[a-z*][-a-z0-9._*]*(/[-a-z0-9._*]+)*)$": {
+                                                    "$ref": "#/$defs/ecrAllowedRepository"
+                                                }
+                                            },
+                                            "default": {}
+                                        },
                                         "permissionsEnabled": {
                                             "type": "boolean",
                                             "title": "Allow nodes to pull images from Amazon ECR",
-                                            "description": "Defaults to true. The control plane and worker node IAM roles get read-only Amazon ECR permissions. Only disable this if your clusters never pull container images from Amazon ECR, including via a registry configured in `global.components.containerd.containerRegistries` that relies on the node IAM role for authentication.",
+                                            "description": "Defaults to true. The control plane and worker node IAM roles get read-only Amazon ECR permissions. Only disable this if your clusters never pull container images from Amazon ECR, including via a registry configured in `global.components.containerd.containerRegistries` that relies on the node IAM role for authentication. Setting this to false takes precedence over (ignores) `global.providerSpecific.iam.ecr.allowedRepositories`.",
                                             "default": true
                                         }
                                     }

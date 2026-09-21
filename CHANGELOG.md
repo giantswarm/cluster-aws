@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `global.providerSpecific.iam.ecr.allowedRepositories` so the read-only Amazon ECR permissions of the control plane and worker node IAM roles can be restricted to selected repositories. Leaving the map empty or undefined keeps allowing all repositories (backwards-compatible).
+
 ## [10.3.0] - 2026-09-15
 
 ### Changed
