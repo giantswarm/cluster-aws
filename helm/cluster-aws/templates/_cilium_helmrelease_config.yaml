@@ -32,4 +32,26 @@ extraEnv:
   - name: CNI_CONF_NAME
     value: "21-cilium.conflist"
 {{- end }}
+hubble:
+  relay:
+    tolerations:
+    {{- include "cluster.internal.apps.cilium.tolerations" $ | nindent 6 }}
+    - key: ebs.csi.aws.com/agent-not-ready
+      operator: Exists
+    - key: karpenter.sh/unregistered
+      operator: Exists
+  ui:
+    tolerations:
+    {{- include "cluster.internal.apps.cilium.tolerations" $ | nindent 6 }}
+    - key: ebs.csi.aws.com/agent-not-ready
+      operator: Exists
+    - key: karpenter.sh/unregistered
+      operator: Exists
+certgen:
+  tolerations:
+  {{- include "cluster.internal.apps.cilium.tolerations" $ | nindent 4 }}
+  - key: ebs.csi.aws.com/agent-not-ready
+    operator: Exists
+  - key: karpenter.sh/unregistered
+    operator: Exists
 {{- end }}
