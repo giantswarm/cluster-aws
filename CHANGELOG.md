@@ -34,6 +34,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Karpenter node pools: take overridden kubelet `evictionHard` values from `cluster` chart to ensure correct calculation of allocatable node resources.
 - Chart: Update `cluster` to v8.1.0.
 
+### Fixed
+
+- Karpenter node pools: Select subnets by the `aws-vpc-operator` ownership tag on private clusters, since their subnets are not reconciled by CAPA.
+
 ## [10.0.1] - 2026-08-25
 
 ### Fixed
@@ -66,7 +70,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Correct taint key for ARM instances.
-- Karpenter node pools: Select subnets by the `aws-vpc-operator` ownership tag on private clusters, since their subnets are not reconciled by CAPA.
 
 ## [8.9.0] - 2026-07-17
 
