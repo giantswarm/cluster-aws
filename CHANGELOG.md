@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `global.providerSpecific.iam.ecr.allowedRepositories` so the read-only Amazon ECR permissions of the control plane and worker node IAM roles can be restricted to selected repositories. Leaving the map empty or undefined keeps allowing all repositories (backwards-compatible).
 
+### Changed
+
+- Chart: Update `cluster` to v8.3.1.
+
 ## [10.3.0] - 2026-09-15
 
 ### Changed
@@ -33,6 +37,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Karpenter node pools: take overridden kubelet `evictionHard` values from `cluster` chart to ensure correct calculation of allocatable node resources.
 - Chart: Update `cluster` to v8.1.0.
+
+### Fixed
+
+- Karpenter node pools: Select subnets by the `aws-vpc-operator` ownership tag on private clusters, since their subnets are not reconciled by CAPA.
 
 ## [10.0.1] - 2026-08-25
 
@@ -66,7 +74,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Correct taint key for ARM instances.
-- Karpenter node pools: Select subnets by the `aws-vpc-operator` ownership tag on private clusters, since their subnets are not reconciled by CAPA.
 
 ## [8.9.0] - 2026-07-17
 
