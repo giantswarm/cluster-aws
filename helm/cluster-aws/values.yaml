@@ -439,6 +439,7 @@ global:
     flatcarAwsAccount: "706635527432"
     iam:
       ecr:
+        allowedRepositories: {}
         permissionsEnabled: true
     instanceMetadataOptions:
       httpTokens: required
