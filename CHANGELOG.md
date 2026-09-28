@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `global.nodePools.<pool>.kubeletVolume` to place `/var/lib/kubelet` on the instance-store disks of a node pool's nodes, so that pod `emptyDir` volumes use local disks instead of the EBS lib volume. This rolls all nodes.
 
+## [10.3.2] - 2026-09-25
+
+### Changed
+
+- Chart: Update `cluster` to v8.3.2.
+
+## [10.3.1] - 2026-09-23
+
+### Changed
+
+- Chart: Update `cluster` to v8.3.1.
+
 ## [10.3.0] - 2026-09-15
 
 ### Changed
@@ -33,6 +45,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Karpenter node pools: take overridden kubelet `evictionHard` values from `cluster` chart to ensure correct calculation of allocatable node resources.
 - Chart: Update `cluster` to v8.1.0.
+
+### Fixed
+
+- Karpenter node pools: Select subnets by the `aws-vpc-operator` ownership tag on private clusters, since their subnets are not reconciled by CAPA.
 
 ## [10.0.1] - 2026-08-25
 
@@ -66,7 +82,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Correct taint key for ARM instances.
-- Karpenter node pools: Select subnets by the `aws-vpc-operator` ownership tag on private clusters, since their subnets are not reconciled by CAPA.
 
 ## [8.9.0] - 2026-07-17
 
@@ -2062,7 +2077,9 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v10.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v10.3.2...HEAD
+[10.3.2]: https://github.com/giantswarm/cluster-aws/compare/v10.3.1...v10.3.2
+[10.3.1]: https://github.com/giantswarm/cluster-aws/compare/v10.3.0...v10.3.1
 [10.3.0]: https://github.com/giantswarm/cluster-aws/compare/v10.2.0...v10.3.0
 [10.2.0]: https://github.com/giantswarm/cluster-aws/compare/v10.1.0...v10.2.0
 [10.1.0]: https://github.com/giantswarm/cluster-aws/compare/v10.0.1...v10.1.0
