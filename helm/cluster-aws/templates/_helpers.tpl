@@ -174,11 +174,11 @@ gsoci.azurecr.io
 {{- end }}
 
 {{- define "usesInstanceStoreForKubelet" -}}
-{{- if eq (.kubeletVolume | default "lib") "instanceStore" }}true{{ end }}
+{{- eq (.kubeletVolume | default "lib") "instanceStore" }}
 {{- end -}}
 
 {{- define "awsWorkersPreKubeadmCommands" }}
-{{- if include "usesInstanceStoreForKubelet" $.nodePool.config }}
+{{- if include "usesInstanceStoreForKubelet" $.nodePool.config | eq "true" }}
 - systemctl daemon-reload
 - systemctl enable --now var-lib-kubelet.mount
 - chmod 0750 /var/lib/kubelet
@@ -189,7 +189,7 @@ gsoci.azurecr.io
 {{- end }}
 
 {{- define "awsWorkersFiles" }}
-{{- if include "usesInstanceStoreForKubelet" $.nodePool.config }}
+{{- if include "usesInstanceStoreForKubelet" $.nodePool.config | eq "true" }}
 - path: /opt/bin/setup-instance-store.sh
   permissions: "0755"
   contentFrom:

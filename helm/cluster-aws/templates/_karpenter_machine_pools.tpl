@@ -162,7 +162,7 @@ spec:
             the `d` families are the NVMe-attached ones built from HDDs rather than SSDs, which
             would defeat the point of moving the kubelet directory off the EBS volume.
         */}}
-        {{- if include "usesInstanceStoreForKubelet" $value }}
+        {{- if include "usesInstanceStoreForKubelet" $value | eq "true" }}
         - key: karpenter.k8s.aws/instance-local-nvme
           operator: Exists
         - key: karpenter.k8s.aws/instance-category
