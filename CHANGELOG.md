@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `global.nodePools.<pool>.kubeletVolume` to place `/var/lib/kubelet` on the instance-store disks of a node pool's nodes, so that pod `emptyDir` volumes use local disks instead of the EBS lib volume. This rolls all nodes.
 - Add `global.providerSpecific.iam.ecr.allowedRepositories` so the read-only Amazon ECR permissions of the control plane and worker node IAM roles can be restricted to selected repositories. Leaving the map empty or undefined keeps allowing all repositories (backwards-compatible).
 
+### Changed
+
+- Chart: Update `cluster` to v8.4.0.
+
 ## [10.3.2] - 2026-09-25
 
 ### Changed
