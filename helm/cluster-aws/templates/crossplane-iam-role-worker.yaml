@@ -73,20 +73,7 @@ spec:
             ],
             "Resource": "*",
             "Effect": "Allow"
-          }{{ if .Values.global.providerSpecific.iam.ecr.permissionsEnabled }},
-          {
-            "Action": [
-              "ecr:BatchCheckLayerAvailability",
-              "ecr:BatchGetImage",
-              "ecr:DescribeRepositories",
-              "ecr:GetAuthorizationToken",
-              "ecr:GetDownloadUrlForLayer",
-              "ecr:GetRepositoryPolicy",
-              "ecr:ListImages"
-            ],
-            "Resource": "*",
-            "Effect": "Allow"
-          }{{ end }}
+          }{{ include "cluster-aws.ecrRolePolicyStatements" $ }}
         ]
       }
   providerConfigRef:

@@ -59,21 +59,6 @@ spec:
             "Resource": "*",
             "Effect": "Allow"
           },
-        {{- if .Values.global.providerSpecific.iam.ecr.permissionsEnabled }}
-          {
-            "Action": [
-              "ecr:GetAuthorizationToken",
-              "ecr:BatchCheckLayerAvailability",
-              "ecr:GetDownloadUrlForLayer",
-              "ecr:GetRepositoryPolicy",
-              "ecr:DescribeRepositories",
-              "ecr:ListImages",
-              "ecr:BatchGetImage"
-            ],
-            "Resource": "*",
-            "Effect": "Allow"
-          },
-        {{- end }}
           {
             "Action": [
               "ec2:AssignPrivateIpAddresses",
@@ -165,7 +150,7 @@ spec:
             ],
             "Resource": "arn:*:secretsmanager:*:*:secret:aws.cluster.x-k8s.io/*",
             "Effect": "Allow"
-          }
+          }{{ include "cluster-aws.ecrRolePolicyStatements" $ }}
         ]
       }
   providerConfigRef:
