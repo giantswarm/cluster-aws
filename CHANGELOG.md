@@ -7,10 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [10.4.0] - 2026-09-29
+
 ### Added
 
 - Add `global.nodePools.<pool>.kubeletVolume` to place `/var/lib/kubelet` on the instance-store disks of a node pool's nodes, so that pod `emptyDir` volumes use local disks instead of the EBS lib volume. This rolls all nodes.
 - Add `global.providerSpecific.iam.ecr.allowedRepositories` so the read-only Amazon ECR permissions of the control plane and worker node IAM roles can be restricted to selected repositories. Leaving the map empty or undefined keeps allowing all repositories (backwards-compatible).
+
+### Changed
+
+- Chart: Update `cluster` to v8.4.0.
 
 ## [10.3.2] - 2026-09-25
 
@@ -2078,7 +2084,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v10.3.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v10.4.0...HEAD
+[10.4.0]: https://github.com/giantswarm/cluster-aws/compare/v10.3.2...v10.4.0
 [10.3.2]: https://github.com/giantswarm/cluster-aws/compare/v10.3.1...v10.3.2
 [10.3.1]: https://github.com/giantswarm/cluster-aws/compare/v10.3.0...v10.3.1
 [10.3.0]: https://github.com/giantswarm/cluster-aws/compare/v10.2.0...v10.3.0
