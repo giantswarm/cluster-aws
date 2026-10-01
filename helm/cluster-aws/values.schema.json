@@ -286,7 +286,7 @@
                                 "consolidateAfter": {
                                     "type": "string",
                                     "title": "Consolidate after",
-                                    "description": "The duration karpenter will wait before attempting to terminate nodes that are underutilized after a pod has been added or removed from the node.",
+                                    "description": "The duration karpenter will wait before attempting to terminate nodes that are underutilized after a pod has been added or removed from the node. Must not be set together with `replicas`.",
                                     "examples": [
                                         "3m",
                                         "24h",
@@ -307,10 +307,11 @@
                                 "consolidationPolicy": {
                                     "type": "string",
                                     "title": "Consolidation policy",
-                                    "description": "Describes which nodes Karpenter can disrupt through its consolidation algorithm. If using 'WhenEmptyOrUnderutilized', Karpenter will consider all nodes for consolidation and attempt to remove or replace Nodes when it discovers that the Node is empty or underutilized and could be changed to reduce cost. If using `WhenEmpty`, Karpenter will only consider nodes for consolidation that contain no workload pods.",
+                                    "description": "Describes which nodes Karpenter can disrupt through its consolidation algorithm. If using 'WhenEmptyOrUnderutilized', Karpenter will consider all nodes for consolidation and attempt to remove or replace Nodes when it discovers that the Node is empty or underutilized and could be changed to reduce cost. If using `WhenEmpty`, Karpenter will only consider nodes for consolidation that contain no workload pods. If using `Balanced`, Karpenter only performs a consolidation if its cost savings outweigh the disruption of the evicted pods. Must not be set together with `replicas`.",
                                     "enum": [
                                         "WhenEmptyOrUnderutilized",
-                                        "WhenEmpty"
+                                        "WhenEmpty",
+                                        "Balanced"
                                     ],
                                     "default": "WhenEmptyOrUnderutilized"
                                 },
@@ -404,6 +405,12 @@
                                             "type": "string",
                                             "description": "Memory limits are described with a BinarySI value, such as 1000Gi.",
                                             "default": "1000Gi"
+                                        },
+                                        "nodes": {
+                                            "type": "integer",
+                                            "title": "Maximum number of nodes",
+                                            "description": "Maximum number of nodes in the node pool. With `replicas`, the nodes above `replicas` are the headroom Karpenter may use to create replacement nodes before removing old ones.",
+                                            "minimum": 0
                                         }
                                     }
                                 },
@@ -412,6 +419,12 @@
                                     "title": "Log volume size (GB)",
                                     "description": "Size of the volume mounted at `/var/log` on the worker nodes.",
                                     "default": 30
+                                },
+                                "replicas": {
+                                    "type": "integer",
+                                    "title": "Number of nodes",
+                                    "description": "Fixed number of nodes, which makes this a static node pool (tech preview, alpha Karpenter feature). Karpenter keeps exactly this many nodes and does not scale the node pool for pending pods, so this is not a minimum. Cannot be added to or removed from an existing node pool. Must not be set together with `consolidateAfter`, `consolidationPolicy`, `limits.cpu`, or `limits.memory`.",
+                                    "minimum": 0
                                 },
                                 "requirements": {
                                     "type": "array",
@@ -578,6 +591,54 @@
                                     "pattern": "^([0-9]+(s|m|h))+$"
                                 }
                             }
+                        },
+                        {
+                            "anyOf": [
+                                {
+                                    "not": {
+                                        "required": [
+                                            "replicas"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "not": {
+                                        "anyOf": [
+                                            {
+                                                "required": [
+                                                    "consolidateAfter"
+                                                ]
+                                            },
+                                            {
+                                                "required": [
+                                                    "consolidationPolicy"
+                                                ]
+                                            },
+                                            {
+                                                "required": [
+                                                    "limits"
+                                                ],
+                                                "properties": {
+                                                    "limits": {
+                                                        "anyOf": [
+                                                            {
+                                                                "required": [
+                                                                    "cpu"
+                                                                ]
+                                                            },
+                                                            {
+                                                                "required": [
+                                                                    "memory"
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
                         }
                     ]
                 },
