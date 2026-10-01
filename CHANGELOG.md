@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `global.nodePools.<pool>.replicas` for Karpenter node pools to keep a fixed number of nodes (static node pool). This is a tech preview of the alpha Karpenter `StaticCapacity` feature and requires a release with Karpenter v1.14.1 and the matching `aws-resolver-rules-operator`.
+- Add `global.nodePools.<pool>.limits.nodes` to cap the number of nodes of a Karpenter node pool.
+- Add the `Balanced` consolidation policy for Karpenter node pools.
+
 ## [11.0.0] - 2026-09-29
 
 ### Changed

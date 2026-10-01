@@ -86,8 +86,11 @@ spec:
         {{- end }}
         {{- end }}
   nodePool:
+    {{- $isStatic := hasKey $value "replicas" }}
+    {{- $nodesLimit := ($value.limits | default dict).nodes }}
     disruption:
-      consolidateAfter: {{ $value.consolidateAfter | default "1h" }}
+      {{- /* Required by the CRD, but Karpenter ignores consolidation for static node pools */}}
+      consolidateAfter: {{ ternary "Never" ($value.consolidateAfter | default "1h") $isStatic }}
       {{- with $value.consolidationPolicy }}
       consolidationPolicy: {{ . }}
       {{- end }}
@@ -95,10 +98,24 @@ spec:
       budgets:
       {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- $limits := default (dict "cpu" "1000" "memory" "1000Gi") $value.limits }}
+    {{- if $isStatic }}
+    {{- if and (not (kindIs "invalid" $nodesLimit)) (le (float64 $nodesLimit) (float64 $value.replicas)) }}
+    {{- fail (printf "node pool %q: `limits.nodes` must be greater than `replicas`, otherwise Karpenter cannot replace nodes" $name) }}
+    {{- end }}
+    replicas: {{ $value.replicas }}
+    {{- if not (kindIs "invalid" $nodesLimit) }}
+    limits:
+      nodes: {{ $nodesLimit }}
+    {{- end }}
+    {{- else }}
+    {{- $limits := default (dict "cpu" "1000" "memory" "1000Gi") (omit ($value.limits | default dict) "nodes") }}
     limits:
       cpu: {{ $limits.cpu }}
       memory: {{ $limits.memory }}
+      {{- if not (kindIs "invalid" $nodesLimit) }}
+      nodes: {{ $nodesLimit }}
+      {{- end }}
+    {{- end }}
     template:
       metadata:
         labels:
