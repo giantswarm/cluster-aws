@@ -20,6 +20,6 @@ restrictions:
   compatibleProviders:
     - aws
 dependencies:
-  - repository: https://giantswarm.github.io/cluster-catalog
+  - repository: https://giantswarm.github.io/cluster-test-catalog
     name: cluster
-    version: 9.0.0
+    version: 9.0.1-rc1736a59t20261002100421h41efa39

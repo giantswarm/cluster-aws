@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Cilium: Tolerate AWS-specific node taints on `cilium-operator`.
+
 ## [11.0.0] - 2026-09-29
 
 ### Changed
