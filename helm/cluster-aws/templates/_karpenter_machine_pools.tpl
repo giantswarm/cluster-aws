@@ -87,10 +87,10 @@ spec:
         {{- end }}
   nodePool:
     {{- $isStatic := hasKey $value "replicas" }}
-    {{- $nodesLimit := ($value.limits | default dict).nodes }}
+    {{- $limits := $value.limits | default dict }}
     disruption:
       {{- /* Required by the CRD, but Karpenter ignores consolidation for static node pools */}}
-      consolidateAfter: {{ ternary "Never" ($value.consolidateAfter | default "1h") $isStatic }}
+      consolidateAfter: {{ $isStatic | ternary "Never" ($value.consolidateAfter | default "1h") }}
       {{- with $value.consolidationPolicy }}
       consolidationPolicy: {{ . }}
       {{- end }}
@@ -99,21 +99,20 @@ spec:
       {{- toYaml . | nindent 8 }}
       {{- end }}
     {{- if $isStatic }}
-    {{- if and (not (kindIs "invalid" $nodesLimit)) (le (float64 $nodesLimit) (float64 $value.replicas)) }}
+    {{- if and (hasKey $limits "nodes") (le (float64 $limits.nodes) (float64 $value.replicas)) }}
     {{- fail (printf "node pool %q: `limits.nodes` must be greater than `replicas`, otherwise Karpenter cannot replace nodes" $name) }}
     {{- end }}
     replicas: {{ $value.replicas }}
-    {{- if not (kindIs "invalid" $nodesLimit) }}
+    {{- if hasKey $limits "nodes" }}
     limits:
-      nodes: {{ $nodesLimit }}
+      nodes: {{ $limits.nodes }}
     {{- end }}
     {{- else }}
-    {{- $limits := default (dict "cpu" "1000" "memory" "1000Gi") (omit ($value.limits | default dict) "nodes") }}
     limits:
-      cpu: {{ $limits.cpu }}
-      memory: {{ $limits.memory }}
-      {{- if not (kindIs "invalid" $nodesLimit) }}
-      nodes: {{ $nodesLimit }}
+      cpu: {{ $limits.cpu | default "1000" }}
+      memory: {{ $limits.memory | default "1000Gi" }}
+      {{- if hasKey $limits "nodes" }}
+      nodes: {{ $limits.nodes }}
       {{- end }}
     {{- end }}
     template:

@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `global.nodePools.<pool>.limits.nodes` to cap the number of nodes of a Karpenter node pool.
 - Add the `Balanced` consolidation policy for Karpenter node pools.
 
+### Fixed
+
+- Default `limits.cpu` and `limits.memory` of Karpenter node pools separately, so setting only one of them no longer renders the other one empty.
+
 ## [11.0.0] - 2026-09-29
 
 ### Changed

@@ -10,6 +10,8 @@ global:
       type: karpenter
       consolidationPolicy: Balanced
       limits:
+        cpu: "100"
+        memory: "400Gi"
         nodes: 20
     static:
       type: karpenter
