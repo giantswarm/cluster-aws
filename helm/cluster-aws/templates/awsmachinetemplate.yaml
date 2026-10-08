@@ -73,7 +73,6 @@ subnet:
 {{- end -}}
 {{- end -}}
 
-{{- define "control-plane" }}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
 kind: AWSMachineTemplate
 metadata:
@@ -91,4 +90,3 @@ spec:
         {{- include "labels.common" $ | nindent 8 }}
     spec:
       {{- include "controlplane-awsmachinetemplate-spec" $ | nindent 6 }}
-{{- end -}}
