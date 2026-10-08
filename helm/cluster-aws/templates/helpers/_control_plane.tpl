@@ -1,0 +1,74 @@
+{{/*
+AWSMachineTemplates .Spec are immutable and cannot change.
+This function is used for both the `.Spec` value and as the data for the hash function.
+Any changes to this will trigger the resource to be recreated rather than attempting to update in-place.
+*/}}
+{{- define "controlplane-awsmachinetemplate-spec" -}}
+{{- with (.Values.global.providerSpecific.controlPlaneAmi | default .Values.global.providerSpecific.ami) }}
+ami:
+  id: {{ . | quote }}
+{{- else }}
+{{- include "imageLookupParameters" $ }}
+{{- end }}
+{{- if $.Values.global.providerSpecific.additionalNodeTags }}
+additionalTags: {{ toYaml $.Values.global.providerSpecific.additionalNodeTags | nindent 2 }}
+{{- end }}
+cloudInit: {}
+instanceType: {{ .Values.global.controlPlane.instanceType }}
+nonRootVolumes:
+- deviceName: /dev/xvdc
+  encrypted: true
+  size: {{ .Values.global.controlPlane.etcdVolumeSizeGB }}
+  type: gp3
+- deviceName: /dev/xvdd
+  encrypted: true
+  size: {{ .Values.global.controlPlane.libVolumeSizeGB }}
+  type: gp3
+- deviceName: /dev/xvde
+  encrypted: true
+  size: {{ .Values.global.controlPlane.logVolumeSizeGB }}
+  type: gp3
+rootVolume:
+  size: {{ .Values.global.controlPlane.rootVolumeSizeGB | max 15 }}
+  type: gp3
+iamInstanceProfile: {{ include "resource.default.name" $ }}-control-plane
+{{- if .Values.global.controlPlane.additionalSecurityGroups }}
+additionalSecurityGroups:
+{{- toYaml .Values.global.controlPlane.additionalSecurityGroups | nindent 2 }}
+{{- end }}
+instanceMetadataOptions:
+{{- if $.Values.global.providerSpecific.instanceMetadataOptions.httpPutResponseHopLimit }}
+  httpPutResponseHopLimit: {{ $.Values.global.providerSpecific.instanceMetadataOptions.httpPutResponseHopLimit }}
+{{- else }}
+{{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
+  httpPutResponseHopLimit: 2
+{{- else }}
+  httpPutResponseHopLimit: 3
+{{- end }}
+{{- end }}
+  httpTokens: {{ .Values.global.providerSpecific.instanceMetadataOptions.httpTokens | quote }}
+sshKeyName: ""
+subnet:
+  filters:
+    - name: tag:kubernetes.io/cluster/{{ include "resource.default.name" $ }}
+      values:
+      - shared
+      - owned
+    {{ if eq $.Values.global.connectivity.vpcMode "public" }}
+    - name: tag:sigs.k8s.io/cluster-api-provider-aws/role
+      values:
+      - private
+    {{end}}
+    {{- range $i, $tags :=  .Values.global.controlPlane.subnetTags }}
+    - name: tag:{{ keys $tags | first }}
+      values:
+      - {{ index $tags (keys $tags | first) | quote }}
+    {{- end }}
+{{- end }}
+
+{{- define "service-account-issuers-comma-separated" }}
+{{- range $serviceAccountIssuerIndex, $serviceAccountIssuer := .Values.cluster.providerIntegration.controlPlane.kubeadmConfig.clusterConfiguration.apiServer.serviceAccountIssuers }}
+{{- if gt $serviceAccountIssuerIndex 0 }},{{- end -}}
+{{ regexReplaceAll "^(http://|https://)" (include "cluster.internal.controlPlane.kubeadm.clusterConfiguration.apiServer.serviceAccountIssuer" (dict "Values" $.Values "Release" $.Release "serviceAccountIssuer" $serviceAccountIssuer)) "" }}
+{{- end -}}
+{{- end -}}
