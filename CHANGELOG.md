@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Karpenter: Document that `KarpenterMachinePool` taints and startup taints are not applied to nodes.
+
+### Removed
+
+- Karpenter: Remove the automatic `kubernetes.io/arch=arm64:NoSchedule` taint from arm64 Karpenter node pools. Set it via `customNodeTaints` instead.
+
 ## [11.0.1] - 2026-10-05
 
 ### Changed

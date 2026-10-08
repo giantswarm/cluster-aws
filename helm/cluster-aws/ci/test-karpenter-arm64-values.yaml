@@ -9,6 +9,10 @@ global:
     pool1:
       type: karpenter
       architecture: arm64
+      customNodeTaints:
+        - key: kubernetes.io/arch
+          value: arm64
+          effect: NoSchedule
   providerSpecific:
     region: "eu-west-1"
   release:
