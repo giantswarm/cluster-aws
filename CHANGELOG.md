@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Reorganized chart structure.
+
+### Removed
+
+- Removed unused helper templates.
+- Removed unreferenced files.
+
 ## [11.0.1] - 2026-10-05
 
 ### Changed

@@ -72,23 +72,3 @@ subnet:
 {{ regexReplaceAll "^(http://|https://)" (include "cluster.internal.controlPlane.kubeadm.clusterConfiguration.apiServer.serviceAccountIssuer" (dict "Values" $.Values "Release" $.Release "serviceAccountIssuer" $serviceAccountIssuer)) "" }}
 {{- end -}}
 {{- end -}}
-
-{{- define "control-plane" }}
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
-kind: AWSMachineTemplate
-metadata:
-  labels:
-    cluster.x-k8s.io/role: control-plane
-    {{- include "labels.common" $ | nindent 4 }}
-    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-  name: {{ include "resource.default.name" $ }}-control-plane-{{ include "hash" (dict "data" (include "controlplane-awsmachinetemplate-spec" $) "global" .) }}
-  namespace: {{ $.Release.Namespace }}
-spec:
-  template:
-    metadata:
-      labels:
-        cluster.x-k8s.io/role: control-plane
-        {{- include "labels.common" $ | nindent 8 }}
-    spec:
-      {{- include "controlplane-awsmachinetemplate-spec" $ | nindent 6 }}
-{{- end -}}
