@@ -294,6 +294,7 @@ cluster:
                         description: log volume
                     enabled: true
                     name: var-log.mount
+        nodeLabelsTemplateName: awsWorkersNodeLabels
         preKubeadmCommandsTemplateName: awsWorkersPreKubeadmCommands
         taints:
           - effect: NoExecute

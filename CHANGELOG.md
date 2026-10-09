@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Karpenter: Add the `karpenter.sh/do-not-sync-taints=true` kubelet node label to Karpenter node pools.
+
 ### Changed
 
 - Karpenter: Document that `KarpenterMachinePool` taints and startup taints are not applied to nodes.

@@ -100,8 +100,8 @@ spec:
       cpu: {{ $limits.cpu }}
       memory: {{ $limits.memory }}
     {{- /*
-        Karpenter nodes register with the `karpenter.sh/do-not-sync-taints=true` kubelet label (set by the
-        `cluster` chart), so Karpenter does not copy the `taints` and `startupTaints` below onto the Node.
+        Karpenter nodes register with the `karpenter.sh/do-not-sync-taints=true` kubelet label (see
+        `awsWorkersNodeLabels`), so Karpenter does not copy the `taints` and `startupTaints` below onto the Node.
         They only tell Karpenter which taints the nodes will have, for its scheduling simulation. The actual
         node taints come from kubelet (`KubeadmConfig` rendered by the `cluster` chart), so any taint added
         here must also be registered there, e.g. via `customNodeTaints`.
