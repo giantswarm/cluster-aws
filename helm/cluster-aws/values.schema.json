@@ -1330,7 +1330,8 @@
                                     "effect": "NoExecute",
                                     "key": "ebs.csi.aws.com/agent-not-ready"
                                 }
-                            ]
+                            ],
+                            "taintsTemplateName": "awsWorkersTaints"
                         }
                     }
                 }

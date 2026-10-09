@@ -203,6 +203,21 @@ gsoci.azurecr.io
 {{- end }}
 {{- end }}
 
+{{- /*
+    Kubelet node taints for worker node pools, rendered once per node pool by the `cluster` chart
+    (`providerIntegration.workers.kubeadmConfig.taintsTemplateName`).
+
+    Karpenter node pools register with `karpenter.sh/unregistered:NoExecute`, which Karpenter removes once
+    it has registered the node.
+*/}}
+{{- define "awsWorkersTaints" }}
+{{- if eq ($.nodePool.config.type | default "") "karpenter" }}
+- key: karpenter.sh/unregistered
+  value: karpenter
+  effect: NoExecute
+{{- end }}
+{{- end }}
+
 {{- define "awsWorkersFiles" }}
 {{- if include "usesInstanceStoreForKubelet" $.nodePool.config | eq "true" }}
 - path: /opt/bin/setup-instance-store.sh

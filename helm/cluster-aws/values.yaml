@@ -299,6 +299,7 @@ cluster:
         taints:
           - effect: NoExecute
             key: ebs.csi.aws.com/agent-not-ready
+        taintsTemplateName: awsWorkersTaints
 global:
   apps:
     awsCloudControllerManager: {}
