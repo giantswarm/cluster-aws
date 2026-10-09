@@ -188,6 +188,36 @@ gsoci.azurecr.io
 {{- end }}
 {{- end }}
 
+{{- /*
+    Kubelet node labels for worker node pools, rendered once per node pool by the `cluster` chart
+    (`providerIntegration.workers.kubeadmConfig.nodeLabelsTemplateName`).
+
+    Karpenter node pools get `karpenter.sh/do-not-sync-taints=true`, so that Karpenter does not copy the
+    NodePool taints and startup taints onto the Node, which races with agents removing their startup
+    taints. Karpenter only adds this label itself for non-`Custom` AMI families, and it has to be on the
+    Node when it registers. See https://github.com/kubernetes-sigs/karpenter/issues/1772
+*/}}
+{{- define "awsWorkersNodeLabels" }}
+{{- if eq ($.nodePool.config.type | default "") "karpenter" }}
+- karpenter.sh/do-not-sync-taints=true
+{{- end }}
+{{- end }}
+
+{{- /*
+    Kubelet node taints for worker node pools, rendered once per node pool by the `cluster` chart
+    (`providerIntegration.workers.kubeadmConfig.taintsTemplateName`).
+
+    Karpenter node pools register with `karpenter.sh/unregistered:NoExecute`, which Karpenter removes once
+    it has registered the node.
+*/}}
+{{- define "awsWorkersTaints" }}
+{{- if eq ($.nodePool.config.type | default "") "karpenter" }}
+- key: karpenter.sh/unregistered
+  value: karpenter
+  effect: NoExecute
+{{- end }}
+{{- end }}
+
 {{- define "awsWorkersFiles" }}
 {{- if include "usesInstanceStoreForKubelet" $.nodePool.config | eq "true" }}
 - path: /opt/bin/setup-instance-store.sh

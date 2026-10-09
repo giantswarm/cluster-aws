@@ -1323,13 +1323,15 @@
                                     }
                                 }
                             },
+                            "nodeLabelsTemplateName": "awsWorkersNodeLabels",
                             "preKubeadmCommandsTemplateName": "awsWorkersPreKubeadmCommands",
                             "taints": [
                                 {
                                     "effect": "NoExecute",
                                     "key": "ebs.csi.aws.com/agent-not-ready"
                                 }
-                            ]
+                            ],
+                            "taintsTemplateName": "awsWorkersTaints"
                         }
                     }
                 }

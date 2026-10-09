@@ -294,10 +294,12 @@ cluster:
                         description: log volume
                     enabled: true
                     name: var-log.mount
+        nodeLabelsTemplateName: awsWorkersNodeLabels
         preKubeadmCommandsTemplateName: awsWorkersPreKubeadmCommands
         taints:
           - effect: NoExecute
             key: ebs.csi.aws.com/agent-not-ready
+        taintsTemplateName: awsWorkersTaints
 global:
   apps:
     awsCloudControllerManager: {}
