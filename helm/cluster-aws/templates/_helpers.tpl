@@ -56,10 +56,6 @@ giantswarm.io/prevent-deletion: "true"
 127.0.0.1,localhost,svc,local,169.254.169.254,{{ $.Values.global.connectivity.network.vpcCidr }},{{ join "," $.Values.global.connectivity.network.services.cidrBlocks }},{{ join "," $.Values.global.connectivity.network.pods.cidrBlocks }},{{ include "resource.default.name" $ }}.{{ $.Values.global.connectivity.baseDomain }},elb.amazonaws.com,{{ $.Values.global.connectivity.proxy.noProxy }}
 {{- end -}}
 
-{{- define "controlPlanePostKubeadmCommands" -}}
-- /opt/control-plane-config.sh
-{{- end -}}
-
 {{- define "getArchitecture" -}}
 {{- if eq (.architecture | default "") "arm64" -}}
 arm64
@@ -134,13 +130,6 @@ Where `data` is the data to has on and `global` is the top level scope.
 {{- $salt := "" }}
 {{- if .global.Values.internal.hashSalt }}{{ $salt = .global.Values.internal.hashSalt}}{{end}}
 {{- (printf "%s%s" $data $salt) | quote | sha1sum | trunc 8 }}
-{{- end -}}
-
-{{- define "securityContext.runAsUser" -}}
-1000
-{{- end -}}
-{{- define "securityContext.runAsGroup" -}}
-1000
 {{- end -}}
 
 {{- define "awsConnectivityLabels" }}

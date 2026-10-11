@@ -10,7 +10,6 @@
 provider-specific-files-6
 {{- end }}
 
-{{- define "provider-specific-files" }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -26,4 +25,3 @@ data:
   var-lib-kubelet.mount: {{ tpl ($.Files.Get "files/etc/systemd/system/var-lib-kubelet.mount") $ | b64enc | quote }}
   20-var-lib-kubelet-mount.conf: {{ tpl ($.Files.Get "files/etc/systemd/system/kubelet.service.d/20-var-lib-kubelet-mount.conf") $ | b64enc | quote }}
 type: Opaque
-{{ end }}
