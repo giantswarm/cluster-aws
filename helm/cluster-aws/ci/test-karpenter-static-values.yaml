@@ -1,0 +1,35 @@
+global:
+  managementCluster: test
+  metadata:
+    name: test-karpenter
+    organization: giantswarm
+  connectivity:
+    baseDomain: example.com
+  nodePools:
+    dynamic:
+      type: karpenter
+      consolidationPolicy: Balanced
+      limits:
+        cpu: "100"
+        memory: "400Gi"
+        nodes: 20
+    static:
+      type: karpenter
+      replicas: 3
+      disruptionBudgets:
+        - nodes: "1"
+      limits:
+        nodes: 4
+    staticnolimits:
+      type: karpenter
+      replicas: 2
+  providerSpecific:
+    region: "eu-west-1"
+  release:
+    version: 29.1.0
+
+cluster:
+  internal:
+    ephemeralConfiguration:
+      offlineTesting:
+        renderWithoutReleaseResource: true
