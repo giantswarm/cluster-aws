@@ -193,7 +193,7 @@ gsoci.azurecr.io
     (`providerIntegration.workers.kubeadmConfig.nodeLabelsTemplateName`).
 
     Karpenter node pools get `karpenter.sh/do-not-sync-taints=true`, so that Karpenter does not copy the
-    NodePool taints and startup taints onto the Node, which races with agents removing their startup
+    NodePool taints and startup taints onto the Node, which races with controllers removing their startup
     taints. Karpenter only adds this label itself for non-`Custom` AMI families, and it has to be on the
     Node when it registers. See https://github.com/kubernetes-sigs/karpenter/issues/1772
 */}}
