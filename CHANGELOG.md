@@ -22,10 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump `OCIRepository` resources from the `source.toolkit.fluxcd.io/v1beta2` API to `source.toolkit.fluxcd.io/v1`.
 - Karpenter: Document that `KarpenterMachinePool` taints and startup taints are not applied to nodes.
 - Karpenter: Add the automatic `kubernetes.io/arch=arm64:NoSchedule` taint of arm64 Karpenter node pools to the kubelet taints too.
-
-### Fixed
-
 - Default `limits.cpu` and `limits.memory` of Karpenter node pools separately, so setting only one of them no longer renders the other one empty.
+- Chart: Update `cluster` to v9.1.0.
 
 ## [11.0.1] - 2026-10-05
 
