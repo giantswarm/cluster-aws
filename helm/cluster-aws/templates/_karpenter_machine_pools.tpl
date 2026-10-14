@@ -186,6 +186,15 @@ spec:
           values:
           - d
         {{- end }}
+        {{- /*
+            Karpenter nodes register with the `karpenter.sh/do-not-sync-taints=true` kubelet label (see
+            `awsWorkersNodeLabels`), so Karpenter does not copy the `taints` and `startupTaints` below onto the Node.
+            They only tell Karpenter which taints the nodes will have, for its scheduling simulation. The actual
+            node taints come from kubelet (`KubeadmConfig` rendered by the `cluster` chart), so any taint added
+            here must also be registered there, e.g. via `customNodeTaints` or `karpenterNodePoolTaints`.
+            Labels are not affected: Karpenter still applies the `labels` below to the Node.
+            See https://github.com/kubernetes-sigs/karpenter/issues/1772
+        */}}
         startupTaints:
         - effect: NoSchedule
           key: node.cluster.x-k8s.io/uninitialized
@@ -196,21 +205,15 @@ spec:
         - effect: NoExecute
           key: ebs.csi.aws.com/agent-not-ready
           value: "true"
-        {{- if or (eq $value.architecture "arm64") $value.customNodeTaints }}
+        {{- $taints := concat ($value.customNodeTaints | default list) (include "karpenterNodePoolTaints" $value | fromYamlArray) }}
+        {{- with $taints }}
         taints:
-        {{- if eq $value.architecture "arm64" }}
-        - effect: NoSchedule
-          key: kubernetes.io/arch
-          value: arm64
-        {{- end }}
-        {{- with $value.customNodeTaints }}
         {{- range . }}
         - key: {{ .key | quote }}
           effect: {{ .effect | quote }}
           {{- if .value }}
           value: {{ .value | quote }}
           {{- end }}
-        {{- end }}
         {{- end }}
         {{- end }}
         terminationGracePeriod: {{ $value.terminationGracePeriod | default "30m" }}
