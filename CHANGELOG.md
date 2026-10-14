@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [11.1.0] - 2026-10-14
+
 ### Added
 
 - Add `global.nodePools.<pool>.replicas` for Karpenter node pools to keep a fixed number of nodes (static node pool). This is a tech preview of the alpha Karpenter `StaticCapacity` feature and requires a release with Karpenter v1.14.1 and the matching `aws-resolver-rules-operator`.
@@ -2120,7 +2122,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v11.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v11.1.0...HEAD
+[11.1.0]: https://github.com/giantswarm/cluster-aws/compare/v11.0.1...v11.1.0
 [11.0.1]: https://github.com/giantswarm/cluster-aws/compare/v11.0.0...v11.0.1
 [11.0.0]: https://github.com/giantswarm/cluster-aws/compare/v10.4.1...v11.0.0
 [10.4.1]: https://github.com/giantswarm/cluster-aws/compare/v10.4.0...v10.4.1
