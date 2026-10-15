@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [11.1.0] - 2026-10-14
+
 ### Added
 
 - Add `global.nodePools.<pool>.replicas` for Karpenter node pools to keep a fixed number of nodes (static node pool). This is a tech preview of the alpha Karpenter `StaticCapacity` feature and requires a release with Karpenter v1.14.1 and the matching `aws-resolver-rules-operator`.
@@ -20,10 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump `OCIRepository` resources from the `source.toolkit.fluxcd.io/v1beta2` API to `source.toolkit.fluxcd.io/v1`.
 - Karpenter: Document that `KarpenterMachinePool` taints and startup taints are not applied to nodes.
 - Karpenter: Add the automatic `kubernetes.io/arch=arm64:NoSchedule` taint of arm64 Karpenter node pools to the kubelet taints too.
-
-### Fixed
-
 - Default `limits.cpu` and `limits.memory` of Karpenter node pools separately, so setting only one of them no longer renders the other one empty.
+- Chart: Update `cluster` to v9.1.0.
 
 ## [11.0.1] - 2026-10-05
 
@@ -2120,7 +2120,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v11.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v11.1.0...HEAD
+[11.1.0]: https://github.com/giantswarm/cluster-aws/compare/v11.0.1...v11.1.0
 [11.0.1]: https://github.com/giantswarm/cluster-aws/compare/v11.0.0...v11.0.1
 [11.0.0]: https://github.com/giantswarm/cluster-aws/compare/v10.4.1...v11.0.0
 [10.4.1]: https://github.com/giantswarm/cluster-aws/compare/v10.4.0...v10.4.1
