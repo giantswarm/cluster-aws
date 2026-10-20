@@ -88,7 +88,7 @@ jobs:
           git config --local user.email "342014845+giantswarm-release[bot]@users.noreply.github.com"
           git config --local user.name "giantswarm-release[bot]"
           git add -A
-          git commit -m "Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml"
+          git commit -m "chore: update availability zones in helm/cluster-aws/files/azs-in-region.yaml"
           git push "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${destination_branch_name}" --force
 
       - name: Create PR
@@ -98,5 +98,5 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           head: "automated-azs"
           base: ${{ github.ref }}
-          title: "Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml"
+          title: "chore: update availability zones in helm/cluster-aws/files/azs-in-region.yaml"
 
