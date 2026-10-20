@@ -37,7 +37,7 @@ jobs:
         run: |
           md5sum helm/cluster-aws/files/azs-in-region.yaml > /tmp/after
 
-          diff /tmp/before /tmp/after || echo ::set-output name=needs_pr::true
+          diff /tmp/before /tmp/after || echo "needs_pr=true" >> "$GITHUB_OUTPUT"
       - name: Add Changelog entry
         env:
           msg: "Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml"
@@ -68,6 +68,7 @@ jobs:
 
       - name: Generate giantswarm-release token
         id: app-token
+        if: steps.check_changes.outputs.needs_pr == 'true'
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           client-id: ${{ secrets.RELEASE_BOT_CLIENT_ID }}
