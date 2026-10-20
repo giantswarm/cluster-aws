@@ -72,6 +72,9 @@ jobs:
         with:
           client-id: ${{ secrets.RELEASE_BOT_CLIENT_ID }}
           private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+          # Push the AZ branch and open its PR.
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Prepare branch for PR
         env:
