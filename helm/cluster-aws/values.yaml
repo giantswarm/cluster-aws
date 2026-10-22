@@ -374,6 +374,8 @@ global:
       useDnsChallenges: true
     cilium:
       ipamMode: kubernetes
+    cni:
+      managed: true
     dns: {}
     eniModePodSubnets:
       - cidrBlocks:
