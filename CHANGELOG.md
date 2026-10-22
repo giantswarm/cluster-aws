@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
+## [11.2.0] - 2026-10-19
+
+### Changed
 
 - Normalize lowercase `extraConfigs[*].kind` values of provider-specific apps to the `ConfigMap` and `Secret` kinds that Flux accepts.
 - The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
+- Chart: Update `cluster` to v9.2.0.
 
 ## [11.1.0] - 2026-10-14
 
@@ -2125,7 +2128,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v11.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v11.2.0...HEAD
+[11.2.0]: https://github.com/giantswarm/cluster-aws/compare/v11.1.0...v11.2.0
 [11.1.0]: https://github.com/giantswarm/cluster-aws/compare/v11.0.1...v11.1.0
 [11.0.1]: https://github.com/giantswarm/cluster-aws/compare/v11.0.0...v11.0.1
 [11.0.0]: https://github.com/giantswarm/cluster-aws/compare/v10.4.1...v11.0.0
