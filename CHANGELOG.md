@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Normalize lowercase `extraConfigs[*].kind` values of provider-specific apps to the `ConfigMap` and `Secret` kinds that Flux accepts.
 - The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
 - Chart: Update `cluster` to v9.2.0.
 

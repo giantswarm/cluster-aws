@@ -136,6 +136,11 @@ Where `data` is the data to has on and `global` is the top level scope.
 {{- (printf "%s%s" $data $salt) | quote | sha1sum | trunc 8 }}
 {{- end -}}
 
+{{/* The schema also allows lowercase `extraConfigs[*].kind` values, but Flux only accepts `ConfigMap` and `Secret` */}}
+{{- define "helmReleaseValuesFromKind" -}}
+{{- . | default "ConfigMap" | lower | eq "secret" | ternary "Secret" "ConfigMap" -}}
+{{- end -}}
+
 {{- define "securityContext.runAsUser" -}}
 1000
 {{- end -}}
