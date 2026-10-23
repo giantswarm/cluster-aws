@@ -12,6 +12,9 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           clean: false
+          # The push below authenticates through its remote URL; a persisted
+          # GITHUB_TOKEN header would take precedence over it.
+          persist-credentials: false
       - name: Calculate md5sum of azs-in-region.yaml before the script runs
         run: |
           md5sum helm/cluster-aws/files/azs-in-region.yaml > /tmp/before
@@ -34,7 +37,7 @@ jobs:
         run: |
           md5sum helm/cluster-aws/files/azs-in-region.yaml > /tmp/after
 
-          diff /tmp/before /tmp/after || echo ::set-output name=needs_pr::true
+          diff /tmp/before /tmp/after || echo "needs_pr=true" >> "$GITHUB_OUTPUT"
       - name: Add Changelog entry
         env:
           msg: "Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml"
@@ -63,27 +66,37 @@ jobs:
           awk "NR==$(($unreleased + $changed + 2)){print \"- ${msg}\n\"}7" CHANGELOG.md >changelog.tmp
           mv changelog.tmp CHANGELOG.md
 
+      - name: Generate giantswarm-release token
+        id: app-token
+        if: steps.check_changes.outputs.needs_pr == 'true'
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.RELEASE_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+          # Push the AZ branch and open its PR.
+          permission-contents: write
+          permission-pull-requests: write
+
       - name: Prepare branch for PR
         env:
-          remote_repo: "https://${{ github.actor }}:${{ secrets.TAYLORBOT_GITHUB_ACTION }}@github.com/${{ github.repository }}.git"
           destination_branch_name: "automated-azs"
-          GITHUB_TOKEN: "${{ secrets.TAYLORBOT_GITHUB_ACTION }}"
+          TOKEN: "${{ steps.app-token.outputs.token }}"
           base: "${{ github.ref }}"
         if: steps.check_changes.outputs.needs_pr == 'true'
         run: |
           git config --global --add safe.directory "`pwd`"
-          git config --local user.email "dev@giantswarm.io"
-          git config --local user.name "taylorbot"
+          git config --local user.email "342014845+giantswarm-release[bot]@users.noreply.github.com"
+          git config --local user.name "giantswarm-release[bot]"
           git add -A
-          git commit -m "Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml"
-          git push "${remote_repo}" HEAD:${destination_branch_name} --force
+          git commit -m "chore: update availability zones in helm/cluster-aws/files/azs-in-region.yaml"
+          git push "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${destination_branch_name}" --force
 
       - name: Create PR
         uses: thomaseizinger/create-pull-request@955adb4634198898bc24dca0468514c63a8fc98d # 1.4.0
         if: steps.check_changes.outputs.needs_pr == 'true'
         with:
-          GITHUB_TOKEN: ${{ secrets.TAYLORBOT_GITHUB_ACTION }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           head: "automated-azs"
           base: ${{ github.ref }}
-          title: "Update Availability Zones in helm/cluster-aws/files/azs-in-region.yaml"
+          title: "chore: update availability zones in helm/cluster-aws/files/azs-in-region.yaml"
 
