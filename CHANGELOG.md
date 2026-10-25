@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Normalize lowercase `extraConfigs[*].kind` values of provider-specific apps to the `ConfigMap` and `Secret` kinds that Flux accepts.
+- Chart: Update `cluster` to v9.3.0.
 
 ## [11.2.0] - 2026-10-19
 
