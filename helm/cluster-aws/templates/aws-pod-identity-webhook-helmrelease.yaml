@@ -69,7 +69,7 @@ spec:
   {{- if .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
   valuesFrom:
   {{- range .Values.global.apps.awsPodIdentityWebhook.extraConfigs }}
-  - kind: {{ .kind }}
+  - kind: {{ include "helmReleaseValuesFromKind" .kind }}
     name: {{ .name }}
     valuesKey: values
     optional: {{ .optional | default false }}

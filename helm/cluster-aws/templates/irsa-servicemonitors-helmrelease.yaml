@@ -51,7 +51,7 @@ spec:
   {{- if .Values.global.apps.irsaServiceMonitors.extraConfigs }}
   valuesFrom:
   {{- range .Values.global.apps.irsaServiceMonitors.extraConfigs }}
-  - kind: {{ .kind }}
+  - kind: {{ include "helmReleaseValuesFromKind" .kind }}
     name: {{ .name }}
     valuesKey: values
     optional: {{ .optional | default false }}

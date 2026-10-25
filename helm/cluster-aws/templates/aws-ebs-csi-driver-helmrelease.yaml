@@ -74,7 +74,7 @@ spec:
   {{- if $.Values.global.apps.awsEbsCsiDriver.extraConfigs }}
   valuesFrom:
     {{- range $config := $.Values.global.apps.awsEbsCsiDriver.extraConfigs }}
-    - kind: {{ $config.kind }}
+    - kind: {{ include "helmReleaseValuesFromKind" $config.kind }}
       name: {{ $config.name }}
       valuesKey: values
       optional: {{ $config.optional | default false  }}
