@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Limit the Route53 record changes of the default external-dns instance to the cluster DNS zone.
+- Control Plane: Enable API server aggregator routing, so webhooks and aggregated APIs are reached directly at endpoint IPs. This rolls the control plane nodes.
 
 ## [11.5.0] - 2026-11-04
 
