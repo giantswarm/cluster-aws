@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Control Plane: Enable API server aggregator routing, so webhooks and aggregated APIs are reached directly at endpoint IPs. This rolls the control plane nodes.
+
 ## [11.4.0] - 2026-10-26
 
 ### Changed
