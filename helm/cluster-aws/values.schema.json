@@ -1022,6 +1022,15 @@
             "title": "Cluster",
             "description": "Helm values for the provider-independent cluster chart",
             "default": {
+                "internal": {
+                    "advancedConfiguration": {
+                        "controlPlane": {
+                            "apiServer": {
+                                "enableAggregatorRouting": true
+                            }
+                        }
+                    }
+                },
                 "providerIntegration": {
                     "apps": {
                         "certExporter": {
