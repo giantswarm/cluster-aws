@@ -39,6 +39,10 @@ cluster:
       externalDnsCrossplaneResources:
         configTemplateName: awsExternalDnsCrossplaneResourcesHelmValues
         enable: true
+        extraConfigs:
+          - kind: ConfigMap
+            name: '{{ include "cluster.resource.name" $ }}-crossplane-config'
+            optional: false
       k8sAuditMetrics:
         enable: true
       k8sDnsNodeCache:

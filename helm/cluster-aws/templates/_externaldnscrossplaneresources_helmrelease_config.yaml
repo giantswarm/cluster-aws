@@ -4,9 +4,8 @@
 clusterName: {{ include "resource.default.name" $ }}
 accountID: "{{ include "aws-account-id" $ }}"
 baseDomain: {{ .Values.global.connectivity.baseDomain }}
-oidcDomain: {{ include "aws-oidc-domain" $ | quote }}
-oidcDomains:
-  - {{ include "aws-oidc-domain" $ | quote }}
 awsPartition: {{ include "aws-partition" $ | trim | quote }}
 awsRegion: {{ include "aws-region" $ | trim | quote }}
+aws:
+  managedDomain: {{ .Values.global.connectivity.dns.hostedZoneName | default (printf "%s.%s" (include "resource.default.name" $) .Values.global.connectivity.baseDomain) | quote }}
 {{- end }}
