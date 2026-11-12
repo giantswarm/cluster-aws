@@ -6,6 +6,13 @@ accountID: "{{ include "aws-account-id" $ }}"
 baseDomain: {{ .Values.global.connectivity.baseDomain }}
 awsPartition: {{ include "aws-partition" $ | trim | quote }}
 awsRegion: {{ include "aws-region" $ | trim | quote }}
+{{- $version := "N/A" }}
+{{- if .Values.providerIntegration.useReleases }}
+{{- $version = include "cluster.app.version" (merge (dict "appName" "external-dns-crossplane-resources") $) | trim }}
+{{- end }}
+{{- /* Since v0.5.0, Route53 record changes can be limited to a domain. */}}
+{{- if or (eq $version "N/A") (semverCompare ">=0.5.0" $version) }}
 aws:
   managedDomain: {{ .Values.global.connectivity.dns.hostedZoneName | default (printf "%s.%s" (include "resource.default.name" $) .Values.global.connectivity.baseDomain) | quote }}
+{{- end }}
 {{- end }}
