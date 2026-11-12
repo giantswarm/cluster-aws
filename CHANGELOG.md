@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Read the external-dns IRSA OIDC domains from the `<cluster>-crossplane-config` ConfigMap, so the role also trusts the vintage OIDC issuer on migrated clusters.
+
+### Changed
+
+- Limit the Route53 record changes of the default external-dns instance to the cluster DNS zone.
+
 ## [11.5.0] - 2026-11-04
 
 ### Changed

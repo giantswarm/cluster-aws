@@ -1073,7 +1073,14 @@
                         },
                         "externalDnsCrossplaneResources": {
                             "configTemplateName": "awsExternalDnsCrossplaneResourcesHelmValues",
-                            "enable": true
+                            "enable": true,
+                            "extraConfigs": [
+                                {
+                                    "kind": "ConfigMap",
+                                    "name": "{{ include \"cluster.resource.name\" $ }}-crossplane-config",
+                                    "optional": false
+                                }
+                            ]
                         },
                         "k8sAuditMetrics": {
                             "enable": true
