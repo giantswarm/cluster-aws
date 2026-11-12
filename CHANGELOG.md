@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Limit the Route53 record changes of the default external-dns instance to the cluster DNS zone.
 - Control Plane: Enable API server aggregator routing, so webhooks and aggregated APIs are reached directly at endpoint IPs. This rolls the control plane nodes.
-- Cilium: Discover the API server endpoints and fail over between them, so agents do not depend on the API load balancer.
+- Cilium: Discover the API server endpoints and fail over between them, so agents do not depend on the API load balancer. Only applies with cilium-app v1.7.0 or later.
 
 ## [11.5.0] - 2026-11-04
 

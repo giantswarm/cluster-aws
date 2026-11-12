@@ -2,8 +2,15 @@
 {{/* https://github.com/giantswarm/cilium-app/blob/main/helm/cilium/values.yaml*/}}
 {{- define "awsCiliumHelmValues" }}
 provider: capa
+{{- $version := "N/A" }}
+{{- if .Values.providerIntegration.useReleases }}
+{{- $version = include "cluster.app.version" (merge (dict "appName" "cilium") $) | trim }}
+{{- end }}
+{{- /* Since v1.7.0, the API server URLs can be discovered automatically. */}}
+{{- if or (eq $version "N/A") (semverCompare ">=1.7.0-0" $version) }}
 k8s:
   apiServerURLs: auto
+{{- end }}
 {{- if eq .Values.global.connectivity.cilium.ipamMode "eni" }}
 # https://docs.cilium.io/en/v1.14/network/concepts/routing/#id5
 ipam:
