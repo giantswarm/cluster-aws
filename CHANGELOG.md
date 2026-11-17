@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [11.6.0] - 2026-11-17
+
 ### Fixed
 
 - Read the external-dns IRSA OIDC domains from the `<cluster>-crossplane-config` ConfigMap, so the role also trusts the vintage OIDC issuer on migrated clusters.
@@ -2157,7 +2159,8 @@ yq eval --inplace '
 
 ## [0.1.0] - 2022-02-25
 
-[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v11.5.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-aws/compare/v11.6.0...HEAD
+[11.6.0]: https://github.com/giantswarm/cluster-aws/compare/v11.5.0...v11.6.0
 [11.5.0]: https://github.com/giantswarm/cluster-aws/compare/v11.4.0...v11.5.0
 [11.4.0]: https://github.com/giantswarm/cluster-aws/compare/v11.3.0...v11.4.0
 [11.3.0]: https://github.com/giantswarm/cluster-aws/compare/v11.2.0...v11.3.0
