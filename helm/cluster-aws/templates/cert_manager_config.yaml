@@ -3,14 +3,8 @@
 {{- define "awsCertManagerHelmValues" }}
 {{- $_ := set $ "appName" "cert-manager-crossplane-resources" }}
 {{- if and (include "useCertManagerDnsChallenges" $ | eq "true") (include "cluster.app.in-release" $ | eq "true") }}
-{{- /* Get cert-manager version. */}}
-{{- $version := "N/A" }}
-{{- if .Values.providerIntegration.useReleases }}
-{{- $_ := set $ "appName" "cert-manager" }}
-{{- $version = include "cluster.app.version" $ | trim }}
-{{- end }}
-{{- /* Check cert-manager version. Since v4.0.0, upstream properties need to be under the `cert-manager` key. */}}
-{{- if or (eq $version "N/A") (semverCompare ">=4.0.0" $version) }}
+{{- /* Since v4.0.0, upstream properties need to be under the `cert-manager` key. */}}
+{{- if eq (include "cluster.app.version.satisfies" (dict "root" $ "appName" "cert-manager" "constraint" ">=4.0.0")) "true" }}
 cert-manager:
   serviceAccount:
     annotations:
